@@ -1,0 +1,15 @@
+C:\Users\larzz\RiderProjects\tmp\Calligraphy\Calligraphy.Infrastructure\bin\Debug\net10.0\Calligraphy.Infrastructure.deps.json
+C:\Users\larzz\RiderProjects\tmp\Calligraphy\Calligraphy.Infrastructure\bin\Debug\net10.0\Calligraphy.Infrastructure.dll
+C:\Users\larzz\RiderProjects\tmp\Calligraphy\Calligraphy.Infrastructure\bin\Debug\net10.0\Calligraphy.Infrastructure.pdb
+C:\Users\larzz\RiderProjects\tmp\Calligraphy\Calligraphy.Infrastructure\bin\Debug\net10.0\Calligraphy.Core.dll
+C:\Users\larzz\RiderProjects\tmp\Calligraphy\Calligraphy.Infrastructure\bin\Debug\net10.0\Calligraphy.Core.pdb
+C:\Users\larzz\RiderProjects\tmp\Calligraphy\Calligraphy.Infrastructure\obj\Debug\net10.0\Calligraphy.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\larzz\RiderProjects\tmp\Calligraphy\Calligraphy.Infrastructure\obj\Debug\net10.0\Calligraphy.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\larzz\RiderProjects\tmp\Calligraphy\Calligraphy.Infrastructure\obj\Debug\net10.0\Calligraphy.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\larzz\RiderProjects\tmp\Calligraphy\Calligraphy.Infrastructure\obj\Debug\net10.0\Calligraphy.Infrastructure.AssemblyInfo.cs
+C:\Users\larzz\RiderProjects\tmp\Calligraphy\Calligraphy.Infrastructure\obj\Debug\net10.0\Calligraphy.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\larzz\RiderProjects\tmp\Calligraphy\Calligraphy.Infrastructure\obj\Debug\net10.0\Calligra.43498EBB.Up2Date
+C:\Users\larzz\RiderProjects\tmp\Calligraphy\Calligraphy.Infrastructure\obj\Debug\net10.0\Calligraphy.Infrastructure.dll
+C:\Users\larzz\RiderProjects\tmp\Calligraphy\Calligraphy.Infrastructure\obj\Debug\net10.0\refint\Calligraphy.Infrastructure.dll
+C:\Users\larzz\RiderProjects\tmp\Calligraphy\Calligraphy.Infrastructure\obj\Debug\net10.0\Calligraphy.Infrastructure.pdb
+C:\Users\larzz\RiderProjects\tmp\Calligraphy\Calligraphy.Infrastructure\obj\Debug\net10.0\ref\Calligraphy.Infrastructure.dll
