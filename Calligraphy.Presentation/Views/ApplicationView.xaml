@@ -12,7 +12,7 @@
     </Window.Resources>-->
     
     <Grid>
-        <views:InfinityRaceView VerticalAlignment="Top"/>
+        <views:InfinityRaceView/>
     </Grid>
     
 </Window>
