@@ -1,18 +1,16 @@
-﻿using System;
-using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Calligraphy.Domain;
 
-namespace Calligraphy.Presentation;
+namespace Calligraphy.Presentation.Views.Controls;
 
-public partial class MainWindow : Window
+public partial class InkCanvasControl : UserControl
 {
-    public MainWindow()
+    public InkCanvasControl()
     {
         InitializeComponent();
     }
-
-
+    
     private HandwritingSession _currentSession = new();
 
     private void CallyCanvas_StylusMove(object sender, StylusEventArgs e)
@@ -41,4 +39,5 @@ public partial class MainWindow : Window
 
         _currentSession = new HandwritingSession { TargetLetter = "A" }; 
     }
+
 }
