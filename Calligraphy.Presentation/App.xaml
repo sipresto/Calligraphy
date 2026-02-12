@@ -2,8 +2,16 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Calligraphy.Presentation"
-             StartupUri="/Views/ApplicationView.xaml">
+             xmlns:viewModel="clr-namespace:Calligraphy.Presentation.ViewModels"
+             xmlns:view="clr-namespace:Calligraphy.Presentation.Views"
+             >
     <Application.Resources>
-         
+         <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
+             <view:HomeView/>
+         </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type viewModel:InfinityRaceViewModel}">
+            <view:InfinityRaceView/>
+        </DataTemplate>
     </Application.Resources>
 </Application>
