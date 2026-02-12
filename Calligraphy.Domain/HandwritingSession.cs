@@ -2,7 +2,7 @@
 
 public class HandwritingSession
 {
-    public string SessionId { get; set; } = Guid.NewGuid().ToString();
+    public Guid SessionId { get; set; } = Guid.NewGuid();
     public string TargetLetter { get; set; } = "";
     public List<StrokePoint> Points { get; set; } = new();
 }
