@@ -1,10 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calligraphy.App", "Calligraphy.App\Calligraphy.App.csproj", "{43196FE0-39F4-4AC8-A132-F6D5DA717AF0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calligraphy.Core", "Calligraphy.Core\Calligraphy.Core.csproj", "{6A00B926-96FA-403C-8FC2-5B9AFE53C772}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calligraphy.Application", "Calligraphy.Application\Calligraphy.Application.csproj", "{6A00B926-96FA-403C-8FC2-5B9AFE53C772}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calligraphy.Infrastructure", "Calligraphy.Infrastructure\Calligraphy.Infrastructure.csproj", "{9E586F6F-F754-4384-ADD0-B5EDD978D719}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calligraphy.Domain", "Calligraphy.Domain\Calligraphy.Domain.csproj", "{1F4E5045-999B-4609-A926-B16011F656D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calligraphy.Presentation", "Calligraphy.Presentation\Calligraphy.Presentation.csproj", "{0E3B4EC7-8920-4A6D-8874-741D9D94F3AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,10 +14,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{43196FE0-39F4-4AC8-A132-F6D5DA717AF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{43196FE0-39F4-4AC8-A132-F6D5DA717AF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{43196FE0-39F4-4AC8-A132-F6D5DA717AF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{43196FE0-39F4-4AC8-A132-F6D5DA717AF0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6A00B926-96FA-403C-8FC2-5B9AFE53C772}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6A00B926-96FA-403C-8FC2-5B9AFE53C772}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A00B926-96FA-403C-8FC2-5B9AFE53C772}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -24,5 +22,13 @@ Global
 		{9E586F6F-F754-4384-ADD0-B5EDD978D719}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E586F6F-F754-4384-ADD0-B5EDD978D719}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E586F6F-F754-4384-ADD0-B5EDD978D719}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F4E5045-999B-4609-A926-B16011F656D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F4E5045-999B-4609-A926-B16011F656D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F4E5045-999B-4609-A926-B16011F656D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F4E5045-999B-4609-A926-B16011F656D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E3B4EC7-8920-4A6D-8874-741D9D94F3AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E3B4EC7-8920-4A6D-8874-741D9D94F3AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E3B4EC7-8920-4A6D-8874-741D9D94F3AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E3B4EC7-8920-4A6D-8874-741D9D94F3AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

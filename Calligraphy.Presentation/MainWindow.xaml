@@ -1,0 +1,19 @@
+﻿<Window x:Class="Calligraphy.Presentation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Cally - Wacom Test" Height="600" Width="1000">
+    <Grid>
+        <InkCanvas x:Name="CallyCanvas" 
+                   StylusUp="CallyCanvas_StylusUp"
+                   StylusMove="CallyCanvas_StylusMove">
+            <InkCanvas.DefaultDrawingAttributes>
+                <DrawingAttributes Color="Black" 
+                                   Width="2" 
+                                   Height="2" 
+                                   IgnorePressure="False" 
+                                   FitToCurve="True" />
+            </InkCanvas.DefaultDrawingAttributes>
+        </InkCanvas>
+        
+    </Grid>
+</Window>
