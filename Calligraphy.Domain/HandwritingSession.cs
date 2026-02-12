@@ -1,4 +1,4 @@
-﻿namespace Calligraphy.Application;
+﻿namespace Calligraphy.Domain;
 
 public class HandwritingSession
 {
