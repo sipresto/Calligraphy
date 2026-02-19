@@ -2,9 +2,9 @@
 
 namespace Calligraphy.Presentation.Views;
 
-public partial class ApplicationView : Window
+public partial class MainWindow : Window
 {
-    public ApplicationView()
+    public MainWindow()
     {
         InitializeComponent();
     }

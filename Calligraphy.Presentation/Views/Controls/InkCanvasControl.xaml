@@ -8,8 +8,8 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <InkCanvas x:Name="CallyCanvas" 
-                   StylusUp="CallyCanvas_StylusUp"
-                   StylusMove="CallyCanvas_StylusMove">
+                   StrokeCollected="CallyCanvas_StrokeCollected">
+                   <!--StylusMove="CallyCanvas_StylusMove"-->
             <InkCanvas.DefaultDrawingAttributes>
                 <DrawingAttributes Color="Black" 
                                    Width="2" 

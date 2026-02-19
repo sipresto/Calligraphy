@@ -1,6 +1,5 @@
 using System.Windows.Controls;
-using System.Windows.Input;
-using Calligraphy.Domain;
+using Calligraphy.Presentation.Models;
 
 namespace Calligraphy.Presentation.Views.Controls;
 
@@ -11,7 +10,20 @@ public partial class InkCanvasControl : UserControl
         InitializeComponent();
     }
     
-    private HandwritingSession _currentSession = new();
+    public event Action<List<StrokePoint>>? StrokeCompleted;
+    
+    private void CallyCanvas_StrokeCollected(object sender, InkCanvasStrokeCollectedEventArgs e)
+    {
+        var stroke = e.Stroke;
+
+        var points = stroke.StylusPoints
+            .Select(p => new StrokePoint(p.X, p.Y))
+            .ToList();
+
+        StrokeCompleted?.Invoke(points);
+    }
+    
+    /*private HandwritingSession _currentSession = new();
 
     private void CallyCanvas_StylusMove(object sender, StylusEventArgs e)
     {
@@ -28,16 +40,6 @@ public partial class InkCanvasControl : UserControl
         
             _currentSession.Points.Add(strokePoint);
         }
-    }
-    
-    private async void CallyCanvas_StylusUp(object sender, StylusEventArgs e)
-    {
-        if (_currentSession.Points.Count > 0)
-        {
-
-        }
-
-        _currentSession = new HandwritingSession { TargetLetter = "A" }; 
-    }
+    }*/
 
 }

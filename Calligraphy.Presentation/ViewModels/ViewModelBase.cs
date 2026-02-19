@@ -1,6 +1,6 @@
 namespace Calligraphy.Presentation.ViewModels;
 
-public interface IPageViewModel
+public class ViewModelBase
 {
     
 }
