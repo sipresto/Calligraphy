@@ -15,4 +15,9 @@ public class InfinityRaceService
     {
         _session.AddStroke(stroke);
     }
+
+    public int GetScore()
+    {
+        return _session.CalculateScore();
+    }
 }

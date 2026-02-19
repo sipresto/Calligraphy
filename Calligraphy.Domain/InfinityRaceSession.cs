@@ -15,4 +15,48 @@ public class InfinityRaceSession
     public IReadOnlyList<IReadOnlyList<StrokePoint>> Strokes => _strokes;
 
     public void AddStroke(List<StrokePoint> stroke) => _strokes.Add(stroke);
+
+    public int CalculateScore()
+    {
+        var checks = new List<Func<StrokePoint, bool>>
+        {
+            p => _circles[1].IsLeftOf(p.X) && _circles[0].IsRightOf(p.X),
+            p => _circles[1].IsAbove(p.Y),
+            p => _circles[1].IsRightOf(p.X),
+            p => _circles[1].IsBelow(p.Y),
+            p => _circles[1].IsLeftOf(p.X) && _circles[0].IsRightOf(p.X),
+            p => _circles[0].IsAbove(p.Y),
+            p => _circles[0].IsLeftOf(p.X),
+            p => _circles[0].IsBelow(p.Y),
+            p => _circles[1].IsLeftOf(p.X) && _circles[0].IsRightOf(p.X)
+        };
+        
+        int score = 0;
+        
+        foreach (var stroke in _strokes)
+        {
+            int current = 0;
+            
+            foreach (var point in stroke)
+            {
+                if (current >= checks.Count)
+                {
+                    score++;
+                    current = 0;
+                }
+
+                if (_circles[0].IsInside(point.X, point.Y) || _circles[1].IsInside(point.X, point.Y))
+                {
+                    current = 0;
+                    continue;
+                }
+
+                if (checks[current](point)) current++;
+            }
+        }
+        Console.WriteLine($"Strokes: {_strokes.Count}");
+        Console.WriteLine($"Points: {_strokes[0].Count}");
+        Console.WriteLine($"Score: {score}");
+        return score;
+    }
 }
