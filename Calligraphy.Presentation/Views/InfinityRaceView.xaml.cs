@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
+using Calligraphy.Domain;
 using Calligraphy.Presentation.Models;
 using Calligraphy.Presentation.ViewModels;
 
@@ -8,9 +9,6 @@ namespace Calligraphy.Presentation.Views;
 
 public partial class InfinityRaceView : UserControl
 {
-    private List<Circle> _circles = [];
-    private double _middle;
-
     public InfinityRaceView()
     {
         InitializeComponent();
@@ -20,16 +18,20 @@ public partial class InfinityRaceView : UserControl
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        _circles = GetCircleData();
-        _middle = InkCanvas.ActualWidth / 2;
+        List<Circle> circles = GetCircleData();
+        double middle = InkCanvas.ActualWidth / 2;
         
+        if (DataContext is InfinityRaceViewModel vm)
+        {
+            vm.CreateGameSession(circles, middle);
+        }
     }
 
-    private void OnStrokeCompleted(List<StrokePoint> points)
+    private void OnStrokeCompleted(List<StrokeDto> points)
     {
         if (DataContext is InfinityRaceViewModel vm)
         {
-            vm.ProcessStroke(points, _circles);
+            vm.AddStroke(points);
         }
     }
     

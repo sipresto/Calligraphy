@@ -1,28 +1,27 @@
+using Calligraphy.Application;
+using Calligraphy.Domain;
 using Calligraphy.Presentation.Models;
 
 namespace Calligraphy.Presentation.ViewModels;
 
 public class InfinityRaceViewModel : ViewModelBase
 {
-    
-    
-    public void ProcessStroke(
-        List<StrokePoint> points,
-        List<Circle> circles)
-    {
-        bool hitForbidden = points.Any(p =>
-            circles.Any(c =>
-                (p.X - c.X) * (p.X - c.X) +
-                (p.Y - c.Y) * (p.Y - c.Y)
-                <= c.Radius * c.Radius));
+    private InfinityRaceService _service;
 
-        if (hitForbidden)
-        {
-            Console.WriteLine("Oei");
-        }
-        else
-        {
-            Console.WriteLine("Woooooooo");
-        }
+    public void CreateGameSession(List<Circle> circles, double middle)
+    {
+        var session = new InfinityRaceSession(circles, middle);
+        _service = new InfinityRaceService(session);
     }
+
+    public void AddStroke(List<StrokeDto> points)
+    {
+        List<StrokePoint> domainPoints = points
+            .Select(p => new StrokePoint(p.X, p.Y, p.Pressure))
+            .ToList();
+
+        _service.AddStroke(domainPoints);
+    }
+
+    public int Score { get; private set; }
 }
