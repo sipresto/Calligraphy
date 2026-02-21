@@ -17,6 +17,9 @@
                                    IgnorePressure="False" 
                                    FitToCurve="True" />
             </InkCanvas.DefaultDrawingAttributes>
+            
+            <!---<Polygon Points="0,50 20,0 80,0 100,50 80,100 20,100  " InkCanvas.Left="100" InkCanvas.Top="100"
+                       Stroke="Black" StrokeThickness="3" StrokeDashArray="5"/> -->
         </InkCanvas>
     </Grid>
 </UserControl>
