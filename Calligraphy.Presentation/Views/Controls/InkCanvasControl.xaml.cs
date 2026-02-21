@@ -1,4 +1,5 @@
 using System.Windows.Controls;
+using System.Windows.Ink;
 using System.Windows.Input;
 using Calligraphy.Presentation.Models;
 
@@ -34,7 +35,12 @@ public partial class InkCanvasControl : UserControl
         CallyCanvas.EditingMode = InkCanvasEditingMode.None;
         CallyCanvas.IsEnabled = false;
         
-        _strokes.Add(_liveStroke);
+        if (_liveStroke.Count > 0)
+        {
+            _strokes.Add(_liveStroke);
+        }
+        
+        DisplayStoredStrokes(_strokes);
 
         return _strokes;
     }
@@ -59,5 +65,23 @@ public partial class InkCanvasControl : UserControl
     {
         _strokes.Add(_liveStroke);
         _liveStroke = [];
+    }
+    
+    private void DisplayStoredStrokes(List<List<StrokePointDto>> strokes)
+    {
+        CallyCanvas.Strokes.Clear();
+
+        foreach (var stroke in strokes)
+        {
+            if (stroke == null || stroke.Count == 0)
+                continue;
+            
+            var stylusPoints = new StylusPointCollection(
+                stroke.Select(p => new StylusPoint(p.X, p.Y, p.Pressure))
+            );
+
+            var newStroke = new Stroke(stylusPoints);
+            CallyCanvas.Strokes.Add(newStroke);
+        }
     }
 }

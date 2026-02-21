@@ -7,12 +7,13 @@ namespace Calligraphy.Presentation.ViewModels;
 
 public class InfinityRaceViewModel : ViewModelBase
 {
+    private const int DrawDuration = 10;
     private InfinityRaceService _service;
+    
     private DispatcherTimer _timer;
     private DateTime _startTime;
     private bool _started = false;
-    
-    private const int DrawDuration = 10;
+    private int _score = 0;
 
     public event Action DrawingEnded;
 
@@ -24,14 +25,7 @@ public class InfinityRaceViewModel : ViewModelBase
             field = value;
             OnPropertyChanged();
         }
-    } = "30s";
-
-    private int _score;
-    public int Score
-    {
-        get => _score;
-        private set { _score = value; OnPropertyChanged(); }
-    }
+    } = $"{DrawDuration:F0}s";
 
     public void Initialize(List<Circle> circles, double middle)
     {
@@ -60,7 +54,7 @@ public class InfinityRaceViewModel : ViewModelBase
         if (timeLeft <= 0)
         {
             _timer.Stop();
-            TimerText = "0.0s";
+            TimerText = "0s";
             DrawingEnded?.Invoke();
         }
     }
@@ -76,7 +70,6 @@ public class InfinityRaceViewModel : ViewModelBase
             _service.AddStroke(domainStroke);
         }
 
-        Score = _service.GetScore();
-        Console.WriteLine(Score);
+        _score = _service.GetScore();
     }
 }

@@ -7,12 +7,7 @@
              xmlns:viewModels="clr-namespace:Calligraphy.Presentation.ViewModels"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
-             d:DataContext="{d:DesignInstance viewModels:InfinityRaceViewModel}"
-             Background="{StaticResource BackgroundColor}">
-    
-    <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
-    </UserControl.Resources>
+             d:DataContext="{d:DesignInstance viewModels:InfinityRaceViewModel}">
     
     <Grid>
 
@@ -40,7 +35,6 @@
             Fill="Blue" />
 
         <TextBlock
-            x:Name="TimerDisplay"
             Grid.Column="0"
             Grid.ColumnSpan="2"
             HorizontalAlignment="Center"
