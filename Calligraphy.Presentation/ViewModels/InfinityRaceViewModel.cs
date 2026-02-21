@@ -91,10 +91,13 @@ public class InfinityRaceViewModel : ViewModelBase
         var timeLeft = WaitDuration - (DateTime.Now - _startTime).TotalSeconds;
         WaitTimerText = $"{timeLeft:F0}";
 
-        if (timeLeft <= 0)
+        if (timeLeft < 1)
+        {
+            WaitTimerText = "START";
+        }
+        else if (timeLeft <= 0)
         {
             _waitTimer.Stop();
-            WaitTimerText = "Start";
             StartDrawPhase();
         }
     }

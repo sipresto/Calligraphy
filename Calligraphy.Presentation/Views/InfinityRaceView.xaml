@@ -55,7 +55,7 @@
             <Path
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
-                Stroke="#AA2196F3"
+                Stroke="CornflowerBlue"
                 StrokeThickness="2"
                 StrokeDashArray="2 2"
                 Data="M 150,150 Q 180,125 215,115"
@@ -65,7 +65,7 @@
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 Points="0,0 -10,5 -8,0 -10,-5"
-                Fill="#AA2196F3"
+                Fill="CornflowerBlue"
                 Visibility="{Binding IsPreviewVisible, Converter={StaticResource BoolToVisibility}}">
                 <Polygon.RenderTransform>
                     <TranslateTransform X="223" Y="115" />
@@ -77,7 +77,7 @@
                 Grid.ColumnSpan="2"
                 Width="5"
                 Height="5"
-                Fill="#AA2196F3"
+                Fill="CornflowerBlue"
                 Visibility="{Binding IsPreviewVisible, Converter={StaticResource BoolToVisibility}}" />
             
             <TextBlock
