@@ -95,7 +95,7 @@ public class InfinityRaceViewModel : ViewModelBase
         {
             WaitTimerText = "START";
         }
-        else if (timeLeft <= 0)
+        if (timeLeft <= 0)
         {
             _waitTimer.Stop();
             StartDrawPhase();
