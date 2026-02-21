@@ -32,7 +32,6 @@ public partial class InkCanvasControl : UserControl
     // Stroke finished by calling code
     public List<List<StrokePointDto>> EndDrawing()
     {
-        CallyCanvas.EditingMode = InkCanvasEditingMode.None;
         CallyCanvas.IsEnabled = false;
         
         if (_liveStroke.Count > 0)
@@ -43,6 +42,11 @@ public partial class InkCanvasControl : UserControl
         DisplayStoredStrokes(_strokes);
 
         return _strokes;
+    }
+    
+    public void SetDrawingEnabled(bool enabled)
+    {
+        CallyCanvas.IsEnabled = enabled;
     }
 
     private void CallyCanvas_StylusMove(object sender, StylusEventArgs e)

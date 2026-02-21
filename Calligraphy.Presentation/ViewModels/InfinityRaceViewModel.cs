@@ -7,15 +7,38 @@ namespace Calligraphy.Presentation.ViewModels;
 
 public class InfinityRaceViewModel : ViewModelBase
 {
-    private const int DrawDuration = 10;
+    private const int DrawDuration = 20;
+    private const int WaitDuration = 3;
     private InfinityRaceService _service;
     
-    private DispatcherTimer _timer;
+    private DispatcherTimer _drawTimer;
+    private DispatcherTimer _waitTimer;
     private DateTime _startTime;
     private bool _started = false;
     private int _score = 0;
 
+    public event Action DrawingStarted;
     public event Action DrawingEnded;
+
+    public bool IsPreviewVisible
+    {
+        get;
+        private set
+        {
+            field = value;
+            OnPropertyChanged();
+        }
+    } = true;
+    
+    public string WaitTimerText
+    {
+        get;
+        private set
+        {
+            field = value;
+            OnPropertyChanged();
+        }
+    } = $"{WaitDuration:F0}";
 
     public string TimerText
     {
@@ -31,18 +54,22 @@ public class InfinityRaceViewModel : ViewModelBase
     {
         var session = new InfinityRaceSession(circles, middle);
         _service = new InfinityRaceService(session);
-
-        _timer = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 100),
-            DispatcherPriority.Background, TickDrawTimer, Dispatcher.CurrentDispatcher);
         
-        StartDrawPhase();
+        _startTime = DateTime.Now;
+        _waitTimer = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 100),
+            DispatcherPriority.Background, TickWaitTimer, Dispatcher.CurrentDispatcher);
+
+        _drawTimer = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 100),
+            DispatcherPriority.Background, TickDrawTimer, Dispatcher.CurrentDispatcher);
     }
 
     private void StartDrawPhase()
     {
         _startTime = DateTime.Now;
-        _timer.Start();
+        _drawTimer.Start();
         _started = true;
+        IsPreviewVisible = false;
+        DrawingStarted?.Invoke();
     }
 
     private void TickDrawTimer(object sender, EventArgs e)
@@ -53,9 +80,22 @@ public class InfinityRaceViewModel : ViewModelBase
 
         if (timeLeft <= 0)
         {
-            _timer.Stop();
+            _drawTimer.Stop();
             TimerText = "0s";
             DrawingEnded?.Invoke();
+        }
+    }
+    
+    private void TickWaitTimer(object sender, EventArgs e)
+    {
+        var timeLeft = WaitDuration - (DateTime.Now - _startTime).TotalSeconds;
+        WaitTimerText = $"{timeLeft:F0}";
+
+        if (timeLeft <= 0)
+        {
+            _waitTimer.Stop();
+            WaitTimerText = "Start";
+            StartDrawPhase();
         }
     }
     
@@ -71,5 +111,6 @@ public class InfinityRaceViewModel : ViewModelBase
         }
 
         _score = _service.GetScore();
+        TimerText = $"Score: {_score.ToString()}";
     }
 }
