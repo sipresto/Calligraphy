@@ -55,7 +55,6 @@ public class InfinityRaceSession
             }
         }
         Console.WriteLine($"Strokes: {_strokes.Count}");
-        Console.WriteLine($"Points: {_strokes[0].Count}");
         Console.WriteLine($"Score: {score}");
         return score;
     }

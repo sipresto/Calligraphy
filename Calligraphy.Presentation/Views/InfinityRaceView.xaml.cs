@@ -1,6 +1,8 @@
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using Calligraphy.Domain;
 using Calligraphy.Presentation.Models;
 using Calligraphy.Presentation.ViewModels;
@@ -9,11 +11,14 @@ namespace Calligraphy.Presentation.Views;
 
 public partial class InfinityRaceView : UserControl
 {
+    private InfinityRaceViewModel ViewModel =>
+        DataContext as InfinityRaceViewModel;
+    
     public InfinityRaceView()
     {
         InitializeComponent();
+        
         Loaded += OnLoaded;
-        InkCanvas.StrokeCompleted += OnStrokeCompleted;
     }
 
     private void OnLoaded(object sender, RoutedEventArgs e)
@@ -21,29 +26,20 @@ public partial class InfinityRaceView : UserControl
         List<Circle> circles = GetCircleData();
         double middle = InkCanvas.ActualWidth / 2;
         
-        if (DataContext is InfinityRaceViewModel vm)
-        {
-            vm.CreateGameSession(circles, middle);
-        }
+        ViewModel?.Initialize(circles, middle);
+        ViewModel?.DrawingEnded += OnDrawingEnded;
     }
-
-    private void OnStrokeCompleted(List<StrokeDto> points)
+    
+    private void OnDrawingEnded()
     {
-        if (DataContext is InfinityRaceViewModel vm)
-        {
-            vm.AddStroke(points);
-        }
+        var strokes = InkCanvas.EndDrawing();
+
+        ViewModel?.ProcessFinishedDrawing(strokes);
     }
     
     private List<Circle> GetCircleData()
     {
-        var circles = new List<Circle>
-        {
-            GetCircleInfo(LeftCircle),
-            GetCircleInfo(RightCircle)
-        };
-
-        return circles;
+        return [GetCircleInfo(LeftCircle), GetCircleInfo(RightCircle)];
     }
 
     private Circle GetCircleInfo(Ellipse ellipse)
@@ -54,5 +50,4 @@ public partial class InfinityRaceView : UserControl
 
         return new Circle(canvasCenter.X, canvasCenter.Y, radius);
     }
-
 }
