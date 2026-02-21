@@ -8,41 +8,47 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance viewModels:InfinityRaceViewModel}">
-    
-    <Grid>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        
-        <controls:InkCanvasControl 
-            x:Name="InkCanvas"
-            Grid.ColumnSpan="2" />
-        
-        <Ellipse 
-            x:Name="LeftCircle"
-            Grid.Column="0"
-            Width="50"
-            Height="50"
-            Fill="Blue" />
+    <Viewbox Stretch="Uniform">
+        <Grid>
 
-        <Ellipse 
-            x:Name="RightCircle"
-            Grid.Column="1"
-            Width="50"
-            Height="50"
-            Fill="Blue" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
 
-        <TextBlock
-            Grid.Column="0"
-            Grid.ColumnSpan="2"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top"
-            FontSize="20"
-            Foreground="Red"
-            Text="{Binding TimerText}"/>
+            <controls:InkCanvasControl
+                x:Name="InkCanvas"
+                Grid.ColumnSpan="2" />
 
-    </Grid>
-    
+            <Ellipse
+                x:Name="LeftCircle"
+                Grid.Column="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="50"
+                Height="50"
+                Fill="Blue" />
+
+            <Ellipse
+                x:Name="RightCircle"
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="50"
+                Height="50"
+                Fill="Blue" />
+
+            <TextBlock
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                FontSize="20"
+                Foreground="Red"
+                Text="{Binding TimerText}" />
+
+        </Grid>
+    </Viewbox>
+
 </UserControl>

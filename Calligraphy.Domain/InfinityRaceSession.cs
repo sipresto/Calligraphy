@@ -54,8 +54,7 @@ public class InfinityRaceSession
                 if (checks[current](point)) current++;
             }
         }
-        Console.WriteLine($"Strokes: {_strokes.Count}");
-        Console.WriteLine($"Score: {score}");
+        
         return score;
     }
 }
