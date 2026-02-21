@@ -4,11 +4,94 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="clr-namespace:Calligraphy.Presentation.Views.Controls"
+             xmlns:viewModels="clr-namespace:Calligraphy.Presentation.ViewModels"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance viewModels:InfinityRaceViewModel}">
     
-    <Grid>
-        <controls:InkCanvasControl/>
-    </Grid>
-    
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+    </UserControl.Resources>
+
+    <Viewbox Stretch="Uniform">
+        <Grid Height="300" Width="300">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <controls:InkCanvasControl
+                x:Name="InkCanvas"
+                Grid.ColumnSpan="2" />
+
+            <Ellipse
+                x:Name="LeftCircle"
+                Grid.Column="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="30"
+                Height="30"
+                Fill="Blue" />
+
+            <Ellipse
+                x:Name="RightCircle"
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="30"
+                Height="30"
+                Fill="Blue" />
+
+            <TextBlock
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                FontSize="20"
+                Foreground="Red"
+                Text="{Binding TimerText}" />
+
+            <Path
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Stroke="CornflowerBlue"
+                StrokeThickness="2"
+                StrokeDashArray="2 2"
+                Data="M 150,150 Q 180,125 215,115"
+                Visibility="{Binding IsPreviewVisible, Converter={StaticResource BoolToVisibility}}"/>
+            
+            <Polygon
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Points="0,0 -10,5 -8,0 -10,-5"
+                Fill="CornflowerBlue"
+                Visibility="{Binding IsPreviewVisible, Converter={StaticResource BoolToVisibility}}">
+                <Polygon.RenderTransform>
+                    <TranslateTransform X="223" Y="115" />
+                </Polygon.RenderTransform>
+            </Polygon>
+            
+            <Ellipse
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Width="5"
+                Height="5"
+                Fill="CornflowerBlue"
+                Visibility="{Binding IsPreviewVisible, Converter={StaticResource BoolToVisibility}}" />
+            
+            <TextBlock
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="60"
+                Opacity="0.5"
+                Foreground="Red"
+                Text="{Binding WaitTimerText}"
+                Visibility="{Binding IsPreviewVisible, Converter={StaticResource BoolToVisibility}}"/>
+            
+        </Grid>
+    </Viewbox>
+
 </UserControl>

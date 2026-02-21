@@ -1,8 +1,7 @@
 ﻿<Application x:Class="Calligraphy.Presentation.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Calligraphy.Presentation"
-             StartupUri="/Views/ApplicationView.xaml">
+             xmlns:local="clr-namespace:Calligraphy.Presentation">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
