@@ -11,38 +11,17 @@ public class InfinityRaceViewModel : ViewModelBase
 {
     private const int DrawDuration = 20;
     private const int WaitDuration = 3;
-    private InfinityRaceService _service;
+    private const int OneStarScore = 1;
+    private const int TwoStarScore = 5;
+    private const int ThreeStarScore = 10;
     
+    private InfinityRaceService _service;
     private DispatcherTimer _drawTimer;
     private DispatcherTimer _waitTimer;
     private DateTime _startTime;
     private bool _started = false;
     private int _score = 0;
     
-    public ICommand RestartCommand { get; }
-    
-    public InfinityRaceViewModel()
-    {
-        RestartCommand = new RestartCommand(RestartGame);
-    }
-    
-    private void RestartGame()
-    {
-        GameResult = null;
-        _score = 0;
-        _started = false;
-        TimerText = $"{DrawDuration:F0}s";
-        IsPreviewVisible = true;
-
-        Restart?.Invoke();
-        _startTime = DateTime.Now;
-        _waitTimer.Start();
-    }
-
-    public event Action DrawingStarted;
-    public event Action DrawingEnded;
-    public event Action Restart;
-
     public bool IsPreviewVisible
     {
         get;
@@ -52,7 +31,7 @@ public class InfinityRaceViewModel : ViewModelBase
             OnPropertyChanged();
         }
     } = true;
-    
+
     public string WaitTimerText
     {
         get;
@@ -72,7 +51,7 @@ public class InfinityRaceViewModel : ViewModelBase
             OnPropertyChanged();
         }
     } = $"{DrawDuration:F0}s";
-    
+
     public GameResult GameResult
     {
         get;
@@ -86,11 +65,22 @@ public class InfinityRaceViewModel : ViewModelBase
     
     public bool IsGameResultVisible => GameResult != null;
 
+    public ICommand RestartCommand { get; }
+    
+    public event Action DrawingStarted;
+    public event Action DrawingEnded;
+    public event Action Restart;
+
+    public InfinityRaceViewModel()
+    {
+        RestartCommand = new RestartCommand(RestartGame);
+    }
+    
     public void Initialize(List<Circle> circles, double middle)
     {
         var session = new InfinityRaceSession(circles, middle);
         _service = new InfinityRaceService(session);
-        
+
         _startTime = DateTime.Now;
         _waitTimer = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 100),
             DispatcherPriority.Background, TickWaitTimer, Dispatcher.CurrentDispatcher);
@@ -98,7 +88,30 @@ public class InfinityRaceViewModel : ViewModelBase
         _drawTimer = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 100),
             DispatcherPriority.Background, TickDrawTimer, Dispatcher.CurrentDispatcher);
     }
+    
+    public void ProcessFinishedDrawing(List<List<StrokePointDto>> strokes)
+    {
+        foreach (var stroke in strokes)
+        {
+            var domainStroke = stroke
+                .Select(p => new StrokePoint(p.X, p.Y, p.Pressure))
+                .ToList();
 
+            _service.AddStroke(domainStroke);
+        }
+
+        _score = _service.GetScore();
+        int stars = _score switch
+        {
+            < OneStarScore => 0,
+            < TwoStarScore => 1,
+            < ThreeStarScore => 2,
+            _ => 3
+        };
+
+        GameResult = new GameResult { Score = _score, StarCount = stars };
+    }
+    
     private void StartDrawPhase()
     {
         _startTime = DateTime.Now;
@@ -121,7 +134,7 @@ public class InfinityRaceViewModel : ViewModelBase
             DrawingEnded?.Invoke();
         }
     }
-    
+
     private void TickWaitTimer(object sender, EventArgs e)
     {
         var timeLeft = WaitDuration - (DateTime.Now - _startTime).TotalSeconds;
@@ -131,6 +144,7 @@ public class InfinityRaceViewModel : ViewModelBase
         {
             WaitTimerText = "START";
         }
+
         if (timeLeft <= 0)
         {
             _waitTimer.Stop();
@@ -138,20 +152,16 @@ public class InfinityRaceViewModel : ViewModelBase
         }
     }
     
-    public void ProcessFinishedDrawing(List<List<StrokePointDto>> strokes)
+    private void RestartGame()
     {
-        foreach (var stroke in strokes)
-        {
-            var domainStroke = stroke
-                .Select(p => new StrokePoint(p.X, p.Y, p.Pressure))
-                .ToList();
+        GameResult = null;
+        _score = 0;
+        _started = false;
+        TimerText = $"{DrawDuration:F0}s";
+        IsPreviewVisible = true;
 
-            _service.AddStroke(domainStroke);
-        }
-
-        _score = _service.GetScore();
-        TimerText = $"Score: {_score.ToString()}";
-        
-        GameResult = new GameResult { Score = _score };
+        Restart?.Invoke();
+        _startTime = DateTime.Now;
+        _waitTimer.Start();
     }
 }

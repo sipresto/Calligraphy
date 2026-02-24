@@ -8,13 +8,11 @@ namespace Calligraphy.Presentation.Views;
 
 public partial class InfinityRaceView : UserControl
 {
-    private InfinityRaceViewModel ViewModel =>
-        DataContext as InfinityRaceViewModel;
+    private InfinityRaceViewModel ViewModel => DataContext as InfinityRaceViewModel;
     
     public InfinityRaceView()
     {
         InitializeComponent();
-        
         Loaded += OnLoaded;
     }
 
@@ -36,16 +34,27 @@ public partial class InfinityRaceView : UserControl
         InkCanvas.SetDrawingEnabled(true);
     }
     
-    private void OnDrawingEnded()
+    private async void OnDrawingEnded()
     {
         var strokes = InkCanvas.EndDrawing();
 
         ViewModel?.ProcessFinishedDrawing(strokes);
+
+        if (ViewModel?.GameResult != null)
+        {
+            await ResultPopup.AnimateStars(ViewModel.GameResult.StarCount);
+        }
     }
 
     private void OnRestart()
     {
         InkCanvas.Clear();
+        ResultPopup.ResetStars();
+        
+        List<Circle> circles = GetCircleData();
+        double middle = InkCanvas.ActualWidth / 2;
+        
+        ViewModel?.Initialize(circles, middle);
     }
     
     private List<Circle> GetCircleData()

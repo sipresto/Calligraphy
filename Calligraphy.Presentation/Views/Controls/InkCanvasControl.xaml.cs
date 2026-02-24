@@ -7,29 +7,16 @@ namespace Calligraphy.Presentation.Views.Controls;
 
 public partial class InkCanvasControl : UserControl
 {
-    private readonly List<List<StrokePointDto>> _strokes = [];
+    private List<List<StrokePointDto>> _strokes = [];
     private List<StrokePointDto> _liveStroke = [];
+    
+    public event Action<List<StrokePointDto>> StrokeCompleted;
     
     public InkCanvasControl()
     {
         InitializeComponent();
     }
-
-    // Stroke finished by lifting pen
-    public event Action<List<StrokePointDto>> StrokeCompleted;
-
-    private void CallyCanvas_StrokeCollected(object sender, InkCanvasStrokeCollectedEventArgs e)
-    {
-        var stroke = e.Stroke;
-
-        var points = stroke.StylusPoints
-            .Select(p => new StrokePointDto(p.X, p.Y, p.PressureFactor))
-            .ToList();
-
-        StrokeCompleted?.Invoke(points);
-    }
-
-    // Stroke finished by calling code
+    
     public List<List<StrokePointDto>> EndDrawing()
     {
         CallyCanvas.IsEnabled = false;
@@ -41,12 +28,33 @@ public partial class InkCanvasControl : UserControl
         
         DisplayStoredStrokes(_strokes);
 
-        return _strokes;
+        var finishedStrokes = _strokes;
+        _strokes = [];
+        _liveStroke = [];
+        return finishedStrokes;
     }
     
     public void SetDrawingEnabled(bool enabled)
     {
         CallyCanvas.IsEnabled = enabled;
+    }
+    
+    public void Clear()
+    {
+        _strokes = [];
+        _liveStroke = [];
+        CallyCanvas.Strokes.Clear();
+    }
+
+    private void CallyCanvas_StrokeCollected(object sender, InkCanvasStrokeCollectedEventArgs e)
+    {
+        var stroke = e.Stroke;
+
+        var points = stroke.StylusPoints
+            .Select(p => new StrokePointDto(p.X, p.Y, p.PressureFactor))
+            .ToList();
+
+        StrokeCompleted?.Invoke(points);
     }
 
     private void CallyCanvas_StylusMove(object sender, StylusEventArgs e)
@@ -87,10 +95,5 @@ public partial class InkCanvasControl : UserControl
             var newStroke = new Stroke(stylusPoints);
             CallyCanvas.Strokes.Add(newStroke);
         }
-    }
-    
-    public void Clear()
-    {
-        CallyCanvas.Strokes.Clear();
     }
 }

@@ -92,6 +92,7 @@
                 Visibility="{Binding IsPreviewVisible, Converter={StaticResource BoolToVisibility}}"/>
             
             <controls:GameResultPopup
+                x:Name="ResultPopup"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 HorizontalAlignment="Center"
