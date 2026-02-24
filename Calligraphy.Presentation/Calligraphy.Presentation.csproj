@@ -24,4 +24,9 @@
       </Page>
     </ItemGroup>
 
+    <ItemGroup>
+      <Resource Include="Resources\Images\Buttons\Grass-buttons-return.png" />
+      <Resource Include="Resources\Images\Buttons\Pressed\Grass-buttons-pressed-return.png" />
+    </ItemGroup>
+
 </Project>
