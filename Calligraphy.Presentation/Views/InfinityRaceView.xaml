@@ -14,7 +14,7 @@
     </UserControl.Resources>
 
     <Viewbox Stretch="Uniform">
-        <Grid Height="300" Width="300">
+        <Grid  Width="1200" Height="800" >
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -30,8 +30,8 @@
                 Grid.Column="0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Width="30"
-                Height="30"
+                Width="120"
+                Height="120"
                 Fill="Blue" />
 
             <Ellipse
@@ -39,8 +39,8 @@
                 Grid.Column="1"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Width="30"
-                Height="30"
+                Width="120"
+                Height="120"
                 Fill="Blue" />
 
             <TextBlock
@@ -48,7 +48,7 @@
                 Grid.ColumnSpan="2"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
-                FontSize="20"
+                FontSize="65"
                 Foreground="Red"
                 Text="{Binding TimerText}" />
 
@@ -56,27 +56,27 @@
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 Stroke="CornflowerBlue"
-                StrokeThickness="2"
+                StrokeThickness="8"
                 StrokeDashArray="2 2"
-                Data="M 150,150 Q 180,125 215,115"
+                Data="M 600,400 Q 720,335 860,300"
                 Visibility="{Binding IsPreviewVisible, Converter={StaticResource BoolToVisibility}}"/>
             
             <Polygon
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
-                Points="0,0 -10,5 -8,0 -10,-5"
+                Points="0,0 -40,15 -32,0 -40,-15"
                 Fill="CornflowerBlue"
                 Visibility="{Binding IsPreviewVisible, Converter={StaticResource BoolToVisibility}}">
                 <Polygon.RenderTransform>
-                    <TranslateTransform X="223" Y="115" />
+                    <TranslateTransform X="892" Y="303" />
                 </Polygon.RenderTransform>
             </Polygon>
             
             <Ellipse
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
-                Width="5"
-                Height="5"
+                Width="15"
+                Height="15"
                 Fill="CornflowerBlue"
                 Visibility="{Binding IsPreviewVisible, Converter={StaticResource BoolToVisibility}}" />
             
@@ -85,11 +85,17 @@
                 Grid.ColumnSpan="2"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                FontSize="60"
+                FontSize="240"
                 Opacity="0.5"
                 Foreground="Red"
                 Text="{Binding WaitTimerText}"
                 Visibility="{Binding IsPreviewVisible, Converter={StaticResource BoolToVisibility}}"/>
+            
+            <controls:GameResultPopup
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center" />
             
         </Grid>
     </Viewbox>

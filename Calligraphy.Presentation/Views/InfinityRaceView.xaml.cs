@@ -1,10 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Shapes;
-using System.Windows.Threading;
 using Calligraphy.Domain;
-using Calligraphy.Presentation.Models;
 using Calligraphy.Presentation.ViewModels;
 
 namespace Calligraphy.Presentation.Views;
@@ -31,6 +28,7 @@ public partial class InfinityRaceView : UserControl
         ViewModel?.Initialize(circles, middle);
         ViewModel?.DrawingStarted += OnDrawingStarted;
         ViewModel?.DrawingEnded += OnDrawingEnded;
+        ViewModel?.Restart += OnRestart;
     }
     
     private void OnDrawingStarted()
@@ -43,6 +41,11 @@ public partial class InfinityRaceView : UserControl
         var strokes = InkCanvas.EndDrawing();
 
         ViewModel?.ProcessFinishedDrawing(strokes);
+    }
+
+    private void OnRestart()
+    {
+        InkCanvas.Clear();
     }
     
     private List<Circle> GetCircleData()

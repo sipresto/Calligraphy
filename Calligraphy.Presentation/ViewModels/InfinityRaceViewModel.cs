@@ -1,6 +1,8 @@
+using System.Windows.Input;
 using System.Windows.Threading;
 using Calligraphy.Application;
 using Calligraphy.Domain;
+using Calligraphy.Presentation.Commands;
 using Calligraphy.Presentation.Models;
 
 namespace Calligraphy.Presentation.ViewModels;
@@ -16,9 +18,30 @@ public class InfinityRaceViewModel : ViewModelBase
     private DateTime _startTime;
     private bool _started = false;
     private int _score = 0;
+    
+    public ICommand RestartCommand { get; }
+    
+    public InfinityRaceViewModel()
+    {
+        RestartCommand = new RestartCommand(RestartGame);
+    }
+    
+    private void RestartGame()
+    {
+        GameResult = null;
+        _score = 0;
+        _started = false;
+        TimerText = $"{DrawDuration:F0}s";
+        IsPreviewVisible = true;
+
+        Restart?.Invoke();
+        _startTime = DateTime.Now;
+        _waitTimer.Start();
+    }
 
     public event Action DrawingStarted;
     public event Action DrawingEnded;
+    public event Action Restart;
 
     public bool IsPreviewVisible
     {
@@ -49,6 +72,19 @@ public class InfinityRaceViewModel : ViewModelBase
             OnPropertyChanged();
         }
     } = $"{DrawDuration:F0}s";
+    
+    public GameResult GameResult
+    {
+        get;
+        private set
+        {
+            field = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(IsGameResultVisible));
+        }
+    }
+    
+    public bool IsGameResultVisible => GameResult != null;
 
     public void Initialize(List<Circle> circles, double middle)
     {
@@ -115,5 +151,7 @@ public class InfinityRaceViewModel : ViewModelBase
 
         _score = _service.GetScore();
         TimerText = $"Score: {_score.ToString()}";
+        
+        GameResult = new GameResult { Score = _score };
     }
 }
