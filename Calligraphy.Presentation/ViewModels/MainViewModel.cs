@@ -4,9 +4,9 @@ namespace Calligraphy.Presentation.ViewModels;
 
 public class MainViewModel : ObservableObject
 {
-    private IPageViewModel? _currentViewModel;
+    private ViewModelBase _currentViewModel;
 
-    public IPageViewModel? CurrentViewModel
+    public ViewModelBase CurrentViewModel
     {
         get => _currentViewModel;
         set => SetProperty(ref _currentViewModel, value);

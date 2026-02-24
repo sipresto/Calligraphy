@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace Calligraphy.Presentation.ViewModels;
 
-public class HomeViewModel : IPageViewModel
+public class HomeViewModel : ViewModelBase
 {
     public ICommand PlayCommand { get; }
 
