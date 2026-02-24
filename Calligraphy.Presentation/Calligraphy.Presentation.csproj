@@ -9,7 +9,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
       <PackageReference Include="InkCanvas.PluginSdk" Version="1.0.0" />
+      <PackageReference Include="LottieSharp" Version="2.4.3" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="11.0.0-preview.1.26104.118" />
     </ItemGroup>
 
@@ -27,6 +29,21 @@
 
     <ItemGroup>
       <Folder Include="Models\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Animations\Sunny.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Views\Animations\start.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="Views\Assets\Animations\start.json" />
+      <Resource Include="Views\Assets\Animations\sun.json" />
+      <None Remove="Views\Assets\Images\play.png" />
+      <Resource Include="Views\Assets\Images\play.png" />
     </ItemGroup>
 
 </Project>

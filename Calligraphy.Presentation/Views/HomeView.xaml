@@ -3,11 +3,52 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:lottie="clr-namespace:LottieSharp.WPF;assembly=LottieSharp"
              xmlns:local="clr-namespace:Calligraphy.Presentation.Views"
              mc:Ignorable="d"
-             d:DesignHeight="600" d:DesignWidth="1000"
-             Background="Bisque">
-    <Grid>
-        <Button x:Name="StButton" Background="Chartreuse" Width="100" Height="100"> Start! </Button>
+             d:DesignHeight="600" d:DesignWidth="1000">
+  <Grid Background="#D1E8E8" ClipToBounds="True">
+
+      <Grid HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,40,60,0">
+    
+          <lottie:LottieAnimationView 
+              Width="200" 
+              Height="200" 
+              AutoPlay="True" 
+              RepeatCount="-1" 
+              ResourcePath="pack://application:,,,/Calligraphy.Presentation;component/Views/Assets/Animations/sun.json"
+              />
+      </Grid>
+
+
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,50">
+            
+            <TextBlock Text="Cally" 
+                       FontSize="90" 
+                       FontWeight="Heavy" 
+                       Foreground="White" 
+                       HorizontalAlignment="Center" 
+                       Margin="0,0,0,60">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FF333333" BlurRadius="15" ShadowDepth="8" Opacity="0.5"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+            <Button Command="{Binding PlayCommand}"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    HorizontalAlignment="Center"
+                    Cursor="Hand"
+                    Padding="0">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Image Source="/Views/Assets/Images/play.png" 
+                               Width="350" 
+                               Stretch="Uniform" />
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            
+        </StackPanel>
     </Grid>
 </UserControl>

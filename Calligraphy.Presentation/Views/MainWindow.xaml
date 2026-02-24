@@ -6,14 +6,18 @@
         Title="Cally" Height="600" Width="1000"
         WindowState="Maximized">
     
-    <!--<Window.Resources>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type local:HomeViewModel}">
+            <views:HomeView />
+        </DataTemplate>
+        
         <DataTemplate DataType="{x:Type local:InfinityRaceViewModel}">
             <views:InfinityRaceView />
         </DataTemplate>
-    </Window.Resources>-->
-    
+    </Window.Resources>
+
     <Grid>
-        <views:InfinityRaceView/>
+        <ContentControl Content="{Binding CurrentViewModel}" />
     </Grid>
     
 </Window>
