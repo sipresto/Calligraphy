@@ -29,6 +29,7 @@
 
     <ItemGroup>
       <Folder Include="Models\" />
+      <Folder Include="Views\Assets\Images\Icons\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -70,6 +71,12 @@
       <Resource Include="Views\Assets\Images\Background\Background_pink.png" />
       <None Remove="Views\Assets\Images\Background\Background_Green.png" />
       <Resource Include="Views\Assets\Images\Background\Background_Green.png" />
+      <None Remove="Views\Assets\Images\Buttons\Grass-Buttons-arrow.png" />
+      <Resource Include="Views\Assets\Images\Buttons\Grass-Buttons-arrow.png" />
+      <None Remove="Views\Assets\Images\Buttons\Grass-Buttons-setting.png" />
+      <Resource Include="Views\Assets\Images\Buttons\Grass-Buttons-setting.png" />
+      <None Remove="Views\Assets\Images\Buttons\Grass-Buttons-x.png" />
+      <Resource Include="Views\Assets\Images\Buttons\Grass-Buttons-x.png" />
     </ItemGroup>
 
 </Project>

@@ -40,7 +40,7 @@
                     Padding="0">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
-                        <Image Source="/Views/Assets/Images/Buttons/Grass-button.png" 
+                        <Image Source="/Views/Assets/Images/Buttons/Grass-Buttons-arrow.png" 
                                Width="60" 
                                Stretch="Uniform" />
                     </ControlTemplate>
@@ -55,13 +55,13 @@
                     Padding="0">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
-                        <Image Source="/Views/Assets/Images/Buttons/Grass-button.png" 
+                        <Image Source="/Views/Assets/Images/Buttons/Grass-buttons-x.png" 
                                Width="60" 
                                Stretch="Uniform" />
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-                <Button Command="{Binding PlayCommand}"
+                <Button Command="{Binding KillCommand}"
                         Background="Transparent"
                         BorderThickness="0"
                         HorizontalAlignment="Center"
@@ -70,7 +70,7 @@
                         Padding="0">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
-                            <Image Source="/Views/Assets/Images/Buttons/Grass-button.png" 
+                            <Image Source="/Views/Assets/Images/Buttons/Grass-Buttons-setting.png" 
                                    Width="60" 
                                    Stretch="Uniform" />
                         </ControlTemplate>
