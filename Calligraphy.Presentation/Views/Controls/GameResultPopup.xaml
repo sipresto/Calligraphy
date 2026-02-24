@@ -23,7 +23,7 @@
         Height="300"
         Visibility="{Binding IsGameResultVisible, Converter={StaticResource BoolToVisibility}}">
 
-        <StackPanel DataContext="{Binding GameResult}">
+        <StackPanel>
             <StackPanel
                 Orientation="Horizontal"
                 HorizontalAlignment="Center"
@@ -35,25 +35,25 @@
             </StackPanel>
 
             <TextBlock
-                Text="{Binding Score, StringFormat=Score: {0}}"
+                Text="{Binding GameResult.Score, StringFormat=Score: {0}}"
                 FontSize="20"
                 FontWeight="Bold"
                 Margin="0,20,0,0"
                 HorizontalAlignment="Center"
-                Visibility="{Binding Score, Converter={StaticResource NullableToVisibilityConverter}}" />
+                Visibility="{Binding GameResult.Score, Converter={StaticResource NullableToVisibilityConverter}}" />
 
             <TextBlock
-                Text="{Binding Time, StringFormat=Tijd: {0}s}"
+                Text="{Binding GameResult.Time, StringFormat=Tijd: {0}s}"
                 FontSize="20"
                 FontWeight="Bold"
                 Margin="0,20,0,0"
                 HorizontalAlignment="Center"
-                Visibility="{Binding Time, Converter={StaticResource NullableToVisibilityConverter}}" />
+                Visibility="{Binding GameResult.Time, Converter={StaticResource NullableToVisibilityConverter}}" />
 
             <Button
                 Content="Opnieuw"
                 Margin="0,30,0,0"
-                Command="{Binding DataContext.RestartCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                Command="{Binding RestartCommand}" />
 
         </StackPanel>
 

@@ -22,7 +22,7 @@ public partial class GameResultPopup : UserControl
 
     public async Task AnimateStars(int starCount)
     {
-        await Task.Delay(1000);
+        await Task.Delay(400);
 
         for (int i = 0; i < starCount && i < _stars.Length; i++)
         {

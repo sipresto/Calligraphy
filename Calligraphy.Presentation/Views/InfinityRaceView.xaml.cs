@@ -19,11 +19,13 @@ public partial class InfinityRaceView : UserControl
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
         InkCanvas.SetDrawingEnabled(false);
+        ResultPopup.DataContext = DataContext;
         
         List<Circle> circles = GetCircleData();
         double middle = InkCanvas.ActualWidth / 2;
         
         ViewModel?.Initialize(circles, middle);
+        
         ViewModel?.DrawingStarted += OnDrawingStarted;
         ViewModel?.DrawingEnded += OnDrawingEnded;
         ViewModel?.Restart += OnRestart;
