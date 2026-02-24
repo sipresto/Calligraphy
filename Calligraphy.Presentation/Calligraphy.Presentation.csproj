@@ -44,6 +44,32 @@
       <Resource Include="Views\Assets\Animations\sun.json" />
       <None Remove="Views\Assets\Images\play.png" />
       <Resource Include="Views\Assets\Images\play.png" />
+      <None Remove="Views\Assets\Fonts\Gluten-Light.ttf" />
+      <Resource Include="Views\Assets\Fonts\Gluten-Light.ttf" />
+      <None Remove="Views\Assets\Fonts\Gluten-Medium.ttf" />
+      <Resource Include="Views\Assets\Fonts\Gluten-Medium.ttf" />
+      <None Remove="Views\Assets\Images\Background\Background_Blue.png" />
+      <Resource Include="Views\Assets\Images\Background\Background_Blue.png" />
+      <None Remove="Views\Assets\Images\TextBars\base.png" />
+      <Resource Include="Views\Assets\Images\TextBars\base.png" />
+      <None Remove="Views\Assets\Images\Buttons\Grass-button.png" />
+      <Resource Include="Views\Assets\Images\Buttons\Grass-button.png" />
+      <None Remove="Views\Assets\Images\TextBars\Press-big-bar.png" />
+      <Resource Include="Views\Assets\Images\TextBars\Press-big-bar.png" />
+      <None Remove="Views\Assets\Images\TextBars\Big-bar.png" />
+      <Resource Include="Views\Assets\Images\TextBars\Big-bar.png" />
+      <None Remove="Views\Assets\Images\TextBars\Small-bar.png" />
+      <Resource Include="Views\Assets\Images\TextBars\Small-bar.png" />
+      <None Remove="Views\Assets\Images\TextBars\Square.png" />
+      <Resource Include="Views\Assets\Images\TextBars\Square.png" />
+      <None Remove="Views\Assets\Images\TextBars\Square-2.png" />
+      <Resource Include="Views\Assets\Images\TextBars\Square-2.png" />
+      <None Remove="Views\Assets\Images\Background\Background_Yellow.png" />
+      <Resource Include="Views\Assets\Images\Background\Background_Yellow.png" />
+      <None Remove="Views\Assets\Images\Background\Background_pink.png" />
+      <Resource Include="Views\Assets\Images\Background\Background_pink.png" />
+      <None Remove="Views\Assets\Images\Background\Background_Green.png" />
+      <Resource Include="Views\Assets\Images\Background\Background_Green.png" />
     </ItemGroup>
 
 </Project>
