@@ -1,0 +1,58 @@
+<UserControl x:Class="Calligraphy.Presentation.Views.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:lottie="clr-namespace:LottieSharp.WPF;assembly=LottieSharp"
+             xmlns:local="clr-namespace:Calligraphy.Presentation.Views"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="1000">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles/ButtonStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Resources/Assets/Images/Backgrounds/Background_Blue.png" 
+                        Stretch="UniformToFill"/>
+        </Grid.Background>
+        
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,50">
+
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,60">
+                <Image Source="/Resources/Assets/Images/TextBars/Small-bar.png" 
+                       Stretch="Uniform"
+                       Width="300" />
+    
+                <TextBlock Text="Cally" 
+                           FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
+                           FontSize="60" 
+                           Foreground="White" 
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center">
+                </TextBlock>
+            </Grid>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"> 
+                <Button Command="{Binding PlayCommand}"
+                        Style="{StaticResource ImageButtonStyle}"
+                        Tag="/Resources/Assets/Images/Buttons/Grass-Buttons-arrow.png"
+                        Content="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed-arrow.png" />
+
+                <Button Command="{Binding ExitCommand}"
+                        Style="{StaticResource ImageButtonStyle}"
+                        Tag="/Resources/Assets/Images/Buttons/Grass-Buttons-x.png"
+                        Content="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed-x.png" />
+
+                <Button Command="{Binding SettingsCommand}"
+                        Style="{StaticResource ImageButtonStyle}"
+                        Tag="/Resources/Assets/Images/Buttons/Grass-Buttons-setting.png"
+                        Content="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed-setting.png" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

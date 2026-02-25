@@ -4,10 +4,23 @@
         xmlns:local="clr-namespace:Calligraphy.Presentation.ViewModels"
         xmlns:views="clr-namespace:Calligraphy.Presentation.Views"
         Title="Cally" Height="600" Width="1000"
-        Background="{StaticResource BackgroundColor}">
+        MinWidth="1000"
+        MinHeight="600"
+        Background="{StaticResource BackgroundColor}"
+        WindowState="Maximized">
     
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type local:HomeViewModel}">
+            <views:HomeView />
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type local:InfinityRaceViewModel}">
+            <views:InfinityRaceView />
+        </DataTemplate>
+    </Window.Resources>
+
     <Grid>
-        <views:InfinityRaceView DataContext="{Binding CurrentViewModel}" />
+        <ContentControl Content="{Binding CurrentViewModel}" />
     </Grid>
     
 </Window>
