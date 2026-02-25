@@ -7,7 +7,7 @@ using Calligraphy.Presentation.Models;
 
 namespace Calligraphy.Presentation.ViewModels;
 
-public class InfinityRaceViewModel : ViewModelBase
+public class InfinityRaceViewModel : GameViewModelBase
 {
     private const int DrawDuration = 20;
     private const int WaitDuration = 3;
@@ -52,20 +52,7 @@ public class InfinityRaceViewModel : ViewModelBase
         }
     } = $"{DrawDuration:F0}s";
 
-    public GameResult GameResult
-    {
-        get;
-        private set
-        {
-            field = value;
-            OnPropertyChanged();
-            OnPropertyChanged(nameof(IsGameResultVisible));
-        }
-    }
-
-    public bool HasNextLevel { get; init; } = false;
-    
-    public bool IsGameResultVisible => GameResult != null;
+    public override bool HasNextLevel { get; init; } = false;
 
     public ICommand RestartCommand { get; }
     
@@ -101,17 +88,8 @@ public class InfinityRaceViewModel : ViewModelBase
 
             _service.AddStroke(domainStroke);
         }
-
-        _score = _service.GetScore();
-        int stars = _score switch
-        {
-            < OneStarScore => 0,
-            < TwoStarScore => 1,
-            < ThreeStarScore => 2,
-            _ => 3
-        };
-
-        GameResult = new GameResult { Score = _score, StarCount = stars };
+        
+        OnGameFinished();
     }
     
     private void StartDrawPhase()
@@ -153,8 +131,17 @@ public class InfinityRaceViewModel : ViewModelBase
             StartDrawPhase();
         }
     }
-    
-    private void RestartGame()
+
+    protected override void OnGameFinished()
+    {
+        _score = _service.GetScore();
+        
+        int stars = CalculateStars(_score, OneStarScore, TwoStarScore, ThreeStarScore);
+
+        GameResult = new GameResult { Score = _score, StarCount = stars };
+    }
+
+    protected override void RestartGame()
     {
         GameResult = null;
         _score = 0;
