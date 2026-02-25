@@ -7,7 +7,8 @@
         Background="{StaticResource BackgroundColor}">
     
     <Grid>
-        <views:InfinityRaceView DataContext="{Binding CurrentViewModel}" />
+        <!---<views:InfinityRaceView DataContext="{Binding CurrentViewModel}" />-->
+        <views:ShapeDrawView DataContext="{Binding CurrentViewModel}"/>
     </Grid>
     
 </Window>

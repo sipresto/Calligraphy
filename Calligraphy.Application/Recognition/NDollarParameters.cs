@@ -166,7 +166,7 @@ namespace Calligraphy.Application.Recognition
                     SearchMethod = PossibleSearchMethods.Protractor;
                 }
                 Console.Write(".");
-                RotationInvariant = XmlConvert.ToBoolean(reader.GetAttribute("RotationInvariant"));
+                RotationInvariant = false;
                 Console.Write(".");
                 ProcessUnistrokes = XmlConvert.ToBoolean(reader.GetAttribute("ProcessUnistrokes"));
                 Console.Write(".");

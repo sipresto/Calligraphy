@@ -374,7 +374,15 @@ namespace Calligraphy.Application.Recognition
 			return success; // Xml file successfully written (or not)
 		}
 
-		public bool LoadGesture(string filename)
+        public void AddGesture(Multistroke gesture)
+        {
+            if (_gestures.ContainsKey(gesture.Name))
+                _gestures.Remove(gesture.Name);
+
+            _gestures.Add(gesture.Name, gesture);
+        }
+        
+        public bool LoadGesture(string filename)
 		{
 			bool success = true;
 			XmlTextReader reader = null;
