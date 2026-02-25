@@ -118,7 +118,8 @@
                     Command="{Binding NextLevelCommand}"
                     HorizontalAlignment="Center"
                     Margin="10,0,0,0"
-                    Cursor="Hand" >
+                    Cursor="Hand"
+                    Visibility="{Binding HasNextLevel, Converter={StaticResource BoolToVisibility}}">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Grid>

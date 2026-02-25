@@ -62,6 +62,8 @@ public class InfinityRaceViewModel : ViewModelBase
             OnPropertyChanged(nameof(IsGameResultVisible));
         }
     }
+
+    public bool HasNextLevel { get; init; } = false;
     
     public bool IsGameResultVisible => GameResult != null;
 
