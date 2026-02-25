@@ -102,4 +102,13 @@
       <Resource Include="Resources\Assets\Fonts\Gluten-Medium.ttf" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Resource Include="Resources\Images\Buttons\Grass-Buttons-return.png" />
+      <Resource Include="Resources\Images\Buttons\Grass-Buttons-house.png" />
+      <Resource Include="Resources\Images\Buttons\Grass-Buttons-arrow2.png" />
+      <Resource Include="Resources\Images\Buttons\Pressed\Grass-Buttons-pressed-return.png" />
+      <Resource Include="Resources\Images\Buttons\Pressed\Grass-Buttons-pressed-house.png" />
+      <Resource Include="Resources\Images\Buttons\Pressed\Grass-Buttons-pressed-arrow2.png" />
+    </ItemGroup>
+
 </Project>
