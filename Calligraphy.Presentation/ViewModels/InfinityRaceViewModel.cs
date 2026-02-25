@@ -4,6 +4,7 @@ using Calligraphy.Application;
 using Calligraphy.Domain;
 using Calligraphy.Presentation.Commands;
 using Calligraphy.Presentation.Models;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Calligraphy.Presentation.ViewModels;
 
@@ -62,7 +63,7 @@ public class InfinityRaceViewModel : GameViewModelBase
 
     public InfinityRaceViewModel()
     {
-        RestartCommand = new RestartCommand(RestartGame);
+        RestartCommand = new RelayCommand(RestartGame);
     }
     
     public void Initialize(List<Circle> circles, double middle)
