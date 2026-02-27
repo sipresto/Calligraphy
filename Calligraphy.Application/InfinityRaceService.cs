@@ -4,11 +4,11 @@ namespace Calligraphy.Application;
 
 public class InfinityRaceService
 {
-    private readonly InfinityRaceSession _session;
-
-    public InfinityRaceService(InfinityRaceSession session)
+    private InfinityRaceSession _session;
+    
+    public void InitializeSession(List<Circle> circles, double middle)
     {
-        _session = session;
+        _session = new InfinityRaceSession(circles, middle);
     }
 
     public void AddStroke(List<StrokePoint> stroke)

@@ -1,4 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Calligraphy.Presentation.ViewModels;
 
@@ -24,6 +25,6 @@ public class MainViewModel : ObservableObject
 
     public void NavigateToGame()
     {
-        CurrentViewModel = new InfinityRaceViewModel();
+        CurrentViewModel = App.ServiceProvider.GetRequiredService<InfinityRaceViewModel>();
     }
 }

@@ -76,7 +76,7 @@
                         <ControlTemplate TargetType="Button">
                             <Grid>
                                 <Image x:Name="ButtonImage"
-                                       Source="/Resources/Images/Buttons/Grass-Buttons-return.png"
+                                       Source="/Resources/Assets/Images/Buttons/Grass-Buttons-return.png"
                                        Width="100"
                                        Stretch="Uniform" />
                             </Grid>
@@ -84,7 +84,7 @@
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsPressed" Value="True">
                                     <Setter TargetName="ButtonImage" Property="Source" 
-                                            Value="/Resources/Images/Buttons/Pressed/Grass-Buttons-pressed-return.png" />
+                                            Value="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed-return.png" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -99,7 +99,7 @@
                         <ControlTemplate TargetType="Button">
                             <Grid>
                                 <Image x:Name="ButtonImage"
-                                       Source="/Resources/Images/Buttons/Grass-Buttons-house.png"
+                                       Source="/Resources/Assets/Images/Buttons/Grass-Buttons-house.png"
                                        Width="100"
                                        Stretch="Uniform" />
                             </Grid>
@@ -107,7 +107,7 @@
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsPressed" Value="True">
                                     <Setter TargetName="ButtonImage" Property="Source" 
-                                            Value="/Resources/Images/Buttons/Pressed/Grass-Buttons-pressed-house.png" />
+                                            Value="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed-house.png" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -124,7 +124,7 @@
                         <ControlTemplate TargetType="Button">
                             <Grid>
                                 <Image x:Name="ButtonImage"
-                                       Source="/Resources/Images/Buttons/Grass-Buttons-arrow2.png"
+                                       Source="/Resources/Assets/Images/Buttons/Grass-Buttons-arrow2.png"
                                        Width="100"
                                        Stretch="Uniform" />
                             </Grid>
@@ -132,7 +132,7 @@
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsPressed" Value="True">
                                     <Setter TargetName="ButtonImage" Property="Source" 
-                                            Value="/Resources/Images/Buttons/Pressed/Grass-Buttons-pressed-arrow2.png" />
+                                            Value="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed-arrow2.png" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>

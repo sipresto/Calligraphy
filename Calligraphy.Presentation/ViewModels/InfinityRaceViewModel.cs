@@ -2,7 +2,6 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using Calligraphy.Application;
 using Calligraphy.Domain;
-using Calligraphy.Presentation.Commands;
 using Calligraphy.Presentation.Models;
 using CommunityToolkit.Mvvm.Input;
 
@@ -16,7 +15,7 @@ public class InfinityRaceViewModel : GameViewModelBase
     private const int TwoStarScore = 5;
     private const int ThreeStarScore = 10;
     
-    private InfinityRaceService _service;
+    private readonly InfinityRaceService _service;
     private DispatcherTimer _drawTimer;
     private DispatcherTimer _waitTimer;
     private DateTime _startTime;
@@ -61,15 +60,15 @@ public class InfinityRaceViewModel : GameViewModelBase
     public event Action DrawingEnded;
     public event Action Restart;
 
-    public InfinityRaceViewModel()
+    public InfinityRaceViewModel(InfinityRaceService service)
     {
+        _service = service;
         RestartCommand = new RelayCommand(RestartGame);
     }
     
     public void Initialize(List<Circle> circles, double middle)
     {
-        var session = new InfinityRaceSession(circles, middle);
-        _service = new InfinityRaceService(session);
+        _service.InitializeSession(circles, middle);
 
         _startTime = DateTime.Now;
         _waitTimer = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 100),
@@ -84,7 +83,7 @@ public class InfinityRaceViewModel : GameViewModelBase
         foreach (var stroke in strokes)
         {
             var domainStroke = stroke
-                .Select(p => new StrokePoint(p.X, p.Y, p.Pressure))
+                .Select(p => new StrokePoint(p.X, p.Y))
                 .ToList();
 
             _service.AddStroke(domainStroke);
