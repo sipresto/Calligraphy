@@ -1,6 +1,7 @@
-﻿using Calligraphy.Domain;
+﻿using Calligraphy.Application.Recognition;
+using Calligraphy.Domain;
 
-namespace Calligraphy.Application.Recognition;
+namespace Calligraphy.Application;
 
 public class ShapeRecognitionService : IShapeRecognitionService
 {

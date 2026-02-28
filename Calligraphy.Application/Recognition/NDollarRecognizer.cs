@@ -544,7 +544,6 @@ namespace Calligraphy.Application.Recognition
             // add last stroke size
             strokes.Add(new List<PointR>(points));
             return new Multistroke(name, user, speed, strokes); //user+"~"+name, user, speed, strokes); // keep each stroke separate until we're done pre-processing
-            // TODO: make the gesture naming convention more general again
         }
 
         #endregion
@@ -725,7 +724,7 @@ namespace Calligraphy.Application.Recognition
                 foreach (KeyValuePair<string, Dictionary<string, Category>> user in categoriesByUser)
                 {
                     Console.Write(".");
-                    string speed = "unknown"; // TODO: get this from the new object later
+                    string speed = "unknown"; 
 
                     //
                     // determine the maximum number of gesture categories and the 
@@ -1006,7 +1005,7 @@ namespace Calligraphy.Application.Recognition
                 foreach (KeyValuePair<string, Dictionary<string, Category>> user in categoriesByUser)
                 {
                     Console.Write(".");
-                    string speed = "unknown"; // TODO: get this from the new object later
+                    string speed = "unknown"; 
 
                     int numFolds = 5;
                     List<SamplesCollection> allFolds = new List<SamplesCollection>(numFolds);
@@ -1262,7 +1261,7 @@ namespace Calligraphy.Application.Recognition
                 for (int numParticipantsUsedForTraining = 1; numParticipantsUsedForTraining <= NUM_PARTICIPANTS - 1; numParticipantsUsedForTraining++)
                 {
                     Console.Write(".");
-                    string speed = "unknown"; // TODO: get this from the new object later
+                    string speed = "unknown";
 
                     //
                     // determine the maximum number of gesture categories and the 
@@ -1279,7 +1278,7 @@ namespace Calligraphy.Application.Recognition
                         SelectParticipantsForTrainingAndTesting(NUM_PARTICIPANTS, numParticipantsUsedForTraining, ref trainingParticipants, ref testingParticipant);
 
                         // test on different sizes for the training set
-                        foreach (int T in numberOfTrainingSamples) // TODO: make this general for datasets without equal #s of samples and do all 1..T
+                        foreach (int T in numberOfTrainingSamples)
                         {
                             // storage for the final avg results for each category for this NT, T
                             Hashtable results = new Hashtable();
@@ -1317,7 +1316,7 @@ namespace Calligraphy.Application.Recognition
                                     int chosen = Utils.Random(0, c.NumExamples - 1); // select 1 unique indices to test
                                     Multistroke ms = c[chosen]; // gesture to test
                                     Gesture p = ms.OriginalGesture; // we only test on the original Gesture in the Multistroke, Lisa 1/5/2008
-                                    //Debug.Assert(!_gestures.ContainsKey(p.Name)); // TODO: re-add assert but add username to name of gesture to keep them unique
+                                    //Debug.Assert(!_gestures.ContainsKey(p.Name)); 
 
                                     // test this gesture and write the output
                                     // do the recognition!

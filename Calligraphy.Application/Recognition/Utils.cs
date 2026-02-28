@@ -232,7 +232,6 @@ namespace Calligraphy.Application.Recognition
             double len = Math.Sqrt(v.X * v.X + v.Y * v.Y);
             // the unit vector representing the angle between points[0] and points[index]
             // is the vector v divided by its length len
-            // TODO: does there need to be a divide by zero check?
             return new PointR(v.X / len, v.Y / len);
         }
 

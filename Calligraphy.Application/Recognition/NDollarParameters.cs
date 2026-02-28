@@ -94,7 +94,7 @@ namespace Calligraphy.Application.Recognition
 
         private NDollarParameters()
         {
-            LoadConfigFile("conf/config.xml");                
+            //LoadConfigFile("conf/config.xml");                
         }
 
         #endregion

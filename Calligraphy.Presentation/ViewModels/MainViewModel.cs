@@ -6,6 +6,6 @@ public class MainViewModel : ViewModelBase
 
     public MainViewModel()
     {
-        CurrentViewModel = new InfinityRaceViewModel();
+        CurrentViewModel = new ShapeDrawViewModel();
     }
 }
