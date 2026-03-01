@@ -58,7 +58,6 @@
                     HorizontalAlignment="Center"
                     Visibility="{Binding GameResult.Time, Converter={StaticResource NullableToVisibilityConverter}}" />
             </StackPanel>
-
             
             <StackPanel 
                 Grid.Row="1"
@@ -71,7 +70,7 @@
                     Command="{Binding RestartCommand}"
                     HorizontalAlignment="Center"
                     Margin="0,0,10,0"
-                    Cursor="Hand" >
+                    Cursor="Pen" >
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Grid>
@@ -94,7 +93,7 @@
                 <Button
                     Command="{Binding MenuCommand}"
                     HorizontalAlignment="Center"
-                    Cursor="Hand" >
+                    Cursor="Pen" >
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Grid>
@@ -118,7 +117,7 @@
                     Command="{Binding NextLevelCommand}"
                     HorizontalAlignment="Center"
                     Margin="10,0,0,0"
-                    Cursor="Hand"
+                    Cursor="Pen"
                     Visibility="{Binding HasNextLevel, Converter={StaticResource BoolToVisibility}}">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
