@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Shapes;
 using Calligraphy.Domain;
 using Calligraphy.Presentation.ViewModels;
@@ -23,8 +24,10 @@ public partial class InfinityRaceView : UserControl
         
         List<Circle> circles = GetCircleData();
         double middle = InkCanvas.ActualWidth / 2;
+        var dpi = VisualTreeHelper.GetDpi(InkCanvas);
+        double dpiX = dpi.PixelsPerInchX;
         
-        ViewModel?.Initialize(circles, middle);
+        ViewModel?.Initialize(circles, middle, dpiX);
         
         ViewModel?.DrawingStarted += OnDrawingStarted;
         ViewModel?.DrawingEnded += OnDrawingEnded;
@@ -55,8 +58,10 @@ public partial class InfinityRaceView : UserControl
         
         List<Circle> circles = GetCircleData();
         double middle = InkCanvas.ActualWidth / 2;
+        var dpi = VisualTreeHelper.GetDpi(InkCanvas);
+        double dpiX = dpi.PixelsPerInchX;
         
-        ViewModel?.Initialize(circles, middle);
+        ViewModel?.Initialize(circles, middle, dpiX);
     }
     
     private List<Circle> GetCircleData()

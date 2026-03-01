@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Ink;
 using System.Windows.Input;
@@ -9,12 +10,14 @@ public partial class InkCanvasControl : UserControl
 {
     private List<List<StrokePointDto>> _strokes = [];
     private List<StrokePointDto> _liveStroke = [];
-    
-    public event Action<List<StrokePointDto>> StrokeCompleted;
+    private readonly Stopwatch _stopwatch = Stopwatch.StartNew();
     
     public InkCanvasControl()
     {
         InitializeComponent();
+        
+        CallyCanvas.EditingMode = InkCanvasEditingMode.Ink;
+        CallyCanvas.EditingModeInverted = InkCanvasEditingMode.None;
     }
     
     public List<List<StrokePointDto>> EndDrawing()
@@ -46,17 +49,6 @@ public partial class InkCanvasControl : UserControl
         CallyCanvas.Strokes.Clear();
     }
 
-    private void CallyCanvas_StrokeCollected(object sender, InkCanvasStrokeCollectedEventArgs e)
-    {
-        var stroke = e.Stroke;
-
-        var points = stroke.StylusPoints
-            .Select(p => new StrokePointDto(p.X, p.Y, p.PressureFactor))
-            .ToList();
-
-        StrokeCompleted?.Invoke(points);
-    }
-
     private void CallyCanvas_StylusMove(object sender, StylusEventArgs e)
     {
         StylusPointCollection points = e.GetStylusPoints(CallyCanvas);
@@ -66,8 +58,10 @@ public partial class InkCanvasControl : UserControl
             var strokePoint = new StrokePointDto(
                 point.X,
                 point.Y,
-                point.PressureFactor
+                point.PressureFactor,
+                _stopwatch.ElapsedMilliseconds
             );
+            //Console.WriteLine(strokePoint);
             
             _liveStroke.Add(strokePoint);
         }

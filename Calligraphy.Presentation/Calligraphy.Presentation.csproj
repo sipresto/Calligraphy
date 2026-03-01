@@ -33,82 +33,31 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Models\" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Remove="Animations\Sunny.json" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Remove="Views\Animations\start.json" />
-    </ItemGroup>
-
-    <ItemGroup>
+      <Resource Include="Resources\Assets\Images\Buttons\Grass-Buttons-arrow2.png" />
+      <Resource Include="Resources\Assets\Images\Buttons\Grass-Buttons-house.png" />
+      <Resource Include="Resources\Assets\Images\Buttons\Grass-Buttons-return.png" />
       <Resource Include="Resources\Assets\Images\Buttons\Pressed\Grass-Buttons-pressed-arrow.png" />
+      <Resource Include="Resources\Assets\Images\Buttons\Pressed\Grass-Buttons-pressed-arrow2.png" />
+      <Resource Include="Resources\Assets\Images\Buttons\Pressed\Grass-Buttons-pressed-house.png" />
+      <Resource Include="Resources\Assets\Images\Buttons\Pressed\Grass-Buttons-pressed-return.png" />
       <Resource Include="Resources\Assets\Images\Buttons\Pressed\Grass-Buttons-pressed-setting.png" />
       <Resource Include="Resources\Assets\Images\Buttons\Pressed\Grass-Buttons-pressed-x.png" />
-      <None Remove="Views\Assets\Images\play.png" />
-      <None Remove="Views\Assets\Fonts\Gluten-Light.ttf" />
-      <None Remove="Views\Assets\Fonts\Gluten-Medium.ttf" />
-      <None Remove="Views\Assets\Images\Background\Background_Blue.png" />
-      <None Remove="Views\Assets\Images\TextBars\base.png" />
-      <None Remove="Views\Assets\Images\Buttons\Grass-button.png" />
-      <None Remove="Views\Assets\Images\TextBars\Press-big-bar.png" />
-      <None Remove="Views\Assets\Images\TextBars\Big-bar.png" />
-      <None Remove="Views\Assets\Images\TextBars\Small-bar.png" />
-      <None Remove="Views\Assets\Images\TextBars\Square.png" />
-      <None Remove="Views\Assets\Images\TextBars\Square-2.png" />
-      <None Remove="Views\Assets\Images\Background\Background_Yellow.png" />
-      <None Remove="Views\Assets\Images\Background\Background_pink.png" />
-      <None Remove="Views\Assets\Images\Background\Background_Green.png" />
-      <None Remove="Views\Assets\Images\Buttons\Grass-Buttons-arrow.png" />
-      <None Remove="Views\Assets\Images\Buttons\Grass-Buttons-setting.png" />
-      <None Remove="Views\Assets\Images\Buttons\Grass-Buttons-x.png" />
-      <None Remove="Views\Assets\Images\Buttons\Pressed\Grass-Buttons-pressed-arrow.png" />
-      <None Remove="Views\Assets\Images\Buttons\Pressed\Grass-Buttons-pressed-setting.png" />
-      <None Remove="Views\Assets\Images\Buttons\Pressed\Grass-Buttons-pressed-x.png" />
-      <None Remove="Resources\Assets\Images\Backgrounds\Background_Blue.png" />
       <Resource Include="Resources\Assets\Images\Backgrounds\Background_Blue.png" />
-      <None Remove="Resources\Assets\Images\Backgrounds\Background_Green.png" />
       <Resource Include="Resources\Assets\Images\Backgrounds\Background_Green.png" />
-      <None Remove="Resources\Assets\Images\Backgrounds\Background_pink.png" />
       <Resource Include="Resources\Assets\Images\Backgrounds\Background_pink.png" />
-      <None Remove="Resources\Assets\Images\Backgrounds\Background_Yellow.png" />
       <Resource Include="Resources\Assets\Images\Backgrounds\Background_Yellow.png" />
-      <None Remove="Resources\Assets\Images\TextBars\base.png" />
       <Resource Include="Resources\Assets\Images\TextBars\base.png" />
-      <None Remove="Resources\Assets\Images\TextBars\Big-bar.png" />
       <Resource Include="Resources\Assets\Images\TextBars\Big-bar.png" />
-      <None Remove="Resources\Assets\Images\TextBars\Press-big-bar.png" />
       <Resource Include="Resources\Assets\Images\TextBars\Press-big-bar.png" />
-      <None Remove="Resources\Assets\Images\TextBars\Small-bar.png" />
       <Resource Include="Resources\Assets\Images\TextBars\Small-bar.png" />
-      <None Remove="Resources\Assets\Images\TextBars\Square.png" />
       <Resource Include="Resources\Assets\Images\TextBars\Square.png" />
-      <None Remove="Resources\Assets\Images\TextBars\Square-2.png" />
       <Resource Include="Resources\Assets\Images\TextBars\Square-2.png" />
-      <None Remove="Resources\Assets\Images\Buttons\Grass-Buttons-x.png" />
       <Resource Include="Resources\Assets\Images\Buttons\Grass-Buttons-x.png" />
-      <None Remove="Resources\Assets\Images\Buttons\Grass-button.png" />
       <Resource Include="Resources\Assets\Images\Buttons\Grass-button.png" />
-      <None Remove="Resources\Assets\Images\Buttons\Grass-Buttons-arrow.png" />
       <Resource Include="Resources\Assets\Images\Buttons\Grass-Buttons-arrow.png" />
-      <None Remove="Resources\Assets\Images\Buttons\Grass-Buttons-setting.png" />
       <Resource Include="Resources\Assets\Images\Buttons\Grass-Buttons-setting.png" />
-      <None Remove="Resources\Assets\Fonts\Gluten-Light.ttf" />
       <Resource Include="Resources\Assets\Fonts\Gluten-Light.ttf" />
-      <None Remove="Resources\Assets\Fonts\Gluten-Medium.ttf" />
       <Resource Include="Resources\Assets\Fonts\Gluten-Medium.ttf" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Resource Include="Resources\Images\Buttons\Grass-Buttons-return.png" />
-      <Resource Include="Resources\Images\Buttons\Grass-Buttons-house.png" />
-      <Resource Include="Resources\Images\Buttons\Grass-Buttons-arrow2.png" />
-      <Resource Include="Resources\Images\Buttons\Pressed\Grass-Buttons-pressed-return.png" />
-      <Resource Include="Resources\Images\Buttons\Pressed\Grass-Buttons-pressed-house.png" />
-      <Resource Include="Resources\Images\Buttons\Pressed\Grass-Buttons-pressed-arrow2.png" />
     </ItemGroup>
 
 </Project>
