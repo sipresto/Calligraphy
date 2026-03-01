@@ -66,9 +66,9 @@ public class InfinityRaceViewModel : GameViewModelBase
         RestartCommand = new RelayCommand(RestartGame);
     }
     
-    public void Initialize(List<Circle> circles, double middle)
+    public void Initialize(List<Circle> circles, double middle, double dpi)
     {
-        _service.InitializeSession(circles, middle);
+        _service.InitializeSession(circles, middle, dpi);
 
         _startTime = DateTime.Now;
         _waitTimer = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 100),
@@ -82,8 +82,9 @@ public class InfinityRaceViewModel : GameViewModelBase
     {
         foreach (var stroke in strokes)
         {
+            // TODO: remove pressure, timestamp
             var domainStroke = stroke
-                .Select(p => new StrokePoint(p.X, p.Y))
+                .Select(p => new StrokePoint(p.X, p.Y, p.Pressure, p.Timestamp))
                 .ToList();
 
             _service.AddStroke(domainStroke);

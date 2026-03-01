@@ -61,7 +61,7 @@ public partial class InkCanvasControl : UserControl
                 point.PressureFactor,
                 _stopwatch.ElapsedMilliseconds
             );
-            Console.WriteLine(strokePoint);
+            //Console.WriteLine(strokePoint);
             
             _liveStroke.Add(strokePoint);
         }
