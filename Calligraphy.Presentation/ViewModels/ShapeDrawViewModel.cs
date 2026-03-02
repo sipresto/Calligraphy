@@ -21,9 +21,9 @@ public class ShapeDrawViewModel : ViewModelBase
 
     public void InitializeTemplates(double w, double h)
     {
-        _service.LoadTemplates(w, h);
+        _service.LoadTemplateForShape(Session.ShapeName, w, h);
     }
-
+    
     public void Reset()
     {
         Session.Reset();

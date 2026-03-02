@@ -13,19 +13,12 @@ namespace Calligraphy.Application
             _recognizer = new NDollarRecognizer();
         }
 
-        public void LoadTemplates(double canvasWidth, double canvasHeight)
+        public void LoadTemplateForShape(string shapeName, double w, double h)
         {
             _recognizer.ClearGestures();
-
-            AddTemplate("Square", canvasWidth, canvasHeight);
-            AddTemplate("Triangle", canvasWidth, canvasHeight);
-            AddTemplate("Circle", canvasWidth, canvasHeight);
-            AddTemplate("Star", canvasWidth, canvasHeight);
-            AddTemplate("Pentagon", canvasWidth, canvasHeight);
-            AddTemplate("Hexagon", canvasWidth, canvasHeight);
-            AddTemplate("Diamond", canvasWidth, canvasHeight);
+            AddTemplate(shapeName, w, h);
         }
-
+        
         private void AddTemplate(string name, double w, double h)
         {
             var strokes = ShapeFactory.GetShape(name, w, h);
@@ -58,11 +51,10 @@ namespace Calligraphy.Application
             double sizeRatio = CalculateSizeRatio(flattenedTemplate, flattenedPoints);
 
             bool success =
-                result.Name == session.ShapeName &&
-                result.Score >= 0.80 &&
-                sizeRatio > 0.5 &&
-                sizeRatio < 1.5;
-
+                result.Score >= 0.90 &&
+                result.Name.Equals(session.ShapeName, StringComparison.OrdinalIgnoreCase) &&
+                sizeRatio > 0.8 &&
+                sizeRatio < 1.2;
             return (success, result.Score);
         }
         

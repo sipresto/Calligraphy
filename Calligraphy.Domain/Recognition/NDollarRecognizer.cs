@@ -115,8 +115,6 @@ namespace Calligraphy.Domain.Recognition
             foreach (Multistroke ms in _gestures.Values) 
             {
                 // added as of 8/9/2009
-                if (!NDollarParameters.Instance.MatchOnlyIfSameNumberOfStrokes || numStrokes == ms.NumStrokes) // optional -- only attempt match when number of strokes is same
-                {
                     NBestList thisMSnbest = new NBestList(); // store the best list for just this MS
                     foreach (Gesture p in ms.Gestures)
                     {
@@ -159,7 +157,6 @@ namespace Calligraphy.Domain.Recognition
                     // these properties return the property of the top result
                     // Lisa 12/22/2007
                     nbest.AddResult(thisMSnbest.Name, thisMSnbest.Score, thisMSnbest.Distance, thisMSnbest.Angle); // name, score, distance, angle
-                }
             }
             nbest.SortDescending(); // sort so that nbest[0] is best result
             nbest.setTotalComparisons(totalComparisons);
