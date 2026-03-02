@@ -8,7 +8,7 @@ public static class StrokeAnalysis
     private const double MaxPresStdDev = 0.15;
     
     private const double MinSpeed = 20; // mm per second
-    private const double MaxSpeed = 120; // mm per second
+    private const double MaxSpeed = 200; // mm per second?
     private const long SpeedDuration = 2000;
     private const long SpeedWindowDuration = 500;
 
