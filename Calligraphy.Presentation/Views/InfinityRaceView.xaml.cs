@@ -23,11 +23,10 @@ public partial class InfinityRaceView : UserControl
         ResultPopup.DataContext = DataContext;
         
         List<Circle> circles = GetCircleData();
-        double middle = InkCanvas.ActualWidth / 2;
         var dpi = VisualTreeHelper.GetDpi(InkCanvas);
         double dpiX = dpi.PixelsPerInchX;
         
-        ViewModel?.Initialize(circles, middle, dpiX);
+        ViewModel?.Initialize(circles, dpiX);
         
         ViewModel?.DrawingStarted += OnDrawingStarted;
         ViewModel?.DrawingEnded += OnDrawingEnded;
@@ -57,11 +56,10 @@ public partial class InfinityRaceView : UserControl
         ResultPopup.ResetStars();
         
         List<Circle> circles = GetCircleData();
-        double middle = InkCanvas.ActualWidth / 2;
         var dpi = VisualTreeHelper.GetDpi(InkCanvas);
         double dpiX = dpi.PixelsPerInchX;
         
-        ViewModel?.Initialize(circles, middle, dpiX);
+        ViewModel?.Initialize(circles, dpiX);
     }
     
     private List<Circle> GetCircleData()

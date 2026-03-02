@@ -7,9 +7,9 @@ public class InfinityRaceService
     private InfinityRaceSession _session;
     private double _dpi;
     
-    public void InitializeSession(List<Circle> circles, double middle, double dpi)
+    public void InitializeSession(List<Circle> circles, double dpi)
     {
-        _session = new InfinityRaceSession(circles, middle);
+        _session = new InfinityRaceSession(circles);
         _dpi = dpi;
     }
 

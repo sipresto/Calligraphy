@@ -3,13 +3,11 @@ namespace Calligraphy.Domain;
 public class InfinityRaceSession
 {
     private readonly List<Circle> _circles;
-    private readonly double _middle;
     private readonly List<List<StrokePoint>> _strokes = [];
 
-    public InfinityRaceSession(IEnumerable<Circle> circles, double middle)
+    public InfinityRaceSession(IEnumerable<Circle> circles)
     {
         _circles = circles.ToList();
-        _middle = middle;
     }
 
     public IReadOnlyList<IReadOnlyList<StrokePoint>> Strokes => _strokes;
@@ -39,19 +37,24 @@ public class InfinityRaceSession
             
             foreach (var point in stroke)
             {
-                if (current >= checks.Count)
-                {
-                    score++;
-                    current = 0;
-                }
-
                 if (_circles[0].IsInside(point.X, point.Y) || _circles[1].IsInside(point.X, point.Y))
                 {
                     current = 0;
                     continue;
                 }
 
-                if (checks[current](point)) current++;
+                if (checks[current](point))
+                {
+                    current++;
+
+                    if (current >= checks.Count)
+                    {
+                        score++;
+                        current = 0;
+                    }
+                }
+                else if (current == 6 && checks[2](point)) current = 6;
+                else if (current == 2 && checks[6](point)) current = 2;
             }
         }
         
