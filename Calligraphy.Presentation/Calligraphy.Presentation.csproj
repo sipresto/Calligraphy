@@ -58,7 +58,7 @@
       <Resource Include="Resources\Assets\Images\Buttons\Grass-Buttons-setting.png" />
       <Resource Include="Resources\Assets\Fonts\Gluten-Light.ttf" />
       <Resource Include="Resources\Assets\Fonts\Gluten-Medium.ttf" />
-      <Resource Include="Resources\Assets\Images\Mascot\mascot-bear.png" />
+      <Resource Include="Resources\Assets\Images\Mascot\mascot-bear-1.png" />
     </ItemGroup>
 
 </Project>
