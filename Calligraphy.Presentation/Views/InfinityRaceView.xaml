@@ -99,6 +99,7 @@
                 VerticalAlignment="Center" />
             
             <controls:MascotFeedbackControl
+                x:Name="MascotFeedback"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"/>
             

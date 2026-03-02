@@ -8,7 +8,7 @@ public static class StrokeAnalysis
     private const double MaxPresStdDev = 0.15;
     
     private const double MinSpeed = 20; // mm per second
-    private const double MaxSpeed = 80; // mm per second
+    private const double MaxSpeed = 120; // mm per second
     private const long SpeedDuration = 2000;
     private const long SpeedWindowDuration = 500;
 
@@ -125,7 +125,6 @@ public static class StrokeAnalysis
                 continue;
 
             double speedMmPerSec = totalDistanceMm / totalTimeMs * 1000;
-            Console.WriteLine(speedMmPerSec);
             if (predicate(speedMmPerSec))
             {
                 start ??= windowPoints.Last().Timestamp;

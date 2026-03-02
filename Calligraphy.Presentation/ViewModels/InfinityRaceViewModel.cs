@@ -113,6 +113,12 @@ public class InfinityRaceViewModel : GameViewModelBase
         OnGameFinished();
     }
     
+    public string AnalyzeStrokes()
+    {
+        var feedback = _service.AnalyzeStrokes();
+        return feedback.Type == FeedbackType.Perfect ? null : feedback.Message;
+    }
+    
     private void StartDrawPhase()
     {
         _startTime = DateTime.Now;
