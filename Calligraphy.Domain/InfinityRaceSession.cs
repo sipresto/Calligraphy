@@ -1,6 +1,6 @@
 namespace Calligraphy.Domain;
 
-public class InfinityRaceSession
+public class InfinityRaceSession : ISession
 {
     private readonly List<Circle> _circles;
     private readonly double _middle;

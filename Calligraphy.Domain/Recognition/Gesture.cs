@@ -46,7 +46,7 @@
  *
  */
 
-namespace Calligraphy.Application.Recognition
+namespace Calligraphy.Domain.Recognition
 {
 	public class Gesture : IComparable
 	{

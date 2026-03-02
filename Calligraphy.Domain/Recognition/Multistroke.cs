@@ -50,7 +50,7 @@
 // object to encapsulate several Gestures (all possible orderings 
 // and directions of a particular multistroke gesture).
 
-namespace Calligraphy.Application.Recognition
+namespace Calligraphy.Domain.Recognition
 {
     public class Multistroke : IComparable
     {

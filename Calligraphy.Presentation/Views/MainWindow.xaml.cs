@@ -1,6 +1,4 @@
 ﻿using System.Windows;
-using Calligraphy.Application;
-using Calligraphy.Application.Recognition;
 
 namespace Calligraphy.Presentation.Views;
 

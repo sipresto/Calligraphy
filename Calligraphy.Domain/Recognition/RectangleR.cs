@@ -1,24 +1,23 @@
 /**
  * The $N Multistroke Recognizer (C# version)
  *
- *		Lisa Anthony
- *		Lockheed Martin
- *		Advanced Technology Laboratories
- * 		3 Executive Campus, Suite 600
- *		Cherry Hill, NJ 08002
- * 		lanthony@atl.lmco.com
+ *	    Lisa Anthony, Ph.D.
+ *		UMBC
+ *		Information Systems Department
+ * 		1000 Hilltop Circle
+ *		Baltimore, MD 21250
+ * 		lanthony@umbc.edu
  * 
- *              Jacob O. Wobbrock
+ *      Jacob O. Wobbrock, Ph.D.
  * 		The Information School
  *		University of Washington
  *		Mary Gates Hall, Box 352840
  *		Seattle, WA 98195-2840
  *		wobbrock@u.washington.edu
  *
- *
  * This software is distributed under the "New BSD License" agreement:
  * 
- * Copyright (c) 2007-2010, Lisa Anthony and Jacob O. Wobbrock
+ * Copyright (c) 2007-2012, Lisa Anthony and Jacob O. Wobbrock
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,7 +27,7 @@
  *    * Redistributions in binary form must reproduce the above copyright
  *      notice, this list of conditions and the following disclaimer in the
  *      documentation and/or other materials provided with the distribution.
- *    * Neither the name of the University of Washington or Lockheed Martin,
+ *    * Neither the name of the University of Washington or UMBC,
  *      nor the names of its contributors may be used to endorse or promote 
  *      products derived from this software without specific prior written
  *      permission.
@@ -47,40 +46,71 @@
  *
  */
 
-// This has not changed at all from $1.
+// This has not changed since $1.
 
 using System.Drawing;
 
-namespace Calligraphy.Application.Recognition
+namespace Calligraphy.Domain.Recognition
 {
-	public struct SizeR
+	public struct RectangleR
 	{
-		public static readonly SizeR Empty;
-        private double _cx;
-		private double _cy;
+		private const int Digits = 4;
+		private double _x;
+		private double _y;
+		private double _width;
+		private double _height;
+		public static readonly RectangleR Empty = new RectangleR();
 
-		public SizeR(double cx, double cy)
+		public RectangleR(double x, double y, double width, double height)
 		{
-			_cx = cx;
-			_cy = cy;
+			_x = x;
+			_y = y;
+			_width = width;
+			_height = height;
 		}
 
 		// copy constructor
-		public SizeR(SizeR sz)
+		public RectangleR(RectangleR r)
 		{
-			_cx = sz.Width;
-			_cy = sz.Height;
+			_x = r.X;
+			_y = r.Y;
+			_width = r.Width;
+			_height = r.Height;
+		}
+
+		public double X
+		{
+			get
+			{
+				return Math.Round(_x, Digits);
+			}
+			set
+			{
+				_x = value;
+			}
+		}
+
+		public double Y
+		{
+			get
+			{
+				return Math.Round(_y, Digits);
+			}
+			set
+			{
+				_y = value;
+			}
 		}
 
 		public double Width
 		{
 			get
 			{
-                return _cx;
+				return Math.Round(_width, Digits);
 			}
 			set
 			{
-				_cx = value;
+				_width = value;
 			}
 		}
 
@@ -88,42 +118,82 @@ namespace Calligraphy.Application.Recognition
 		{
 			get
 			{
-                return _cy;
+				return Math.Round(_height, Digits);
 			}
 			set
 			{
-				_cy = value;
+				_height = value;
 			}
 		}
 
-		public static explicit operator SizeF(SizeR sz)
+		public PointR TopLeft
 		{
-			return new SizeF((float) sz.Width, (float) sz.Height);
+			get
+			{
+				return new PointR(X, Y);
+			}
 		}
 
-		public static bool operator==(SizeR sz1, SizeR sz2)
+		public PointR BottomRight
 		{
-			return (sz1.Width == sz2.Width && sz1.Height == sz2.Height);
+			get
+			{
+				return new PointR(X + Width, Y + Height);
+			}
 		}
 
-		public static bool operator!=(SizeR sz1, SizeR sz2)
+		public PointR Center
 		{
-			return (sz1.Width != sz2.Width || sz1.Height != sz2.Height);
+			get
+			{
+				return new PointR(X + Width / 2d, Y + Height / 2d);
+			}
+		}
+
+		public double MaxSide
+		{
+			get
+			{
+				return Math.Max(_width, _height);
+			}
+		}
+
+		public double MinSide
+		{
+			get
+			{
+				return Math.Min(_width, _height);
+			}
+		}
+
+		public double Diagonal
+		{
+			get
+			{
+				return Utils.Distance(TopLeft, BottomRight);
+			}
+		}
+
+		public static explicit operator RectangleF(RectangleR r)
+		{
+			return new RectangleF((float) r.X, (float) r.Y, (float) r.Width, (float) r.Height);
 		}
 
 		public override bool Equals(object obj)
 		{
-			if (obj is SizeR)
+			if (obj is RectangleR)
 			{
-				SizeR sz = (SizeR) obj;
-				return (Width == sz.Width && Height == sz.Height);
+				RectangleR r = (RectangleR) obj;
+				return (X == r.X && Y == r.Y && Width == r.Width && Height == r.Height);
 			}
 			return false;
 		}
 
 		public override int GetHashCode()
 		{
-			return ((SizeR) this).GetHashCode();
+			return ((RectangleF) this).GetHashCode();
 		}
+
+
 	}
 }

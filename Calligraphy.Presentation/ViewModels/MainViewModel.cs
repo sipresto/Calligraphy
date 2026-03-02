@@ -6,6 +6,6 @@ public class MainViewModel : ViewModelBase
 
     public MainViewModel()
     {
-        CurrentViewModel = new ShapeDrawViewModel();
+        CurrentViewModel = new ShapeDrawViewModel("Diamond");
     }
 }

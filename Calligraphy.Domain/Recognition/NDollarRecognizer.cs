@@ -52,7 +52,7 @@ using System.Reflection;
 using System.Text;
 using System.Xml;
 
-namespace Calligraphy.Application.Recognition
+namespace Calligraphy.Domain.Recognition
 {
 	public class NDollarRecognizer
 	{

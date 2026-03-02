@@ -1,4 +1,4 @@
-/**
+﻿/**
  * The $N Multistroke Recognizer (C# version)
  *
  *	    Lisa Anthony, Ph.D.
@@ -50,7 +50,7 @@
 
 using System.Drawing;
 
-namespace Calligraphy.Application.Recognition
+namespace Calligraphy.Domain.Recognition
 {
 	public struct PointR
 	{

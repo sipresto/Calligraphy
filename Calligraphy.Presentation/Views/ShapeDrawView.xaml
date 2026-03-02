@@ -46,10 +46,13 @@
                         VerticalAlignment="Center">
                 <Button Content="Reset"
                         Width="50"
-                        Margin="10"/>
+                        Margin="10"
+                        Click="Reset_Click"/>
+
                 <Button Content="Check"
                         Width="50"
-                        Margin="10"/>
+                        Margin="10"
+                        Click="Check_Click"/>
             </StackPanel>
 
         </Grid>

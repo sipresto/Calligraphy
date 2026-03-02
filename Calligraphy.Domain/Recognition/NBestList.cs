@@ -48,7 +48,7 @@
 
 using System.Collections;
 
-namespace Calligraphy.Application.Recognition
+namespace Calligraphy.Domain.Recognition
 {
     public class NBestList
     {

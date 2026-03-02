@@ -54,7 +54,7 @@
 using System.Diagnostics;
 using System.Xml;
 
-namespace Calligraphy.Application.Recognition
+namespace Calligraphy.Domain.Recognition
 {
     public sealed class NDollarParameters
     {
