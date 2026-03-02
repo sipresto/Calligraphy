@@ -52,6 +52,26 @@ public class InfinityRaceViewModel : GameViewModelBase
         }
     } = $"{DrawDuration:F0}s";
 
+    public string MascotMessage
+    {
+        get;
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool IsMascotVisible
+    {
+        get;
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+        }
+    }
+
     public override bool HasNextLevel { get; init; } = false;
 
     public ICommand RestartCommand { get; }
@@ -136,9 +156,30 @@ public class InfinityRaceViewModel : GameViewModelBase
     protected override void OnGameFinished()
     {
         _score = _service.GetScore();
-        
         int stars = CalculateStars(_score, OneStarScore, TwoStarScore, ThreeStarScore);
+        
+        var feedback = _service.AnalyzeStrokes();
+        string message;
 
+        if (feedback.Type == FeedbackType.Perfect)
+        {
+            message = stars switch
+            {
+                3 => "Geweldig! Je het heel goed gedaan",
+                2 => "Goed gedaan! Het was al bijna perfect",
+                1 => "Niet slecht! Probeer het nog eens en kijk of je meer punten kunt halen",
+                0 => "Blijf oefenen! Je kunt het beter doen als je het nog eens probeert",
+                _ => ""
+            };
+        }
+        else
+        {
+            message = feedback.Message;
+        }
+        
+        MascotMessage = message;
+        IsMascotVisible = true;
+        
         GameResult = new GameResult { Score = _score, StarCount = stars };
     }
 
@@ -149,6 +190,7 @@ public class InfinityRaceViewModel : GameViewModelBase
         _started = false;
         TimerText = $"{DrawDuration:F0}s";
         IsPreviewVisible = true;
+        IsMascotVisible = false;
 
         Restart?.Invoke();
         _startTime = DateTime.Now;

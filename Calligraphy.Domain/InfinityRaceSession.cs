@@ -13,6 +13,13 @@ public class InfinityRaceSession
     }
 
     public IReadOnlyList<IReadOnlyList<StrokePoint>> Strokes => _strokes;
+    
+    public IReadOnlyList<StrokePoint> GetTotalStroke()
+    {
+        return _strokes
+            .SelectMany(stroke => stroke)
+            .ToList();
+    }
 
     public void AddStroke(List<StrokePoint> stroke) => _strokes.Add(stroke);
 
