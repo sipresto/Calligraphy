@@ -206,7 +206,7 @@ public class TraceGameViewModel : GameViewModelBase
         }
     }
 
-    protected override void OnGameFinished()
+    protected void OnGameFinished()
     {
         _score = _service.GetScore();
         int stars = CalculateStars(_score, OneStarScore, TwoStarScore, ThreeStarScore);

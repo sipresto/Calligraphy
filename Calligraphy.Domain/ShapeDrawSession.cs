@@ -14,8 +14,8 @@ public class ShapeDrawSession: ISession
     
     public void AddStrokes(List<List<StrokePoint>> strokes) => _strokes = strokes;
 
-    public int CalculateScore()
+    public int CalculateStars(int score)
     {
-        return 1;
+        return 3;
     }
 }

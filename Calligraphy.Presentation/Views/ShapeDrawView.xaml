@@ -8,11 +8,7 @@
              mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="1200"
              d:DataContext="{d:DesignInstance viewModels:ShapeDrawViewModel}">
-
-    <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
-    </UserControl.Resources>
-
+    
     <Viewbox Stretch="Uniform">
         <Grid Height="800" Width="1200">
             
@@ -51,13 +47,25 @@
                 <Button Content="Reset"
                         Width="100"
                         Margin="10"
-                        Command="{Binding ResetCommand}"/>
+                        Command="{Binding RestartCommand}"/>
 
                 <Button Content="Check"
                         Width="100"
                         Margin="10"
                         Command="{Binding CheckCommand}"/>
             </StackPanel>
+
+            <controls:GameResultPopup
+                x:Name="ResultPopup"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center" />
+            
+            <controls:MascotFeedbackControl
+                x:Name="MascotFeedback"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"/>
 
         </Grid>
     </Viewbox>

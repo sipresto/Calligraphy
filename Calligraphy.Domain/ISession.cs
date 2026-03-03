@@ -6,5 +6,5 @@ public interface ISession
 
     public void AddStrokes(List<List<StrokePoint>> strokes);
 
-    public int CalculateScore();
+    public int CalculateStars(int score);
 }

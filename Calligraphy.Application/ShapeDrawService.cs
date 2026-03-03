@@ -22,9 +22,12 @@ public class ShapeDrawService
         _session.AddStrokes(points);
     }
     
-    public (bool success, double score) CheckShape()
+    public (bool success, double score, int stars) CheckShape()
     {
-        return _recognizer.CheckShape(_session.Strokes, _session.Shape.Name);
+        (bool success, double score) = _recognizer.CheckShape(_session.Strokes, _session.Shape.Name);
+        var stars = _session.CalculateStars((int)score);
+        return (success, score * 100, stars);
+        
     }
 
     public Shape GetShape()

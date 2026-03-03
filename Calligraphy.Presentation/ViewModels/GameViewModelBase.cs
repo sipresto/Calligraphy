@@ -27,7 +27,7 @@ public abstract class GameViewModelBase : ViewModelBase
         return 3;
     }
     
-    protected abstract void OnGameFinished();
+    //protected abstract void OnGameFinished();
     
     protected abstract void RestartGame();
 }

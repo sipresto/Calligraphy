@@ -6,24 +6,45 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace Calligraphy.Presentation.ViewModels;
 
-public class ShapeDrawViewModel : ViewModelBase
+public class ShapeDrawViewModel : GameViewModelBase
 {
     private readonly ShapeDrawService _service;
-    public ICommand ResetCommand { get; }
+    public ICommand RestartCommand { get; }
     public event Action Reset;
     public ICommand CheckCommand { get; }
     public event Action Check;
+    
+    public string MascotMessage
+    {
+        get;
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool IsMascotVisible
+    {
+        get;
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+        }
+    }
 
     public ShapeDrawViewModel(ShapeDrawService service)
     {
         _service = service;
-        ResetCommand = new RelayCommand(ResetGame);
+        RestartCommand = new RelayCommand(RestartGame);
         CheckCommand = new RelayCommand(() => Check?.Invoke());
     }
     
-    public void ResetGame()
+    protected override void RestartGame()
     {
         Initialize(_service.GetShape().Name);
+        GameResult = null;
         Reset?.Invoke();
     }
 
@@ -43,14 +64,22 @@ public class ShapeDrawViewModel : ViewModelBase
         _service.AddStrokes(strokepoints);
     }
     
-    public (bool Success, string Message) CheckGame()
+    public void CheckGame()
     {
-        var (success, score) = _service.CheckShape();
+        var (success, score, stars) = _service.CheckShape();
 
-        if (success)
-            return (true, $"Correct! Score: {score:P0}");
-        else
-            return (false, $"Try again. Score: {score:P0}");
+        MascotMessage = stars switch
+        {
+            3 => "Geweldig! Je het heel goed gedaan",
+            2 => "Goed gedaan! Het was al bijna perfect",
+            1 => "Niet slecht! Probeer het nog eens en kijk of je meer punten kunt halen",
+            0 => "Blijf oefenen! Je kunt het beter doen als je het nog eens probeert",
+            _ => ""
+        };
+        
+        IsMascotVisible = true;
+        
+        GameResult = new GameResult { Score = (int)score, StarCount = stars };
     }
 
     public List<List<StrokePoint>> GetCurrentTemplateShape(double w, double h)

@@ -43,9 +43,7 @@ public partial class ShapeDrawView : UserControl
     {
         var points = InkCanvas.EndDrawing();
         ViewModel.AddStrokes(points);
-
-        var result = ViewModel.CheckGame();
-        MessageBox.Show(result.Message);
+        ViewModel.CheckGame();
     }
     
     private void DrawTemplate()
