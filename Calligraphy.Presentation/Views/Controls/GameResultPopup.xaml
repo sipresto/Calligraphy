@@ -14,15 +14,15 @@
     </UserControl.Resources>
 
     <Border
-        BorderBrush="Blue"
-        BorderThickness="3"
-        Background="LightBlue"
         CornerRadius="12"
         Padding="20"
         Width="600"
         Height="400"
         Visibility="{Binding IsGameResultVisible, Converter={StaticResource BoolToVisibility}}">
-
+        <Border.Background>
+            <ImageBrush ImageSource="/Resources/Assets/Images/TextBars/Square.png" 
+                        Stretch="Fill" />
+        </Border.Background>
 
         <Grid>
 

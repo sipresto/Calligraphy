@@ -59,7 +59,7 @@
       <Resource Include="Resources\Assets\Fonts\Gluten-Light.ttf" />
       <Resource Include="Resources\Assets\Fonts\Gluten-Medium.ttf" />
       <Resource Include="Resources\Assets\Images\Mascot\mascot-bear-1.png" />
-      <Resource Include="Resources\Assets\Images\draw-example.png" />
+      <None Remove="Resources\Assets\Images\PopupBackgrounds\Square.png" />
     </ItemGroup>
 
 </Project>

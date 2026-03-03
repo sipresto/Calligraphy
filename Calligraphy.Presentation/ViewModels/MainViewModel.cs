@@ -26,7 +26,7 @@ public class MainViewModel : ObservableObject
 
     public void NavigateToGame()
     {
-        CurrentViewModel = App.ServiceProvider.GetRequiredService<InfinityRaceViewModel>();
+        CurrentViewModel = App.ServiceProvider.GetRequiredService<TraceGameViewModel>();
     }
     
     // TODO: Replace with IDs later
