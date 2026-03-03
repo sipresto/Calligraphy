@@ -20,7 +20,7 @@ public class TraceGameViewModel : GameViewModelBase
     public const double TopY = 290;
     public const double LoopWidth = 110;
     public const int LoopCount = 9;
-    private const int PointsPerLoop = 5; //higher for more points to trace
+    private const int PointsPerLoop = 100; //higher for more points to trace
 
     private readonly TraceGameService _service;
     private DispatcherTimer _drawTimer;
