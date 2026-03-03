@@ -26,7 +26,7 @@ public partial class ShapeDrawView : UserControl
         if (ViewModel == null)
             return;
 
-        ViewModel?.Initialize("Star");
+        ViewModel?.Initialize("Diamond");
         ViewModel?.Reset += OnReset;
         ViewModel?.Check += OnCheck;
 

@@ -12,23 +12,23 @@ public class ShapeDrawService
         _recognizer = new Recognizer();
     }
     
-    public void InitializeSession(string shapeName)
+    public void InitializeSession(Shape shape)
     {
-        _session = new ShapeDrawSession(shapeName);
+        _session = new ShapeDrawSession(shape);
     }
-
-    public void Reset()
-    {
-        _session.Reset();
-    }
-
+    
     public void AddStrokes(List<List<StrokePoint>> points)
     {
         _session.AddStrokes(points);
     }
     
-    public (bool success, double score) CheckShape(string shapeName)
+    public (bool success, double score) CheckShape()
     {
-        return _recognizer.CheckShape(_session.Strokes, shapeName);
+        return _recognizer.CheckShape(_session.Strokes, _session.Shape.Name);
+    }
+
+    public Shape GetShape()
+    {
+        return _session.Shape;
     }
 }

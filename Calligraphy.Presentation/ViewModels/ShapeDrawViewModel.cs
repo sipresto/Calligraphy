@@ -1,15 +1,14 @@
 ﻿using System.Windows.Input;
 using Calligraphy.Application;
 using Calligraphy.Domain;
-using Calligraphy.Presentation.Commands;
 using Calligraphy.Presentation.Models;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Calligraphy.Presentation.ViewModels;
 
 public class ShapeDrawViewModel : ViewModelBase
 {
     private readonly ShapeDrawService _service;
-    private string _shapeName;
     public ICommand ResetCommand { get; }
     public event Action Reset;
     public ICommand CheckCommand { get; }
@@ -18,8 +17,8 @@ public class ShapeDrawViewModel : ViewModelBase
     public ShapeDrawViewModel(ShapeDrawService service)
     {
         _service = service;
-        ResetCommand = new ResetCommand(ResetGame);
-        CheckCommand = new CheckCommand(() =>
+        ResetCommand = new RelayCommand(ResetGame);
+        CheckCommand = new RelayCommand(() =>
             {
                 Check?.Invoke();
             });
@@ -27,7 +26,7 @@ public class ShapeDrawViewModel : ViewModelBase
     
     public void ResetGame()
     {
-        _service.Reset();
+        Initialize(_service.GetShape().Name);
         Reset?.Invoke();
     }
 
@@ -49,7 +48,7 @@ public class ShapeDrawViewModel : ViewModelBase
     
     public (bool Success, string Message) CheckGame()
     {
-        var (success, score) = _service.CheckShape(_shapeName);
+        var (success, score) = _service.CheckShape();
 
         if (success)
             return (true, $"Correct! Score: {score:P0}");
@@ -59,15 +58,12 @@ public class ShapeDrawViewModel : ViewModelBase
 
     public List<List<StrokePoint>> GetCurrentTemplateShape(double w, double h)
     {
-        return ShapeFactory.GetShape(
-            _shapeName,
-            w,
-            h);
+        return _service.GetShape().GetStrokes(w, h);
     }
 
-    public void Initialize(string shape)
+    public void Initialize(string shapeName)
     {
-        _shapeName = shape;
+        var shape = ShapeFactory.GetShape(shapeName);
         _service.InitializeSession(shape);
     }
 }
