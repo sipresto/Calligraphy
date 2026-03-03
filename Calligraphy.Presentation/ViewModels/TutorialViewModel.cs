@@ -56,6 +56,7 @@ public class TutorialViewModel : ViewModelBase
             ViewModelBase gameVm = TargetGameViewModelName switch
             {
                 nameof(InfinityRaceViewModel) => _services.GetRequiredService<InfinityRaceViewModel>(),
+                nameof(TraceGameViewModel) => _services.GetRequiredService<TraceGameViewModel>(),
                 _ => null
             };
 
