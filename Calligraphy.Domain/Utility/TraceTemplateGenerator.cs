@@ -1,6 +1,6 @@
-﻿
-namespace Calligraphy.Domain;
+﻿namespace Calligraphy.Domain.Utility;
 
+// TODO: define these as TraceTemplate class like Shape and have subclasses
 //Generates template points for trace patterns so we can use them for drawing and analysis
 public static class TraceTemplateGenerator
 {

@@ -26,9 +26,6 @@ public partial class App : System.Windows.Application
     
     private void ConfigureServices(IServiceCollection services)
     {
-        // Register shared dependencies
-        services.AddSingleton<FeedbackMessageProvider>();
-        
         // Register game services
         services.AddTransient<InfinityRaceService>();
         services.AddTransient<TraceGameService>();

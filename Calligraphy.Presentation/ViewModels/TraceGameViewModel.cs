@@ -3,6 +3,7 @@ using System.Windows.Threading;
 using Calligraphy.Application;
 using Calligraphy.Domain;
 using Calligraphy.Domain.Sessions;
+using Calligraphy.Domain.Utility;
 using Calligraphy.Presentation.Models;
 using CommunityToolkit.Mvvm.Input;
 

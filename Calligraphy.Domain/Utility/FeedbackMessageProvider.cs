@@ -1,6 +1,4 @@
-﻿using Calligraphy.Domain;
-
-namespace Calligraphy.Application;
+﻿namespace Calligraphy.Domain.Utility;
 
 public static class FeedbackMessageProvider
 {

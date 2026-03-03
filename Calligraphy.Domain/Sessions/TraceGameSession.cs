@@ -1,4 +1,6 @@
-﻿namespace Calligraphy.Domain.Sessions;
+﻿using Calligraphy.Domain.Utility;
+
+namespace Calligraphy.Domain.Sessions;
 
 public class TraceGameSession(List<StrokePoint> templatePoints, double toleranceDistance = 30.0)
     : GameSession

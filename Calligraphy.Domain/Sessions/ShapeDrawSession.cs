@@ -1,4 +1,6 @@
-﻿namespace Calligraphy.Domain.Sessions;
+﻿using Calligraphy.Domain.Utility;
+
+namespace Calligraphy.Domain.Sessions;
 
 public class ShapeDrawSession : GameSession
 {

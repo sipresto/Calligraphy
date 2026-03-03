@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using Calligraphy.Application;
 using Calligraphy.Domain;
+using Calligraphy.Domain.Utility;
 using Calligraphy.Presentation.Models;
 using CommunityToolkit.Mvvm.Input;
 

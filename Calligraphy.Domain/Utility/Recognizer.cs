@@ -1,4 +1,4 @@
-﻿namespace Calligraphy.Domain;
+﻿namespace Calligraphy.Domain.Utility;
 
 public static class Recognizer
 {
