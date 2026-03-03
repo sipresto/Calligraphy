@@ -20,9 +20,9 @@ public class TraceGameViewModel : GameViewModelBase
     public const double TopY = 290;
     public const double LoopWidth = 110;
     public const int LoopCount = 9;
-    private const int PointsPerLoop = 5;
+    private const int PointsPerLoop = 5; //higher for more points to trace
 
-    private readonly GameService _service;
+    private readonly TraceGameService _service;
     private DispatcherTimer _drawTimer;
     private DispatcherTimer _waitTimer;
     private DateTime _startTime;
@@ -88,7 +88,7 @@ public class TraceGameViewModel : GameViewModelBase
     public event Action DrawingEnded;
     public event Action Restart;
 
-    public TraceGameViewModel(GameService service)
+    public TraceGameViewModel(TraceGameService service)
     {
         _service = service;
         RestartCommand = new RelayCommand(RestartGame);
@@ -146,18 +146,26 @@ public class TraceGameViewModel : GameViewModelBase
             return feedback.Message;
         }
         
+        return GetTraceAccuracyMessage();
+    }
+
+    private string GetTraceAccuracyMessage()
+    {
         var traceResult = _service.GetTraceEvaluation();
-        if (traceResult != null && !traceResult.IsSuccessful)
-        {
-            if (traceResult.CoveragePercentage < 0.5)
-                return "Probeer de hele lijn te volgen";
-            else if (traceResult.AverageDeviation > 40)
-                return "Blijf dichter bij de lijn";
-            else if (!traceResult.DirectionCorrect)
-                return "Volg de lijn van links naar rechts";
-        }
         
-        return null;
+        if (traceResult == null || traceResult.IsSuccessful)
+            return null;
+
+        if (traceResult.CoveragePercentage < 0.5)
+            return "Probeer de hele lijn te volgen";
+        
+        if (traceResult.AverageDeviation > 40)
+            return "Blijf dichter bij de lijn";
+        
+        if (!traceResult.DirectionCorrect)
+            return "Volg de lijn van links naar rechts";
+        
+        return "Bijna goed! Probeer het nog eens";
     }
 
     private void StartDrawPhase()
@@ -211,16 +219,8 @@ public class TraceGameViewModel : GameViewModelBase
         // Check trace success first
         if (traceResult != null && !traceResult.IsSuccessful)
         {
-            stars = Math.Min(stars, 1); 
-            
-            if (traceResult.CoveragePercentage < 0.5)
-                message = "Probeer de hele lijn te volgen";
-            else if (traceResult.AverageDeviation > 40)
-                message = "Blijf dichter bij de lijn";
-            else if (!traceResult.DirectionCorrect)
-                message = "Volg de lijn van links naar rechts";
-            else
-                message = "Bijna goed! Probeer het nog eens";
+            stars = Math.Min(stars, 1);
+            message = GetTraceAccuracyMessage();
         }
         else if (feedback.Type == FeedbackType.Perfect)
         {

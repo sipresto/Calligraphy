@@ -2,7 +2,7 @@
 
 namespace Calligraphy.Application;
 
-public class GameService
+public class TraceGameService
 {
     private IGameSession _session;
     private double _dpi;

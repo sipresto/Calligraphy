@@ -28,7 +28,7 @@ public partial class App : System.Windows.Application
     private void ConfigureServices(IServiceCollection services)
     {
         services.AddTransient<InfinityRaceService>();
-        services.AddTransient<GameService>();
+        services.AddTransient<TraceGameService>();
 
         services.AddSingleton<MainViewModel>();
         services.AddTransient<TraceGameViewModel>();
