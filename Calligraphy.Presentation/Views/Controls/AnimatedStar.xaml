@@ -1,0 +1,51 @@
+<UserControl x:Class="Calligraphy.Presentation.Views.Controls.AnimatedStar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Calligraphy.Presentation.Views.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Storyboard x:Key="FillStarStoryboard">
+            <DoubleAnimation
+                Storyboard.TargetName="GoldStarScale"
+                Storyboard.TargetProperty="ScaleX"
+                From="0" To="1"
+                Duration="0:0:0.6" />
+            <DoubleAnimation
+                Storyboard.TargetName="GoldStarScale"
+                Storyboard.TargetProperty="ScaleY"
+                From="0" To="1"
+                Duration="0:0:0.6" />
+        </Storyboard>
+    </UserControl.Resources>
+
+    <Grid>
+        <Path
+            Stretch="Uniform"
+            Fill="LightSlateGray"
+            Stroke="LightSlateGray"
+            StrokeThickness="8"
+            StrokeLineJoin="Round"
+            StrokeStartLineCap="Round"
+            StrokeEndLineCap="Round"
+            Data="M 60,10 L 75,45 L 112,45 L 85,70 L 100,105 L 60,80 L 20,105 L 35,70 L 8,45 L 45,45 Z" />
+
+        <Grid RenderTransformOrigin="0.5,0.5">
+            <Grid.RenderTransform>
+                <ScaleTransform x:Name="GoldStarScale" ScaleX="0" ScaleY="0" />
+            </Grid.RenderTransform>
+
+            <Path
+                Stretch="Uniform"
+                Fill="Gold"
+                Stroke="Gold"
+                StrokeThickness="2"
+                StrokeLineJoin="Round"
+                StrokeStartLineCap="Round"
+                StrokeEndLineCap="Round"
+                Data="M 60,10 L 75,45 L 112,45 L 85,70 L 100,105 L 60,80 L 20,105 L 35,70 L 8,45 L 45,45 Z" />
+        </Grid>
+    </Grid>
+</UserControl>

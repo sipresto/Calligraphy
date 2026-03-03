@@ -1,0 +1,32 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<!--  TODO: Needs to be split up and done differently -->
+    <Style x:Key="ImageButtonStyle" TargetType="Button">
+        <Setter Property="Cursor" Value="Pen"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border>
+                        <Grid>
+                            <!-- Normal state image -->
+                            <Image x:Name="NormalImage"
+                                   Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Tag}"
+                            />
+
+                            <!-- Pressed state image  -->
+                            <Image x:Name="PressedImage"
+                                   Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content}"
+                                   Visibility="Collapsed" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="NormalImage" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="PressedImage" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
