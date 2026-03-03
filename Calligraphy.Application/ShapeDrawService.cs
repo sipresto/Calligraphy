@@ -26,7 +26,7 @@ public class ShapeDrawService
     {
         (bool success, double score) = _recognizer.CheckShape(_session.Strokes, _session.Shape.Name);
         var stars = _session.CalculateStars((int)score);
-        return (success, score * 100, stars);
+        return (success, score, stars);
         
     }
 

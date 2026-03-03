@@ -16,6 +16,9 @@ public class ShapeDrawSession: ISession
 
     public int CalculateStars(int score)
     {
-        return 3;
+        if (score > 90) return 3;
+        if (score > 60) return 2;
+        if (score > 30)  return 1;
+        return 0;
     }
 }

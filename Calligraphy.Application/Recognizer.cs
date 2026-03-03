@@ -31,12 +31,6 @@ public class Recognizer
         double closure = ClosureRatio(smoothed, box); 
         int    corners = CountCorners(smoothed);
 
-        // ── Per-shape scoring ─────────────────────────────────────────────────
-        // DEBUG: print features to console so we can tune parameters
-        System.Diagnostics.Debug.WriteLine(
-            $"[ShapeScore] shape={shapeName} corners={corners} convex={convex:F3} " +
-            $"aspect={aspect:F3} closure={closure:F3} " +
-            $"evenness={ComputeCornerEvenness(smoothed):F3}");
 
         double score = shapeName switch
         {
@@ -61,11 +55,8 @@ public class Recognizer
             "Hexagon"  => 0.40,
             _          => 0.40
         };
-
-        System.Diagnostics.Debug.WriteLine(
-            $"[ShapeScore] finalScore={score:F3} threshold={threshold:F3}");
-
-        return (score >= threshold, score);
+        
+        return (score >= threshold, score * 100);
     }
 
     /// <summary>

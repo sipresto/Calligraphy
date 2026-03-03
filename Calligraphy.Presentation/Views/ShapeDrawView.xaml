@@ -58,14 +58,14 @@
             <controls:GameResultPopup
                 x:Name="ResultPopup"
                 Grid.Column="0"
-                Grid.ColumnSpan="2"
+                Grid.ColumnSpan="3"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center" />
             
             <controls:MascotFeedbackControl
                 x:Name="MascotFeedback"
                 Grid.Column="0"
-                Grid.ColumnSpan="2"/>
+                Grid.ColumnSpan="3"/>
 
         </Grid>
     </Viewbox>

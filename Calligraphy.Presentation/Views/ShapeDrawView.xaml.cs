@@ -25,7 +25,8 @@ public partial class ShapeDrawView : UserControl
     {
         if (ViewModel == null)
             return;
-
+        
+        ResultPopup.DataContext = DataContext;
         ViewModel?.Initialize("Diamond");
         ViewModel?.Reset += OnReset;
         ViewModel?.Check += OnCheck;
@@ -37,13 +38,23 @@ public partial class ShapeDrawView : UserControl
     {
         InkCanvas.SetDrawingEnabled(true);
         InkCanvas.Clear();
+        MascotFeedback.Hide();
+        ResultPopup.ResetStars();
     }
 
-    private void OnCheck()
+    private async void OnCheck()
     {
         var points = InkCanvas.EndDrawing();
         ViewModel.AddStrokes(points);
         ViewModel.CheckGame();
+        if (ViewModel?.GameResult != null)
+        {
+            MascotFeedback.ShowFeedback(
+                ViewModel.GameResult.StarCount
+            );
+            await ResultPopup.AnimateStars(ViewModel.GameResult.StarCount);
+        }
+
     }
     
     private void DrawTemplate()
