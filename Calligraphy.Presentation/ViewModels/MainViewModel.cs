@@ -56,6 +56,16 @@ public class MainViewModel : ObservableObject
                 ShowSpeedInfo = true,
                 TargetGameViewModelName = nameof(TraceGameViewModel)
             },
+            "ShapeDraw" => new TutorialInfo
+            {
+                PointsExplanation = "Verdien punten door zo goed mogelijk de vorm te overtekenen.",
+                OneStar = "40 punten",
+                TwoStars = "60 punten",
+                ThreeStars = "85 punten",
+                ShowPressureInfo = true,
+                ShowSpeedInfo = true,
+                TargetGameViewModelName = nameof(ShapeDrawViewModel)
+            },
             _ => null
         };
 

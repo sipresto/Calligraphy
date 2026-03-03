@@ -17,6 +17,7 @@
                                    IgnorePressure="False" 
                                    FitToCurve="True" />
             </InkCanvas.DefaultDrawingAttributes>
+            
         </InkCanvas>
     </Grid>
 </UserControl>
