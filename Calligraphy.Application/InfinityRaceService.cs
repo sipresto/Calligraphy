@@ -69,9 +69,9 @@ public class InfinityRaceService
     };
     private readonly Random _random = new();
     
-    public void InitializeSession(List<Circle> circles, double middle, double dpi)
+    public void InitializeSession(List<Circle> circles, double dpi)
     {
-        _session = new InfinityRaceSession(circles, middle);
+        _session = new InfinityRaceSession(circles);
         _dpi = dpi;
     }
 

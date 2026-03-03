@@ -30,10 +30,12 @@ public partial class App : System.Windows.Application
         services.AddTransient<InfinityRaceService>();
         services.AddTransient<TraceGameService>();
 
+        services.AddTransient<TutorialViewModel>();
         services.AddSingleton<MainViewModel>();
         services.AddTransient<TraceGameViewModel>();
         services.AddTransient<InfinityRaceViewModel>();
 
         services.AddSingleton<MainWindow>();
+        services.AddTransient<TutorialView>();
     }
 }
