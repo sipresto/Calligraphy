@@ -41,7 +41,7 @@
                 Stretch="Uniform"
                 Fill="Gold"
                 Stroke="Gold"
-                StrokeThickness="8"
+                StrokeThickness="2"
                 StrokeLineJoin="Round"
                 StrokeStartLineCap="Round"
                 StrokeEndLineCap="Round"
