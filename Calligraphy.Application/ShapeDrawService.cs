@@ -22,6 +22,11 @@ public class ShapeDrawService
         _session.Reset();
     }
 
+    public void AddStroke(List<StrokePoint> points)
+    {
+        _session.AddStroke(points);
+    }
+    
     public (bool success, double score) CheckShape(string shapeName)
     {
         return _recognizer.CheckShape(_session.Strokes, shapeName);

@@ -47,12 +47,12 @@
                 <Button Content="Reset"
                         Width="50"
                         Margin="10"
-                        Click="Reset_Click"/>
+                        Command="{Binding ResetCommand}"/>
 
                 <Button Content="Check"
                         Width="50"
                         Margin="10"
-                        Click="Check_Click"/>
+                        Command="{Binding CheckCommand}"/>
             </StackPanel>
 
         </Grid>
