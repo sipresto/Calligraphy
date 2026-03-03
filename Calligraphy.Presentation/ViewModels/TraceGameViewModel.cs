@@ -2,6 +2,7 @@
 using System.Windows.Threading;
 using Calligraphy.Application;
 using Calligraphy.Domain;
+using Calligraphy.Domain.Sessions;
 using Calligraphy.Presentation.Models;
 using CommunityToolkit.Mvvm.Input;
 
@@ -59,27 +60,7 @@ public class TraceGameViewModel : GameViewModelBase
             OnPropertyChanged();
         }
     } = $"{DrawDuration:F0}s";
-
-    public string MascotMessage
-    {
-        get;
-        set
-        {
-            field = value;
-            OnPropertyChanged();
-        }
-    }
-
-    public bool IsMascotVisible
-    {
-        get;
-        set
-        {
-            field = value;
-            OnPropertyChanged();
-        }
-    }
-
+    
     public override bool HasNextLevel { get; init; } = false;
 
     public ICommand RestartCommand { get; }
@@ -104,8 +85,7 @@ public class TraceGameViewModel : GameViewModelBase
 
     public void Initialize(double dpi)
     {
-        var session = new TraceGameSession();
-        session.SetTemplate(_templatePoints, toleranceDistance: 30.0);
+        var session = new TraceGameSession(_templatePoints, 30.0);
         
         _service.InitializeSession(session, dpi);
 
@@ -123,7 +103,7 @@ public class TraceGameViewModel : GameViewModelBase
             Dispatcher.CurrentDispatcher);
     }
 
-    public void ProcessFinishedDrawing(List<List<StrokePointDto>> strokes)
+    public override void ProcessFinishedDrawing(List<List<StrokePointDto>> strokes)
     {
         foreach (var stroke in strokes)
         {
@@ -206,7 +186,7 @@ public class TraceGameViewModel : GameViewModelBase
         }
     }
 
-    protected void OnGameFinished()
+    protected override void OnGameFinished()
     {
         _score = _service.GetScore();
         int stars = CalculateStars(_score, OneStarScore, TwoStarScore, ThreeStarScore);
@@ -219,19 +199,12 @@ public class TraceGameViewModel : GameViewModelBase
         // Check trace success first
         if (traceResult != null && !traceResult.IsSuccessful)
         {
-            stars = Math.Min(stars, 1);
+            stars = Math.Min(stars, 0);
             message = GetTraceAccuracyMessage();
         }
         else if (feedback.Type == FeedbackType.Perfect)
         {
-            message = stars switch
-            {
-                3 => "Geweldig! Je hebt het heel goed gedaan!",
-                2 => "Goed gedaan! Het was al bijna perfect!",
-                1 => "Niet slecht! Probeer het nog eens en kijk of je meer punten kunt halen!",
-                0 => "Blijf oefenen! Je kunt het beter doen als je het nog eens probeert!",
-                _ => ""
-            };
+            message = GetStarMessage(stars);
         }
         else
         {

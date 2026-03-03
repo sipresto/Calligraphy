@@ -14,25 +14,7 @@ public class ShapeDrawViewModel : GameViewModelBase
     public ICommand CheckCommand { get; }
     public event Action Check;
     
-    public string MascotMessage
-    {
-        get;
-        set
-        {
-            field = value;
-            OnPropertyChanged();
-        }
-    }
-
-    public bool IsMascotVisible
-    {
-        get;
-        set
-        {
-            field = value;
-            OnPropertyChanged();
-        }
-    }
+    
 
     public ShapeDrawViewModel(ShapeDrawService service)
     {
@@ -48,39 +30,29 @@ public class ShapeDrawViewModel : GameViewModelBase
         Reset?.Invoke();
     }
 
-    public void AddStrokes(List<List<StrokePointDto>> points)
+    public override void ProcessFinishedDrawing(List<List<StrokePointDto>> strokes)    
     {
-        List<List<StrokePoint>> strokepoints = new List<List<StrokePoint>>();
-        foreach (var point in points)
+        foreach (var stroke in strokes)
         {
-            List<StrokePoint> strokepoint = new List<StrokePoint>();
-            foreach (var strokePointDto in point)
-            {
-                strokepoint.Add(new StrokePoint(strokePointDto.X, strokePointDto.Y, strokePointDto.Pressure, strokePointDto.Timestamp));
-            }
-            strokepoints.Add(strokepoint);
+            var domainStroke = stroke
+                .Select(p => new StrokePoint(p.X, p.Y))
+                .ToList();
+
+            _service.AddStroke(domainStroke);
         }
-        
-        _service.AddStrokes(strokepoints);
     }
     
-    public void CheckGame()
+    protected override void OnGameFinished()
     {
-        var (success, score, stars) = _service.CheckShape();
+        var (score, stars) = _service.CheckShape();
 
-        MascotMessage = stars switch
-        {
-            3 => "Geweldig! Je het heel goed gedaan",
-            2 => "Goed gedaan! Het was al bijna perfect",
-            1 => "Niet slecht! Probeer het nog eens en kijk of je meer punten kunt halen",
-            0 => "Blijf oefenen! Je kunt het beter doen als je het nog eens probeert",
-            _ => ""
-        };
+        MascotMessage = GetStarMessage(stars);
         
         IsMascotVisible = true;
         
         GameResult = new GameResult { Score = (int)score, StarCount = stars };
     }
+    
 
     public List<List<StrokePoint>> GetCurrentTemplateShape(double w, double h)
     {

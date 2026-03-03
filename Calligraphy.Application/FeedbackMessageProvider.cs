@@ -1,0 +1,84 @@
+﻿using Calligraphy.Domain;
+
+namespace Calligraphy.Application;
+
+public class FeedbackMessageProvider
+{
+    private static readonly Dictionary<FeedbackType, string[]> Messages = new()
+    {
+        {
+            FeedbackType.PressureInconsistent,
+            [
+                "Probeer de hele tijd even hard te drukken",
+                "Let erop dat je pen overal even stevig op het blad staat",
+                "Oefen om met een gelijke druk te schrijven"
+            ]
+        },
+        {
+            FeedbackType.PressureTooHigh,
+            [
+                "Probeer iets zachter te drukken",
+                "Je mag je pen wat lichter vasthouden",
+                "Schrijf eens met wat minder kracht"
+            ]
+        },
+        {
+            FeedbackType.PressureTooLow,
+            [
+                "Probeer iets steviger te drukken",
+                "Je mag je pen wat duidelijker op het blad zetten",
+                "Zorg dat je pen het papier goed raakt"
+            ]
+        },
+        {
+            FeedbackType.SpeedInconsistent,
+            [
+                "Probeer in een rustig en gelijk tempo te schrijven",
+                "Houd je schrijfsnelheid overal ongeveer hetzelfde",
+                "Schrijf in een mooi, gelijk ritme"
+            ]
+        },
+        {
+            FeedbackType.SpeedTooHigh,
+            [
+                "Probeer iets rustiger te schrijven",
+                "Neem wat meer tijd voor je beweging",
+                "Schrijf iets langzamer en gecontroleerd"
+            ]
+        },
+        {
+            FeedbackType.SpeedTooLow,
+            [
+                "Je mag iets sneller schrijven",
+                "Probeer je beweging wat vlotter te maken",
+                "Schrijf iets soepeler en iets sneller"
+            ]
+        },
+        {
+            FeedbackType.Perfect,
+            [
+                "Dat heb je heel goed gedaan",
+                "Wat knap geschreven",
+                "Mooi werk, ga zo door"
+            ]
+        }
+    };
+
+    private readonly Random _random = new();
+
+    public string GetRandomMessage(FeedbackType type)
+    {
+        if (!Messages.TryGetValue(type, out var options))
+            return string.Empty;
+
+        int index = _random.Next(options.Length);
+        return options[index];
+    }
+
+    public IReadOnlyList<string> GetAllMessages(FeedbackType type)
+    {
+        return Messages.TryGetValue(type, out var options) 
+            ? options 
+            : Array.Empty<string>();
+    }
+}

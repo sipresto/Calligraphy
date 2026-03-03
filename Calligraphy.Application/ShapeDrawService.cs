@@ -1,32 +1,27 @@
 ﻿using Calligraphy.Domain;
+using Calligraphy.Domain.Sessions;
 
 namespace Calligraphy.Application;
 
 public class ShapeDrawService
 {
     private ShapeDrawSession _session;
-    private readonly Recognizer _recognizer;
-    
-    public ShapeDrawService()
-    {
-        _recognizer = new Recognizer();
-    }
     
     public void InitializeSession(Shape shape)
     {
         _session = new ShapeDrawSession(shape);
     }
     
-    public void AddStrokes(List<List<StrokePoint>> points)
+    public void AddStroke(List<StrokePoint> stroke)
     {
-        _session.AddStrokes(points);
+        _session.AddStroke(stroke);
     }
     
-    public (bool success, double score, int stars) CheckShape()
+    public (double score, int stars) CheckShape()
     {
-        (bool success, double score) = _recognizer.CheckShape(_session.Strokes, _session.Shape.Name);
-        var stars = _session.CalculateStars((int)score);
-        return (success, score, stars);
+        var score = _session.CalculateScore();
+        var stars = _session.CalculateStars(score, new StarThresholds(30, 60, 90));
+        return (score, stars);
         
     }
 

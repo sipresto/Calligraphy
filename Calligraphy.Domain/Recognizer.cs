@@ -1,26 +1,20 @@
-﻿using Calligraphy.Domain;
+﻿namespace Calligraphy.Domain;
 
-namespace Calligraphy.Application;
-
-public class Recognizer
+public static class Recognizer
 {
-    
-    public (bool success, double score) CheckShape(IReadOnlyList<IReadOnlyList<StrokePoint>> strokes, string shapeName)
-    
+    public static double CalculateAccuracy(IReadOnlyList<StrokePoint> stroke, string shapeName)
     { 
-        if (strokes.Count == 0)
-            return (false, 0);
-        
-        var pts = Flatten(strokes); 
-        if (pts.Count < 8) 
-            return (false, 0);
+        if (stroke.Count < 8) 
+            return 0;
+
+        var pts = Flatten(stroke);
 
         // ── Scribble gate ────────────────────────────────────────────────────
         // Reject before doing any real scoring; spirals and scribbles have
         // far more self-intersections than any legitimate shape.
         
         if (!PassesScribbleCheck(pts)) 
-            return (false, 0);
+            return 0;
 
         // ── Extract features ─────────────────────────────────────────────────
         
@@ -43,20 +37,8 @@ public class Recognizer
             "Hexagon"  => ScoreHexagon(convex, corners),
             _          => 0
         };
-
-        double threshold = shapeName switch
-        {
-            "Circle"   => 0.45,
-            "Square"   => 0.42,
-            "Triangle" => 0.40,
-            "Diamond"  => 0.40,
-            "Star"     => 0.38,
-            "Pentagon" => 0.40,
-            "Hexagon"  => 0.40,
-            _          => 0.40
-        };
         
-        return (score >= threshold, score * 100);
+        return score;
     }
 
     /// <summary>
@@ -439,13 +421,11 @@ public class Recognizer
 
     // ── Conversion helpers ────────────────────────────────────────────────────
 
-    private static List<(double x, double y)> Flatten(
-        IReadOnlyList<IReadOnlyList<StrokePoint>> strokes)
+    private static List<(double x, double y)> Flatten(IReadOnlyList<StrokePoint> stroke)
     {
         var pts = new List<(double, double)>();
-        foreach (var stroke in strokes)
-            foreach (var p in stroke)
-                pts.Add((p.X, p.Y));
+        foreach (var p in stroke)
+            pts.Add((p.X, p.Y));
         return pts;
     }
 }

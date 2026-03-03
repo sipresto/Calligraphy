@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using Calligraphy.Application;
-using Calligraphy.Domain;
 using Calligraphy.Presentation.ViewModels;
 using Calligraphy.Presentation.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,16 +26,22 @@ public partial class App : System.Windows.Application
     
     private void ConfigureServices(IServiceCollection services)
     {
+        // Register shared dependencies
+        services.AddSingleton<FeedbackMessageProvider>();
+        
+        // Register game services
         services.AddTransient<InfinityRaceService>();
         services.AddTransient<TraceGameService>();
         services.AddTransient<ShapeDrawService>();
         
+        // Register ViewModels
         services.AddTransient<TutorialViewModel>();
         services.AddSingleton<MainViewModel>();
         services.AddTransient<TraceGameViewModel>();
         services.AddTransient<InfinityRaceViewModel>();
         services.AddTransient<ShapeDrawViewModel>();
         
+        // Register Views
         services.AddSingleton<MainWindow>();
         services.AddTransient<TutorialView>();
     }

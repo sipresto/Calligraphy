@@ -14,7 +14,8 @@ public class InfinityRaceViewModel : GameViewModelBase
     private const int OneStarScore = 1;
     private const int TwoStarScore = 5;
     private const int ThreeStarScore = 10;
-    
+    public override bool HasNextLevel { get; init; } = false;
+
     private readonly InfinityRaceService _service;
     private DispatcherTimer _drawTimer;
     private DispatcherTimer _waitTimer;
@@ -51,28 +52,7 @@ public class InfinityRaceViewModel : GameViewModelBase
             OnPropertyChanged();
         }
     } = $"{DrawDuration:F0}s";
-
-    public string MascotMessage
-    {
-        get;
-        set
-        {
-            field = value;
-            OnPropertyChanged();
-        }
-    }
-
-    public bool IsMascotVisible
-    {
-        get;
-        set
-        {
-            field = value;
-            OnPropertyChanged();
-        }
-    }
-
-    public override bool HasNextLevel { get; init; } = false;
+    
 
     public ICommand RestartCommand { get; }
     
@@ -98,13 +78,12 @@ public class InfinityRaceViewModel : GameViewModelBase
             DispatcherPriority.Background, TickDrawTimer, Dispatcher.CurrentDispatcher);
     }
     
-    public void ProcessFinishedDrawing(List<List<StrokePointDto>> strokes)
+    public override void ProcessFinishedDrawing(List<List<StrokePointDto>> strokes)
     {
         foreach (var stroke in strokes)
         {
-            // TODO: remove pressure, timestamp
             var domainStroke = stroke
-                .Select(p => new StrokePoint(p.X, p.Y, p.Pressure, p.Timestamp))
+                .Select(p => new StrokePoint(p.X, p.Y))
                 .ToList();
 
             _service.AddStroke(domainStroke);
@@ -112,13 +91,7 @@ public class InfinityRaceViewModel : GameViewModelBase
         
         OnGameFinished();
     }
-    
-    public string AnalyzeStrokes()
-    {
-        var feedback = _service.AnalyzeStrokes();
-        return feedback.Type == FeedbackType.Perfect ? null : feedback.Message;
-    }
-    
+        
     private void StartDrawPhase()
     {
         _startTime = DateTime.Now;
@@ -159,7 +132,7 @@ public class InfinityRaceViewModel : GameViewModelBase
         }
     }
 
-    protected void OnGameFinished()
+    protected override void OnGameFinished()
     {
         _score = _service.GetScore();
         int stars = CalculateStars(_score, OneStarScore, TwoStarScore, ThreeStarScore);
@@ -169,14 +142,7 @@ public class InfinityRaceViewModel : GameViewModelBase
 
         if (feedback.Type == FeedbackType.Perfect)
         {
-            message = stars switch
-            {
-                3 => "Geweldig! Je het heel goed gedaan",
-                2 => "Goed gedaan! Het was al bijna perfect",
-                1 => "Niet slecht! Probeer het nog eens en kijk of je meer punten kunt halen",
-                0 => "Blijf oefenen! Je kunt het beter doen als je het nog eens probeert",
-                _ => ""
-            };
+            message = GetStarMessage(stars);
         }
         else
         {

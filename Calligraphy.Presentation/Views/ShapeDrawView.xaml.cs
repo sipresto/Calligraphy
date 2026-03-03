@@ -2,8 +2,6 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using Calligraphy.Domain;
-using Calligraphy.Presentation.Models;
 using Calligraphy.Presentation.ViewModels;
 
 //TODO: make sure mouse doesn't work

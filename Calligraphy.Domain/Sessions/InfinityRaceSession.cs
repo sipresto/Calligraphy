@@ -1,27 +1,15 @@
-namespace Calligraphy.Domain;
+namespace Calligraphy.Domain.Sessions;
 
-public class InfinityRaceSession
+public class InfinityRaceSession : GameSession
 {
     private readonly List<Circle> _circles;
-    private readonly List<List<StrokePoint>> _strokes = [];
 
     public InfinityRaceSession(IEnumerable<Circle> circles)
     {
         _circles = circles.ToList();
     }
 
-    public IReadOnlyList<IReadOnlyList<StrokePoint>> Strokes => _strokes;
-    
-    public IReadOnlyList<StrokePoint> GetTotalStroke()
-    {
-        return _strokes
-            .SelectMany(stroke => stroke)
-            .ToList();
-    }
-
-    public void AddStroke(List<StrokePoint> stroke) => _strokes.Add(stroke);
-
-    public int CalculateScore()
+    public override int CalculateScore()
     {
         var checks = new List<Func<StrokePoint, bool>>
         {

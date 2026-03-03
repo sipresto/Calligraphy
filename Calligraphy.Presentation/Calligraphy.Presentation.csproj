@@ -60,6 +60,10 @@
       <Resource Include="Resources\Assets\Fonts\Gluten-Medium.ttf" />
       <Resource Include="Resources\Assets\Images\Mascot\mascot-bear-1.png" />
       <None Remove="Resources\Assets\Images\PopupBackgrounds\Square.png" />
+      <None Remove="Resources\Assets\Images\Icons\Star.png" />
+      <Resource Include="Resources\Assets\Images\Icons\Star.png" />
+      <None Remove="Resources\Assets\Images\Icons\Empty-star.png" />
+      <Resource Include="Resources\Assets\Images\Icons\Empty-star.png" />
     </ItemGroup>
 
 </Project>

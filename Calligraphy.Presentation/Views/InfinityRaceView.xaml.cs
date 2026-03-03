@@ -48,8 +48,7 @@ public partial class InfinityRaceView : UserControl
         {
             // TODO: analysestrokes weghalen
             MascotFeedback.ShowFeedback(
-                ViewModel.GameResult.StarCount,
-                ViewModel.AnalyzeStrokes()
+                ViewModel.GameResult.StarCount
             );
             await ResultPopup.AnimateStars(ViewModel.GameResult.StarCount);
         }
