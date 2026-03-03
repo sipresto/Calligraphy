@@ -18,10 +18,7 @@ public class ShapeDrawViewModel : ViewModelBase
     {
         _service = service;
         ResetCommand = new RelayCommand(ResetGame);
-        CheckCommand = new RelayCommand(() =>
-            {
-                Check?.Invoke();
-            });
+        CheckCommand = new RelayCommand(() => Check?.Invoke());
     }
     
     public void ResetGame()
