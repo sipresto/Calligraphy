@@ -89,11 +89,4 @@ public partial class InkCanvasControl : UserControl
             CallyCanvas.Strokes.Add(newStroke);
         }
     }
-    
-    public void Clear()
-    {
-        _strokes.Clear();
-        _liveStroke.Clear();
-        CallyCanvas.Strokes.Clear();
-    }
 }

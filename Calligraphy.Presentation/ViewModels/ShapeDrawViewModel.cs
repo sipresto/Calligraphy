@@ -2,38 +2,27 @@
 using Calligraphy.Application;
 using Calligraphy.Domain;
 using Calligraphy.Presentation.Commands;
+using Calligraphy.Presentation.Models;
 
 namespace Calligraphy.Presentation.ViewModels;
 
 public class ShapeDrawViewModel : ViewModelBase
 {
     private readonly ShapeDrawService _service;
-    private readonly string _shapeName;
+    private string _shapeName;
     public ICommand ResetCommand { get; }
     public event Action Reset;
     public ICommand CheckCommand { get; }
     public event Action Check;
 
-    public ShapeDrawViewModel(string shapeName)
+    public ShapeDrawViewModel(ShapeDrawService service)
     {
-        _shapeName = shapeName;
-        _service = new ShapeDrawService();
-        _service.InitializeSession(shapeName);
+        _service = service;
         ResetCommand = new ResetCommand(ResetGame);
         CheckCommand = new CheckCommand(() =>
             {
                 Check?.Invoke();
             });
-    }
-    
-    public string ResultMessage
-    {
-        get;
-        private set
-        {
-            field = value;
-            OnPropertyChanged();
-        }
     }
     
     public void ResetGame()
@@ -42,9 +31,20 @@ public class ShapeDrawViewModel : ViewModelBase
         Reset?.Invoke();
     }
 
-    public void AddStroke(List<StrokePoint> points)
+    public void AddStrokes(List<List<StrokePointDto>> points)
     {
-        _service.AddStroke(points);
+        List<List<StrokePoint>> strokepoints = new List<List<StrokePoint>>();
+        foreach (var point in points)
+        {
+            List<StrokePoint> strokepoint = new List<StrokePoint>();
+            foreach (var strokePointDto in point)
+            {
+                strokepoint.Add(new StrokePoint(strokePointDto.X, strokePointDto.Y, strokePointDto.Pressure, strokePointDto.Timestamp));
+            }
+            strokepoints.Add(strokepoint);
+        }
+        
+        _service.AddStrokes(strokepoints);
     }
     
     public (bool Success, string Message) CheckGame()
@@ -63,5 +63,11 @@ public class ShapeDrawViewModel : ViewModelBase
             _shapeName,
             w,
             h);
+    }
+
+    public void Initialize(string shape)
+    {
+        _shapeName = shape;
+        _service.InitializeSession(shape);
     }
 }

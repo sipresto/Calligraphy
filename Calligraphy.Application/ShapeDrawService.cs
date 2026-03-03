@@ -22,9 +22,9 @@ public class ShapeDrawService
         _session.Reset();
     }
 
-    public void AddStroke(List<StrokePoint> points)
+    public void AddStrokes(List<List<StrokePoint>> points)
     {
-        _session.AddStroke(points);
+        _session.AddStrokes(points);
     }
     
     public (bool success, double score) CheckShape(string shapeName)

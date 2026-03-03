@@ -57,6 +57,7 @@ public class TutorialViewModel : ViewModelBase
             {
                 nameof(InfinityRaceViewModel) => _services.GetRequiredService<InfinityRaceViewModel>(),
                 nameof(TraceGameViewModel) => _services.GetRequiredService<TraceGameViewModel>(),
+                nameof(ShapeDrawViewModel) => _services.GetRequiredService<ShapeDrawViewModel>(),
                 _ => null
             };
 

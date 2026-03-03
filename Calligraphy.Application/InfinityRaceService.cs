@@ -77,7 +77,7 @@ public class InfinityRaceService
 
     public void AddStroke(List<StrokePoint> stroke)
     {
-        _session.AddStroke(stroke);
+        _session.AddStrokes(stroke);
     }
 
     // TODO: To be moved to generic game service probably

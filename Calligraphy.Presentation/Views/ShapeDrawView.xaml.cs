@@ -25,13 +25,12 @@ public partial class ShapeDrawView : UserControl
     {
         if (ViewModel == null)
             return;
-        
+
+        ViewModel?.Initialize("Star");
         ViewModel?.Reset += OnReset;
         ViewModel?.Check += OnCheck;
 
         DrawTemplate();
-
-        InkCanvas.StrokeCompleted += InkCanvas_StrokeCompleted;
     }
 
     private void OnReset()
@@ -42,24 +41,12 @@ public partial class ShapeDrawView : UserControl
 
     private void OnCheck()
     {
-        InkCanvas.SetDrawingEnabled(false);
+        var points = InkCanvas.EndDrawing();
+        ViewModel.AddStrokes(points);
 
         var result = ViewModel.CheckGame();
         MessageBox.Show(result.Message);
     }
-
-    private void InkCanvas_StrokeCompleted(List<StrokePointDto> dtoStroke)
-    {
-        if (dtoStroke == null || dtoStroke.Count == 0)
-            return;
-
-        var domainStroke = dtoStroke
-            .Select(p => new StrokePoint(p.X, p.Y))
-            .ToList();
-
-        ViewModel.AddStroke(domainStroke);
-    }
-
     
     private void DrawTemplate()
     {

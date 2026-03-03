@@ -1,6 +1,6 @@
 namespace Calligraphy.Domain;
 
-public class InfinityRaceSession : ISession
+public class InfinityRaceSession
 {
     private readonly List<Circle> _circles;
     private readonly List<List<StrokePoint>> _strokes = [];
@@ -19,7 +19,7 @@ public class InfinityRaceSession : ISession
             .ToList();
     }
 
-    public void AddStroke(List<StrokePoint> stroke) => _strokes.Add(stroke);
+    public void AddStrokes(List<StrokePoint> stroke) => _strokes.Add(stroke);
 
     public int CalculateScore()
     {

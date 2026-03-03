@@ -4,7 +4,7 @@ public class ShapeDrawSession: ISession
 {
     private readonly string _shapeName;
 
-    private readonly List<List<StrokePoint>> _strokes = [];
+    private List<List<StrokePoint>> _strokes = [];
 
     public ShapeDrawSession(string shapeName)
     {
@@ -18,7 +18,7 @@ public class ShapeDrawSession: ISession
         _strokes.Clear();
     }
     
-    public void AddStroke(List<StrokePoint> stroke) => _strokes.Add(stroke);
+    public void AddStrokes(List<List<StrokePoint>> strokes) => _strokes = strokes;
 
     public int CalculateScore()
     {

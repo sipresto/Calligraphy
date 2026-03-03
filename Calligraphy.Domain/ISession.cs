@@ -4,7 +4,7 @@ public interface ISession
 {
     //public IReadOnlyList<IReadOnlyList<StrokePoint>> GetStrokes();
 
-    public void AddStroke(List<StrokePoint> stroke);
+    public void AddStrokes(List<List<StrokePoint>> strokes);
 
     public int CalculateScore();
 }
