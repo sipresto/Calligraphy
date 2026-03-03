@@ -6,7 +6,7 @@ namespace Calligraphy.Application;
 public class InfinityRaceService(FeedbackMessageProvider feedbackMessageProvider)
     : GenericGameService<InfinityRaceSession>(feedbackMessageProvider)
 {
-    public void InitializeSession(List<Circle> circles, double dpi)
+    public void InitializeSession(List<RaceCircle> circles, double dpi)
     {
         var session = new InfinityRaceSession(circles);
         InitializeSession(session, dpi);

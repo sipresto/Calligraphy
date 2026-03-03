@@ -4,14 +4,11 @@ namespace Calligraphy.Application;
 
 public static class ShapeFactory
 {
-    public static Shape GetShape(string name) => name switch
+    public static Shape GetShape(string name)
     {
-        "Triangle" => new Triangle(),
-        "Circle"   => new CircleShape(),
-        "Star"     => new Star(),
-        "Pentagon" => new Pentagon(),
-        "Hexagon"  => new Hexagon(),
-        "Diamond"  => new Diamond(),
-        _          => new Square()
-    };
+        var type = typeof(Shape).Assembly.GetTypes()
+            .FirstOrDefault(t => t.Name == name && typeof(Shape).IsAssignableFrom(t));
+    
+        return type != null ? (Shape)Activator.CreateInstance(type) : new Square();
+    }
 }

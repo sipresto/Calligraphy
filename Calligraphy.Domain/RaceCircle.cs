@@ -1,12 +1,12 @@
 namespace Calligraphy.Domain;
 
-public class Circle
+public class RaceCircle
 {
     private readonly double _x;
     private readonly double _y;
     private readonly double _radius;
 
-    public Circle(double x, double y, double radius)
+    public RaceCircle(double x, double y, double radius)
     {
         _x = x;
         _y = y;

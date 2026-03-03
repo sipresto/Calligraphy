@@ -2,9 +2,9 @@ namespace Calligraphy.Domain.Sessions;
 
 public class InfinityRaceSession : GameSession
 {
-    private readonly List<Circle> _circles;
+    private readonly List<RaceCircle> _circles;
 
-    public InfinityRaceSession(IEnumerable<Circle> circles)
+    public InfinityRaceSession(IEnumerable<RaceCircle> circles)
     {
         _circles = circles.ToList();
     }

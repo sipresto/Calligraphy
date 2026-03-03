@@ -8,6 +8,6 @@ public class TraceGameService(FeedbackMessageProvider feedbackMessageProvider)
 {
     public TraceEvaluationResult GetTraceEvaluation()
     {
-        return Session?.GetLastEvaluation();
+        return Session?.GetEvaluation();
     }
 }

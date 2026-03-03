@@ -66,7 +66,7 @@ public class InfinityRaceViewModel : GameViewModelBase
         RestartCommand = new RelayCommand(RestartGame);
     }
     
-    public void Initialize(List<Circle> circles, double dpi)
+    public void Initialize(List<RaceCircle> circles, double dpi)
     {
         _service.InitializeSession(circles, dpi);
 

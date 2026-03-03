@@ -3,17 +3,16 @@
 public class TraceGameSession(List<StrokePoint> templatePoints, double toleranceDistance = 30.0)
     : GameSession
 {
-    private readonly TraceEvaluator _evaluator = new(templatePoints, toleranceDistance);
-    private TraceEvaluationResult _lastEvaluation;
+    private TraceEvaluationResult _evaluation;
 
     public override int CalculateScore()
     {
-        _lastEvaluation = _evaluator.Evaluate(_strokes);
-        return _lastEvaluation.GetQualityScore(); 
+        _evaluation = TraceEvaluator.Evaluate(TotalStroke(), templatePoints, toleranceDistance);
+        return _evaluation.GetQualityScore(); 
     }
 
-    public TraceEvaluationResult GetLastEvaluation()
+    public TraceEvaluationResult GetEvaluation()
     {
-        return _lastEvaluation;
+        return _evaluation;
     }
 }

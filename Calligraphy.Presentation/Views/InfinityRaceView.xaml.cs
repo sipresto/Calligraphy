@@ -22,7 +22,7 @@ public partial class InfinityRaceView : UserControl
         InkCanvas.SetDrawingEnabled(false);
         ResultPopup.DataContext = DataContext;
         
-        List<Circle> circles = GetCircleData();
+        List<RaceCircle> circles = GetCircleData();
         var dpi = VisualTreeHelper.GetDpi(InkCanvas);
         double dpiX = dpi.PixelsPerInchX;
         
@@ -60,24 +60,24 @@ public partial class InfinityRaceView : UserControl
         ResultPopup.ResetStars();
         MascotFeedback.Hide();
         
-        List<Circle> circles = GetCircleData();
+        List<RaceCircle> circles = GetCircleData();
         var dpi = VisualTreeHelper.GetDpi(InkCanvas);
         double dpiX = dpi.PixelsPerInchX;
         
         ViewModel?.Initialize(circles, dpiX);
     }
     
-    private List<Circle> GetCircleData()
+    private List<RaceCircle> GetCircleData()
     {
         return [GetCircleInfo(LeftCircle), GetCircleInfo(RightCircle)];
     }
 
-    private Circle GetCircleInfo(Ellipse ellipse)
+    private RaceCircle GetCircleInfo(Ellipse ellipse)
     {
         Point localCenter = new Point(ellipse.Width / 2, ellipse.Height / 2);
         Point canvasCenter = ellipse.TranslatePoint(localCenter, InkCanvas);
         double radius = ellipse.Width / 2;
 
-        return new Circle(canvasCenter.X, canvasCenter.Y, radius);
+        return new RaceCircle(canvasCenter.X, canvasCenter.Y, radius);
     }
 }
