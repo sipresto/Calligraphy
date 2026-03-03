@@ -2,7 +2,7 @@
 
 namespace Calligraphy.Application;
 
-public class FeedbackMessageProvider
+public static class FeedbackMessageProvider
 {
     private static readonly Dictionary<FeedbackType, string[]> Messages = new()
     {
@@ -64,21 +64,14 @@ public class FeedbackMessageProvider
         }
     };
 
-    private readonly Random _random = new();
+    private static readonly Random Random = new();
 
-    public string GetRandomMessage(FeedbackType type)
+    public static string GetRandomMessage(FeedbackType type)
     {
         if (!Messages.TryGetValue(type, out var options))
             return string.Empty;
 
-        int index = _random.Next(options.Length);
+        int index = Random.Next(options.Length);
         return options[index];
-    }
-
-    public IReadOnlyList<string> GetAllMessages(FeedbackType type)
-    {
-        return Messages.TryGetValue(type, out var options) 
-            ? options 
-            : Array.Empty<string>();
     }
 }

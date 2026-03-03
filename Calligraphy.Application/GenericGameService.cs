@@ -3,13 +3,13 @@ using Calligraphy.Domain.Sessions;
 
 namespace Calligraphy.Application;
 
-public class GenericGameService<TSession>(FeedbackMessageProvider feedbackMessageProvider)
+public class GenericGameService<TSession>
     where TSession : GameSession
 {
     protected TSession Session { get; private set; }
-    private double Dpi { get; set; }
+    private double? Dpi { get; set; }
 
-    public void InitializeSession(TSession session, double dpi)
+    protected void InitializeSession(TSession session, double? dpi = null)
     {
         Session = session;
         Dpi = dpi;
@@ -20,20 +20,23 @@ public class GenericGameService<TSession>(FeedbackMessageProvider feedbackMessag
         Session.AddStroke(stroke);
     }
 
-    public int GetScore()
+    // TODO: retrieve starthresholds from db instead of parameter
+    public (int, int) GetScoreAndStars(StarThresholds starThresholds)
     {
-        return Session.CalculateScore();
+        var score = Session.CalculateScore();
+        return (score, Session.CalculateStars(score, starThresholds));
     }
 
-    public StrokeFeedback AnalyzeStrokes()
+    public StrokeFeedback AnalyzeStrokes(bool checkPressure = true, bool checkSpeed = true)
     {
         var stroke = Session.TotalStroke();
 
-        bool pressureHigh = StrokeAnalysis.IsPressureTooHigh(stroke);
-        bool pressureLow = StrokeAnalysis.IsPressureTooLow(stroke);
-        bool pressureInconsistent = StrokeAnalysis.IsStandardDeviationOff(stroke);
-        bool speedHigh = StrokeAnalysis.IsSpeedTooHigh(stroke, Dpi);
-        bool speedLow = StrokeAnalysis.IsSpeedTooLow(stroke, Dpi);
+        bool pressureHigh = checkPressure && StrokeAnalysis.IsPressureTooHigh(stroke);
+        bool pressureLow = checkPressure && StrokeAnalysis.IsPressureTooLow(stroke);
+        bool pressureInconsistent = checkPressure && StrokeAnalysis.IsStandardDeviationOff(stroke);
+
+        bool speedHigh = checkSpeed && Dpi.HasValue && StrokeAnalysis.IsSpeedTooHigh(stroke, Dpi.Value);
+        bool speedLow = checkSpeed && Dpi.HasValue && StrokeAnalysis.IsSpeedTooLow(stroke, Dpi.Value);
 
         FeedbackType type;
 
@@ -52,6 +55,6 @@ public class GenericGameService<TSession>(FeedbackMessageProvider feedbackMessag
         else
             type = FeedbackType.Perfect;
 
-        return new StrokeFeedback(feedbackMessageProvider.GetRandomMessage(type), type);
+        return new StrokeFeedback(FeedbackMessageProvider.GetRandomMessage(type), type);
     }
 }

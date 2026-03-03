@@ -68,7 +68,7 @@ public class InfinityRaceViewModel : GameViewModelBase
     
     public void Initialize(List<RaceCircle> circles, double dpi)
     {
-        _service.InitializeSession(circles, dpi);
+        _service.InitializeSession(circles);
 
         _startTime = DateTime.Now;
         _waitTimer = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 100),

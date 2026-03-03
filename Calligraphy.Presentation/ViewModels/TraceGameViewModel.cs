@@ -85,9 +85,7 @@ public class TraceGameViewModel : GameViewModelBase
 
     public void Initialize(double dpi)
     {
-        var session = new TraceGameSession(_templatePoints, 30.0);
-        
-        _service.InitializeSession(session, dpi);
+        _service.InitializeSession(dpi, _templatePoints, 30.0);
 
         _startTime = DateTime.Now;
         _waitTimer = new DispatcherTimer(

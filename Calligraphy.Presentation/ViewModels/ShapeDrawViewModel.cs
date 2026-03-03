@@ -44,7 +44,7 @@ public class ShapeDrawViewModel : GameViewModelBase
     
     protected override void OnGameFinished()
     {
-        var (score, stars) = _service.CheckShape();
+        var (score, stars) = _service.GetScoreAndStars(new StarThresholds(30, 60, 90));
 
         MascotMessage = GetStarMessage(stars);
         
