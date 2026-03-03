@@ -6,11 +6,15 @@
              xmlns:controls="clr-namespace:Calligraphy.Presentation.Views.Controls"
              xmlns:viewModels="clr-namespace:Calligraphy.Presentation.ViewModels"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300"
+             d:DesignHeight="800" d:DesignWidth="1200"
              d:DataContext="{d:DesignInstance viewModels:ShapeDrawViewModel}">
-    
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+    </UserControl.Resources>
+
     <Viewbox Stretch="Uniform">
-        <Grid Height="600" Width="600">
+        <Grid Height="800" Width="1200">
             
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -22,8 +26,8 @@
                 BorderBrush="Black"
                 BorderThickness="2"
                 Margin="10"
-                Width="250"
-                Height="250">
+                Width="500"
+                Height="500">
             <Canvas x:Name="TemplateCanvas"
                     Background="White"/>
         </Border>
@@ -34,8 +38,8 @@
             <Border BorderBrush="Black"
                     BorderThickness="2"
                     Margin="10"
-                    Width="250"
-                    Height="250">
+                    Width="500"
+                    Height="500">
                 <controls:InkCanvasControl
                     x:Name="InkCanvas" />
             </Border>
@@ -45,12 +49,12 @@
                         Orientation="Vertical"
                         VerticalAlignment="Center">
                 <Button Content="Reset"
-                        Width="50"
+                        Width="100"
                         Margin="10"
                         Command="{Binding ResetCommand}"/>
 
                 <Button Content="Check"
-                        Width="50"
+                        Width="100"
                         Margin="10"
                         Command="{Binding CheckCommand}"/>
             </StackPanel>

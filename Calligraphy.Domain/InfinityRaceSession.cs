@@ -19,7 +19,7 @@ public class InfinityRaceSession
             .ToList();
     }
 
-    public void AddStrokes(List<StrokePoint> stroke) => _strokes.Add(stroke);
+    public void AddStroke(List<StrokePoint> stroke) => _strokes.Add(stroke);
 
     public int CalculateScore()
     {
