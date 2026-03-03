@@ -1,5 +1,4 @@
-﻿using Calligraphy.Application;
-using Calligraphy.Domain;
+﻿using Calligraphy.Domain;
 namespace Calligraphy.Application;
 
 public static class ShapeFactory

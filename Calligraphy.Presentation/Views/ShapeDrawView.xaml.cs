@@ -14,8 +14,6 @@ namespace Calligraphy.Presentation.Views;
         private ShapeDrawViewModel ViewModel => 
             DataContext as ShapeDrawViewModel;
         
-        private List<StrokePointDto> _points = new();
-
         public ShapeDrawView()
         {
             InitializeComponent();
@@ -27,11 +25,7 @@ namespace Calligraphy.Presentation.Views;
         {
             if (ViewModel == null)
                 return;
-
-            ViewModel.InitializeTemplates(
-                TemplateCanvas.ActualWidth,
-                TemplateCanvas.ActualHeight);
-
+            
             DrawTemplate();
 
             InkCanvas.StrokeCompleted += InkCanvas_StrokeCompleted;

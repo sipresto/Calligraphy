@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using Calligraphy.Application;
+﻿using Calligraphy.Application;
 using Calligraphy.Domain;
 
 namespace Calligraphy.Presentation.ViewModels;
@@ -8,34 +7,24 @@ public class ShapeDrawViewModel : ViewModelBase
 {
     private readonly ShapeDrawService _service;
     private readonly string _shapeName;
-    public ShapeDrawSession Session { get; }
     
 
     public ShapeDrawViewModel(string shapeName)
     {
-        Session = new ShapeDrawSession(shapeName);
         _shapeName = shapeName;
         _service = new ShapeDrawService();
-    }
-
-    public void InitializeTemplates(double w, double h)
-    {
-        _service.LoadTemplateForShape(Session.ShapeName, w, h);
+        _service.InitializeSession(shapeName);
     }
     
     public void Reset()
     {
-        Session.Reset();
+        _service.Reset();
     }
 
-    public void StartStroke()
-    {
-        Session.AddStroke(new List<StrokePoint>());
-    }
     
     public (bool Success, string Message) Check(double w, double h)
     {
-        var (success, score) = _service.CheckShape(Session, w, h);
+        var (success, score) = _service.CheckShape(_shapeName);
 
         if (success)
             return (true, $"Correct! Score: {score:P0}");

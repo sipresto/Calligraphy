@@ -10,7 +10,6 @@
 
     <ItemGroup>
       <PackageReference Include="InkCanvas.PluginSdk" Version="1.0.0" />
-      <PackageReference Include="UnistrokeRecognizer.UWP" Version="1.0.2" />
     </ItemGroup>
 
     <ItemGroup>
