@@ -9,18 +9,26 @@ namespace Calligraphy.Presentation.ViewModels;
 
 public class TraceGameViewModel : GameViewModelBase
 {
-    private const int DrawDuration = 20;
+    private const int DrawDuration = 30;
     private const int WaitDuration = 3;
-    private const int OneStarScore = 1;
-    private const int TwoStarScore = 5;
-    private const int ThreeStarScore = 10;
+    private const int OneStarScore = 30;
+    private const int TwoStarScore = 60;
+    private const int ThreeStarScore = 85;
+
+    public const double StartX = 80;
+    public const double BaselineY = 450;
+    public const double TopY = 290;
+    public const double LoopWidth = 110;
+    public const int LoopCount = 9;
+    private const int PointsPerLoop = 5;
 
     private readonly GameService _service;
     private DispatcherTimer _drawTimer;
     private DispatcherTimer _waitTimer;
     private DateTime _startTime;
-    private bool _started = false;
-    private int _score = 0;
+    private bool _started;
+    private int _score;
+    private List<StrokePoint> _templatePoints;
 
     public bool IsPreviewVisible
     {
@@ -84,11 +92,21 @@ public class TraceGameViewModel : GameViewModelBase
     {
         _service = service;
         RestartCommand = new RelayCommand(RestartGame);
+        
+        _templatePoints = TraceTemplateGenerator.GenerateHopPattern(
+            StartX,
+            BaselineY,
+            TopY,
+            LoopWidth,
+            LoopCount,
+            PointsPerLoop);
     }
 
     public void Initialize(double dpi)
     {
         var session = new TraceGameSession();
+        session.SetTemplate(_templatePoints, toleranceDistance: 30.0);
+        
         _service.InitializeSession(session, dpi);
 
         _startTime = DateTime.Now;
@@ -122,7 +140,24 @@ public class TraceGameViewModel : GameViewModelBase
     public string AnalyzeStrokes()
     {
         var feedback = _service.AnalyzeStrokes();
-        return feedback.Type == FeedbackType.Perfect ? null : feedback.Message;
+        
+        if (feedback.Type != FeedbackType.Perfect)
+        {
+            return feedback.Message;
+        }
+        
+        var traceResult = _service.GetTraceEvaluation();
+        if (traceResult != null && !traceResult.IsSuccessful)
+        {
+            if (traceResult.CoveragePercentage < 0.5)
+                return "Probeer de hele lijn te volgen";
+            else if (traceResult.AverageDeviation > 40)
+                return "Blijf dichter bij de lijn";
+            else if (!traceResult.DirectionCorrect)
+                return "Volg de lijn van links naar rechts";
+        }
+        
+        return null;
     }
 
     private void StartDrawPhase()
@@ -169,9 +204,25 @@ public class TraceGameViewModel : GameViewModelBase
         int stars = CalculateStars(_score, OneStarScore, TwoStarScore, ThreeStarScore);
 
         var feedback = _service.AnalyzeStrokes();
+        var traceResult = _service.GetTraceEvaluation();
+        
         string message;
 
-        if (feedback.Type == FeedbackType.Perfect)
+        // Check trace success first
+        if (traceResult != null && !traceResult.IsSuccessful)
+        {
+            stars = Math.Min(stars, 1); 
+            
+            if (traceResult.CoveragePercentage < 0.5)
+                message = "Probeer de hele lijn te volgen";
+            else if (traceResult.AverageDeviation > 40)
+                message = "Blijf dichter bij de lijn";
+            else if (!traceResult.DirectionCorrect)
+                message = "Volg de lijn van links naar rechts";
+            else
+                message = "Bijna goed! Probeer het nog eens";
+        }
+        else if (feedback.Type == FeedbackType.Perfect)
         {
             message = stars switch
             {

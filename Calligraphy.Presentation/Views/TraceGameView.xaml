@@ -34,7 +34,6 @@
                 Foreground="Red"
                 Text="{Binding TimerText}" />
 
-            <!-- Big waiting countdown overlay -->
             <TextBlock
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"

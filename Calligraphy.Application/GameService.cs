@@ -85,6 +85,15 @@ public class GameService
         return _session.CalculateScore();
     }
 
+    public TraceEvaluationResult GetTraceEvaluation()
+    {
+        if (_session is TraceGameSession traceSession)
+        {
+            return traceSession.GetLastEvaluation();
+        }
+        return null;
+    }
+
     public StrokeFeedback AnalyzeStrokes()
     {
         var stroke = _session.GetTotalStroke();

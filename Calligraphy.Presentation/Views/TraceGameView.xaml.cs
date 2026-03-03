@@ -58,26 +58,29 @@ public partial class TraceGameView : UserControl
         ViewModel?.Initialize(dpi.PixelsPerInchX);
     }
 
-
     private void DrawHopTemplate()
     {
         TemplateCanvas.Children.Clear();
 
-        var figure = BuildHopFigure(startX: 80, baselineY: 450, topY: 290, loopWidth: 110, loopCount: 9);
+        var figure = BuildHopFigure(
+            TraceGameViewModel.StartX,
+            TraceGameViewModel.BaselineY,
+            TraceGameViewModel.TopY,
+            TraceGameViewModel.LoopWidth,
+            TraceGameViewModel.LoopCount);
+        
         var geometry = new PathGeometry(new[] { figure });
 
         TemplateCanvas.Children.Add(new Path
         {
             Data = geometry,
             Stroke = new SolidColorBrush(Color.FromArgb(60, 0, 0, 0)),
-            StrokeThickness = 14,
+            StrokeThickness = 10,
             StrokeLineJoin = PenLineJoin.Round,
             StrokeStartLineCap = PenLineCap.Round,
             StrokeEndLineCap = PenLineCap.Round,
-            IsHitTestVisible = false
         });
     }
-
 
     private static PathFigure BuildHopFigure(double startX, double baselineY, double topY,
         double loopWidth, int loopCount)

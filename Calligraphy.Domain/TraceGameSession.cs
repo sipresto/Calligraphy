@@ -3,6 +3,13 @@
 public class TraceGameSession : IGameSession
 {
     private readonly List<List<StrokePoint>> _strokes = [];
+    private TraceEvaluator _evaluator;
+    private TraceEvaluationResult _lastEvaluation;
+
+    public void SetTemplate(List<StrokePoint> templatePoints, double toleranceDistance = 30.0)
+    {
+        _evaluator = new TraceEvaluator(templatePoints, toleranceDistance);
+    }
 
     public void AddStroke(List<StrokePoint> stroke)
     {
@@ -17,18 +24,12 @@ public class TraceGameSession : IGameSession
 
     public int CalculateScore()
     {
-        double totalLength = 0;
+        _lastEvaluation = _evaluator.Evaluate(_strokes);
+        return _lastEvaluation.GetQualityScore(); 
+    }
 
-        foreach (var stroke in _strokes)
-        {
-            for (int i = 1; i < stroke.Count; i++)
-            {
-                double dx = stroke[i].X - stroke[i - 1].X;
-                double dy = stroke[i].Y - stroke[i - 1].Y;
-                totalLength += Math.Sqrt(dx * dx + dy * dy);
-            }
-        }
-
-        return Math.Min((int)(totalLength / 1000), 15);
+    public TraceEvaluationResult GetLastEvaluation()
+    {
+        return _lastEvaluation;
     }
 }
