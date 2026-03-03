@@ -46,6 +46,16 @@ public class MainViewModel : ObservableObject
                 ShowSpeedInfo = true,
                 TargetGameViewModelName = nameof(InfinityRaceViewModel)
             },
+            "TraceGame" => new TutorialInfo
+            {
+                PointsExplanation = "Verdien punten door zo naukeurig mogelijk de lijn te tekenen.",
+                OneStar = "30 punten",
+                TwoStars = "60 punten",
+                ThreeStars = "100 punten",
+                ShowPressureInfo = true,
+                ShowSpeedInfo = true,
+                TargetGameViewModelName = nameof(TraceGameViewModel)
+            },
             _ => null
         };
 
