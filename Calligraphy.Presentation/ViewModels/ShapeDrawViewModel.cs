@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using Calligraphy.Application;
 using Calligraphy.Domain;
-using Calligraphy.Domain.Recognition;
 
 namespace Calligraphy.Presentation.ViewModels;
 

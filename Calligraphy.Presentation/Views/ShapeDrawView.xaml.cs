@@ -3,7 +3,6 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Calligraphy.Domain;
-using Calligraphy.Domain.Recognition;
 using Calligraphy.Presentation.Models;
 using Calligraphy.Presentation.ViewModels;
 
@@ -15,7 +14,7 @@ namespace Calligraphy.Presentation.Views;
         private ShapeDrawViewModel ViewModel => 
             DataContext as ShapeDrawViewModel;
         
-        private List<PointR> _points = new();
+        private List<StrokePointDto> _points = new();
 
         public ShapeDrawView()
         {
