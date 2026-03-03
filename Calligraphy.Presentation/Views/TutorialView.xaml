@@ -1,0 +1,112 @@
+<UserControl x:Class="Calligraphy.Presentation.Views.TutorialView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Calligraphy.Presentation.Views"
+             xmlns:controls="clr-namespace:Calligraphy.Presentation.Views.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="800" d:DesignWidth="1200">
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+    </UserControl.Resources>
+
+    <Viewbox Stretch="Uniform">
+        <Grid Width="1200" Height="800">
+            <StackPanel Orientation="Vertical">
+
+                <TextBlock Text="Tips" FontSize="36" FontWeight="Bold" TextAlignment="Center" />
+
+                <StackPanel Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Left"
+                            VerticalAlignment="Top">
+                    <Image Source="/Resources/Assets/Images/draw-example.png"
+                           MaxWidth="300"
+                           MaxHeight="300"
+                           Stretch="Uniform" />
+
+                    <TextBlock
+                        Text="Houd je arm ontspannen terwijl je schrijft en probeer je hand losjes te bewegen over de tablet."
+                        FontSize="24"
+                        TextWrapping="Wrap"
+                        MaxWidth="800" />
+                </StackPanel>
+
+                <TextBlock
+                    Text="{Binding PointsExplanation}"
+                    Margin="0,20,0,0"
+                    FontSize="24"
+                    TextWrapping="Wrap" />
+
+                <StackPanel Orientation="Vertical" Margin="0,20,0,0">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <controls:GoldStar Margin="0,0,5,0" StarWidth="40" StarHeight="40" />
+                        <TextBlock
+                            Text="{Binding OneStar}"
+                            Margin="95,0,0,0"
+                            FontSize="24"
+                            VerticalAlignment="Center" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <controls:GoldStar Margin="0,0,5,0" StarWidth="40" StarHeight="40" />
+                        <controls:GoldStar Margin="0,0,5,0" StarWidth="40" StarHeight="40" />
+                        <TextBlock
+                            Text="{Binding TwoStars}"
+                            Margin="50,0,0,0"
+                            FontSize="24"
+                            VerticalAlignment="Center" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <controls:GoldStar Margin="0,0,5,0" StarWidth="40" StarHeight="40" />
+                        <controls:GoldStar Margin="0,0,5,0" StarWidth="40" StarHeight="40" />
+                        <controls:GoldStar Margin="0,0,5,0" StarWidth="40" StarHeight="40" />
+                        <TextBlock
+                            Text="{Binding ThreeStars}"
+                            Margin="5,0,0,0"
+                            FontSize="24"
+                            VerticalAlignment="Center" />
+                    </StackPanel>
+                </StackPanel>
+
+                <TextBlock
+                    Text="Let op dat je niet te hard en niet te zacht drukt"
+                    Margin="0,20,0,0"
+                    FontSize="24"
+                    Visibility="{Binding ShowPressureInfo, Converter={StaticResource BoolToVisibility}}" />
+
+                <TextBlock
+                    Text="Let op hoe snel je schrijft"
+                    Margin="0,20,0,0"
+                    FontSize="24"
+                    Visibility="{Binding ShowSpeedInfo, Converter={StaticResource BoolToVisibility}}" />
+            </StackPanel>
+
+            <Button
+                Command="{Binding CloseTutorialCommand}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Margin="0,0,0,80"
+                Cursor="Pen">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Image x:Name="ButtonImage"
+                                   Source="/Resources/Assets/Images/Buttons/Grass-Buttons-arrow.png"
+                                   Width="100"
+                                   Stretch="Uniform" />
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonImage" Property="Source"
+                                        Value="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed-arrow.png" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+    </Viewbox>
+</UserControl>

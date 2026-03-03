@@ -17,6 +17,10 @@
         <DataTemplate DataType="{x:Type local:InfinityRaceViewModel}">
             <views:InfinityRaceView />
         </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type local:TutorialViewModel}">
+            <views:TutorialView />
+        </DataTemplate>
     </Window.Resources>
 
     <Grid>

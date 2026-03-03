@@ -29,9 +29,11 @@ public partial class App : System.Windows.Application
     {
         services.AddTransient<InfinityRaceService>();
 
+        services.AddTransient<TutorialViewModel>();
         services.AddSingleton<MainViewModel>();
         services.AddTransient<InfinityRaceViewModel>();
 
         services.AddSingleton<MainWindow>();
+        services.AddTransient<TutorialView>();
     }
 }
