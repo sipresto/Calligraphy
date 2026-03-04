@@ -8,7 +8,7 @@ namespace Calligraphy.Presentation.Views;
 
 public partial class TraceGameView : UserControl
 {
-    private TraceGameViewModel ViewModel => DataContext as TraceGameViewModel;
+    private TimedTraceGameViewModel ViewModel => DataContext as TimedTraceGameViewModel;
 
     public TraceGameView()
     {
@@ -28,7 +28,7 @@ public partial class TraceGameView : UserControl
 
         ViewModel!.DrawingStarted += OnDrawingStarted;
         ViewModel!.DrawingEnded += OnDrawingEnded;
-        ViewModel!.Restart += OnRestart;
+        ViewModel!.Restarted += OnRestart;
     }
 
     private void OnDrawingStarted() => InkCanvas.SetDrawingEnabled(true);
@@ -63,11 +63,11 @@ public partial class TraceGameView : UserControl
         TemplateCanvas.Children.Clear();
 
         var figure = BuildHopFigure(
-            TraceGameViewModel.StartX,
-            TraceGameViewModel.BaselineY,
-            TraceGameViewModel.TopY,
-            TraceGameViewModel.LoopWidth,
-            TraceGameViewModel.LoopCount);
+            TimedTraceGameViewModel.StartX,
+            TimedTraceGameViewModel.BaselineY,
+            TimedTraceGameViewModel.TopY,
+            TimedTraceGameViewModel.LoopWidth,
+            TimedTraceGameViewModel.LoopCount);
         
         var geometry = new PathGeometry(new[] { figure });
 

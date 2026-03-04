@@ -7,28 +7,22 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace Calligraphy.Presentation.ViewModels;
 
-public class ShapeDrawViewModel : GameViewModelBase
+public abstract class ShapeDrawViewModel : GameViewModelBase<ShapeDrawService>
 {
-    private readonly ShapeDrawService _service;
-    public ICommand RestartCommand { get; }
-    public event Action Reset;
     public ICommand CheckCommand { get; }
     public event Action Check;
     
-    
-
-    public ShapeDrawViewModel(ShapeDrawService service)
+    protected ShapeDrawViewModel(ShapeDrawService service)
+        : base(service)
     {
-        _service = service;
-        RestartCommand = new RelayCommand(RestartGame);
         CheckCommand = new RelayCommand(() => Check?.Invoke());
     }
     
     protected override void RestartGame()
     {
-        Initialize(_service.GetShape().Name);
+        Initialize(Service.GetShape().Name);
         GameResult = null;
-        Reset?.Invoke();
+        RaiseRestarted();
         IsMascotVisible = false;
     }
 
@@ -40,14 +34,14 @@ public class ShapeDrawViewModel : GameViewModelBase
                 .Select(p => new StrokePoint(p.X, p.Y))
                 .ToList();
 
-            _service.AddStroke(domainStroke);
+            Service.AddStroke(domainStroke);
         }
         OnGameFinished();
     }
     
     protected override void OnGameFinished()
     {
-        var (score, stars) = _service.GetScoreAndStars(new StarThresholds(30, 60, 90));
+        var (score, stars) = Service.GetScoreAndStars(new StarThresholds(30, 60, 90));
 
         MascotMessage = GetStarMessage(stars);
         
@@ -59,12 +53,12 @@ public class ShapeDrawViewModel : GameViewModelBase
 
     public List<List<StrokePoint>> GetCurrentTemplateShape(double w, double h)
     {
-        return _service.GetShape().GetStrokes(w, h);
+        return Service.GetShape().GetStrokes(w, h);
     }
 
     public void Initialize(string shapeName)
     {
         var shape = ShapeFactory.GetShape(shapeName);
-        _service.InitializeSession(shape);
+        Service.InitializeSession(shape);
     }
 }

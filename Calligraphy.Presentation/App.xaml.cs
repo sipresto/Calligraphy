@@ -34,7 +34,7 @@ public partial class App : System.Windows.Application
         // Register ViewModels
         services.AddTransient<TutorialViewModel>();
         services.AddSingleton<MainViewModel>();
-        services.AddTransient<TraceGameViewModel>();
+        services.AddTransient<TimedTraceGameViewModel>();
         services.AddTransient<InfinityRaceViewModel>();
         services.AddTransient<ShapeDrawViewModel>();
         

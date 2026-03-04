@@ -1,11 +1,18 @@
+using System.Windows.Input;
 using Calligraphy.Presentation.Models;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Calligraphy.Presentation.ViewModels;
 
-public abstract class GameViewModelBase : ViewModelBase
+public abstract class GameViewModelBase<TService> : ViewModelBase
 {
+    protected readonly TService Service;
+    protected int Score;
     public virtual bool HasNextLevel { get; init; } = true;
     public bool IsGameResultVisible => GameResult != null;
+    public event Action Restarted;
+    
+    public ICommand RestartCommand { get; }
 
     public GameResult GameResult
     {
@@ -17,7 +24,6 @@ public abstract class GameViewModelBase : ViewModelBase
             OnPropertyChanged(nameof(IsGameResultVisible));
         }
     }
-
     
     public string MascotMessage
     {
@@ -38,14 +44,11 @@ public abstract class GameViewModelBase : ViewModelBase
             OnPropertyChanged();
         }
     }
-
     
-    protected int CalculateStars(int score, int oneStar, int twoStars, int threeStars)
+    protected GameViewModelBase(TService service)
     {
-        if (score < oneStar) return 0;
-        if (score < twoStars) return 1;
-        if (score < threeStars) return 2;
-        return 3;
+        Service = service;
+        RestartCommand = new RelayCommand(RestartGame);
     }
 
     protected string GetStarMessage(int stars) 
@@ -66,4 +69,9 @@ public abstract class GameViewModelBase : ViewModelBase
     protected abstract void RestartGame();
 
     public abstract void ProcessFinishedDrawing(List<List<StrokePointDto>> strokes);
+    
+    protected void RaiseRestarted()
+    {
+        Restarted?.Invoke();
+    }
 }

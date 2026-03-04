@@ -1,171 +1,50 @@
-using System.Windows.Input;
-using System.Windows.Threading;
 using Calligraphy.Application;
 using Calligraphy.Domain;
 using Calligraphy.Presentation.Models;
-using CommunityToolkit.Mvvm.Input;
 
 namespace Calligraphy.Presentation.ViewModels;
 
-public class InfinityRaceViewModel : GameViewModelBase
+public class InfinityRaceViewModel : TimedGameViewModelBase<InfinityRaceService>
 {
-    private const int DrawDuration = 20;
-    private const int WaitDuration = 3;
-    private const int OneStarScore = 1;
-    private const int TwoStarScore = 5;
-    private const int ThreeStarScore = 10;
-    public override bool HasNextLevel { get; init; } = false;
-
-    private readonly InfinityRaceService _service;
-    private DispatcherTimer _drawTimer;
-    private DispatcherTimer _waitTimer;
-    private DateTime _startTime;
-    private bool _started = false;
-    private int _score = 0;
-    
-    public bool IsPreviewVisible
-    {
-        get;
-        private set
-        {
-            field = value;
-            OnPropertyChanged();
-        }
-    } = true;
-
-    public string WaitTimerText
-    {
-        get;
-        private set
-        {
-            field = value;
-            OnPropertyChanged();
-        }
-    } = $"{WaitDuration:F0}";
-
-    public string TimerText
-    {
-        get;
-        private set
-        {
-            field = value;
-            OnPropertyChanged();
-        }
-    } = $"{DrawDuration:F0}s";
-    
-
-    public ICommand RestartCommand { get; }
-    
-    public event Action DrawingStarted;
-    public event Action DrawingEnded;
-    public event Action Restart;
-
+    // TODO: Magic numbers
     public InfinityRaceViewModel(InfinityRaceService service)
+        : base(service, 20)
     {
-        _service = service;
-        RestartCommand = new RelayCommand(RestartGame);
     }
-    
-    public void Initialize(List<RaceCircle> circles, double dpi)
+
+    public void Initialize(List<RaceCircle> circles)
     {
-        _service.InitializeSession(circles);
-
-        _startTime = DateTime.Now;
-        _waitTimer = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 100),
-            DispatcherPriority.Background, TickWaitTimer, Dispatcher.CurrentDispatcher);
-
-        _drawTimer = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 100),
-            DispatcherPriority.Background, TickDrawTimer, Dispatcher.CurrentDispatcher);
+        Service.InitializeSession(circles);
+        StartWaitPhase();
     }
-    
+
     public override void ProcessFinishedDrawing(List<List<StrokePointDto>> strokes)
     {
         foreach (var stroke in strokes)
         {
-            var domainStroke = stroke
-                .Select(p => new StrokePoint(p.X, p.Y))
-                .ToList();
-
-            _service.AddStroke(domainStroke);
+            var domainStroke = stroke.Select(p => new StrokePoint(p.X, p.Y)).ToList();
+            Service.AddStroke(domainStroke);
         }
-        
         OnGameFinished();
-    }
-        
-    private void StartDrawPhase()
-    {
-        _startTime = DateTime.Now;
-        _drawTimer.Start();
-        _started = true;
-        IsPreviewVisible = false;
-        DrawingStarted?.Invoke();
-    }
-
-    private void TickDrawTimer(object sender, EventArgs e)
-    {
-        if (!_started) return;
-        var timeLeft = DrawDuration - (DateTime.Now - _startTime).TotalSeconds;
-        TimerText = $"{timeLeft:F0}s";
-
-        if (timeLeft <= 0)
-        {
-            _drawTimer.Stop();
-            TimerText = "0s";
-            DrawingEnded?.Invoke();
-        }
-    }
-
-    private void TickWaitTimer(object sender, EventArgs e)
-    {
-        var timeLeft = WaitDuration - (DateTime.Now - _startTime).TotalSeconds;
-        WaitTimerText = $"{timeLeft:F0}";
-
-        if (timeLeft < 1)
-        {
-            WaitTimerText = "START";
-        }
-
-        if (timeLeft <= 0)
-        {
-            _waitTimer.Stop();
-            StartDrawPhase();
-        }
     }
 
     protected override void OnGameFinished()
     {
-        _score = _service.GetScore();
-        int stars = CalculateStars(_score, OneStarScore, TwoStarScore, ThreeStarScore);
-        
-        var feedback = _service.AnalyzeStrokes();
-        string message;
+        (Score, int stars) = Service.GetScoreAndStars(new StarThresholds(1, 5, 10));
 
-        if (feedback.Type == FeedbackType.Perfect)
-        {
-            message = GetStarMessage(stars);
-        }
-        else
-        {
-            message = feedback.Message;
-        }
-        
-        MascotMessage = message;
+        var feedback = Service.AnalyzeStrokes();
+        MascotMessage = feedback.Type == FeedbackType.Perfect 
+            ? GetStarMessage(stars) 
+            : feedback.Message;
         IsMascotVisible = true;
-        
-        GameResult = new GameResult { Score = _score, StarCount = stars };
+        GameResult = new GameResult { Score = Score, StarCount = stars };
     }
 
-    protected override void RestartGame()
+    protected override void OnRestart()
     {
         GameResult = null;
-        _score = 0;
-        _started = false;
-        TimerText = $"{DrawDuration:F0}s";
-        IsPreviewVisible = true;
+        Score = 0;
         IsMascotVisible = false;
-
-        Restart?.Invoke();
-        _startTime = DateTime.Now;
-        _waitTimer.Start();
+        RaiseRestarted();
     }
 }

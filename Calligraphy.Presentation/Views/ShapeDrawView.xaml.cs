@@ -26,7 +26,7 @@ public partial class ShapeDrawView : UserControl
         
         ResultPopup.DataContext = DataContext;
         ViewModel?.Initialize("Diamond");
-        ViewModel?.Reset += OnReset;
+        ViewModel?.Restarted += OnReset;
         ViewModel?.Check += OnCheck;
 
         DrawTemplate();
