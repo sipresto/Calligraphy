@@ -29,6 +29,7 @@ public class ShapeDrawViewModel : GameViewModelBase
         Initialize(_service.GetShape().Name);
         GameResult = null;
         Reset?.Invoke();
+        IsMascotVisible = false;
     }
 
     public override void ProcessFinishedDrawing(List<List<StrokePointDto>> strokes)    
@@ -41,6 +42,7 @@ public class ShapeDrawViewModel : GameViewModelBase
 
             _service.AddStroke(domainStroke);
         }
+        OnGameFinished();
     }
     
     protected override void OnGameFinished()
@@ -51,7 +53,7 @@ public class ShapeDrawViewModel : GameViewModelBase
         
         IsMascotVisible = true;
         
-        GameResult = new GameResult { Score = (int)score, StarCount = stars };
+        GameResult = new GameResult { Score = score, StarCount = stars };
     }
     
 

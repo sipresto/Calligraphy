@@ -43,8 +43,7 @@ public partial class ShapeDrawView : UserControl
     private async void OnCheck()
     {
         var points = InkCanvas.EndDrawing();
-        ViewModel.AddStrokes(points);
-        ViewModel.CheckGame();
+        ViewModel.ProcessFinishedDrawing(points);
         if (ViewModel?.GameResult != null)
         {
             MascotFeedback.ShowFeedback(
