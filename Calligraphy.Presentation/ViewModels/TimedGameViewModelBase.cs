@@ -1,8 +1,12 @@
 using System.Windows.Threading;
+using Calligraphy.Application;
+using Calligraphy.Domain.Sessions;
 
 namespace Calligraphy.Presentation.ViewModels;
 
-public abstract class TimedGameViewModelBase<TService> : GameViewModelBase<TService>
+public abstract class TimedGameViewModelBase<TService, TSession> : GameViewModelBase<TService, TSession>
+    where TService : GenericGameService<TSession>
+    where TSession : GameSession
 {
     private DispatcherTimer _drawTimer;
     private DispatcherTimer _waitTimer;
@@ -11,11 +15,14 @@ public abstract class TimedGameViewModelBase<TService> : GameViewModelBase<TServ
 
     private int DrawDuration { get; init; }
     private int WaitDuration { get; init; }
+    
+    public event Action DrawingStarted;
+    public event Action DrawingEnded;
 
     public string TimerText
     {
         get;
-        protected set
+        private set
         {
             field = value;
             OnPropertyChanged();
@@ -25,7 +32,7 @@ public abstract class TimedGameViewModelBase<TService> : GameViewModelBase<TServ
     public string WaitTimerText
     {
         get;
-        protected set
+        private set
         {
             field = value;
             OnPropertyChanged();
@@ -42,19 +49,33 @@ public abstract class TimedGameViewModelBase<TService> : GameViewModelBase<TServ
         }
     } = true;
 
-    public event Action DrawingStarted;
-    public event Action DrawingEnded;
-
     protected TimedGameViewModelBase(TService service, int drawDuration, int waitDuration = 3)
         : base(service)
     {
         DrawDuration = drawDuration;
         WaitDuration = waitDuration;
 
-        TimerText = $"{DrawDuration:F0}s";
+        TimerText = $"{DrawDuration:F0}";
         WaitTimerText = $"{WaitDuration:F0}";
 
         InitializeTimers();
+    }
+    
+    protected void StartWaitPhase()
+    {
+        _startTime = DateTime.Now;
+        _waitTimer.Start();
+    }
+    
+    protected override void RestartGame()
+    {
+        _started = false;
+        TimerText = $"{DrawDuration:F0}s";
+        WaitTimerText = $"{WaitDuration:F0}";
+        IsPreviewVisible = true;
+
+        ResetGameState();
+        StartWaitPhase();
     }
 
     private void InitializeTimers()
@@ -72,12 +93,6 @@ public abstract class TimedGameViewModelBase<TService> : GameViewModelBase<TServ
             Dispatcher.CurrentDispatcher);
     }
 
-    protected void StartWaitPhase()
-    {
-        _startTime = DateTime.Now;
-        _waitTimer.Start();
-    }
-
     private void StartDrawPhase()
     {
         _startTime = DateTime.Now;
@@ -92,12 +107,12 @@ public abstract class TimedGameViewModelBase<TService> : GameViewModelBase<TServ
         if (!_started) return;
 
         var timeLeft = DrawDuration - (DateTime.Now - _startTime).TotalSeconds;
-        TimerText = $"{Math.Max(0, timeLeft):F0}s";
+        TimerText = $"{Math.Max(0, timeLeft):F0}";
 
         if (timeLeft <= 0)
         {
             _drawTimer.Stop();
-            TimerText = "0s";
+            TimerText = "0";
             DrawingEnded?.Invoke();
         }
     }
@@ -113,18 +128,4 @@ public abstract class TimedGameViewModelBase<TService> : GameViewModelBase<TServ
             StartDrawPhase();
         }
     }
-
-    protected override void RestartGame()
-    {
-        GameResult = null;
-        _started = false;
-        TimerText = $"{DrawDuration:F0}s";
-        WaitTimerText = $"{WaitDuration:F0}";
-        IsPreviewVisible = true;
-
-        OnRestart();
-        StartWaitPhase();
-    }
-    
-    protected abstract void OnRestart();
 }

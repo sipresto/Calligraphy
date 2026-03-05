@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Calligraphy.Domain;
 using Calligraphy.Presentation.ViewModels;
 
 namespace Calligraphy.Presentation.Views;
@@ -36,13 +37,10 @@ public partial class TraceGameView : UserControl
     private async void OnDrawingEnded()
     {
         var strokes = InkCanvas.EndDrawing();
-        ViewModel?.ProcessFinishedDrawing(strokes);
+        ViewModel?.FinishGame(strokes, new StarThresholds(30, 60, 100));
 
         if (ViewModel?.GameResult != null)
         {
-            MascotFeedback.ShowFeedback(
-                ViewModel.GameResult.StarCount,
-                ViewModel.AnalyzeStrokes());
             await ResultPopup.AnimateStars(ViewModel.GameResult.StarCount);
         }
     }
@@ -51,7 +49,6 @@ public partial class TraceGameView : UserControl
     {
         InkCanvas.Clear();
         ResultPopup.ResetStars();
-        MascotFeedback.Hide();
         DrawHopTemplate();
 
         var dpi = VisualTreeHelper.GetDpi(InkCanvas);

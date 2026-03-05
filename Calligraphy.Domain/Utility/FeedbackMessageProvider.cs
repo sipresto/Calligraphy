@@ -61,12 +61,57 @@ public static class FeedbackMessageProvider
             ]
         }
     };
+    
+    private static readonly Dictionary<int, string[]> StarMessages = new()
+    {
+        {
+            3,
+            [
+                "Geweldig! Je hebt het heel goed gedaan!",
+                "Fantastisch! Dat was bijna perfect!",
+                "Super gedaan! Je bent een echte schrijver!"
+            ]
+        },
+        {
+            2,
+            [
+                "Goed gedaan! Het was al bijna perfect!",
+                "Heel netjes! Nog een klein beetje oefenen!",
+                "Mooi werk! Je bent goed bezig!"
+            ]
+        },
+        {
+            1,
+            [
+                "Niet slecht! Probeer het nog eens!",
+                "Goed geprobeerd! Nog een keer oefenen?",
+                "Je bent al op weg! Nog eens proberen!"
+            ]
+        },
+        {
+            0,
+            [
+                "Blijf oefenen! Je kunt het beter doen!",
+                "Geen probleem! Probeer het nog eens!",
+                "Oefening baart kunst!"
+            ]
+        }
+    };
 
     private static readonly Random Random = new();
 
     public static string GetRandomMessage(FeedbackType type)
     {
         if (!Messages.TryGetValue(type, out var options))
+            return string.Empty;
+
+        int index = Random.Next(options.Length);
+        return options[index];
+    }
+    
+    public static string GetStarsMessage(int stars)
+    {
+        if (!StarMessages.TryGetValue(stars, out var options))
             return string.Empty;
 
         int index = Random.Next(options.Length);

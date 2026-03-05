@@ -40,14 +40,10 @@ public partial class InfinityRaceView : UserControl
     {
         var strokes = InkCanvas.EndDrawing();
 
-        ViewModel?.ProcessFinishedDrawing(strokes);
+        ViewModel?.FinishGame(strokes, new StarThresholds(1, 5, 10));
 
         if (ViewModel?.GameResult != null)
         {
-            // TODO: analysestrokes weghalen
-            MascotFeedback.ShowFeedback(
-                ViewModel.GameResult.StarCount
-            );
             await ResultPopup.AnimateStars(ViewModel.GameResult.StarCount);
         }
     }
@@ -56,7 +52,6 @@ public partial class InfinityRaceView : UserControl
     {
         InkCanvas.Clear();
         ResultPopup.ResetStars();
-        MascotFeedback.Hide();
         
         List<RaceCircle> circles = GetCircleData();
         

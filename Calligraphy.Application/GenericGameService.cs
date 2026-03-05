@@ -1,61 +1,39 @@
 ﻿using Calligraphy.Domain;
 using Calligraphy.Domain.Sessions;
-using Calligraphy.Domain.Utility;
+using Calligraphy.Presentation.Models;
 
 namespace Calligraphy.Application;
 
-public class GenericGameService<TSession>
+public abstract class GenericGameService<TSession>
     where TSession : GameSession
 {
     protected TSession Session { get; private set; }
-    private double? Dpi { get; set; }
 
-    protected void InitializeSession(TSession session, double? dpi = null)
+    protected void InitializeSession(TSession session)
     {
         Session = session;
-        Dpi = dpi;
     }
 
     public void AddStroke(List<StrokePoint> stroke)
     {
         Session.AddStroke(stroke);
     }
-
-    // TODO: retrieve starthresholds from db instead of parameter
-    public (int, int) GetScoreAndStars(StarThresholds starThresholds)
+    
+    // TODO: temporary StarThreshold as parameter
+    public GameResult FinishGame(StarThresholds thresholds)
     {
-        var score = Session.CalculateScore();
-        return (score, Session.CalculateStars(score, starThresholds));
-    }
+        var score = Session.Score;
 
-    public StrokeFeedback AnalyzeStrokes(bool checkPressure = true, bool checkSpeed = true)
-    {
-        var stroke = Session.TotalStroke();
+        //var thresholds = GetStarThresholds();
+        var stars = Session.CalculateStars(thresholds);
 
-        bool pressureHigh = checkPressure && StrokeAnalysis.IsPressureTooHigh(stroke);
-        bool pressureLow = checkPressure && StrokeAnalysis.IsPressureTooLow(stroke);
-        bool pressureInconsistent = checkPressure && StrokeAnalysis.IsStandardDeviationOff(stroke);
+        var feedbackMessage = Session.GetFeedbackMessage(stars);
 
-        bool speedHigh = checkSpeed && Dpi.HasValue && StrokeAnalysis.IsSpeedTooHigh(stroke, Dpi.Value);
-        bool speedLow = checkSpeed && Dpi.HasValue && StrokeAnalysis.IsSpeedTooLow(stroke, Dpi.Value);
-
-        FeedbackType type;
-
-        if (pressureInconsistent || (pressureHigh && pressureLow))
-            type = FeedbackType.PressureInconsistent;
-        else if (pressureHigh)
-            type = FeedbackType.PressureTooHigh;
-        else if (pressureLow)
-            type = FeedbackType.PressureTooLow;
-        else if (speedHigh && speedLow)
-            type = FeedbackType.SpeedInconsistent;
-        else if (speedHigh)
-            type = FeedbackType.SpeedTooHigh;
-        else if (speedLow)
-            type = FeedbackType.SpeedTooLow;
-        else
-            type = FeedbackType.Perfect;
-
-        return new StrokeFeedback(FeedbackMessageProvider.GetRandomMessage(type), type);
+        return new GameResult
+        {
+            Score = score,
+            StarCount = stars,
+            FeedbackMessage = feedbackMessage
+        };
     }
 }

@@ -13,7 +13,7 @@
     <Grid
         HorizontalAlignment="Right"
         VerticalAlignment="Bottom"
-        Visibility="{Binding IsMascotVisible, Converter={StaticResource BoolToVisibility}}">
+        Visibility="{Binding IsGameResultVisible, Converter={StaticResource BoolToVisibility}}">
 
         <StackPanel>
             <Grid HorizontalAlignment="Right"
@@ -32,7 +32,7 @@
                         CornerRadius="30"
                         Padding="20"
                         MaxWidth="400">
-                    <TextBlock Text="{Binding MascotMessage}"
+                    <TextBlock Text="{Binding GameResult.FeedbackMessage}"
                                TextWrapping="Wrap"
                                FontSize="36"
                                Foreground="Black"/>

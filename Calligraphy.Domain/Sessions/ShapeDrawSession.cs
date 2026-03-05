@@ -6,12 +6,12 @@ public class ShapeDrawSession : GameSession
 {
     public Shape Shape { get; }
 
-    public ShapeDrawSession(Shape shape)
+    public ShapeDrawSession(double dpi, Shape shape) : base(dpi)
     {
         Shape = shape;
     }
 
-    public override int CalculateScore()
+    protected override int CalculateScore()
     {
         double accuracy = Recognizer.CalculateAccuracy(TotalStroke(), Shape.Name);
 
@@ -30,5 +30,14 @@ public class ShapeDrawSession : GameSession
         return accuracy >= threshold
             ? (int)Math.Round(accuracy * 100)
             : 0;
+    }
+    
+    public override string GetFeedbackMessage(int stars)
+    {
+        var strokeFeedback = AnalyzeStrokes(checkSpeed: false);
+        if (strokeFeedback.Type != FeedbackType.Perfect)
+            return strokeFeedback.Message;
+        
+        return FeedbackMessageProvider.GetStarsMessage(stars);
     }
 }

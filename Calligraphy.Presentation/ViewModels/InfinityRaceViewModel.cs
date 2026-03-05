@@ -1,12 +1,12 @@
 using Calligraphy.Application;
 using Calligraphy.Domain;
-using Calligraphy.Presentation.Models;
+using Calligraphy.Domain.Sessions;
 
 namespace Calligraphy.Presentation.ViewModels;
 
-public class InfinityRaceViewModel : TimedGameViewModelBase<InfinityRaceService>
+public class InfinityRaceViewModel : TimedGameViewModelBase<InfinityRaceService, InfinityRaceSession>
 {
-    // TODO: Magic numbers
+    // TODO: Magic number
     public InfinityRaceViewModel(InfinityRaceService service)
         : base(service, 20)
     {
@@ -16,35 +16,5 @@ public class InfinityRaceViewModel : TimedGameViewModelBase<InfinityRaceService>
     {
         Service.InitializeSession(circles);
         StartWaitPhase();
-    }
-
-    public override void ProcessFinishedDrawing(List<List<StrokePointDto>> strokes)
-    {
-        foreach (var stroke in strokes)
-        {
-            var domainStroke = stroke.Select(p => new StrokePoint(p.X, p.Y)).ToList();
-            Service.AddStroke(domainStroke);
-        }
-        OnGameFinished();
-    }
-
-    protected override void OnGameFinished()
-    {
-        (Score, int stars) = Service.GetScoreAndStars(new StarThresholds(1, 5, 10));
-
-        var feedback = Service.AnalyzeStrokes();
-        MascotMessage = feedback.Type == FeedbackType.Perfect 
-            ? GetStarMessage(stars) 
-            : feedback.Message;
-        IsMascotVisible = true;
-        GameResult = new GameResult { Score = Score, StarCount = stars };
-    }
-
-    protected override void OnRestart()
-    {
-        GameResult = null;
-        Score = 0;
-        IsMascotVisible = false;
-        RaiseRestarted();
     }
 }

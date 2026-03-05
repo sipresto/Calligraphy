@@ -1,3 +1,5 @@
+using Calligraphy.Domain.Utility;
+
 namespace Calligraphy.Domain.Sessions;
 
 public class InfinityRaceSession : GameSession
@@ -9,7 +11,7 @@ public class InfinityRaceSession : GameSession
         _circles = circles.ToList();
     }
 
-    public override int CalculateScore()
+    protected override int CalculateScore()
     {
         var checks = new List<Func<StrokePoint, bool>>
         {
@@ -54,5 +56,10 @@ public class InfinityRaceSession : GameSession
         }
         
         return score;
+    }
+
+    public override string GetFeedbackMessage(int stars)
+    {
+        return FeedbackMessageProvider.GetStarsMessage(stars);
     }
 }
