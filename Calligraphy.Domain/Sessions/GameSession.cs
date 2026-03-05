@@ -7,7 +7,7 @@ public abstract class GameSession
     protected readonly List<List<StrokePoint>> Strokes = [];
 
     public int Score => CalculateScore();
-    
+
     public void AddStroke(List<StrokePoint> stroke)
     {
         if (stroke is { Count: > 0 })
@@ -32,7 +32,7 @@ public abstract class GameSession
     }
 
     protected abstract int CalculateScore();
-    
+
     public abstract string GetFeedbackMessage(int stars);
 
     protected StrokeFeedback AnalyzeStrokes(bool checkPressure = true)

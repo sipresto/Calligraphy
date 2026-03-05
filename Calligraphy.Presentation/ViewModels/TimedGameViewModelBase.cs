@@ -9,15 +9,24 @@ public abstract class TimedGameViewModelBase<TService, TSession> : GameViewModel
     where TSession : GameSession
 {
     private DispatcherTimer _drawTimer;
-    private DispatcherTimer _waitTimer;
-    private DateTime _startTime;
     private bool _started;
+    private DateTime _startTime;
+    private DispatcherTimer _waitTimer;
 
-    private int DrawDuration { get; init; }
-    private int WaitDuration { get; init; }
-    
-    public event Action DrawingStarted;
-    public event Action DrawingEnded;
+    protected TimedGameViewModelBase(TService service, int drawDuration, int waitDuration = 3)
+        : base(service)
+    {
+        DrawDuration = drawDuration;
+        WaitDuration = waitDuration;
+
+        TimerText = $"{DrawDuration:F0}";
+        WaitTimerText = $"{WaitDuration:F0}";
+
+        InitializeTimers();
+    }
+
+    private int DrawDuration { get; }
+    private int WaitDuration { get; }
 
     public string TimerText
     {
@@ -49,24 +58,15 @@ public abstract class TimedGameViewModelBase<TService, TSession> : GameViewModel
         }
     } = true;
 
-    protected TimedGameViewModelBase(TService service, int drawDuration, int waitDuration = 3)
-        : base(service)
-    {
-        DrawDuration = drawDuration;
-        WaitDuration = waitDuration;
+    public event Action DrawingStarted;
+    public event Action DrawingEnded;
 
-        TimerText = $"{DrawDuration:F0}";
-        WaitTimerText = $"{WaitDuration:F0}";
-
-        InitializeTimers();
-    }
-    
     protected void StartWaitPhase()
     {
         _startTime = DateTime.Now;
         _waitTimer.Start();
     }
-    
+
     protected override void RestartGame()
     {
         _started = false;

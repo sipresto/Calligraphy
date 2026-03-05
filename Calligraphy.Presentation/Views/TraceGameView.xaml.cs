@@ -9,13 +9,13 @@ namespace Calligraphy.Presentation.Views;
 
 public partial class TraceGameView : UserControl
 {
-    private TimedTraceGameViewModel ViewModel => DataContext as TimedTraceGameViewModel;
-
     public TraceGameView()
     {
         InitializeComponent();
         Loaded += OnLoaded;
     }
+
+    private TimedTraceGameViewModel ViewModel => DataContext as TimedTraceGameViewModel;
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
@@ -31,17 +31,17 @@ public partial class TraceGameView : UserControl
         ViewModel!.Restarted += OnRestart;
     }
 
-    private void OnDrawingStarted() => InkCanvas.SetDrawingEnabled(true);
+    private void OnDrawingStarted()
+    {
+        InkCanvas.SetDrawingEnabled(true);
+    }
 
     private async void OnDrawingEnded()
     {
         var strokes = InkCanvas.EndDrawing();
         ViewModel?.FinishGame(strokes, new StarThresholds(30, 60, 100));
 
-        if (ViewModel?.GameResult != null)
-        {
-            await ResultPopup.AnimateStars(ViewModel.GameResult.StarCount);
-        }
+        if (ViewModel?.GameResult != null) await ResultPopup.AnimateStars(ViewModel.GameResult.StarCount);
     }
 
     private void OnRestart()
@@ -63,7 +63,7 @@ public partial class TraceGameView : UserControl
             TimedTraceGameViewModel.TopY,
             TimedTraceGameViewModel.LoopWidth,
             TimedTraceGameViewModel.LoopCount);
-        
+
         var geometry = new PathGeometry(new[] { figure });
 
         TemplateCanvas.Children.Add(new Path
@@ -73,7 +73,7 @@ public partial class TraceGameView : UserControl
             StrokeThickness = 10,
             StrokeLineJoin = PenLineJoin.Round,
             StrokeStartLineCap = PenLineCap.Round,
-            StrokeEndLineCap = PenLineCap.Round,
+            StrokeEndLineCap = PenLineCap.Round
         });
     }
 
@@ -94,13 +94,13 @@ public partial class TraceGameView : UserControl
                 new Point(x, baselineY - 30),
                 new Point(x + loopWidth * 0.2, topY),
                 new Point(x + loopWidth * 0.5, topY),
-                isStroked: true));
+                true));
 
             figure.Segments.Add(new BezierSegment(
                 new Point(x + loopWidth * 0.8, topY),
                 new Point(x + loopWidth, baselineY - 30),
                 new Point(x + loopWidth, baselineY),
-                isStroked: true));
+                true));
 
             x += loopWidth;
         }

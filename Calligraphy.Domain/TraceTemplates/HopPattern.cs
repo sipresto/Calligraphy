@@ -2,16 +2,15 @@ namespace Calligraphy.Domain.TraceTemplates;
 
 public class HopPattern : TraceTemplate
 {
-    public override string Name => "HopPattern";
-
+    private readonly double _baselineY;
     private readonly int _loopCount;
     private readonly double _loopWidth;
-    private readonly double _baselineY;
-    private readonly double _topY;
-    private readonly double _startX;
     private readonly int _pointsPerLoop;
+    private readonly double _startX;
+    private readonly double _topY;
 
-    public HopPattern(double startX, double baselineY, double topY, double loopWidth, int loopCount, int pointsPerLoop = 50)
+    public HopPattern(double startX, double baselineY, double topY, double loopWidth, int loopCount,
+        int pointsPerLoop = 50)
     {
         _startX = startX;
         _baselineY = baselineY;
@@ -20,6 +19,8 @@ public class HopPattern : TraceTemplate
         _loopCount = loopCount;
         _pointsPerLoop = pointsPerLoop;
     }
+
+    public override string Name => "HopPattern";
 
     public override List<StrokePoint> GetTemplatePoints()
     {

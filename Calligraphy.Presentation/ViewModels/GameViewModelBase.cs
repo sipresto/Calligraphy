@@ -12,11 +12,16 @@ public abstract class GameViewModelBase<TService, TSession> : ViewModelBase
     where TSession : GameSession
 {
     protected readonly TService Service;
-    
-    public event Action Restarted;
-    
+
+    protected GameViewModelBase(TService service)
+    {
+        Service = service;
+        RestartCommand = new RelayCommand(RestartGame);
+    }
+
     public bool HasNextLevel { get; set; } = false;
     public bool IsGameResultVisible => GameResult != null;
+
     public GameResult GameResult
     {
         get;
@@ -27,14 +32,10 @@ public abstract class GameViewModelBase<TService, TSession> : ViewModelBase
             OnPropertyChanged(nameof(IsGameResultVisible));
         }
     }
-    
+
     public ICommand RestartCommand { get; }
-    
-    protected GameViewModelBase(TService service)
-    {
-        Service = service;
-        RestartCommand = new RelayCommand(RestartGame);
-    }
+
+    public event Action Restarted;
 
     // TODO: no thresholds parameter
     public void FinishGame(List<List<StrokePointDto>> strokes, StarThresholds thresholds)
@@ -46,12 +47,12 @@ public abstract class GameViewModelBase<TService, TSession> : ViewModelBase
                 .ToList();
             Service.AddStroke(domainStroke);
         }
-        
+
         GameResult = Service.FinishGame(thresholds);
     }
-    
+
     protected abstract void RestartGame();
-    
+
     protected void ResetGameState()
     {
         GameResult = null;

@@ -35,7 +35,7 @@ public static class FeedbackMessageProvider
             ]
         }
     };
-    
+
     private static readonly Dictionary<int, string[]> StarMessages = new()
     {
         {
@@ -82,7 +82,7 @@ public static class FeedbackMessageProvider
         int index = Random.Next(options.Length);
         return options[index];
     }
-    
+
     public static string GetStarsMessage(int stars)
     {
         if (!StarMessages.TryGetValue(stars, out var options))

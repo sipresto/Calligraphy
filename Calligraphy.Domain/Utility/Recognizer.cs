@@ -3,8 +3,8 @@
 public static class Recognizer
 {
     public static double CalculateAccuracy(IReadOnlyList<StrokePoint> stroke, string shapeName)
-    { 
-        if (stroke.Count < 8) 
+    {
+        if (stroke.Count < 8)
             return 0;
 
         var pts = Flatten(stroke);
@@ -12,37 +12,37 @@ public static class Recognizer
         // ── Scribble gate ────────────────────────────────────────────────────
         // Reject before doing any real scoring; spirals and scribbles have
         // far more self-intersections than any legitimate shape.
-        
-        if (!PassesScribbleCheck(pts)) 
+
+        if (!PassesScribbleCheck(pts))
             return 0;
 
         // ── Extract features ─────────────────────────────────────────────────
-        
-        var smoothed   = Smooth(pts, 5); 
-        var box        = BoundingBox(smoothed); 
-        double aspect  = box.h > 0 ? box.w / box.h : 1.0; 
-        double convex  = ConvexityRatio(smoothed); 
-        double closure = ClosureRatio(smoothed, box); 
-        int    corners = CountCorners(smoothed);
+
+        var smoothed = Smooth(pts, 5);
+        var box = BoundingBox(smoothed);
+        double aspect = box.h > 0 ? box.w / box.h : 1.0;
+        double convex = ConvexityRatio(smoothed);
+        double closure = ClosureRatio(smoothed, box);
+        int corners = CountCorners(smoothed);
 
 
         double score = shapeName switch
         {
-            "Circle"   => ScoreCircle(aspect, convex, closure),
-            "Square"   => ScoreSquare(aspect, convex, corners),
+            "Circle" => ScoreCircle(aspect, convex, closure),
+            "Square" => ScoreSquare(aspect, convex, corners),
             "Triangle" => ScoreTriangle(aspect, convex, corners),
-            "Diamond"  => ScoreDiamond(aspect, convex, corners),
-            "Star"     => ScoreStar(convex, corners, closure, smoothed),
+            "Diamond" => ScoreDiamond(aspect, convex, corners),
+            "Star" => ScoreStar(convex, corners, closure, smoothed),
             "Pentagon" => ScorePentagon(convex, corners),
-            "Hexagon"  => ScoreHexagon(convex, corners),
-            _          => 0
+            "Hexagon" => ScoreHexagon(convex, corners),
+            _ => 0
         };
-        
+
         return score;
     }
 
     /// <summary>
-    /// Returns 0-3 stars based on the score returned by CheckShape.
+    ///     Returns 0-3 stars based on the score returned by CheckShape.
     /// </summary>
     public static int GetStars(double score)
     {
@@ -59,36 +59,36 @@ public static class Recognizer
     private static double ScoreCircle(double aspect, double convex, double closure)
     {
         // Circle: near-square aspect, very convex, stroke nearly closes on itself.
-        double sAspect  = GaussianScore(aspect,  1.0,  0.35);
-        double sConvex  = ScaleScore(convex,      0.85, 1.00);
-        double sClosure = ScaleScore(closure,     0.60, 1.00);
+        double sAspect = GaussianScore(aspect, 1.0, 0.35);
+        double sConvex = ScaleScore(convex, 0.85, 1.00);
+        double sClosure = ScaleScore(closure, 0.60, 1.00);
         return 0.30 * sAspect + 0.35 * sConvex + 0.35 * sClosure;
     }
 
     private static double ScoreSquare(double aspect, double convex, int corners)
     {
         // Square: near-square aspect, highly convex, ~4 corners.
-        double sAspect  = GaussianScore(aspect,  1.0,  0.30);
-        double sConvex  = ScaleScore(convex,      0.82, 1.00);
-        double sCorners = GaussianScore(corners,  4.0,  1.5);
+        double sAspect = GaussianScore(aspect, 1.0, 0.30);
+        double sConvex = ScaleScore(convex, 0.82, 1.00);
+        double sCorners = GaussianScore(corners, 4.0, 1.5);
         return 0.35 * sAspect + 0.30 * sConvex + 0.35 * sCorners;
     }
 
     private static double ScoreTriangle(double aspect, double convex, int corners)
     {
         // Triangle: taller than wide is common, convex, ~3 corners.
-        double sAspect  = GaussianScore(aspect,  0.9,  0.35);
-        double sConvex  = ScaleScore(convex,      0.75, 1.00);
-        double sCorners = GaussianScore(corners,  3.0,  1.2);
+        double sAspect = GaussianScore(aspect, 0.9, 0.35);
+        double sConvex = ScaleScore(convex, 0.75, 1.00);
+        double sCorners = GaussianScore(corners, 3.0, 1.2);
         return 0.25 * sAspect + 0.30 * sConvex + 0.45 * sCorners;
     }
 
     private static double ScoreDiamond(double aspect, double convex, int corners)
     {
         // Diamond: taller than wide, convex, ~4 corners.
-        double sAspect  = GaussianScore(aspect,  0.65, 0.30);
-        double sConvex  = ScaleScore(convex,      0.80, 1.00);
-        double sCorners = GaussianScore(corners,  4.0,  1.5);
+        double sAspect = GaussianScore(aspect, 0.65, 0.30);
+        double sConvex = ScaleScore(convex, 0.80, 1.00);
+        double sCorners = GaussianScore(corners, 4.0, 1.5);
         return 0.35 * sAspect + 0.25 * sConvex + 0.40 * sCorners;
     }
 
@@ -97,19 +97,19 @@ public static class Recognizer
     {
         // Hard gates only for the most reliable discriminators.
         if (closure < 0.55) return 0;
-        if (convex  > 0.70) return 0;
+        if (convex > 0.70) return 0;
 
-        double evenness  = ComputeCornerEvenness(pts);
-        double sConvex   = GaussianScore(convex,   0.44, 0.15);
-        double sCorners  = GaussianScore(corners,  10.0, 3.0);
-        double sEvenness = ScaleScore(evenness,    0.15, 0.60);
+        double evenness = ComputeCornerEvenness(pts);
+        double sConvex = GaussianScore(convex, 0.44, 0.15);
+        double sCorners = GaussianScore(corners, 10.0, 3.0);
+        double sEvenness = ScaleScore(evenness, 0.15, 0.60);
         return 0.40 * sConvex + 0.35 * sCorners + 0.25 * sEvenness;
     }
 
     /// <summary>
-    /// Finds the angles of all corners relative to the centroid, then measures
-    /// how evenly they are spread around the full 360°. Returns 1.0 for perfectly
-    /// even distribution, near 0 for corners all clustered in one region.
+    ///     Finds the angles of all corners relative to the centroid, then measures
+    ///     how evenly they are spread around the full 360°. Returns 1.0 for perfectly
+    ///     even distribution, near 0 for corners all clustered in one region.
     /// </summary>
     private static double ComputeCornerEvenness(List<(double x, double y)> pts)
     {
@@ -119,14 +119,14 @@ public static class Recognizer
         double cy = resampled.Average(p => p.y);
 
         const double threshold = Math.PI * 0.22;
-        const int    window    = 8;
+        const int window = 8;
 
         var angles = new List<double>();
 
         for (int i = window; i < resampled.Count - window; i++)
         {
-            double ax = resampled[i].x          - resampled[i - window].x;
-            double ay = resampled[i].y          - resampled[i - window].y;
+            double ax = resampled[i].x - resampled[i - window].x;
+            double ay = resampled[i].y - resampled[i - window].y;
             double bx = resampled[i + window].x - resampled[i].x;
             double by = resampled[i + window].y - resampled[i].y;
 
@@ -158,9 +158,9 @@ public static class Recognizer
             gaps.Add(gap);
         }
 
-        double meanGap   = gaps.Average();
-        double variance  = gaps.Average(g => (g - meanGap) * (g - meanGap));
-        double stdDev    = Math.Sqrt(variance);
+        double meanGap = gaps.Average();
+        double variance = gaps.Average(g => (g - meanGap) * (g - meanGap));
+        double stdDev = Math.Sqrt(variance);
         // Coefficient of variation: 0 = perfectly even, higher = more clustered.
         double cv = meanGap > 0 ? stdDev / meanGap : 1.0;
         // Convert to a 0-1 score where 1 = perfectly even.
@@ -170,23 +170,23 @@ public static class Recognizer
     private static double ScorePentagon(double convex, int corners)
     {
         // Pentagon: convex, ~5 corners.
-        double sConvex  = ScaleScore(convex,      0.82, 1.00);
-        double sCorners = GaussianScore(corners,  5.0,  1.5);
+        double sConvex = ScaleScore(convex, 0.82, 1.00);
+        double sCorners = GaussianScore(corners, 5.0, 1.5);
         return 0.35 * sConvex + 0.65 * sCorners;
     }
 
     private static double ScoreHexagon(double convex, int corners)
     {
         // Hexagon: convex, ~6 corners.
-        double sConvex  = ScaleScore(convex,      0.82, 1.00);
-        double sCorners = GaussianScore(corners,  6.0,  1.8);
+        double sConvex = ScaleScore(convex, 0.82, 1.00);
+        double sCorners = GaussianScore(corners, 6.0, 1.8);
         return 0.35 * sConvex + 0.65 * sCorners;
     }
 
     // ── Feature extraction ────────────────────────────────────────────────────
 
     /// <summary>
-    /// Smooths the point list with a simple box filter to remove pen jitter.
+    ///     Smooths the point list with a simple box filter to remove pen jitter.
     /// </summary>
     private static List<(double x, double y)> Smooth(
         List<(double x, double y)> pts, int radius)
@@ -197,29 +197,35 @@ public static class Recognizer
             int lo = Math.Max(0, i - radius);
             int hi = Math.Min(pts.Count - 1, i + radius);
             double sx = 0, sy = 0;
-            for (int j = lo; j <= hi; j++) { sx += pts[j].x; sy += pts[j].y; }
+            for (int j = lo; j <= hi; j++)
+            {
+                sx += pts[j].x;
+                sy += pts[j].y;
+            }
+
             int count = hi - lo + 1;
             result.Add((sx / count, sy / count));
         }
+
         return result;
     }
 
     /// <summary>
-    /// Ratio of the drawing's area to its convex hull area.
-    /// 1.0 = perfectly convex; lower = more concave (e.g. star ~ 0.4-0.5).
+    ///     Ratio of the drawing's area to its convex hull area.
+    ///     1.0 = perfectly convex; lower = more concave (e.g. star ~ 0.4-0.5).
     /// </summary>
     private static double ConvexityRatio(List<(double x, double y)> pts)
     {
         double drawingArea = Math.Abs(PolygonArea(pts));
-        var    hull        = ConvexHull(pts);
-        double hullArea    = Math.Abs(PolygonArea(hull));
+        var hull = ConvexHull(pts);
+        double hullArea = Math.Abs(PolygonArea(hull));
         if (hullArea < 1e-9) return 0;
         return Math.Min(1.0, drawingArea / hullArea);
     }
 
     /// <summary>
-    /// How close the end of the stroke is to the start, relative to the
-    /// bounding box diagonal. 1.0 = perfectly closed, 0.0 = far apart.
+    ///     How close the end of the stroke is to the start, relative to the
+    ///     bounding box diagonal. 1.0 = perfectly closed, 0.0 = far apart.
     /// </summary>
     private static double ClosureRatio(
         List<(double x, double y)> pts,
@@ -233,20 +239,20 @@ public static class Recognizer
 
 
     /// <summary>
-    /// Works on the resampled path so corner count is independent of drawing speed.
+    ///     Works on the resampled path so corner count is independent of drawing speed.
     /// </summary>
     private static int CountCorners(List<(double x, double y)> pts)
     {
         var resampled = Resample(new List<(double, double)>(pts), 200);
 
         const double threshold = Math.PI * 0.22; // ~40 degrees
-        const int    window    = 8;
+        const int window = 8;
 
         int corners = 0;
         for (int i = window; i < resampled.Count - window; i++)
         {
-            double ax = resampled[i].x          - resampled[i - window].x;
-            double ay = resampled[i].y          - resampled[i - window].y;
+            double ax = resampled[i].x - resampled[i - window].x;
+            double ay = resampled[i].y - resampled[i - window].y;
             double bx = resampled[i + window].x - resampled[i].x;
             double by = resampled[i + window].y - resampled[i].y;
 
@@ -261,6 +267,7 @@ public static class Recognizer
                 i += window; // skip ahead to avoid counting the same corner twice
             }
         }
+
         return corners;
     }
 
@@ -271,7 +278,7 @@ public static class Recognizer
         if (pts.Count < 4) return false;
 
         var s = Resample(new List<(double, double)>(pts), Math.Min(80, pts.Count));
-        int crossings  = 0;
+        int crossings = 0;
         int maxAllowed = 25;
 
         for (int i = 0; i < s.Count - 1; i++)
@@ -285,13 +292,14 @@ public static class Recognizer
                 }
             }
         }
+
         return true;
     }
 
     // ── Scoring helpers ───────────────────────────────────────────────────────
 
     /// <summary>
-    /// Gaussian bell curve centred on ideal. Returns 1.0 when value == ideal.
+    ///     Gaussian bell curve centred on ideal. Returns 1.0 when value == ideal.
     /// </summary>
     private static double GaussianScore(double value, double ideal, double sigma)
     {
@@ -319,6 +327,7 @@ public static class Recognizer
             var b = pts[(i + 1) % n];
             area += a.x * b.y - b.x * a.y;
         }
+
         return area / 2.0;
     }
 
@@ -326,7 +335,7 @@ public static class Recognizer
     private static List<(double x, double y)> ConvexHull(List<(double x, double y)> pts)
     {
         var sorted = pts.OrderBy(p => p.x).ThenBy(p => p.y).ToList();
-        var hull   = new List<(double, double)>();
+        var hull = new List<(double, double)>();
 
         foreach (var p in sorted)
         {
@@ -362,7 +371,9 @@ public static class Recognizer
         (double x, double y) o,
         (double x, double y) a,
         (double x, double y) b)
-        => (a.x - o.x) * (b.y - o.y) - (a.y - o.y) * (b.x - o.x);
+    {
+        return (a.x - o.x) * (b.y - o.y) - (a.y - o.y) * (b.x - o.x);
+    }
 
     private static List<(double x, double y)> Resample(
         List<(double x, double y)> pts, int n)
@@ -376,8 +387,8 @@ public static class Recognizer
         if (totalLen < 1e-9) return new List<(double, double)>(pts);
 
         double interval = totalLen / (n - 1);
-        double carry    = 0;
-        var result      = new List<(double, double)> { pts[0] };
+        double carry = 0;
+        var result = new List<(double, double)> { pts[0] };
 
         for (int i = 1; i < pts.Count && result.Count < n; i++)
         {
@@ -385,7 +396,7 @@ public static class Recognizer
             if (carry + segLen >= interval)
             {
                 double t = (interval - carry) / segLen;
-                var p    = Lerp(pts[i - 1], pts[i], t);
+                var p = Lerp(pts[i - 1], pts[i], t);
                 result.Add(p);
                 pts.Insert(i, p);
                 carry = 0;
@@ -410,7 +421,9 @@ public static class Recognizer
 
     private static (double x, double y) Lerp(
         (double x, double y) a, (double x, double y) b, double t)
-        => (a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t);
+    {
+        return (a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t);
+    }
 
     private static (double w, double h) BoundingBox(List<(double x, double y)> pts)
     {

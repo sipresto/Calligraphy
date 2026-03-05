@@ -8,24 +8,24 @@
         MinHeight="600"
         Background="{StaticResource BackgroundColor}"
         WindowState="Maximized">
-    
+
     <Window.Resources>
         <DataTemplate DataType="{x:Type local:HomeViewModel}">
             <views:HomeView />
         </DataTemplate>
-        
+
         <DataTemplate DataType="{x:Type local:InfinityRaceViewModel}">
             <views:InfinityRaceView />
         </DataTemplate>
-        
+
         <DataTemplate DataType="{x:Type local:TimedTraceGameViewModel}">
             <views:TraceGameView />
         </DataTemplate>
-        
+
         <DataTemplate DataType="{x:Type local:ShapeDrawViewModel}">
             <views:ShapeDrawView />
         </DataTemplate>
-        
+
         <DataTemplate DataType="{x:Type local:TutorialViewModel}">
             <views:TutorialView />
         </DataTemplate>
@@ -34,5 +34,5 @@
     <Grid>
         <ContentControl Content="{Binding CurrentViewModel}" />
     </Grid>
-    
+
 </Window>

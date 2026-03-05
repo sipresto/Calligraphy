@@ -20,7 +20,7 @@
         Height="400"
         Visibility="{Binding IsGameResultVisible, Converter={StaticResource BoolToVisibility}}">
         <Border.Background>
-            <ImageBrush ImageSource="/Resources/Assets/Images/TextBars/Square.png" 
+            <ImageBrush ImageSource="/Resources/Assets/Images/TextBars/Square.png"
                         Stretch="Fill" />
         </Border.Background>
 
@@ -58,19 +58,19 @@
                     HorizontalAlignment="Center"
                     Visibility="{Binding GameResult.Time, Converter={StaticResource NullableToVisibilityConverter}}" />
             </StackPanel>
-            
-            <StackPanel 
+
+            <StackPanel
                 Grid.Row="1"
                 Margin="0,0,0,10"
                 Orientation="Horizontal"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom">
-                
+
                 <Button
                     Command="{Binding RestartCommand}"
                     HorizontalAlignment="Center"
                     Margin="0,0,10,0"
-                    Cursor="Pen" >
+                    Cursor="Pen">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Grid>
@@ -79,21 +79,21 @@
                                        Width="100"
                                        Stretch="Uniform" />
                             </Grid>
-            
+
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="ButtonImage" Property="Source" 
+                                    <Setter TargetName="ButtonImage" Property="Source"
                                             Value="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed-return.png" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-                
+
                 <Button
                     Command="{Binding MenuCommand}"
                     HorizontalAlignment="Center"
-                    Cursor="Pen" >
+                    Cursor="Pen">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Grid>
@@ -102,17 +102,17 @@
                                        Width="100"
                                        Stretch="Uniform" />
                             </Grid>
-            
+
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="ButtonImage" Property="Source" 
+                                    <Setter TargetName="ButtonImage" Property="Source"
                                             Value="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed-house.png" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-                
+
                 <Button
                     Command="{Binding NextLevelCommand}"
                     HorizontalAlignment="Center"
@@ -127,17 +127,17 @@
                                        Width="100"
                                        Stretch="Uniform" />
                             </Grid>
-            
+
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="ButtonImage" Property="Source" 
+                                    <Setter TargetName="ButtonImage" Property="Source"
                                             Value="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed-arrow2.png" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-                
+
             </StackPanel>
 
         </Grid>

@@ -6,22 +6,22 @@ namespace Calligraphy.Presentation.ViewModels;
 
 public class MainViewModel : ObservableObject
 {
+    public MainViewModel()
+    {
+        NavigateToHome();
+    }
+
     public ViewModelBase CurrentViewModel
     {
         get;
         set => SetProperty(ref field, value);
     }
 
-    public MainViewModel()
-    {
-        NavigateToHome();
-    }
-
     public void NavigateToHome()
     {
         CurrentViewModel = new HomeViewModel(this);
     }
-    
+
     // TODO: Replace with IDs later
     public void ShowTutorialForGame(string gameName)
     {
@@ -35,8 +35,7 @@ public class MainViewModel : ObservableObject
                 OneStar = "1 punt",
                 TwoStars = "5 punten",
                 ThreeStars = "10 punten",
-                ShowPressureInfo = true,
-                ShowSpeedInfo = true,
+                ShowPressureInfo = false,
                 TargetGameViewModelName = nameof(InfinityRaceViewModel)
             },
             "TraceGame" => new TutorialInfo
@@ -46,7 +45,6 @@ public class MainViewModel : ObservableObject
                 TwoStars = "60 punten",
                 ThreeStars = "100 punten",
                 ShowPressureInfo = true,
-                ShowSpeedInfo = true,
                 TargetGameViewModelName = nameof(TimedTraceGameViewModel)
             },
             "ShapeDraw" => new TutorialInfo
@@ -56,7 +54,6 @@ public class MainViewModel : ObservableObject
                 TwoStars = "60 punten",
                 ThreeStars = "85 punten",
                 ShowPressureInfo = true,
-                ShowSpeedInfo = true,
                 TargetGameViewModelName = nameof(ShapeDrawViewModel)
             },
             _ => null

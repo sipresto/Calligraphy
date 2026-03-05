@@ -7,6 +7,5 @@ public class TutorialInfo
     public string TwoStars { get; set; } = "";
     public string ThreeStars { get; set; } = "";
     public bool ShowPressureInfo { get; set; } = true;
-    public bool ShowSpeedInfo { get; set; } = true;
     public string TargetGameViewModelName { get; set; } = "";
 }

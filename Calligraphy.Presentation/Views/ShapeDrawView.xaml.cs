@@ -10,25 +10,25 @@ namespace Calligraphy.Presentation.Views;
 
 public partial class ShapeDrawView : UserControl
 {
-    private ShapeDrawViewModel ViewModel => 
-        DataContext as ShapeDrawViewModel;
-    
     public ShapeDrawView()
     {
         InitializeComponent();
 
         Loaded += OnLoaded;
     }
-    
+
+    private ShapeDrawViewModel ViewModel =>
+        DataContext as ShapeDrawViewModel;
+
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
         if (ViewModel == null)
             return;
-        
+
         ResultPopup.DataContext = DataContext;
-        
+
         ViewModel?.Initialize("Diamond");
-        
+
         ViewModel?.Restarted += OnReset;
         ViewModel?.Check += OnCheck;
 
@@ -40,7 +40,7 @@ public partial class ShapeDrawView : UserControl
         InkCanvas.SetDrawingEnabled(true);
         InkCanvas.Clear();
         ResultPopup.ResetStars();
-        
+
         ViewModel?.Initialize("Diamond");
     }
 
@@ -52,9 +52,8 @@ public partial class ShapeDrawView : UserControl
         {
             await ResultPopup.AnimateStars(ViewModel.GameResult.StarCount);
         }
-
     }
-    
+
     private void DrawTemplate()
     {
         TemplateCanvas.Children.Clear();

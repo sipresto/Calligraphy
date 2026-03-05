@@ -3,10 +3,10 @@
 public static class TraceEvaluator
 {
     // Evaluates how well the users strokes match the template
-    public static TraceEvaluationResult Evaluate(IReadOnlyList<StrokePoint> userPoints, IReadOnlyList<StrokePoint> templatePoints, double toleranceDistance)
+    public static TraceEvaluationResult Evaluate(IReadOnlyList<StrokePoint> userPoints,
+        IReadOnlyList<StrokePoint> templatePoints, double toleranceDistance)
     {
         if (userPoints.Count < 10)
-        {
             return new TraceEvaluationResult
             {
                 IsSuccessful = false,
@@ -14,7 +14,6 @@ public static class TraceEvaluator
                 AverageDeviation = double.MaxValue,
                 MaxDeviation = double.MaxValue
             };
-        }
 
         // Calculate coverage, what percentage of template was traced
         double coverage = CalculateCoverage(userPoints, templatePoints, toleranceDistance);
@@ -29,9 +28,9 @@ public static class TraceEvaluator
 
         // Determine success based on criteria
         bool isSuccessful = coverage >= 0.70 && // At least 70% coverage
-                           avgDeviation <= toleranceDistance && 
-                           maxDeviation <= toleranceDistance * 2 &&
-                           directionCorrect;
+                            avgDeviation <= toleranceDistance &&
+                            maxDeviation <= toleranceDistance * 2 &&
+                            directionCorrect;
 
         return new TraceEvaluationResult
         {
@@ -44,7 +43,8 @@ public static class TraceEvaluator
     }
 
     // Calculates what percentage of the template was covered by user strokes
-    private static double CalculateCoverage(IReadOnlyList<StrokePoint> userPoints, IReadOnlyList<StrokePoint> templatePoints, double toleranceDistance)
+    private static double CalculateCoverage(IReadOnlyList<StrokePoint> userPoints,
+        IReadOnlyList<StrokePoint> templatePoints, double toleranceDistance)
     {
         int coveredPoints = 0;
 
@@ -59,9 +59,10 @@ public static class TraceEvaluator
 
         return (double)coveredPoints / templatePoints.Count;
     }
-    
+
     // Calculates deviation of each user point from the nearest template point
-    private static List<double> CalculateDeviations(IReadOnlyList<StrokePoint> userPoints, IReadOnlyList<StrokePoint> templatePoints)
+    private static List<double> CalculateDeviations(IReadOnlyList<StrokePoint> userPoints,
+        IReadOnlyList<StrokePoint> templatePoints)
     {
         var deviations = new List<double>();
 

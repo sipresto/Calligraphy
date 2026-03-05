@@ -8,27 +8,27 @@ namespace Calligraphy.Presentation.Views.Controls;
 
 public partial class InkCanvasControl : UserControl
 {
-    private List<List<StrokePointDto>> _strokes = [];
-    private List<StrokePointDto> _liveStroke = [];
     private readonly Stopwatch _stopwatch = Stopwatch.StartNew();
-    
+    private List<StrokePointDto> _liveStroke = [];
+    private List<List<StrokePointDto>> _strokes = [];
+
     public InkCanvasControl()
     {
         InitializeComponent();
-        
+
         CallyCanvas.EditingMode = InkCanvasEditingMode.Ink;
         CallyCanvas.EditingModeInverted = InkCanvasEditingMode.None;
     }
-    
+
     public List<List<StrokePointDto>> EndDrawing()
     {
         CallyCanvas.IsEnabled = false;
-        
+
         if (_liveStroke.Count > 0)
         {
             _strokes.Add(_liveStroke);
         }
-        
+
         DisplayStoredStrokes(_strokes);
 
         var finishedStrokes = _strokes;
@@ -36,12 +36,12 @@ public partial class InkCanvasControl : UserControl
         _liveStroke = [];
         return finishedStrokes;
     }
-    
+
     public void SetDrawingEnabled(bool enabled)
     {
         CallyCanvas.IsEnabled = enabled;
     }
-    
+
     public void Clear()
     {
         _strokes = [];
@@ -61,7 +61,7 @@ public partial class InkCanvasControl : UserControl
                 point.PressureFactor,
                 _stopwatch.ElapsedMilliseconds
             );
-            
+
             _liveStroke.Add(strokePoint);
         }
     }
@@ -71,7 +71,7 @@ public partial class InkCanvasControl : UserControl
         _strokes.Add(_liveStroke);
         _liveStroke = [];
     }
-    
+
     private void DisplayStoredStrokes(List<List<StrokePointDto>> strokes)
     {
         CallyCanvas.Strokes.Clear();
@@ -80,7 +80,7 @@ public partial class InkCanvasControl : UserControl
         {
             if (stroke == null || stroke.Count == 0)
                 continue;
-            
+
             var stylusPoints = new StylusPointCollection(
                 stroke.Select(p => new StylusPoint(p.X, p.Y, p.Pressure))
             );

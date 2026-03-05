@@ -6,7 +6,7 @@ public static class ShapeFactory
     {
         var type = typeof(Shape).Assembly.GetTypes()
             .FirstOrDefault(t => t.Name == name && typeof(Shape).IsAssignableFrom(t));
-    
+
         return type != null ? (Shape)Activator.CreateInstance(type) : new Square();
     }
 }

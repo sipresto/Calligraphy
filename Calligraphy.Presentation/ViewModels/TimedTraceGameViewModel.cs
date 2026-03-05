@@ -13,7 +13,7 @@ public class TimedTraceGameViewModel : TimedGameViewModelBase<TraceGameService, 
     public const double LoopWidth = 110;
     public const int LoopCount = 9;
     private const int PointsPerLoop = 100; //higher for more points to trace
-    
+
     private readonly TraceTemplate _tracePattern;
 
     public TimedTraceGameViewModel(TraceGameService service)

@@ -8,13 +8,13 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance viewModels:InfinityRaceViewModel}">
-    
+
     <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
     </UserControl.Resources>
 
     <Viewbox Stretch="Uniform">
-        <Grid Width="1200" Height="800" >
+        <Grid Width="1200" Height="800">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -59,8 +59,8 @@
                 StrokeThickness="8"
                 StrokeDashArray="2 2"
                 Data="M 600,400 Q 720,335 860,300"
-                Visibility="{Binding IsPreviewVisible, Converter={StaticResource BoolToVisibility}}"/>
-            
+                Visibility="{Binding IsPreviewVisible, Converter={StaticResource BoolToVisibility}}" />
+
             <Polygon
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
@@ -71,7 +71,7 @@
                     <TranslateTransform X="892" Y="303" />
                 </Polygon.RenderTransform>
             </Polygon>
-            
+
             <Ellipse
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
@@ -79,7 +79,7 @@
                 Height="15"
                 Fill="CornflowerBlue"
                 Visibility="{Binding IsPreviewVisible, Converter={StaticResource BoolToVisibility}}" />
-            
+
             <TextBlock
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
@@ -89,20 +89,20 @@
                 Opacity="0.5"
                 Foreground="Red"
                 Text="{Binding WaitTimerText}"
-                Visibility="{Binding IsPreviewVisible, Converter={StaticResource BoolToVisibility}}"/>
-            
+                Visibility="{Binding IsPreviewVisible, Converter={StaticResource BoolToVisibility}}" />
+
             <controls:GameResultPopup
                 x:Name="ResultPopup"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center" />
-            
+
             <controls:MascotFeedbackControl
                 x:Name="MascotFeedback"
                 Grid.Column="0"
-                Grid.ColumnSpan="2"/>
-            
+                Grid.ColumnSpan="2" />
+
         </Grid>
     </Viewbox>
 

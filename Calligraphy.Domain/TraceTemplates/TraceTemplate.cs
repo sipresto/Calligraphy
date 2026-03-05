@@ -4,8 +4,9 @@ public abstract class TraceTemplate
 {
     public abstract string Name { get; }
     public abstract List<StrokePoint> GetTemplatePoints();
-    
-    protected static StrokePoint EvaluateBezier(StrokePoint p0, StrokePoint p1, StrokePoint p2, StrokePoint p3, double t)
+
+    protected static StrokePoint EvaluateBezier(StrokePoint p0, StrokePoint p1, StrokePoint p2, StrokePoint p3,
+        double t)
     {
         double u = 1 - t;
         double tt = t * t;

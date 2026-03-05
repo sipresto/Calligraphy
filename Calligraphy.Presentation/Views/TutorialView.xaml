@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Calligraphy.Presentation.Views"
              xmlns:controls="clr-namespace:Calligraphy.Presentation.Views.Controls"
              mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="1200">
@@ -39,52 +38,46 @@
                     TextWrapping="Wrap" />
 
                 <StackPanel Orientation="Vertical" Margin="0,20,0,0">
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-        <!-- Use AnimatedStar with IsFilled="True" -->
-        <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
-        <TextBlock
-            Text="{Binding OneStar}"
-            Margin="95,0,0,0"
-            FontSize="24"
-            VerticalAlignment="Center" />
-    </StackPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <!-- Use AnimatedStar with IsFilled="True" -->
+                        <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
+                        <TextBlock
+                            Text="{Binding OneStar}"
+                            Margin="95,0,0,0"
+                            FontSize="24"
+                            VerticalAlignment="Center" />
+                    </StackPanel>
 
-    <!-- Two Stars Row -->
-    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,0">
-        <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
-        <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
-        <TextBlock
-            Text="{Binding TwoStars}"
-            Margin="50,0,0,0"
-            FontSize="24"
-            VerticalAlignment="Center" />
-    </StackPanel>
+                    <!-- Two Stars Row -->
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,0">
+                        <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
+                        <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
+                        <TextBlock
+                            Text="{Binding TwoStars}"
+                            Margin="50,0,0,0"
+                            FontSize="24"
+                            VerticalAlignment="Center" />
+                    </StackPanel>
 
-    <!-- Three Stars Row -->
-    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,0">
-        <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
-        <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
-        <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
-        <TextBlock
-            Text="{Binding ThreeStars}"
-            Margin="5,0,0,0"
-            FontSize="24"
-            VerticalAlignment="Center" />
-    </StackPanel>
-    
-</StackPanel>
+                    <!-- Three Stars Row -->
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,0">
+                        <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
+                        <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
+                        <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
+                        <TextBlock
+                            Text="{Binding ThreeStars}"
+                            Margin="5,0,0,0"
+                            FontSize="24"
+                            VerticalAlignment="Center" />
+                    </StackPanel>
+
+                </StackPanel>
 
                 <TextBlock
                     Text="Let op dat je niet te hard en niet te zacht drukt"
                     Margin="0,20,0,0"
                     FontSize="24"
                     Visibility="{Binding ShowPressureInfo, Converter={StaticResource BoolToVisibility}}" />
-
-                <TextBlock
-                    Text="Let op hoe snel je schrijft"
-                    Margin="0,20,0,0"
-                    FontSize="24"
-                    Visibility="{Binding ShowSpeedInfo, Converter={StaticResource BoolToVisibility}}" />
             </StackPanel>
 
             <Button

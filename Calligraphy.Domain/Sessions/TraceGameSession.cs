@@ -13,13 +13,13 @@ public class TraceGameSession : GameSession
         _templatePoints = templatePoints;
         _toleranceDistance = toleranceDistance;
     }
-    
+
     protected override int CalculateScore()
     {
         _evaluation = TraceEvaluator.Evaluate(TotalStroke(), _templatePoints, _toleranceDistance);
-        return _evaluation.GetQualityScore(); 
+        return _evaluation.GetQualityScore();
     }
-    
+
     public override string GetFeedbackMessage(int stars)
     {
         if (_evaluation != null && !_evaluation.IsSuccessful)

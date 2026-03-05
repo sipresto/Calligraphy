@@ -9,27 +9,26 @@ namespace Calligraphy.Presentation.ViewModels;
 
 public class ShapeDrawViewModel : GameViewModelBase<ShapeDrawService, ShapeDrawSession>
 {
-    public event Action Check;
-    
-    public ICommand CheckCommand { get; }
-    
     public ShapeDrawViewModel(ShapeDrawService service)
         : base(service)
     {
         CheckCommand = new RelayCommand(() => Check?.Invoke());
     }
-    
+
+    public ICommand CheckCommand { get; }
+    public event Action Check;
+
     public void Initialize(string shapeName)
     {
         var shape = ShapeFactory.GetShape(shapeName);
         Service.InitializeSession(shape);
     }
-    
+
     public List<List<StrokePoint>> GetCurrentTemplateShape(double w, double h)
     {
         return Service.GetShape().GetStrokes(w, h);
     }
-    
+
     protected override void RestartGame()
     {
         ResetGameState();

@@ -6,7 +6,7 @@ public abstract class Shape
 
     public abstract List<List<StrokePoint>> GetStrokes(double canvasWidth, double canvasHeight);
 
-    
+
     protected static (double cx, double cy, double r) GetLayout(double w, double h)
     {
         double size = Math.Min(w, h) * 0.6;

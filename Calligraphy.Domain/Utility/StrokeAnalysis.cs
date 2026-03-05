@@ -38,7 +38,7 @@ public static class StrokeAnalysis
 
         return stdDev > maxStdDev;
     }
-    
+
     private static bool CheckPressure(IEnumerable<StrokePoint> stroke, Func<double, bool> predicate, long durationMs)
     {
         long? start = null;
@@ -48,11 +48,10 @@ public static class StrokeAnalysis
             .OrderBy(p => p.Timestamp)
             .ToList();
 
-        if (points.Count < 2) 
+        if (points.Count < 2)
             return false;
 
         foreach (var point in points)
-        {
             if (predicate(point.Pressure!.Value))
             {
                 start ??= point.Timestamp;
@@ -64,7 +63,6 @@ public static class StrokeAnalysis
             {
                 start = null;
             }
-        }
 
         return false;
     }

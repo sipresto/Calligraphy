@@ -1,4 +1,4 @@
-namespace Calligraphy.Presentation.Models;
+namespace Calligraphy.Domain;
 
 public record GameResult
 {

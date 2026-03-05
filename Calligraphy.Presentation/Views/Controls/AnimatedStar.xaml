@@ -8,9 +8,9 @@
             <Grid Background="Transparent">
                 <Image Source="/Resources/Assets/Images/Icons/Empty-star.png" Stretch="Uniform" />
 
-                <Image x:Name="FilledStar" 
-                       Source="/Resources/Assets/Images/Icons/Star.png" 
-                       Stretch="Uniform" 
+                <Image x:Name="FilledStar"
+                       Source="/Resources/Assets/Images/Icons/Star.png"
+                       Stretch="Uniform"
                        RenderTransformOrigin="0.5,0.5">
                     <Image.RenderTransform>
                         <ScaleTransform x:Name="StarScale" ScaleX="0" ScaleY="0" />
@@ -23,18 +23,18 @@
                     <DataTrigger.EnterActions>
                         <BeginStoryboard>
                             <Storyboard>
-                                <DoubleAnimation Storyboard.TargetName="StarScale" 
+                                <DoubleAnimation Storyboard.TargetName="StarScale"
                                                  Storyboard.TargetProperty="ScaleX"
                                                  To="1" Duration="0:0:0.3">
                                     <DoubleAnimation.EasingFunction>
-                                        <BackEase Amplitude="1" EasingMode="EaseOut"/>
+                                        <BackEase Amplitude="1" EasingMode="EaseOut" />
                                     </DoubleAnimation.EasingFunction>
                                 </DoubleAnimation>
-                                <DoubleAnimation Storyboard.TargetName="StarScale" 
+                                <DoubleAnimation Storyboard.TargetName="StarScale"
                                                  Storyboard.TargetProperty="ScaleY"
                                                  To="1" Duration="0:0:0.3">
                                     <DoubleAnimation.EasingFunction>
-                                        <BackEase Amplitude="1" EasingMode="EaseOut"/>
+                                        <BackEase Amplitude="1" EasingMode="EaseOut" />
                                     </DoubleAnimation.EasingFunction>
                                 </DoubleAnimation>
                             </Storyboard>
@@ -43,11 +43,11 @@
                     <DataTrigger.ExitActions>
                         <BeginStoryboard>
                             <Storyboard>
-                                <DoubleAnimation Storyboard.TargetName="StarScale" 
-                                                 Storyboard.TargetProperty="ScaleX" 
+                                <DoubleAnimation Storyboard.TargetName="StarScale"
+                                                 Storyboard.TargetProperty="ScaleX"
                                                  To="0" Duration="0:0:0.2" />
-                                <DoubleAnimation Storyboard.TargetName="StarScale" 
-                                                 Storyboard.TargetProperty="ScaleY" 
+                                <DoubleAnimation Storyboard.TargetName="StarScale"
+                                                 Storyboard.TargetProperty="ScaleY"
                                                  To="0" Duration="0:0:0.2" />
                             </Storyboard>
                         </BeginStoryboard>

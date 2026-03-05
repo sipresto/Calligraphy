@@ -4,12 +4,12 @@ namespace Calligraphy.Domain.Sessions;
 
 public class ShapeDrawSession : GameSession
 {
-    public Shape Shape { get; }
-
     public ShapeDrawSession(Shape shape)
     {
         Shape = shape;
     }
+
+    public Shape Shape { get; }
 
     protected override int CalculateScore()
     {
@@ -31,13 +31,13 @@ public class ShapeDrawSession : GameSession
             ? (int)Math.Round(accuracy * 100)
             : 0;
     }
-    
+
     public override string GetFeedbackMessage(int stars)
     {
         var strokeFeedback = AnalyzeStrokes();
         if (strokeFeedback.Type != FeedbackType.Perfect)
             return strokeFeedback.Message;
-        
+
         return FeedbackMessageProvider.GetStarsMessage(stars);
     }
 }

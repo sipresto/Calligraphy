@@ -31,10 +31,10 @@ public class Triangle : Shape
 
         var stroke = new List<StrokePoint>
         {
-            new(cx,     cy - r),
+            new(cx, cy - r),
             new(cx + r, cy + r),
             new(cx - r, cy + r),
-            new(cx,     cy - r)
+            new(cx, cy - r)
         };
 
         return [stroke];
@@ -77,7 +77,7 @@ public class Star : Shape
         for (int i = 0; i <= spikes * 2; i++)
         {
             double radius = (i % 2 == 0) ? r : inner;
-            double theta  = Math.PI * i / spikes - Math.PI / 2;
+            double theta = Math.PI * i / spikes - Math.PI / 2;
             stroke.Add(new StrokePoint(
                 cx + radius * Math.Cos(theta),
                 cy + radius * Math.Sin(theta)));
@@ -97,11 +97,11 @@ public class Diamond : Shape
 
         var stroke = new List<StrokePoint>
         {
-            new(cx,     cy - r),
-            new(cx + r, cy    ),
-            new(cx,     cy + r),
-            new(cx - r, cy    ),
-            new(cx,     cy - r)
+            new(cx, cy - r),
+            new(cx + r, cy),
+            new(cx, cy + r),
+            new(cx - r, cy),
+            new(cx, cy - r)
         };
 
         return [stroke];
@@ -113,7 +113,9 @@ public class Pentagon : Shape
     public override string Name => "Pentagon";
 
     public override List<List<StrokePoint>> GetStrokes(double w, double h)
-        => PolygonStrokes(5, w, h);
+    {
+        return PolygonStrokes(5, w, h);
+    }
 
     public static List<List<StrokePoint>> PolygonStrokes(int sides, double w, double h)
     {
@@ -137,5 +139,7 @@ public class Hexagon : Shape
     public override string Name => "Hexagon";
 
     public override List<List<StrokePoint>> GetStrokes(double w, double h)
-        => Pentagon.PolygonStrokes(6, w, h);
+    {
+        return Pentagon.PolygonStrokes(6, w, h);
+    }
 }

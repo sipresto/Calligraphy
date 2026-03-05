@@ -10,7 +10,7 @@
              d:DataContext="{d:DesignInstance viewModels:TimedTraceGameViewModel}">
 
     <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
     </UserControl.Resources>
 
     <Viewbox Stretch="Uniform">

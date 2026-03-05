@@ -1,6 +1,5 @@
 ﻿using Calligraphy.Domain;
 using Calligraphy.Domain.Sessions;
-using Calligraphy.Presentation.Models;
 
 namespace Calligraphy.Application;
 
@@ -18,7 +17,7 @@ public abstract class GenericGameService<TSession>
     {
         Session.AddStroke(stroke);
     }
-    
+
     // TODO: temporary StarThreshold as parameter
     public GameResult FinishGame(StarThresholds thresholds)
     {

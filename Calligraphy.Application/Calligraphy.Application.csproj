@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Calligraphy.Domain\Calligraphy.Domain.csproj" />
+        <ProjectReference Include="..\Calligraphy.Domain\Calligraphy.Domain.csproj"/>
     </ItemGroup>
 
 </Project>
