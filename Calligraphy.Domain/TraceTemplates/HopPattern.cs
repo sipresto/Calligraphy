@@ -1,4 +1,4 @@
-namespace Calligraphy.Domain;
+namespace Calligraphy.Domain.TraceTemplates;
 
 public class HopPattern : TraceTemplate
 {

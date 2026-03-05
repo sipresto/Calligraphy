@@ -1,6 +1,7 @@
 ﻿using Calligraphy.Application;
 using Calligraphy.Domain;
 using Calligraphy.Domain.Sessions;
+using Calligraphy.Domain.TraceTemplates;
 
 namespace Calligraphy.Presentation.ViewModels;
 
