@@ -36,7 +36,7 @@ public class TraceGameSession : GameSession
             return "Bijna goed! Probeer het nog eens";
         }
 
-        var strokeFeedback = AnalyzeStrokes(checkSpeed: false);
+        var strokeFeedback = AnalyzeStrokes();
         if (strokeFeedback.Type != FeedbackType.Perfect)
             return strokeFeedback.Message;
 

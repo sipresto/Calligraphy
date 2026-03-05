@@ -35,7 +35,7 @@ public abstract class GameSession
     
     public abstract string GetFeedbackMessage(int stars);
 
-    protected StrokeFeedback AnalyzeStrokes(bool checkPressure = true, bool checkSpeed = true)
+    protected StrokeFeedback AnalyzeStrokes(bool checkPressure = true)
     {
         var stroke = TotalStroke();
 

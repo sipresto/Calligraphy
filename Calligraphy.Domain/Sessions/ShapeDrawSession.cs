@@ -34,7 +34,7 @@ public class ShapeDrawSession : GameSession
     
     public override string GetFeedbackMessage(int stars)
     {
-        var strokeFeedback = AnalyzeStrokes(checkSpeed: false);
+        var strokeFeedback = AnalyzeStrokes();
         if (strokeFeedback.Type != FeedbackType.Perfect)
             return strokeFeedback.Message;
         
