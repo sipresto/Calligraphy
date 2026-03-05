@@ -2,13 +2,14 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Calligraphy.Domain;
 using Calligraphy.Presentation.ViewModels;
 
 namespace Calligraphy.Presentation.Views;
 
 public partial class TraceGameView : UserControl
 {
-    private TraceGameViewModel ViewModel => DataContext as TraceGameViewModel;
+    private TimedTraceGameViewModel ViewModel => DataContext as TimedTraceGameViewModel;
 
     public TraceGameView()
     {
@@ -23,12 +24,11 @@ public partial class TraceGameView : UserControl
 
         DrawHopTemplate();
 
-        var dpi = VisualTreeHelper.GetDpi(InkCanvas);
-        ViewModel?.Initialize(dpi.PixelsPerInchX);
+        ViewModel?.Initialize();
 
         ViewModel!.DrawingStarted += OnDrawingStarted;
         ViewModel!.DrawingEnded += OnDrawingEnded;
-        ViewModel!.Restart += OnRestart;
+        ViewModel!.Restarted += OnRestart;
     }
 
     private void OnDrawingStarted() => InkCanvas.SetDrawingEnabled(true);
@@ -36,13 +36,10 @@ public partial class TraceGameView : UserControl
     private async void OnDrawingEnded()
     {
         var strokes = InkCanvas.EndDrawing();
-        ViewModel?.ProcessFinishedDrawing(strokes);
+        ViewModel?.FinishGame(strokes, new StarThresholds(30, 60, 100));
 
         if (ViewModel?.GameResult != null)
         {
-            MascotFeedback.ShowFeedback(
-                ViewModel.GameResult.StarCount,
-                ViewModel.AnalyzeStrokes());
             await ResultPopup.AnimateStars(ViewModel.GameResult.StarCount);
         }
     }
@@ -51,11 +48,9 @@ public partial class TraceGameView : UserControl
     {
         InkCanvas.Clear();
         ResultPopup.ResetStars();
-        MascotFeedback.Hide();
         DrawHopTemplate();
 
-        var dpi = VisualTreeHelper.GetDpi(InkCanvas);
-        ViewModel?.Initialize(dpi.PixelsPerInchX);
+        ViewModel?.Initialize();
     }
 
     private void DrawHopTemplate()
@@ -63,11 +58,11 @@ public partial class TraceGameView : UserControl
         TemplateCanvas.Children.Clear();
 
         var figure = BuildHopFigure(
-            TraceGameViewModel.StartX,
-            TraceGameViewModel.BaselineY,
-            TraceGameViewModel.TopY,
-            TraceGameViewModel.LoopWidth,
-            TraceGameViewModel.LoopCount);
+            TimedTraceGameViewModel.StartX,
+            TimedTraceGameViewModel.BaselineY,
+            TimedTraceGameViewModel.TopY,
+            TimedTraceGameViewModel.LoopWidth,
+            TimedTraceGameViewModel.LoopCount);
         
         var geometry = new PathGeometry(new[] { figure });
 

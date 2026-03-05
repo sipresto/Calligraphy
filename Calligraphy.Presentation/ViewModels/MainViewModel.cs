@@ -6,12 +6,10 @@ namespace Calligraphy.Presentation.ViewModels;
 
 public class MainViewModel : ObservableObject
 {
-    private ViewModelBase _currentViewModel;
-
     public ViewModelBase CurrentViewModel
     {
-        get => _currentViewModel;
-        set => SetProperty(ref _currentViewModel, value);
+        get;
+        set => SetProperty(ref field, value);
     }
 
     public MainViewModel()
@@ -22,11 +20,6 @@ public class MainViewModel : ObservableObject
     public void NavigateToHome()
     {
         CurrentViewModel = new HomeViewModel(this);
-    }
-
-    public void NavigateToGame()
-    {
-        CurrentViewModel = App.ServiceProvider.GetRequiredService<TraceGameViewModel>();
     }
     
     // TODO: Replace with IDs later
@@ -54,7 +47,7 @@ public class MainViewModel : ObservableObject
                 ThreeStars = "100 punten",
                 ShowPressureInfo = true,
                 ShowSpeedInfo = true,
-                TargetGameViewModelName = nameof(TraceGameViewModel)
+                TargetGameViewModelName = nameof(TimedTraceGameViewModel)
             },
             "ShapeDraw" => new TutorialInfo
             {
@@ -69,10 +62,8 @@ public class MainViewModel : ObservableObject
             _ => null
         };
 
-        if (info != null)
-        {
-            tutorialVm.SetTutorialInfo(info);
-            CurrentViewModel = tutorialVm;
-        }
+        if (info == null) return;
+        tutorialVm.SetTutorialInfo(info);
+        CurrentViewModel = tutorialVm;
     }
 }

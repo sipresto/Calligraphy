@@ -1,27 +1,17 @@
-namespace Calligraphy.Domain;
+using Calligraphy.Domain.Utility;
 
-public class InfinityRaceSession
+namespace Calligraphy.Domain.Sessions;
+
+public class InfinityRaceSession : GameSession
 {
-    private readonly List<Circle> _circles;
-    private readonly List<List<StrokePoint>> _strokes = [];
+    private readonly List<RaceCircle> _circles;
 
-    public InfinityRaceSession(IEnumerable<Circle> circles)
+    public InfinityRaceSession(IEnumerable<RaceCircle> circles)
     {
         _circles = circles.ToList();
     }
 
-    public IReadOnlyList<IReadOnlyList<StrokePoint>> Strokes => _strokes;
-    
-    public IReadOnlyList<StrokePoint> GetTotalStroke()
-    {
-        return _strokes
-            .SelectMany(stroke => stroke)
-            .ToList();
-    }
-
-    public void AddStroke(List<StrokePoint> stroke) => _strokes.Add(stroke);
-
-    public int CalculateScore()
+    protected override int CalculateScore()
     {
         var checks = new List<Func<StrokePoint, bool>>
         {
@@ -38,7 +28,7 @@ public class InfinityRaceSession
         
         int score = 0;
         
-        foreach (var stroke in _strokes)
+        foreach (var stroke in Strokes)
         {
             int current = 0;
             
@@ -66,5 +56,10 @@ public class InfinityRaceSession
         }
         
         return score;
+    }
+
+    public override string GetFeedbackMessage(int stars)
+    {
+        return FeedbackMessageProvider.GetStarsMessage(stars);
     }
 }

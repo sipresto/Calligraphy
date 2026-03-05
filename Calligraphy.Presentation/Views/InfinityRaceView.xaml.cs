@@ -22,15 +22,13 @@ public partial class InfinityRaceView : UserControl
         InkCanvas.SetDrawingEnabled(false);
         ResultPopup.DataContext = DataContext;
         
-        List<Circle> circles = GetCircleData();
-        var dpi = VisualTreeHelper.GetDpi(InkCanvas);
-        double dpiX = dpi.PixelsPerInchX;
+        List<RaceCircle> circles = GetCircleData();
         
-        ViewModel?.Initialize(circles, dpiX);
+        ViewModel?.Initialize(circles);
         
         ViewModel?.DrawingStarted += OnDrawingStarted;
         ViewModel?.DrawingEnded += OnDrawingEnded;
-        ViewModel?.Restart += OnRestart;
+        ViewModel?.Restarted += OnRestart;
     }
     
     private void OnDrawingStarted()
@@ -42,15 +40,10 @@ public partial class InfinityRaceView : UserControl
     {
         var strokes = InkCanvas.EndDrawing();
 
-        ViewModel?.ProcessFinishedDrawing(strokes);
+        ViewModel?.FinishGame(strokes, new StarThresholds(1, 5, 10));
 
         if (ViewModel?.GameResult != null)
         {
-            // TODO: analysestrokes weghalen
-            MascotFeedback.ShowFeedback(
-                ViewModel.GameResult.StarCount,
-                ViewModel.AnalyzeStrokes()
-            );
             await ResultPopup.AnimateStars(ViewModel.GameResult.StarCount);
         }
     }
@@ -59,26 +52,23 @@ public partial class InfinityRaceView : UserControl
     {
         InkCanvas.Clear();
         ResultPopup.ResetStars();
-        MascotFeedback.Hide();
         
-        List<Circle> circles = GetCircleData();
-        var dpi = VisualTreeHelper.GetDpi(InkCanvas);
-        double dpiX = dpi.PixelsPerInchX;
+        List<RaceCircle> circles = GetCircleData();
         
-        ViewModel?.Initialize(circles, dpiX);
+        ViewModel?.Initialize(circles);
     }
     
-    private List<Circle> GetCircleData()
+    private List<RaceCircle> GetCircleData()
     {
         return [GetCircleInfo(LeftCircle), GetCircleInfo(RightCircle)];
     }
 
-    private Circle GetCircleInfo(Ellipse ellipse)
+    private RaceCircle GetCircleInfo(Ellipse ellipse)
     {
         Point localCenter = new Point(ellipse.Width / 2, ellipse.Height / 2);
         Point canvasCenter = ellipse.TranslatePoint(localCenter, InkCanvas);
         double radius = ellipse.Width / 2;
 
-        return new Circle(canvasCenter.X, canvasCenter.Y, radius);
+        return new RaceCircle(canvasCenter.X, canvasCenter.Y, radius);
     }
 }

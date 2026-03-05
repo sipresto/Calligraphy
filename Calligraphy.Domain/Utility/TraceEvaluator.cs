@@ -1,25 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿namespace Calligraphy.Domain.Utility;
 
-namespace Calligraphy.Domain;
-
-public class TraceEvaluator
+public static class TraceEvaluator
 {
-    private readonly List<StrokePoint> _templatePoints;
-    private readonly double _toleranceDistance;
-
-    public TraceEvaluator(List<StrokePoint> templatePoints, double toleranceDistance = 30.0)
-    {
-        _templatePoints = templatePoints;
-        _toleranceDistance = toleranceDistance;
-    }
-
     // Evaluates how well the users strokes match the template
-    public TraceEvaluationResult Evaluate(List<List<StrokePoint>> userStrokes)
+    public static TraceEvaluationResult Evaluate(IReadOnlyList<StrokePoint> userPoints, IReadOnlyList<StrokePoint> templatePoints, double toleranceDistance)
     {
-        var userPoints = userStrokes.SelectMany(s => s).ToList();
-
         if (userPoints.Count < 10)
         {
             return new TraceEvaluationResult
@@ -32,10 +17,10 @@ public class TraceEvaluator
         }
 
         // Calculate coverage, what percentage of template was traced
-        double coverage = CalculateCoverage(userPoints);
+        double coverage = CalculateCoverage(userPoints, templatePoints, toleranceDistance);
 
         // Calculate deviation, how far off are the users strokes from the template
-        var deviations = CalculateDeviations(userPoints);
+        var deviations = CalculateDeviations(userPoints, templatePoints);
         double avgDeviation = deviations.Average();
         double maxDeviation = deviations.Max();
 
@@ -44,8 +29,8 @@ public class TraceEvaluator
 
         // Determine success based on criteria
         bool isSuccessful = coverage >= 0.70 && // At least 70% coverage
-                           avgDeviation <= _toleranceDistance && 
-                           maxDeviation <= _toleranceDistance * 2 &&
+                           avgDeviation <= toleranceDistance && 
+                           maxDeviation <= toleranceDistance * 2 &&
                            directionCorrect;
 
         return new TraceEvaluationResult
@@ -59,31 +44,30 @@ public class TraceEvaluator
     }
 
     // Calculates what percentage of the template was covered by user strokes
-    private double CalculateCoverage(List<StrokePoint> userPoints)
+    private static double CalculateCoverage(IReadOnlyList<StrokePoint> userPoints, IReadOnlyList<StrokePoint> templatePoints, double toleranceDistance)
     {
         int coveredPoints = 0;
 
-        foreach (var templatePoint in _templatePoints)
+        foreach (var templatePoint in templatePoints)
         {
             bool isCovered = userPoints.Any(userPoint =>
-                Distance(templatePoint, userPoint) <= _toleranceDistance);
+                Distance(templatePoint, userPoint) <= toleranceDistance);
 
             if (isCovered)
                 coveredPoints++;
         }
 
-        return (double)coveredPoints / _templatePoints.Count;
+        return (double)coveredPoints / templatePoints.Count;
     }
-
     
     // Calculates deviation of each user point from the nearest template point
-    private List<double> CalculateDeviations(List<StrokePoint> userPoints)
+    private static List<double> CalculateDeviations(IReadOnlyList<StrokePoint> userPoints, IReadOnlyList<StrokePoint> templatePoints)
     {
         var deviations = new List<double>();
 
         foreach (var userPoint in userPoints)
         {
-            double minDistance = _templatePoints
+            double minDistance = templatePoints
                 .Min(templatePoint => Distance(templatePoint, userPoint));
             deviations.Add(minDistance);
         }
@@ -92,7 +76,7 @@ public class TraceEvaluator
     }
 
     // Checks if the user generally traced from left to right
-    private bool CheckDirectionConsistency(List<StrokePoint> userPoints)
+    private static bool CheckDirectionConsistency(IReadOnlyList<StrokePoint> userPoints)
     {
         if (userPoints.Count < 2)
             return false;
@@ -103,13 +87,12 @@ public class TraceEvaluator
         return lastX > firstX;
     }
 
-    private double Distance(StrokePoint templatePoint, StrokePoint strokePoint)
+    private static double Distance(StrokePoint templatePoint, StrokePoint strokePoint)
     {
         double dx = templatePoint.X - strokePoint.X;
         double dy = templatePoint.Y - strokePoint.Y;
         return Math.Sqrt(dx * dx + dy * dy);
     }
-    
 }
 
 public class TraceEvaluationResult

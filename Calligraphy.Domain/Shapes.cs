@@ -41,7 +41,7 @@ public class Triangle : Shape
     }
 }
 
-public class CircleShape : Shape
+public class Circle : Shape
 {
     public override string Name => "Circle";
 

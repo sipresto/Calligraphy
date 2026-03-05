@@ -18,7 +18,7 @@
             <views:InfinityRaceView />
         </DataTemplate>
         
-        <DataTemplate DataType="{x:Type local:TraceGameViewModel}">
+        <DataTemplate DataType="{x:Type local:TimedTraceGameViewModel}">
             <views:TraceGameView />
         </DataTemplate>
         
