@@ -27,8 +27,9 @@ public class TimedTraceGameViewModel : TimedGameViewModelBase<TraceGameService, 
             PointsPerLoop);
     }
 
-    public void Initialize(double dpi)
+    public void Initialize()
     {
-        Service.InitializeSession(dpi, _tracePattern.GetTemplatePoints(), 30.0);
+        Service.InitializeSession(_tracePattern.GetTemplatePoints(), 30.0);
+        StartWaitPhase();
     }
 }

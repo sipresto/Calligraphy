@@ -19,10 +19,10 @@ public class ShapeDrawViewModel : GameViewModelBase<ShapeDrawService, ShapeDrawS
         CheckCommand = new RelayCommand(() => Check?.Invoke());
     }
     
-    public void Initialize(double dpi, string shapeName)
+    public void Initialize(string shapeName)
     {
         var shape = ShapeFactory.GetShape(shapeName);
-        Service.InitializeSession(dpi, shape);
+        Service.InitializeSession(shape);
     }
     
     public List<List<StrokePoint>> GetCurrentTemplateShape(double w, double h)

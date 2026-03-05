@@ -24,8 +24,7 @@ public partial class TraceGameView : UserControl
 
         DrawHopTemplate();
 
-        var dpi = VisualTreeHelper.GetDpi(InkCanvas);
-        ViewModel?.Initialize(dpi.PixelsPerInchX);
+        ViewModel?.Initialize();
 
         ViewModel!.DrawingStarted += OnDrawingStarted;
         ViewModel!.DrawingEnded += OnDrawingEnded;
@@ -51,8 +50,7 @@ public partial class TraceGameView : UserControl
         ResultPopup.ResetStars();
         DrawHopTemplate();
 
-        var dpi = VisualTreeHelper.GetDpi(InkCanvas);
-        ViewModel?.Initialize(dpi.PixelsPerInchX);
+        ViewModel?.Initialize();
     }
 
     private void DrawHopTemplate()

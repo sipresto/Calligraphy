@@ -28,7 +28,7 @@ public class InfinityRaceSession : GameSession
         
         int score = 0;
         
-        foreach (var stroke in _strokes)
+        foreach (var stroke in Strokes)
         {
             int current = 0;
             

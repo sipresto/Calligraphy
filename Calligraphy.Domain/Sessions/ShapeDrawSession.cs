@@ -6,7 +6,7 @@ public class ShapeDrawSession : GameSession
 {
     public Shape Shape { get; }
 
-    public ShapeDrawSession(double dpi, Shape shape) : base(dpi)
+    public ShapeDrawSession(Shape shape)
     {
         Shape = shape;
     }

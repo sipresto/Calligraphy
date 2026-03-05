@@ -8,7 +8,7 @@ public class TraceGameSession : GameSession
     private readonly double _toleranceDistance;
     private TraceEvaluationResult _evaluation;
 
-    public TraceGameSession(double dpi, List<StrokePoint> templatePoints, double toleranceDistance = 30.0) : base(dpi)
+    public TraceGameSession(List<StrokePoint> templatePoints, double toleranceDistance = 30.0)
     {
         _templatePoints = templatePoints;
         _toleranceDistance = toleranceDistance;

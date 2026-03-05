@@ -68,7 +68,7 @@ public static class FeedbackMessageProvider
             3,
             [
                 "Geweldig! Je hebt het heel goed gedaan!",
-                "Fantastisch! Dat was bijna perfect!",
+                "Fantastisch! Dat was perfect!",
                 "Super gedaan! Je bent een echte schrijver!"
             ]
         },

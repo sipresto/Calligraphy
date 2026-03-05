@@ -5,11 +5,11 @@ namespace Calligraphy.Application;
 
 public class TraceGameService : GenericGameService<TraceGameSession>
 {
-    public void InitializeSession(double dpi, List<StrokePoint> templatePoints, double? toleranceDistance = null)
+    public void InitializeSession(List<StrokePoint> templatePoints, double? toleranceDistance = null)
     {
         var session = toleranceDistance.HasValue
-            ? new TraceGameSession(dpi, templatePoints, toleranceDistance.Value)
-            : new TraceGameSession(dpi, templatePoints);
+            ? new TraceGameSession(templatePoints, toleranceDistance.Value)
+            : new TraceGameSession(templatePoints);
         InitializeSession(session);
     }
 }

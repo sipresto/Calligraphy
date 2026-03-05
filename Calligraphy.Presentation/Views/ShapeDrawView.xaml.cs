@@ -27,8 +27,7 @@ public partial class ShapeDrawView : UserControl
         
         ResultPopup.DataContext = DataContext;
         
-        var dpi = VisualTreeHelper.GetDpi(InkCanvas);
-        ViewModel?.Initialize(dpi.PixelsPerInchX, "Diamond");
+        ViewModel?.Initialize("Diamond");
         
         ViewModel?.Restarted += OnReset;
         ViewModel?.Check += OnCheck;
@@ -42,8 +41,7 @@ public partial class ShapeDrawView : UserControl
         InkCanvas.Clear();
         ResultPopup.ResetStars();
         
-        var dpi = VisualTreeHelper.GetDpi(InkCanvas);
-        ViewModel?.Initialize(dpi.PixelsPerInchX, "Diamond");
+        ViewModel?.Initialize("Diamond");
     }
 
     private async void OnCheck()
