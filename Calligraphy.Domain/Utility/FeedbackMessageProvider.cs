@@ -17,47 +17,21 @@ public static class FeedbackMessageProvider
             [
                 "Probeer iets zachter te drukken",
                 "Je mag je pen wat lichter vasthouden",
-                "Schrijf eens met wat minder kracht"
+                "Let op je druk, probeer minder hard te schrijven"
             ]
         },
         {
             FeedbackType.PressureTooLow,
             [
                 "Probeer iets steviger te drukken",
-                "Je mag je pen wat duidelijker op het blad zetten",
-                "Zorg dat je pen het papier goed raakt"
-            ]
-        },
-        {
-            FeedbackType.SpeedInconsistent,
-            [
-                "Probeer in een rustig en gelijk tempo te schrijven",
-                "Houd je schrijfsnelheid overal ongeveer hetzelfde",
-                "Schrijf in een mooi, gelijk ritme"
-            ]
-        },
-        {
-            FeedbackType.SpeedTooHigh,
-            [
-                "Probeer iets rustiger te schrijven",
-                "Neem wat meer tijd voor je beweging",
-                "Schrijf iets langzamer en gecontroleerd"
-            ]
-        },
-        {
-            FeedbackType.SpeedTooLow,
-            [
-                "Je mag iets sneller schrijven",
-                "Probeer je beweging wat vlotter te maken",
-                "Schrijf iets soepeler en iets sneller"
+                "Druk iets harder zodat de lijn duidelijker wordt",
+                "Houd de pen wat steviger vast tijdens het schrijven"
             ]
         },
         {
             FeedbackType.Perfect,
             [
-                "Dat heb je heel goed gedaan",
-                "Wat knap geschreven",
-                "Mooi werk, ga zo door"
+                string.Empty
             ]
         }
     };
@@ -85,15 +59,15 @@ public static class FeedbackMessageProvider
             [
                 "Niet slecht! Probeer het nog eens!",
                 "Goed geprobeerd! Nog een keer oefenen?",
-                "Je bent al op weg! Nog eens proberen!"
+                "Je bent al goed op weg! Probeer het nog eens!"
             ]
         },
         {
             0,
             [
                 "Blijf oefenen! Je kunt het beter doen!",
-                "Geen probleem! Probeer het nog eens!",
-                "Oefening baart kunst!"
+                "Houd vol! Volgende keer gaat het beter!",
+                "Niet opgeven! Probeer het opnieuw!"
             ]
         }
     };
