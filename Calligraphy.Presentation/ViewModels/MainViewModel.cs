@@ -22,6 +22,11 @@ public class MainViewModel : ObservableObject
         CurrentViewModel = new HomeViewModel(this);
     }
 
+    public void ShowSettings()
+    {
+        CurrentViewModel = App.ServiceProvider.GetRequiredService<SettingsViewModel>();
+    }
+
     // TODO: Replace with IDs later
     public void ShowTutorialForGame(string gameName)
     {

@@ -61,6 +61,14 @@
         <Resource Include="Resources\Assets\Images\Mascot\mascot-bear-1.png"/>
         <Resource Include="Resources\Assets\Images\Icons\Star.png"/>
         <Resource Include="Resources\Assets\Images\Icons\Empty-star.png"/>
+        <None Remove="Resources\Assets\Images\Buttons\Butto.png" />
+        <Resource Include="Resources\Assets\Images\Buttons\Butto.png" />
+        <None Remove="Resources\Assets\Images\Buttons\Buttons-x.png" />
+        <Resource Include="Resources\Assets\Images\Buttons\Buttons-x.png" />
+        <None Remove="Resources\Assets\Images\Buttons\Pressed\Buttons-pressed-x.png" />
+        <Resource Include="Resources\Assets\Images\Buttons\Pressed\Buttons-pressed-x.png" />
+        <None Remove="Resources\Assets\Images\Buttons\Pressed\Butto-pressed.png" />
+        <Resource Include="Resources\Assets\Images\Buttons\Pressed\Butto-pressed.png" />
     </ItemGroup>
 
 </Project>

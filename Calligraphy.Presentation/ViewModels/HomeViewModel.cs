@@ -11,9 +11,11 @@ public class HomeViewModel : ViewModelBase
         //PlayCommand = new RelayCommand(() => mainViewModel.ShowTutorialForGame("InfinityRace"));
         PlayCommand = new RelayCommand(() => mainViewModel.ShowTutorialForGame("TraceGame"));
         ExitCommand = new RelayCommand(ExecuteExit);
+        SettingsCommand = new RelayCommand(() => mainViewModel.ShowSettings());
     }
 
     public ICommand PlayCommand { get; }
+    public ICommand SettingsCommand { get; }
     public ICommand ExitCommand { get; }
 
     private void ExecuteExit()

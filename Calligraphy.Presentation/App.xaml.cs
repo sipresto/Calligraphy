@@ -32,6 +32,7 @@ public partial class App : System.Windows.Application
         services.AddTransient<ShapeDrawService>();
 
         // Register ViewModels
+        services.AddTransient<SettingsViewModel>();
         services.AddTransient<TutorialViewModel>();
         services.AddSingleton<MainViewModel>();
         services.AddTransient<TimedTraceGameViewModel>();
@@ -39,6 +40,7 @@ public partial class App : System.Windows.Application
         services.AddTransient<ShapeDrawViewModel>();
 
         // Register Views
+        services.AddTransient<SettingsView>();
         services.AddSingleton<MainWindow>();
         services.AddTransient<TutorialView>();
     }
