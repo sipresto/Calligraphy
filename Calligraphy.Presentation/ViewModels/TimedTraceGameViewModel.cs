@@ -1,7 +1,6 @@
 ﻿using Calligraphy.Application;
 using Calligraphy.Domain;
 using Calligraphy.Domain.Sessions;
-using Calligraphy.Domain.Utility;
 
 namespace Calligraphy.Presentation.ViewModels;
 
@@ -14,12 +13,12 @@ public class TimedTraceGameViewModel : TimedGameViewModelBase<TraceGameService, 
     public const int LoopCount = 9;
     private const int PointsPerLoop = 100; //higher for more points to trace
     
-    private readonly List<StrokePoint> _templatePoints;
+    private readonly TraceTemplate _tracePattern;
 
     public TimedTraceGameViewModel(TraceGameService service)
         : base(service, 30)
     {
-        _templatePoints = TraceTemplateGenerator.GenerateHopPattern(
+        _tracePattern = new HopPattern(
             StartX,
             BaselineY,
             TopY,
@@ -30,6 +29,6 @@ public class TimedTraceGameViewModel : TimedGameViewModelBase<TraceGameService, 
 
     public void Initialize(double dpi)
     {
-        Service.InitializeSession(dpi, _templatePoints, 30.0);
+        Service.InitializeSession(dpi, _tracePattern.GetTemplatePoints(), 30.0);
     }
 }
