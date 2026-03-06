@@ -7,9 +7,9 @@ public class HomeViewModel : ViewModelBase
 {
     public HomeViewModel(MainViewModel mainViewModel)
     {
-        //PlayCommand = new RelayCommand(() => mainViewModel.ShowTutorialForGame("ShapeDraw"));
+        //PlayCommand = new RelayCommand(() => mainViewModel.ShowTutorialForGame("DiamondShapeGame"));
         //PlayCommand = new RelayCommand(() => mainViewModel.ShowTutorialForGame("InfinityRace"));
-        PlayCommand = new RelayCommand(() => mainViewModel.ShowTutorialForGame("TraceGame"));
+        PlayCommand = new RelayCommand(() => mainViewModel.ShowTutorialForGame("TimedTraceHop"));
         ExitCommand = new RelayCommand(ExecuteExit);
     }
 

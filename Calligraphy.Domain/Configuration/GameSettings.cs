@@ -11,6 +11,7 @@ public class GameSettings
 public abstract class BaseGameSettings
 {
     public int[] StarThresholds { get; set; }
+    public TutorialSettings Tutorial { get; init; }
     
     public StarThresholds GetThresholds() => new (StarThresholds[0], StarThresholds[1], StarThresholds[2]);
 }
@@ -39,4 +40,11 @@ public class TraceGameSettings : BaseGameSettings
 public class ShapeGameSettings : BaseGameSettings
 {
     public string Shape { get; set; }
+}
+
+public class TutorialSettings
+{
+    public string PointsExplanation { get; init; }
+    public bool ShowPressureInfo { get; init; }
+    public string TargetViewModel { get; init; }
 }

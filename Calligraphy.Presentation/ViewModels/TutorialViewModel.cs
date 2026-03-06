@@ -24,10 +24,11 @@ public class TutorialViewModel : ViewModelBase
     public string ThreeStars { get; set; }
     public bool ShowPressureInfo { get; set; }
     private string TargetGameViewModelName { get; set; }
+    private string GameKey { get; set; }
 
     public ICommand CloseTutorialCommand { get; }
 
-    public void SetTutorialInfo(TutorialInfo info)
+    public void SetTutorialInfo(TutorialInfo info, string gameKey)
     {
         PointsExplanation = info.PointsExplanation;
         OneStar = info.OneStar;
@@ -35,6 +36,7 @@ public class TutorialViewModel : ViewModelBase
         ThreeStars = info.ThreeStars;
         ShowPressureInfo = info.ShowPressureInfo;
         TargetGameViewModelName = info.TargetGameViewModelName;
+        GameKey = gameKey;
 
         OnPropertyChanged(nameof(PointsExplanation));
         OnPropertyChanged(nameof(OneStar));
@@ -45,20 +47,26 @@ public class TutorialViewModel : ViewModelBase
 
     private void CloseTutorial()
     {
-        if (!string.IsNullOrEmpty(TargetGameViewModelName))
-        {
-            ViewModelBase gameVm = TargetGameViewModelName switch
-            {
-                nameof(InfinityRaceViewModel) => _services.GetRequiredService<InfinityRaceViewModel>(),
-                nameof(TimedTraceGameViewModel) => _services.GetRequiredService<TimedTraceGameViewModel>(),
-                nameof(ShapeDrawViewModel) => _services.GetRequiredService<ShapeDrawViewModel>(),
-                _ => null
-            };
+        if (string.IsNullOrEmpty(TargetGameViewModelName)) return;
 
-            if (gameVm != null)
-            {
-                _navigation.CurrentViewModel = gameVm;
-            }
+        if (TargetGameViewModelName == nameof(InfinityRaceViewModel))
+        {
+            var vm = _services.GetRequiredService<InfinityRaceViewModel>();
+            // TODO: Check if initialize can be called here, or in constructor or should stay in code-behind
+            // vm.Initialize(circles);
+            _navigation.CurrentViewModel = vm;
+        }
+        else if (TargetGameViewModelName == nameof(TimedTraceGameViewModel))
+        {
+            var vm = _services.GetRequiredService<TimedTraceGameViewModel>();
+            // vm.Initialize(GameKey);
+            _navigation.CurrentViewModel = vm;
+        }
+        else if (TargetGameViewModelName == nameof(ShapeDrawViewModel))
+        {
+            var vm = _services.GetRequiredService<ShapeDrawViewModel>();
+            // vm.Initialize(GameKey);
+            _navigation.CurrentViewModel = vm;
         }
     }
 }
