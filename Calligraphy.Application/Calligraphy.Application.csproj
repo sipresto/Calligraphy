@@ -8,6 +8,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Calligraphy.Domain\Calligraphy.Domain.csproj"/>
+        <ProjectReference Include="..\Calligraphy.Infrastructure\Calligraphy.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
