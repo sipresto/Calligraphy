@@ -1,19 +1,20 @@
 using Calligraphy.Application;
 using Calligraphy.Domain;
+using Calligraphy.Domain.Configuration;
 using Calligraphy.Domain.Sessions;
 
 namespace Calligraphy.Presentation.ViewModels;
 
-public class InfinityRaceViewModel : TimedGameViewModelBase<InfinityRaceService, InfinityRaceSession>
+public class InfinityRaceViewModel : TimedGameViewModelBase<InfinityRaceService, InfinityRaceSession, InfinityRaceSettings>
 {
-    // TODO: Magic number
-    public InfinityRaceViewModel(InfinityRaceService service)
-        : base(service, 20)
+    public InfinityRaceViewModel(InfinityRaceService service, GameSettings settings)
+        : base(service, settings)
     {
     }
 
     public void Initialize(List<RaceCircle> circles)
     {
+        Settings = AllSettings.InfinityRace;
         Service.InitializeSession(circles);
         StartWaitPhase();
     }

@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Windows;
 using Calligraphy.Application;
+using Calligraphy.Domain.Configuration;
 using Calligraphy.Infrastructure;
 using Calligraphy.Presentation.ViewModels;
 using Calligraphy.Presentation.Views;
@@ -39,7 +40,8 @@ public partial class App : System.Windows.Application
         
         // Register Configuration
         var configuration = LoadConfiguration();
-        services.AddSingleton(configuration);
+        var gameSettings = configuration.GetSection("GameSettings").Get<GameSettings>();
+        services.AddSingleton(gameSettings);
         
         // Register game services
         services.AddTransient<InfinityRaceService>();
