@@ -63,6 +63,7 @@
         <Resource Include="Resources\Assets\Images\Mascot\mascot-bear-1.png"/>
         <Resource Include="Resources\Assets\Images\Icons\Star.png"/>
         <Resource Include="Resources\Assets\Images\Icons\Empty-star.png"/>
+        <Resource Include="Resources\Assets\Images\draw-example.png" />
         <EmbeddedResource Include="Resources\appsettings.json" />
     </ItemGroup>
 

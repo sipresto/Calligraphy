@@ -27,4 +27,10 @@ public class TimedTraceGameViewModel : TimedGameViewModelBase<TraceGameService, 
     {
         return CurrentTemplate.GetMetadata();
     }
+    
+    protected override void RestartGame()
+    {
+        Service.InitializeSession(CurrentTemplate.GetTemplatePoints(), Settings.ToleranceDistance);
+        base.RestartGame();
+    }
 }

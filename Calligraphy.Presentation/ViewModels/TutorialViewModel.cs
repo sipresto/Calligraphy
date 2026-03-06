@@ -52,20 +52,18 @@ public class TutorialViewModel : ViewModelBase
         if (TargetGameViewModelName == nameof(InfinityRaceViewModel))
         {
             var vm = _services.GetRequiredService<InfinityRaceViewModel>();
-            // TODO: Check if initialize can be called here, or in constructor or should stay in code-behind
-            // vm.Initialize(circles);
             _navigation.CurrentViewModel = vm;
         }
         else if (TargetGameViewModelName == nameof(TimedTraceGameViewModel))
         {
             var vm = _services.GetRequiredService<TimedTraceGameViewModel>();
-            // vm.Initialize(GameKey);
+            vm.Initialize(GameKey);
             _navigation.CurrentViewModel = vm;
         }
         else if (TargetGameViewModelName == nameof(ShapeDrawViewModel))
         {
             var vm = _services.GetRequiredService<ShapeDrawViewModel>();
-            // vm.Initialize(GameKey);
+            vm.Initialize(GameKey);
             _navigation.CurrentViewModel = vm;
         }
     }

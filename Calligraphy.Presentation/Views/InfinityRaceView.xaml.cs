@@ -51,10 +51,6 @@ public partial class InfinityRaceView : UserControl
     {
         InkCanvas.Clear();
         ResultPopup.ResetStars();
-
-        List<RaceCircle> circles = GetCircleData();
-
-        ViewModel?.Initialize(circles);
     }
 
     private List<RaceCircle> GetCircleData()

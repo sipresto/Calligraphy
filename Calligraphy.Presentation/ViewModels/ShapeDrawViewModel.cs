@@ -35,6 +35,7 @@ public class ShapeDrawViewModel : GameViewModelBase<ShapeDrawService, ShapeDrawS
 
     protected override void RestartGame()
     {
+        Service.InitializeSession(CurrentShape);
         ResetGameState();
     }
 }

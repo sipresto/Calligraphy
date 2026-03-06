@@ -19,9 +19,6 @@ public partial class TraceGameView : UserControl
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        // TODO: remove hardcode when creating select screen. Also currently being 
-        ViewModel?.Initialize("TimedTraceHop");
-        
         InkCanvas.SetDrawingEnabled(false);
         ResultPopup.DataContext = DataContext;
 
@@ -50,9 +47,6 @@ public partial class TraceGameView : UserControl
         InkCanvas.Clear();
         ResultPopup.ResetStars();
         DrawHopTemplate();
-
-        // TODO: remove hardcode when creating select screen
-        ViewModel?.Initialize("TimedTraceHop");
     }
 
     private void DrawHopTemplate()

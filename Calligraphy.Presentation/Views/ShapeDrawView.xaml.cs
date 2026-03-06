@@ -26,8 +26,6 @@ public partial class ShapeDrawView : UserControl
 
         ResultPopup.DataContext = DataContext;
 
-        ViewModel?.Initialize("Diamond");
-
         ViewModel?.Restarted += OnReset;
         ViewModel?.Check += OnCheck;
 
@@ -39,8 +37,6 @@ public partial class ShapeDrawView : UserControl
         InkCanvas.SetDrawingEnabled(true);
         InkCanvas.Clear();
         ResultPopup.ResetStars();
-
-        ViewModel?.Initialize("Diamond");
     }
 
     private async void OnCheck()
