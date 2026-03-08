@@ -1,9 +1,12 @@
+using Calligraphy.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace Calligraphy.Infrastructure;
 
 public class CallyDbContext : DbContext
 {
+    public DbSet<GameResultRecord> GameResultRecords { get; set; }
+    
     public CallyDbContext(DbContextOptions<CallyDbContext> options) : base(options)
     {
     }
@@ -19,6 +22,9 @@ public class CallyDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        
+        modelBuilder.Entity<GameResultRecord>()
+            .HasKey(e => e.GameId);
     }
     
     public bool CreateDatabase(bool delete) {

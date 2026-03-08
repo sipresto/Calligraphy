@@ -8,6 +8,7 @@ namespace Calligraphy.Presentation.ViewModels;
 
 public class TimedTraceGameViewModel : TimedGameViewModelBase<TraceGameService, TraceGameSession, TimedTraceGameSettings>
 {
+    private string _gameId;
     private TraceTemplate CurrentTemplate { get; set; }
     
     public TimedTraceGameViewModel(TraceGameService service, GameSettings settings)
@@ -15,11 +16,12 @@ public class TimedTraceGameViewModel : TimedGameViewModelBase<TraceGameService, 
     {
     }
 
-    public void Initialize(string gameName)
+    public void Initialize(string gameId)
     {
-        Settings = AllSettings.TimedTraceGames[gameName];
+        _gameId = gameId;
+        Settings = AllSettings.TimedTraceGames[gameId];
         CurrentTemplate = TraceFactory.GetTraceTemplate(Settings.Template);
-        Service.InitializeSession(CurrentTemplate.GetTemplatePoints(), Settings.ToleranceDistance);
+        Service.InitializeSession(_gameId, CurrentTemplate.GetTemplatePoints(), Settings.ToleranceDistance);
         StartWaitPhase();
     }
 
@@ -30,7 +32,7 @@ public class TimedTraceGameViewModel : TimedGameViewModelBase<TraceGameService, 
     
     protected override void RestartGame()
     {
-        Service.InitializeSession(CurrentTemplate.GetTemplatePoints(), Settings.ToleranceDistance);
+        Service.InitializeSession(_gameId, CurrentTemplate.GetTemplatePoints(), Settings.ToleranceDistance);
         base.RestartGame();
     }
 }

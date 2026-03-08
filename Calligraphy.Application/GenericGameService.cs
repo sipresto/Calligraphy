@@ -1,32 +1,41 @@
 ﻿using Calligraphy.Domain;
 using Calligraphy.Domain.Sessions;
+using Calligraphy.Infrastructure;
 
 namespace Calligraphy.Application;
 
 public abstract class GenericGameService<TSession>
     where TSession : GameSession
 {
+    private readonly IRepository _repository;
+    private string _gameName;
     protected TSession Session { get; private set; }
 
-    protected void InitializeSession(TSession session)
+    protected GenericGameService(IRepository repository)
+    {
+        _repository = repository;
+    }
+
+    protected void InitializeSession(TSession session, string gameId)
     {
         Session = session;
+        _gameName = gameId;
     }
 
     public void AddStroke(List<StrokePoint> stroke)
     {
         Session.AddStroke(stroke);
     }
-
-    // TODO: temporary StarThreshold as parameter
+    
     public GameResult FinishGame(StarThresholds thresholds)
     {
         var score = Session.Score;
-
-        //var thresholds = GetStarThresholds();
+        
         var stars = Session.CalculateStars(thresholds);
 
         var feedbackMessage = Session.GetFeedbackMessage(stars);
+        
+        _repository.Save(new GameResultRecord(_gameName, score, stars, DateTime.Now));
 
         return new GameResult
         {

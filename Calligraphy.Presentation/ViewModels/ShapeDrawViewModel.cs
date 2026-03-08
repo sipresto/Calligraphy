@@ -10,6 +10,8 @@ namespace Calligraphy.Presentation.ViewModels;
 
 public class ShapeDrawViewModel : GameViewModelBase<ShapeDrawService, ShapeDrawSession, ShapeGameSettings>
 {
+    private string _gameId;
+    
     public ShapeDrawViewModel(ShapeDrawService service, GameSettings settings)
         : base(service, settings)
     {
@@ -21,11 +23,12 @@ public class ShapeDrawViewModel : GameViewModelBase<ShapeDrawService, ShapeDrawS
 
     private Shape CurrentShape { get; set; }
 
-    public void Initialize(string gameName)
+    public void Initialize(string gameId)
     {
-        Settings = AllSettings.ShapeGames[gameName];
+        _gameId = gameId;
+        Settings = AllSettings.ShapeGames[gameId];
         CurrentShape = ShapeFactory.GetShape(Settings.Shape);
-        Service.InitializeSession(CurrentShape);
+        Service.InitializeSession(_gameId, CurrentShape);
     }
 
     public List<List<StrokePoint>> GetCurrentTemplateShape(double w, double h)
@@ -35,7 +38,7 @@ public class ShapeDrawViewModel : GameViewModelBase<ShapeDrawService, ShapeDrawS
 
     protected override void RestartGame()
     {
-        Service.InitializeSession(CurrentShape);
+        Service.InitializeSession(_gameId, CurrentShape);
         ResetGameState();
     }
 }
