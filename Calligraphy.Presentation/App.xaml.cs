@@ -85,6 +85,6 @@ public partial class App : System.Windows.Application
         using var scope = ServiceProvider.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<CallyDbContext>();
 
-        context.CreateDatabase(delete: false);
+        context.CreateDatabase(false);
     }
 }

@@ -34,8 +34,13 @@ public abstract class GenericGameService<TSession>
         var stars = Session.CalculateStars(thresholds);
 
         var feedbackMessage = Session.GetFeedbackMessage(stars);
+
+        var existingScore = _repository.Get(_gameName)?.Score;
         
-        _repository.Save(new GameResultRecord(_gameName, score, stars, DateTime.Now));
+        if (existingScore == null || existingScore < score)
+        {
+            _repository.Save(new GameResultRecord(_gameName, score, stars, DateTime.Now));
+        }
 
         return new GameResult
         {
