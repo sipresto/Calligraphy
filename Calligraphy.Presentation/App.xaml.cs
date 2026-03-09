@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Calligraphy.Application;
+using Calligraphy.Presentation.ColorHandling;
 using Calligraphy.Presentation.ViewModels;
 using Calligraphy.Presentation.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +27,9 @@ public partial class App : System.Windows.Application
 
     private void ConfigureServices(IServiceCollection services)
     {
+        services.AddSingleton<DrawingState>();
+        services.AddSingleton<Colors>();
+        
         // Register game services
         services.AddTransient<InfinityRaceService>();
         services.AddTransient<TraceGameService>();

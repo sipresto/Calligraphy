@@ -1,10 +1,6 @@
 ﻿<UserControl x:Class="Calligraphy.Presentation.Views.SettingsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="800">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <UserControl.Resources>
         <Style x:Key="ImageButtonStyle" TargetType="Button">
@@ -17,7 +13,6 @@
                                 <Image x:Name="NormalImage"
                                        Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Tag}" 
                                        Stretch="Uniform"/>
-
                                 <Image x:Name="PressedImage"
                                        Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content}"
                                        Visibility="Collapsed" 
@@ -39,55 +34,45 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Background="#902D232F" MouseLeftButtonDown="Overlay_MouseLeftButtonDown">
-        
+    <Grid Background="#902D232F">
         <Border Width="620" Height="520"
                 Background="#755679" 
                 CornerRadius="50"
-                Padding="10"
-                MouseLeftButtonDown="Popup_MouseLeftButtonDown">
+                Padding="10">
             <Border.Effect>
                 <DropShadowEffect BlurRadius="25" ShadowDepth="8" Opacity="0.4"/>
             </Border.Effect>
 
-            <Border CornerRadius="40" Background="#F1E5D1">
-                
-                <Border Background="#FFF9EB" 
-                        CornerRadius="40" 
-                        Margin="0,0,0,8"> 
-                    
-                    <Grid Margin="20">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
+            <Border CornerRadius="40" Background="#FFF9EB" Margin="0,0,0,8">
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Row="0" 
-                                   Text="Kies de kleur van jouw pen!"
-                                   FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
-                                   FontSize="30"
-                                   Foreground="#755679"
-                                   HorizontalAlignment="Center"
-                                   Margin="0,10,0,20"/>
+                    <TextBlock Grid.Row="0" 
+                               Text="Kies de kleur van jouw pen!"
+                               FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
+                               FontSize="30"
+                               Foreground="#755679"
+                               HorizontalAlignment="Center"
+                               Margin="0,10,0,20"/>
 
-                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                            <WrapPanel x:Name="ColorPanel" 
-                                       HorizontalAlignment="Center" 
-                                       Orientation="Horizontal">
-                            </WrapPanel>
-                        </ScrollViewer>
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <WrapPanel x:Name="ColorPanel" 
+                                   HorizontalAlignment="Center" 
+                                   Orientation="Horizontal"/>
+                    </ScrollViewer>
 
-
-                        <Button Grid.Row="2"
-                                Click="CloseButton_Click"
-                                Style="{StaticResource ImageButtonStyle}"
-                                Width="65" Height="65"
-                                Margin="0,15,0,5"
-                                Tag="/Resources/Assets/Images/Buttons/Buttons-x.png"
-                                Content="/Resources/Assets/Images/Buttons/Pressed/Buttons-pressed-x.png"/>
-                    </Grid>
-                </Border>
+                    <Button Grid.Row="2"
+                            Command="{Binding CloseCommand}"
+                            Style="{StaticResource ImageButtonStyle}"
+                            Width="65" Height="65"
+                            Margin="0,15,0,5"
+                            Tag="/Resources/Assets/Images/Buttons/Buttons-x.png"
+                            Content="/Resources/Assets/Images/Buttons/Pressed/Buttons-pressed-x.png"/>
+                </Grid>
             </Border>
         </Border>
     </Grid>

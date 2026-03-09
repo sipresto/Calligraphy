@@ -1,20 +1,23 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
-using System.Windows.Media;
+using Calligraphy.Presentation.ColorHandling;
 using CommunityToolkit.Mvvm.Input;
 
 namespace Calligraphy.Presentation.ViewModels;
 
-public class SettingsViewModel : ViewModelBase
+public partial class SettingsViewModel : ViewModelBase
 {
+    private readonly MainViewModel _mainViewModel;
+    private readonly DrawingState _drawingState;
     private ColorOption _selectedColor;
 
-    public SettingsViewModel()
+    public SettingsViewModel(MainViewModel mainViewModel, DrawingState drawingState, Colors colors)
     {
-        InitializeColors();
-        CloseCommand = new RelayCommand(ExecuteClose);
-        
-        // Set default color (e.g., black)
+        _mainViewModel = mainViewModel;
+        _drawingState = drawingState;
+
+        foreach (var color in colors.GetAvailableColors())
+            AvailableColors.Add(color);
+
         SelectedColor = AvailableColors[0];
     }
 
@@ -25,46 +28,21 @@ public class SettingsViewModel : ViewModelBase
         get => _selectedColor;
         set
         {
-            if (_selectedColor != value)
-            {
-                _selectedColor = value;
-                OnPropertyChanged();
-            }
+            if (_selectedColor == value) return;
+            _selectedColor = value;
+            OnPropertyChanged();
         }
     }
 
-    public ICommand CloseCommand { get; set; }
-
-    private void InitializeColors()
+    public void SelectColor(ColorOption colorOption)
     {
-        // Add child-friendly colors
-        AvailableColors.Add(new ColorOption("Black", new SolidColorBrush(Colors.Black)));
-        AvailableColors.Add(new ColorOption("Red", new SolidColorBrush(Color.FromRgb(231, 76, 60))));
-        AvailableColors.Add(new ColorOption("Blue", new SolidColorBrush(Color.FromRgb(52, 152, 219))));
-        AvailableColors.Add(new ColorOption("Green", new SolidColorBrush(Color.FromRgb(46, 204, 113))));
-        AvailableColors.Add(new ColorOption("Yellow", new SolidColorBrush(Color.FromRgb(241, 196, 15))));
-        AvailableColors.Add(new ColorOption("Orange", new SolidColorBrush(Color.FromRgb(230, 126, 34))));
-        AvailableColors.Add(new ColorOption("Purple", new SolidColorBrush(Color.FromRgb(155, 89, 182))));
-        AvailableColors.Add(new ColorOption("Pink", new SolidColorBrush(Color.FromRgb(253, 121, 168))));
-        AvailableColors.Add(new ColorOption("Pink", new SolidColorBrush(Color.FromRgb(46, 104, 100))));
-        AvailableColors.Add(new ColorOption("Pink", new SolidColorBrush(Color.FromRgb(52, 12, 219))));
+        SelectedColor = colorOption;
+        _drawingState.PenColor = colorOption.Brush;
+
+        foreach (var color in AvailableColors)
+            color.IsSelected = color == colorOption;
     }
 
-    private void ExecuteClose()
-    {
-        // Close the settings popup
-        // This will be handled by the HomeViewModel
-    }
-}
-
-public class ColorOption
-{
-    public ColorOption(string name, Brush brush)
-    {
-        Name = name;
-        Brush = brush;
-    }
-
-    public string Name { get; }
-    public Brush Brush { get; }
+    [RelayCommand]
+    private void Close() => _mainViewModel.NavigateToHome();
 }

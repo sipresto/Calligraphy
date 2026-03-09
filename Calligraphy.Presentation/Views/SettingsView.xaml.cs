@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
+using System.Windows.Data;
 using Calligraphy.Presentation.ViewModels;
 using Calligraphy.Presentation.Views.Controls;
 
@@ -32,48 +31,20 @@ public partial class SettingsView : UserControl
             {
                 PencilColor = colorOption.Brush,
                 Margin = new Thickness(10),
-                ToolTip = colorOption.Name
+                ToolTip = colorOption.Name,
+                DataContext = colorOption
             };
 
-            button.ColorSelected += (s, e) =>
-            {
-                viewModel.SelectedColor = colorOption;
-                UpdateSelection(button);
-            };
+            button.SetBinding(ColorPickerButton.IsSelectedProperty,
+                new Binding(nameof(colorOption.IsSelected))
+                {
+                    Source = colorOption,
+                    Mode = BindingMode.TwoWay
+                });
+
+            button.ColorSelected += (sender, args) => viewModel.SelectColor(colorOption);
 
             ColorPanel.Children.Add(button);
         }
-    }
-
-    private void UpdateSelection(ColorPickerButton selectedButton)
-    {
-        foreach (var child in ColorPanel.Children)
-        {
-            if (child is ColorPickerButton button)
-            {
-                button.IsSelected = (button == selectedButton);
-            }
-        }
-    }
-
-    private void CloseButton_Click(object sender, RoutedEventArgs e)
-    {
-        if (DataContext is SettingsViewModel viewModel)
-        {
-            viewModel.CloseCommand?.Execute(null);
-        }
-    }
-
-    private void Overlay_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-    {
-        if (DataContext is SettingsViewModel viewModel)
-        {
-            viewModel.CloseCommand?.Execute(null);
-        }
-    }
-
-    private void Popup_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-    {
-        e.Handled = true;
     }
 }

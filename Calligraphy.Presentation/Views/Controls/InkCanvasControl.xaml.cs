@@ -1,8 +1,12 @@
 using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Ink;
 using System.Windows.Input;
+using System.Windows.Media;
+using Calligraphy.Presentation.ColorHandling;
 using Calligraphy.Presentation.Models;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Calligraphy.Presentation.Views.Controls;
 
@@ -15,9 +19,25 @@ public partial class InkCanvasControl : UserControl
     public InkCanvasControl()
     {
         InitializeComponent();
-
         CallyCanvas.EditingMode = InkCanvasEditingMode.Ink;
         CallyCanvas.EditingModeInverted = InkCanvasEditingMode.None;
+
+        Loaded += InkCanvasControl_Loaded;
+    }
+
+    private void InkCanvasControl_Loaded(object sender, RoutedEventArgs e)
+    {
+        var drawingState = App.ServiceProvider.GetRequiredService<DrawingState>();
+
+        if (drawingState.PenColor is SolidColorBrush initialBrush)
+            CallyCanvas.DefaultDrawingAttributes.Color = initialBrush.Color;
+
+        drawingState.PropertyChanged += (s, args) =>
+        {
+            if (args.PropertyName == nameof(DrawingState.PenColor)
+                && drawingState.PenColor is SolidColorBrush brush)
+                CallyCanvas.DefaultDrawingAttributes.Color = brush.Color;
+        };
     }
 
     public List<List<StrokePointDto>> EndDrawing()
