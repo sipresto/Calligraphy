@@ -2,7 +2,7 @@
 
 namespace Calligraphy.Presentation.ColorHandling;
 
-public class Colors
+public class ColorOptions
 {
     public IReadOnlyList<ColorOption> GetAvailableColors() =>
     [

@@ -96,16 +96,19 @@ public partial class InkCanvasControl : UserControl
     {
         CallyCanvas.Strokes.Clear();
 
+        var drawingState = App.ServiceProvider.GetRequiredService<DrawingState>();
+        var color = drawingState.PenColor is SolidColorBrush brush ? brush.Color : Colors.Black;
+
         foreach (var stroke in strokes)
         {
-            if (stroke == null || stroke.Count == 0)
-                continue;
+            if (stroke == null || stroke.Count == 0) continue;
 
             var stylusPoints = new StylusPointCollection(
                 stroke.Select(p => new StylusPoint(p.X, p.Y, p.Pressure))
             );
 
             var newStroke = new Stroke(stylusPoints);
+            newStroke.DrawingAttributes.Color = color;
             CallyCanvas.Strokes.Add(newStroke);
         }
     }

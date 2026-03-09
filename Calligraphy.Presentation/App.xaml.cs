@@ -28,7 +28,7 @@ public partial class App : System.Windows.Application
     private void ConfigureServices(IServiceCollection services)
     {
         services.AddSingleton<DrawingState>();
-        services.AddSingleton<Colors>();
+        services.AddSingleton<ColorOptions>();
         
         // Register game services
         services.AddTransient<InfinityRaceService>();

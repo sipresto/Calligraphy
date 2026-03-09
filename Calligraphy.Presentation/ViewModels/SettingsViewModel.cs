@@ -10,12 +10,12 @@ public partial class SettingsViewModel : ViewModelBase
     private readonly DrawingState _drawingState;
     private ColorOption _selectedColor;
 
-    public SettingsViewModel(MainViewModel mainViewModel, DrawingState drawingState, Colors colors)
+    public SettingsViewModel(MainViewModel mainViewModel, DrawingState drawingState, ColorOptions colorOptions)
     {
         _mainViewModel = mainViewModel;
         _drawingState = drawingState;
 
-        foreach (var color in colors.GetAvailableColors())
+        foreach (var color in colorOptions.GetAvailableColors())
             AvailableColors.Add(color);
 
         SelectedColor = AvailableColors[0];
