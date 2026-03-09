@@ -6,7 +6,7 @@
              xmlns:controls="clr-namespace:Calligraphy.Presentation.Views.Controls"
              xmlns:viewModels="clr-namespace:Calligraphy.Presentation.ViewModels"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300"
+             d:DesignHeight="1200" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance viewModels:InfinityRaceViewModel}">
 
     <UserControl.Resources>
@@ -15,14 +15,19 @@
 
     <Viewbox Stretch="Uniform">
         <Grid Width="1200" Height="800">
-
+            <Grid.Background>
+                <ImageBrush ImageSource="/Resources/Assets/Images/Backgrounds/infinity-race-bg.png"
+                            Stretch="Fill"/>
+            </Grid.Background>
+            
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-
+            
             <controls:InkCanvasControl
                 x:Name="InkCanvas"
+                Grid.Column="0"
                 Grid.ColumnSpan="2" />
 
             <Ellipse
