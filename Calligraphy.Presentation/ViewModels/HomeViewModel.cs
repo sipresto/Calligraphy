@@ -13,6 +13,8 @@ public partial class HomeViewModel : ViewModelBase
 
     [RelayCommand]
     private void Play() => _mainViewModel.ShowTutorialForGame("TraceGame");
+    // private void Play() => _mainViewModel.ShowTutorialForGame("InfinityRace");
+    // private void Play() => _mainViewModel.ShowTutorialForGame("ShapeDraw");
 
     [RelayCommand]
     private void Settings() => _mainViewModel.ShowSettings();
