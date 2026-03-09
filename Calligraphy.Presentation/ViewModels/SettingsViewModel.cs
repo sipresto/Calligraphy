@@ -18,7 +18,7 @@ public partial class SettingsViewModel : ViewModelBase
         foreach (var color in colorOptions.GetAvailableColors())
             AvailableColors.Add(color);
 
-        SelectedColor = AvailableColors[0];
+        SelectColor(AvailableColors[0]);
     }
 
     public ObservableCollection<ColorOption> AvailableColors { get; } = new();

@@ -26,10 +26,10 @@
             <Image x:Name="ButtonImage" Stretch="Uniform">
                 <Image.Style>
                     <Style TargetType="Image">
-                        <Setter Property="Source" Value="/Resources/Assets/Images/Buttons/Butto.png"/>
+                        <Setter Property="Source" Value="/Resources/Assets/Images/Buttons/Button.png"/>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsSelected, ElementName=Root}" Value="True">
-                                <Setter Property="Source" Value="/Resources/Assets/Images/Buttons/Pressed/Butto-pressed.png"/>
+                                <Setter Property="Source" Value="/Resources/Assets/Images/Buttons/Pressed/Button-pressed.png"/>
                                 <Setter Property="Effect">
                                     <Setter.Value>
                                         <DropShadowEffect BlurRadius="15" ShadowDepth="0" Color="#755679" Opacity="0.6"/>
