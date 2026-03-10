@@ -62,6 +62,8 @@
         <Resource Include="Resources\Assets\Images\Icons\Star.png"/>
         <Resource Include="Resources\Assets\Images\Icons\Empty-star.png"/>
         <Resource Include="Resources\Assets\Images\Backgrounds\infinity-race-bg.png" />
+        <Resource Include="Resources\Assets\Fonts\Gluten-Regular.ttf" />
+        <Resource Include="Resources\Assets\Images\draw-hand-example.png" />
     </ItemGroup>
 
 </Project>

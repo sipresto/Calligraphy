@@ -9,101 +9,136 @@
 
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
-    </UserControl.Resources>
-
-    <Viewbox Stretch="Uniform">
-        <Grid Width="1200" Height="800">
-            <StackPanel Orientation="Vertical">
-
-                <TextBlock Text="Tips" FontSize="36" FontWeight="Bold" TextAlignment="Center" />
-
-                <StackPanel Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Left"
-                            VerticalAlignment="Top">
-                    <Image Source="/Resources/Assets/Images/draw-example.png"
-                           MaxWidth="300"
-                           MaxHeight="300"
-                           Stretch="Uniform" />
-
-                    <TextBlock
-                        Text="Houd je arm ontspannen terwijl je schrijft en probeer je hand losjes te bewegen over de tablet."
-                        FontSize="24"
-                        TextWrapping="Wrap"
-                        MaxWidth="800" />
-                </StackPanel>
-
-                <TextBlock
-                    Text="{Binding PointsExplanation}"
-                    Margin="0,20,0,0"
-                    FontSize="24"
-                    TextWrapping="Wrap" />
-
-                <StackPanel Orientation="Vertical" Margin="0,20,0,0">
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <!-- Use AnimatedStar with IsFilled="True" -->
-                        <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
-                        <TextBlock
-                            Text="{Binding OneStar}"
-                            Margin="95,0,0,0"
-                            FontSize="24"
-                            VerticalAlignment="Center" />
-                    </StackPanel>
-
-                    <!-- Two Stars Row -->
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,0">
-                        <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
-                        <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
-                        <TextBlock
-                            Text="{Binding TwoStars}"
-                            Margin="50,0,0,0"
-                            FontSize="24"
-                            VerticalAlignment="Center" />
-                    </StackPanel>
-
-                    <!-- Three Stars Row -->
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,0">
-                        <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
-                        <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
-                        <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
-                        <TextBlock
-                            Text="{Binding ThreeStars}"
-                            Margin="5,0,0,0"
-                            FontSize="24"
-                            VerticalAlignment="Center" />
-                    </StackPanel>
-
-                </StackPanel>
-
-                <TextBlock
-                    Text="Let op dat je niet te hard en niet te zacht drukt"
-                    Margin="0,20,0,0"
-                    FontSize="24"
-                    Visibility="{Binding ShowPressureInfo, Converter={StaticResource BoolToVisibility}}" />
-            </StackPanel>
-
-            <Button
-                Command="{Binding CloseTutorialCommand}"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Bottom"
-                Margin="0,0,0,80"
-                Cursor="Pen">
-                <Button.Template>
+        <Style x:Key="ImageButtonStyle" TargetType="Button">
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Grid>
-                            <Image x:Name="ButtonImage"
-                                   Source="/Resources/Assets/Images/Buttons/Grass-Buttons-arrow.png"
-                                   Width="100"
-                                   Stretch="Uniform" />
-                        </Grid>
-
+                        <Border Background="Transparent">
+                            <Grid>
+                                <Image x:Name="NormalImage"
+                                       Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Tag}"
+                                       Stretch="Uniform" />
+                                <Image x:Name="PressedImage"
+                                       Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content}"
+                                       Visibility="Collapsed"
+                                       Stretch="Uniform" />
+                            </Grid>
+                        </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="ButtonImage" Property="Source"
-                                        Value="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed-arrow.png" />
+                                <Setter TargetName="NormalImage" Property="Visibility" Value="Collapsed" />
+                                <Setter TargetName="PressedImage" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.9" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
-                </Button.Template>
-            </Button>
-        </Grid>
-    </Viewbox>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="#902D232F">
+        <Border Width="620" Height="520"
+                Background="#755679"
+                CornerRadius="50"
+                Padding="10">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="25" ShadowDepth="8" Opacity="0.4" />
+            </Border.Effect>
+
+            <Border CornerRadius="40" Background="#FFF9EB" Margin="0,0,0,8">
+                <Grid Margin="20">
+                    <StackPanel Orientation="Vertical">
+
+                        <TextBlock
+                            Text="Tips"
+                            FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
+                            FontSize="48"
+                            FontWeight="Bold"
+                            TextAlignment="Center" />
+
+                        <StackPanel Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Left"
+                                    VerticalAlignment="Top">
+                            <Image Source="/Resources/Assets/Images/draw-hand-example.png"
+                                   Height="120"
+                                   Stretch="Uniform" />
+
+                            <TextBlock
+                                Text="Houd je arm ontspannen terwijl je schrijft en probeer je hand losjes te bewegen over de tablet."
+                                FontFamily="/Resources/Assets/Fonts/#Gluten Light"
+                                FontSize="24"
+                                TextWrapping="Wrap"
+                                MaxWidth="400" />
+                        </StackPanel>
+
+                        <TextBlock
+                            Text="{Binding PointsExplanation}"
+                            FontFamily="/Resources/Assets/Fonts/#Gluten Light"
+                            Margin="0,20,0,0"
+                            FontSize="24"
+                            MaxWidth="560"
+                            TextWrapping="Wrap" />
+
+                        <StackPanel Orientation="Vertical" Margin="0,20,0,0">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <!-- Use AnimatedStar with IsFilled="True" -->
+                                <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
+                                <TextBlock
+                                    Text="{Binding OneStar}"
+                                    FontFamily="/Resources/Assets/Fonts/#Gluten Light"
+                                    Margin="95,0,0,0"
+                                    FontSize="24"
+                                    VerticalAlignment="Center" />
+                            </StackPanel>
+
+                            <!-- Two Stars Row -->
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,0">
+                                <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
+                                <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
+                                <TextBlock
+                                    Text="{Binding TwoStars}"
+                                    FontFamily="/Resources/Assets/Fonts/#Gluten Light"
+                                    Margin="50,0,0,0"
+                                    FontSize="24"
+                                    VerticalAlignment="Center" />
+                            </StackPanel>
+
+                            <!-- Three Stars Row -->
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,0">
+                                <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
+                                <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
+                                <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
+                                <TextBlock
+                                    Text="{Binding ThreeStars}"
+                                    FontFamily="/Resources/Assets/Fonts/#Gluten Light"
+                                    Margin="5,0,0,0"
+                                    FontSize="24"
+                                    VerticalAlignment="Center" />
+                            </StackPanel>
+
+                        </StackPanel>
+
+                        <TextBlock
+                            Text="Let op dat je niet te hard en niet te zacht drukt"
+                            FontFamily="/Resources/Assets/Fonts/#Gluten Light"
+                            Margin="0,20,0,0"
+                            FontSize="24"
+                            Visibility="{Binding ShowPressureInfo, Converter={StaticResource BoolToVisibility}}" />
+                    </StackPanel>
+
+                    <Button
+                        Command="{Binding CloseTutorialCommand}"
+                        Style="{StaticResource ImageButtonStyle}"
+                        Width="65"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom"
+                        Tag="/Resources/Assets/Images/Buttons/Grass-Buttons-arrow.png"
+                        Content="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed-arrow.png"/>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
 </UserControl>
