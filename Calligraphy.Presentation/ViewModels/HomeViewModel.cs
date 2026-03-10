@@ -12,7 +12,7 @@ public partial class HomeViewModel : ViewModelBase
     }
     
     [RelayCommand]
-    private void Play() => _mainViewModel.ShowTutorialForGame("TimedTraceHop");
+     private void Play() => _mainViewModel.ShowTutorialForGame("TimedTraceHop");
     // private void Play() => _mainViewModel.ShowTutorialForGame("InfinityRace");
     // private void Play() => _mainViewModel.ShowTutorialForGame("DiamondShapeGame");
 
