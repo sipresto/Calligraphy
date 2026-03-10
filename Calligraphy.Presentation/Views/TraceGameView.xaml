@@ -14,7 +14,7 @@
     </UserControl.Resources>
 
     <Viewbox Stretch="Uniform">
-        <Grid Width="1200" Height="800">
+        <Grid Width="1200" Height="800" Background="White">
 
             <controls:InkCanvasControl
                 x:Name="InkCanvas"
