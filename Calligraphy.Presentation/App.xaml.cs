@@ -1,7 +1,8 @@
-﻿using System.IO;
+using System.IO;
 using System.Reflection;
 using System.Windows;
 using Calligraphy.Application;
+using Calligraphy.Presentation.ColorHandling;
 using Calligraphy.Domain.Configuration;
 using Calligraphy.Infrastructure;
 using Calligraphy.Presentation.ViewModels;
@@ -34,6 +35,7 @@ public partial class App : System.Windows.Application
 
     private void ConfigureServices(IServiceCollection services)
     {
+
         // Register DbContext
         services.AddDbContext<CallyDbContext>(options =>
             options.UseSqlite("Data Source=Cally.db"));
@@ -44,12 +46,16 @@ public partial class App : System.Windows.Application
         var gameSettings = configuration.GetSection("GameSettings").Get<GameSettings>();
         services.AddSingleton(gameSettings);
         
+        services.AddSingleton<DrawingState>();
+        services.AddSingleton<ColorOptions>();
+
         // Register game services
         services.AddTransient<InfinityRaceService>();
         services.AddTransient<TraceGameService>();
         services.AddTransient<ShapeDrawService>();
 
         // Register ViewModels
+        services.AddTransient<SettingsViewModel>();
         services.AddTransient<TutorialViewModel>();
         services.AddSingleton<MainViewModel>();
         services.AddTransient<TimedTraceGameViewModel>();
@@ -57,6 +63,7 @@ public partial class App : System.Windows.Application
         services.AddTransient<ShapeDrawViewModel>();
 
         // Register Views
+        services.AddTransient<SettingsView>();
         services.AddSingleton<MainWindow>();
         services.AddTransient<TutorialView>();
     }

@@ -28,6 +28,11 @@ public class MainViewModel : ObservableObject
         CurrentViewModel = new HomeViewModel(this);
     }
 
+    public void ShowSettings()
+    {
+        CurrentViewModel = App.ServiceProvider.GetRequiredService<SettingsViewModel>();
+    }
+
     public void ShowTutorialForGame(string gameKey)
     {
         var gameSettings = GetSettingsForGameKey(gameKey);
