@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows.Media;
 using Calligraphy.Presentation.ColorHandling;
 using CommunityToolkit.Mvvm.Input;
 
@@ -18,7 +19,13 @@ public partial class SettingsViewModel : ViewModelBase
         foreach (var color in colorOptions.GetAvailableColors())
             AvailableColors.Add(color);
 
-        SelectColor(AvailableColors[0]);
+        var currentColor = AvailableColors.FirstOrDefault(c =>
+                               c.Brush is SolidColorBrush b1 &&
+                               _drawingState.PenColor is SolidColorBrush b2 &&
+                               b1.Color == b2.Color)
+                           ?? AvailableColors[0];
+
+        SelectColor(currentColor);
     }
 
     public ObservableCollection<ColorOption> AvailableColors { get; } = new();
