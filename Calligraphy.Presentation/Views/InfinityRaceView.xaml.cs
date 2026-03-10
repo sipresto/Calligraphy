@@ -58,11 +58,11 @@ public partial class InfinityRaceView : UserControl
         return [GetCircleInfo(LeftCircle), GetCircleInfo(RightCircle)];
     }
 
-    private RaceCircle GetCircleInfo(Ellipse ellipse)
+    private RaceCircle GetCircleInfo(Grid circleGrid)
     {
-        Point localCenter = new Point(ellipse.Width / 2, ellipse.Height / 2);
-        Point canvasCenter = ellipse.TranslatePoint(localCenter, InkCanvas);
-        double radius = ellipse.Width / 2;
+        Point localCenter = new Point(circleGrid.Width / 2, circleGrid.Height / 2);
+        Point canvasCenter = circleGrid.TranslatePoint(localCenter, InkCanvas);
+        double radius = circleGrid.Width / 2;
 
         return new RaceCircle(canvasCenter.X, canvasCenter.Y, radius);
     }

@@ -67,8 +67,20 @@
         <Resource Include="Resources\Assets\Images\Buttons\Buttons-x.png" />
         <Resource Include="Resources\Assets\Images\Buttons\Pressed\Buttons-pressed-x.png" />
         <Resource Include="Resources\Assets\Images\Buttons\Pressed\Button-pressed.png" />
-        <Resource Include="Resources\Assets\Images\draw-example.png" />
         <EmbeddedResource Include="Resources\appsettings.json" />
+        <Resource Include="Resources\Assets\Images\Backgrounds\infinity-race-bg.png" />
+        <Resource Include="Resources\Assets\Fonts\Gluten-Regular.ttf" />
+        <Resource Include="Resources\Assets\Images\draw-hand-example.png" />
+        <Resource Include="Resources\Assets\Images\Buttons\Pressed\Buttons-pressed-arrow.png" />
+        <Resource Include="Resources\Assets\Images\Buttons\Pressed\Buttons-pressed-arrow2.png" />
+        <Resource Include="Resources\Assets\Images\Buttons\Pressed\Buttons-pressed-house.png" />
+        <Resource Include="Resources\Assets\Images\Buttons\Pressed\Buttons-pressed-return.png" />
+        <Resource Include="Resources\Assets\Images\Buttons\Buttons-arrow.png" />
+        <Resource Include="Resources\Assets\Images\Buttons\Buttons-arrow2.png" />
+        <Resource Include="Resources\Assets\Images\Buttons\Buttons-house.png" />
+        <Resource Include="Resources\Assets\Images\Buttons\Buttons-return.png" />
+        <Resource Include="Resources\Assets\Images\Buttons\Pressed\Grass-Buttons-pressed-v.png" />
+        <Resource Include="Resources\Assets\Images\Buttons\Grass-Buttons-v.png" />
     </ItemGroup>
 
 </Project>
