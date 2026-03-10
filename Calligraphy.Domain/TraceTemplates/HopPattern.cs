@@ -2,60 +2,61 @@ namespace Calligraphy.Domain.TraceTemplates;
 
 public class HopPattern : TraceTemplate
 {
-    private readonly double _baselineY;
-    private readonly int _loopCount;
-    private readonly double _loopWidth;
-    private readonly int _pointsPerLoop;
-    private readonly double _startX;
-    private readonly double _topY;
-
-    public HopPattern(double startX, double baselineY, double topY, double loopWidth, int loopCount,
-        int pointsPerLoop = 50)
-    {
-        _startX = startX;
-        _baselineY = baselineY;
-        _topY = topY;
-        _loopWidth = loopWidth;
-        _loopCount = loopCount;
-        _pointsPerLoop = pointsPerLoop;
-    }
+    private const double BaselineY = 450;
+    private const int LoopCount = 9;
+    private const double LoopWidth = 110;
+    private const int PointsPerLoop = 100;
+    private const double StartX = 80;
+    private const double TopY = 290;
 
     public override string Name => "HopPattern";
 
     public override List<StrokePoint> GetTemplatePoints()
     {
         var points = new List<StrokePoint>();
-        double x = _startX;
+        double x = StartX;
 
-        for (int i = 0; i < _loopCount; i++)
+        for (int i = 0; i < LoopCount; i++)
         {
             // upward arc
-            var p0 = new StrokePoint(x, _baselineY);
-            var p1 = new StrokePoint(x, _baselineY - 30);
-            var p2 = new StrokePoint(x + _loopWidth * 0.2, _topY);
-            var p3 = new StrokePoint(x + _loopWidth * 0.5, _topY);
+            var p0 = new StrokePoint(x, BaselineY);
+            var p1 = new StrokePoint(x, BaselineY - 30);
+            var p2 = new StrokePoint(x + LoopWidth * 0.2, TopY);
+            var p3 = new StrokePoint(x + LoopWidth * 0.5, TopY);
 
-            for (int j = 0; j < _pointsPerLoop / 2; j++)
+            for (int j = 0; j < PointsPerLoop / 2; j++)
             {
-                double t = (double)j / (_pointsPerLoop / 2);
+                double t = (double)j / (PointsPerLoop / 2);
                 points.Add(EvaluateBezier(p0, p1, p2, p3, t));
             }
 
             // downward arc
-            p0 = new StrokePoint(x + _loopWidth * 0.5, _topY);
-            p1 = new StrokePoint(x + _loopWidth * 0.8, _topY);
-            p2 = new StrokePoint(x + _loopWidth, _baselineY - 30);
-            p3 = new StrokePoint(x + _loopWidth, _baselineY);
+            p0 = new StrokePoint(x + LoopWidth * 0.5, TopY);
+            p1 = new StrokePoint(x + LoopWidth * 0.8, TopY);
+            p2 = new StrokePoint(x + LoopWidth, BaselineY - 30);
+            p3 = new StrokePoint(x + LoopWidth, BaselineY);
 
-            for (int j = 0; j < _pointsPerLoop / 2; j++)
+            for (int j = 0; j < PointsPerLoop / 2; j++)
             {
-                double t = (double)j / (_pointsPerLoop / 2);
+                double t = (double)j / (PointsPerLoop / 2);
                 points.Add(EvaluateBezier(p0, p1, p2, p3, t));
             }
 
-            x += _loopWidth;
+            x += LoopWidth;
         }
 
         return points;
+    }
+    
+    public override TraceTemplateMetadata GetMetadata()
+    {
+        return new TraceTemplateMetadata
+        {
+            StartX = StartX,
+            BaselineY = BaselineY,
+            TopY = TopY,
+            LoopWidth = LoopWidth,
+            LoopCount = LoopCount
+        };
     }
 }

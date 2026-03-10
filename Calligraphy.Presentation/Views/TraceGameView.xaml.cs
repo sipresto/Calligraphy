@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using Calligraphy.Domain;
+using Calligraphy.Domain.TraceTemplates;
 using Calligraphy.Presentation.ViewModels;
 
 namespace Calligraphy.Presentation.Views;
@@ -24,8 +24,6 @@ public partial class TraceGameView : UserControl
 
         DrawHopTemplate();
 
-        ViewModel?.Initialize();
-
         ViewModel!.DrawingStarted += OnDrawingStarted;
         ViewModel!.DrawingEnded += OnDrawingEnded;
         ViewModel!.Restarted += OnRestart;
@@ -39,7 +37,7 @@ public partial class TraceGameView : UserControl
     private async void OnDrawingEnded()
     {
         var strokes = InkCanvas.EndDrawing();
-        ViewModel?.FinishGame(strokes, new StarThresholds(30, 60, 100));
+        ViewModel?.FinishGame(strokes);
 
         if (ViewModel?.GameResult != null) await ResultPopup.AnimateStars(ViewModel.GameResult.StarCount);
     }
@@ -49,20 +47,13 @@ public partial class TraceGameView : UserControl
         InkCanvas.Clear();
         ResultPopup.ResetStars();
         DrawHopTemplate();
-
-        ViewModel?.Initialize();
     }
 
     private void DrawHopTemplate()
     {
         TemplateCanvas.Children.Clear();
 
-        var figure = BuildHopFigure(
-            TimedTraceGameViewModel.StartX,
-            TimedTraceGameViewModel.BaselineY,
-            TimedTraceGameViewModel.TopY,
-            TimedTraceGameViewModel.LoopWidth,
-            TimedTraceGameViewModel.LoopCount);
+        var figure = BuildHopFigure(ViewModel?.GetCurrentTemplateMetadata());
 
         var geometry = new PathGeometry(new[] { figure });
 
@@ -77,32 +68,31 @@ public partial class TraceGameView : UserControl
         });
     }
 
-    private static PathFigure BuildHopFigure(double startX, double baselineY, double topY,
-        double loopWidth, int loopCount)
+    private static PathFigure BuildHopFigure(TraceTemplateMetadata data)
     {
         var figure = new PathFigure
         {
-            StartPoint = new Point(startX, baselineY),
+            StartPoint = new Point(data.StartX, data.BaselineY),
             IsClosed = false
         };
 
-        double x = startX;
+        double x = data.StartX;
 
-        for (int i = 0; i < loopCount; i++)
+        for (int i = 0; i < data.LoopCount; i++)
         {
             figure.Segments.Add(new BezierSegment(
-                new Point(x, baselineY - 30),
-                new Point(x + loopWidth * 0.2, topY),
-                new Point(x + loopWidth * 0.5, topY),
+                new Point(x, data.BaselineY - 30),
+                new Point(x + data.LoopWidth * 0.2, data.TopY),
+                new Point(x + data.LoopWidth * 0.5, data.TopY),
                 true));
 
             figure.Segments.Add(new BezierSegment(
-                new Point(x + loopWidth * 0.8, topY),
-                new Point(x + loopWidth, baselineY - 30),
-                new Point(x + loopWidth, baselineY),
+                new Point(x + data.LoopWidth * 0.8, data.TopY),
+                new Point(x + data.LoopWidth, data.BaselineY - 30),
+                new Point(x + data.LoopWidth, data.BaselineY),
                 true));
 
-            x += loopWidth;
+            x += data.LoopWidth;
         }
 
         return figure;

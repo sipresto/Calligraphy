@@ -12,6 +12,8 @@
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0"/>
         <PackageReference Include="InkCanvas.PluginSdk" Version="1.0.0"/>
         <PackageReference Include="LottieSharp" Version="2.4.3"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.3" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.3" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.3"/>
     </ItemGroup>
 
@@ -61,6 +63,8 @@
         <Resource Include="Resources\Assets\Images\Mascot\mascot-bear-1.png"/>
         <Resource Include="Resources\Assets\Images\Icons\Star.png"/>
         <Resource Include="Resources\Assets\Images\Icons\Empty-star.png"/>
+        <Resource Include="Resources\Assets\Images\draw-example.png" />
+        <EmbeddedResource Include="Resources\appsettings.json" />
     </ItemGroup>
 
 </Project>
