@@ -6,9 +6,13 @@
         Title="Cally" Height="600" Width="1000"
         MinWidth="1000"
         MinHeight="600"
-        Background="{StaticResource BackgroundColor}"
         WindowState="Maximized">
 
+    <Window.Background>
+        <ImageBrush ImageSource="/Resources/Assets/Images/Backgrounds/Background_Blue.png"
+                    Stretch="UniformToFill" />
+    </Window.Background>
+    
     <Window.Resources>
         <DataTemplate DataType="{x:Type local:HomeViewModel}">
             <views:HomeView />
