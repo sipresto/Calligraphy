@@ -1,23 +1,27 @@
 using System.Windows.Input;
 using Calligraphy.Application;
 using Calligraphy.Domain;
+using Calligraphy.Domain.Configuration;
 using Calligraphy.Domain.Sessions;
 using Calligraphy.Presentation.Models;
 using CommunityToolkit.Mvvm.Input;
 
 namespace Calligraphy.Presentation.ViewModels;
 
-public abstract class GameViewModelBase<TService, TSession> : ViewModelBase
+public abstract class GameViewModelBase<TService, TSession, TSettings> : ViewModelBase
     where TService : GenericGameService<TSession>
     where TSession : GameSession
+    where TSettings : BaseGameSettings
 {
     protected readonly TService Service;
-    private readonly MainViewModel MainViewModel;
+    protected readonly GameSettings AllSettings;
+    protected TSettings Settings;
 
-    protected GameViewModelBase(TService service, MainViewModel mainViewModel)
+    protected GameViewModelBase(TService service, MainViewModel mainViewModel, GameSettings settings)
     {
         Service = service;
         MainViewModel = mainViewModel;
+        AllSettings = settings;
         RestartCommand = new RelayCommand(RestartGame);
         MenuCommand = new RelayCommand(Menu);
     }
@@ -41,8 +45,7 @@ public abstract class GameViewModelBase<TService, TSession> : ViewModelBase
 
     public event Action Restarted;
 
-    // TODO: no thresholds parameter
-    public void FinishGame(List<List<StrokePointDto>> strokes, StarThresholds thresholds)
+    public void FinishGame(List<List<StrokePointDto>> strokes)
     {
         foreach (var stroke in strokes)
         {
@@ -52,7 +55,7 @@ public abstract class GameViewModelBase<TService, TSession> : ViewModelBase
             Service.AddStroke(domainStroke);
         }
 
-        GameResult = Service.FinishGame(thresholds);
+        GameResult = Service.FinishGame(Settings.GetThresholds());
     }
 
     private void Menu()

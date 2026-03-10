@@ -1,8 +1,12 @@
 using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Ink;
 using System.Windows.Input;
+using System.Windows.Media;
+using Calligraphy.Presentation.ColorHandling;
 using Calligraphy.Presentation.Models;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Calligraphy.Presentation.Views.Controls;
 
@@ -15,9 +19,25 @@ public partial class InkCanvasControl : UserControl
     public InkCanvasControl()
     {
         InitializeComponent();
-
         CallyCanvas.EditingMode = InkCanvasEditingMode.Ink;
         CallyCanvas.EditingModeInverted = InkCanvasEditingMode.None;
+
+        Loaded += InkCanvasControl_Loaded;
+    }
+
+    private void InkCanvasControl_Loaded(object sender, RoutedEventArgs e)
+    {
+        var drawingState = App.ServiceProvider.GetRequiredService<DrawingState>();
+
+        if (drawingState.PenColor is SolidColorBrush initialBrush)
+            CallyCanvas.DefaultDrawingAttributes.Color = initialBrush.Color;
+
+        drawingState.PropertyChanged += (s, args) =>
+        {
+            if (args.PropertyName == nameof(DrawingState.PenColor)
+                && drawingState.PenColor is SolidColorBrush brush)
+                CallyCanvas.DefaultDrawingAttributes.Color = brush.Color;
+        };
     }
 
     public List<List<StrokePointDto>> EndDrawing()
@@ -76,16 +96,19 @@ public partial class InkCanvasControl : UserControl
     {
         CallyCanvas.Strokes.Clear();
 
+        var drawingState = App.ServiceProvider.GetRequiredService<DrawingState>();
+        var color = drawingState.PenColor is SolidColorBrush brush ? brush.Color : Colors.Black;
+
         foreach (var stroke in strokes)
         {
-            if (stroke == null || stroke.Count == 0)
-                continue;
+            if (stroke == null || stroke.Count == 0) continue;
 
             var stylusPoints = new StylusPointCollection(
                 stroke.Select(p => new StylusPoint(p.X, p.Y, p.Pressure))
             );
 
             var newStroke = new Stroke(stylusPoints);
+            newStroke.DrawingAttributes.Color = color;
             CallyCanvas.Strokes.Add(newStroke);
         }
     }

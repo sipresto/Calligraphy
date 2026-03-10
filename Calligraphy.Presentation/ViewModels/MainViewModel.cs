@@ -1,3 +1,4 @@
+using Calligraphy.Domain.Configuration;
 using System.Runtime.CompilerServices;
 using Calligraphy.Presentation.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -7,8 +8,13 @@ namespace Calligraphy.Presentation.ViewModels;
 
 public class MainViewModel : ObservableObject
 {
-    public MainViewModel()
+    private readonly GameSettings _settings;
+    private readonly IServiceProvider _services;
+    
+    public MainViewModel(GameSettings settings, IServiceProvider services)
     {
+        _settings = settings;
+        _services = services;
         NavigateToHome();
     }
 
@@ -33,45 +39,44 @@ public class MainViewModel : ObservableObject
         
     }
 
-    // TODO: Replace with IDs later
-    public void ShowTutorialForGame(string gameName)
+    public void ShowSettings()
     {
-        var tutorialVm = App.ServiceProvider.GetRequiredService<TutorialViewModel>();
+        CurrentViewModel = App.ServiceProvider.GetRequiredService<SettingsViewModel>();
+    }
 
-        var info = gameName switch
+    public void ShowTutorialForGame(string gameKey)
+    {
+        var gameSettings = GetSettingsForGameKey(gameKey);
+        if (gameSettings == null || gameSettings.Tutorial == null) return;
+
+        var info = new TutorialInfo
         {
-            "InfinityRace" => new TutorialInfo
-            {
-                PointsExplanation = "Verdien punten door zo snel mogelijk een liggende 8 vorm te tekenen.",
-                OneStar = "1 punt",
-                TwoStars = "5 punten",
-                ThreeStars = "10 punten",
-                ShowPressureInfo = false,
-                TargetGameViewModelName = nameof(InfinityRaceViewModel)
-            },
-            "TraceGame" => new TutorialInfo
-            {
-                PointsExplanation = "Verdien punten door zo naukeurig mogelijk de lijn te tekenen.",
-                OneStar = "30 punten",
-                TwoStars = "60 punten",
-                ThreeStars = "100 punten",
-                ShowPressureInfo = true,
-                TargetGameViewModelName = nameof(TimedTraceGameViewModel)
-            },
-            "ShapeDraw" => new TutorialInfo
-            {
-                PointsExplanation = "Verdien punten door zo goed mogelijk de vorm te overtekenen.",
-                OneStar = "40 punten",
-                TwoStars = "60 punten",
-                ThreeStars = "85 punten",
-                ShowPressureInfo = true,
-                TargetGameViewModelName = nameof(ShapeDrawViewModel)
-            },
-            _ => null
+            PointsExplanation = gameSettings.Tutorial.PointsExplanation,
+            OneStar = FormatPoints(gameSettings.StarThresholds[0]),
+            TwoStars = FormatPoints(gameSettings.StarThresholds[1]),
+            ThreeStars = FormatPoints(gameSettings.StarThresholds[2]),
+            ShowPressureInfo = gameSettings.Tutorial.ShowPressureInfo,
+            TargetGameViewModelName = gameSettings.Tutorial.TargetViewModel
         };
 
-        if (info == null) return;
-        tutorialVm.SetTutorialInfo(info);
+        var tutorialVm = _services.GetRequiredService<TutorialViewModel>();
+        
+        tutorialVm.SetTutorialInfo(info, gameKey); 
+        
         CurrentViewModel = tutorialVm;
+    }
+    
+    private BaseGameSettings GetSettingsForGameKey(string gameKey)
+    {
+        if (gameKey == "InfinityRace") return _settings.InfinityRace;
+        if (_settings.TimedTraceGames?.ContainsKey(gameKey) == true) return _settings.TimedTraceGames[gameKey];
+        if (_settings.TraceGames?.ContainsKey(gameKey) == true) return _settings.TraceGames[gameKey];
+        if (_settings.ShapeGames?.ContainsKey(gameKey) == true) return _settings.ShapeGames[gameKey];
+        return null;
+    }
+
+    private static string FormatPoints(int points)
+    {
+        return points == 1 ? "1 punt" : $"{points} punten";
     }
 }

@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using Calligraphy.Domain;
 using Calligraphy.Presentation.ViewModels;
 
 //TODO: make sure mouse doesn't work
@@ -27,8 +26,6 @@ public partial class ShapeDrawView : UserControl
 
         ResultPopup.DataContext = DataContext;
 
-        ViewModel?.Initialize("Diamond");
-
         ViewModel?.Restarted += OnReset;
         ViewModel?.Check += OnCheck;
 
@@ -40,14 +37,12 @@ public partial class ShapeDrawView : UserControl
         InkCanvas.SetDrawingEnabled(true);
         InkCanvas.Clear();
         ResultPopup.ResetStars();
-
-        ViewModel?.Initialize("Diamond");
     }
 
     private async void OnCheck()
     {
         var points = InkCanvas.EndDrawing();
-        ViewModel.FinishGame(points, new StarThresholds(40, 60, 85));
+        ViewModel.FinishGame(points);
         if (ViewModel?.GameResult != null)
         {
             await ResultPopup.AnimateStars(ViewModel.GameResult.StarCount);

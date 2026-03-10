@@ -39,7 +39,7 @@ public partial class InfinityRaceView : UserControl
     {
         var strokes = InkCanvas.EndDrawing();
 
-        ViewModel?.FinishGame(strokes, new StarThresholds(1, 5, 10));
+        ViewModel?.FinishGame(strokes);
 
         if (ViewModel?.GameResult != null)
         {
@@ -51,10 +51,6 @@ public partial class InfinityRaceView : UserControl
     {
         InkCanvas.Clear();
         ResultPopup.ResetStars();
-
-        List<RaceCircle> circles = GetCircleData();
-
-        ViewModel?.Initialize(circles);
     }
 
     private List<RaceCircle> GetCircleData()

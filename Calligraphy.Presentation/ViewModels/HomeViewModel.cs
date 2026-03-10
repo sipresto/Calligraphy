@@ -1,24 +1,22 @@
-using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 
 namespace Calligraphy.Presentation.ViewModels;
 
-public class HomeViewModel : ViewModelBase
+public partial class HomeViewModel : ViewModelBase
 {
+    private readonly MainViewModel _mainViewModel;
+
     public HomeViewModel(MainViewModel mainViewModel)
     {
-        PlayCommand = new RelayCommand(mainViewModel.NavigateToCategories);
-        //PlayCommand = new RelayCommand(() => mainViewModel.ShowTutorialForGame("ShapeDraw"));
-        //PlayCommand = new RelayCommand(() => mainViewModel.ShowTutorialForGame("InfinityRace"));
-        //PlayCommand = new RelayCommand(() => mainViewModel.ShowTutorialForGame("TraceGame"));
-        ExitCommand = new RelayCommand(ExecuteExit);
+        _mainViewModel = mainViewModel;
     }
+    
+    [RelayCommand]
+    private void Play() => _mainViewModel.NavigateToCategories();
 
-    public ICommand PlayCommand { get; }
-    public ICommand ExitCommand { get; }
+    [RelayCommand]
+    private void Settings() => _mainViewModel.ShowSettings();
 
-    private void ExecuteExit()
-    {
-        System.Windows.Application.Current.Shutdown();
-    }
+    [RelayCommand]
+    private void Exit() => System.Windows.Application.Current.Shutdown();
 }
