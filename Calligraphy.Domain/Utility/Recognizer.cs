@@ -41,17 +41,6 @@ public static class Recognizer
         return score;
     }
 
-    /// <summary>
-    ///     Returns 0-3 stars based on the score returned by CheckShape.
-    /// </summary>
-    public static int GetStars(double score)
-    {
-        if (score >= 0.75) return 3;
-        if (score >= 0.55) return 2;
-        if (score >= 0.35) return 1;
-        return 0;
-    }
-
     // ── Per-shape scorers ─────────────────────────────────────────────────────
     // Each returns a value in [0, 1]. Individual feature scores are blended
     // with weights that reflect how important each feature is for that shape.

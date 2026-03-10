@@ -1,31 +1,33 @@
 using System.Windows.Threading;
 using Calligraphy.Application;
+using Calligraphy.Domain.Configuration;
 using Calligraphy.Domain.Sessions;
 
 namespace Calligraphy.Presentation.ViewModels;
 
-public abstract class TimedGameViewModelBase<TService, TSession> : GameViewModelBase<TService, TSession>
+public abstract class
+    TimedGameViewModelBase<TService, TSession, TSettings> : GameViewModelBase<TService, TSession, TSettings>
     where TService : GenericGameService<TSession>
     where TSession : GameSession
+    where TSettings : TimedGameSettings
 {
     private DispatcherTimer _drawTimer;
     private bool _started;
     private DateTime _startTime;
     private DispatcherTimer _waitTimer;
 
-    protected TimedGameViewModelBase(TService service, int drawDuration, int waitDuration = 3)
-        : base(service)
+    protected TimedGameViewModelBase(TService service, GameSettings settings, int waitDuration = 3)
+        : base(service, settings)
     {
-        DrawDuration = drawDuration;
         WaitDuration = waitDuration;
 
-        TimerText = $"{DrawDuration:F0}";
+        TimerText = "";
         WaitTimerText = $"{WaitDuration:F0}";
 
         InitializeTimers();
     }
 
-    private int DrawDuration { get; }
+    private int DrawDuration => Settings.DrawDuration;
     private int WaitDuration { get; }
 
     public string TimerText
@@ -63,6 +65,7 @@ public abstract class TimedGameViewModelBase<TService, TSession> : GameViewModel
 
     protected void StartWaitPhase()
     {
+        TimerText = $"{DrawDuration:F0}";
         _startTime = DateTime.Now;
         _waitTimer.Start();
     }
@@ -70,7 +73,7 @@ public abstract class TimedGameViewModelBase<TService, TSession> : GameViewModel
     protected override void RestartGame()
     {
         _started = false;
-        TimerText = $"{DrawDuration:F0}s";
+        TimerText = $"{DrawDuration:F0}";
         WaitTimerText = $"{WaitDuration:F0}";
         IsPreviewVisible = true;
 
@@ -95,6 +98,7 @@ public abstract class TimedGameViewModelBase<TService, TSession> : GameViewModel
 
     private void StartDrawPhase()
     {
+        TimerText = $"{DrawDuration:F0}";
         _startTime = DateTime.Now;
         _drawTimer.Start();
         _started = true;

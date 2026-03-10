@@ -1,9 +1,10 @@
-namespace Calligraphy.Domain;
+namespace Calligraphy.Domain.TraceTemplates;
 
 public abstract class TraceTemplate
 {
     public abstract string Name { get; }
     public abstract List<StrokePoint> GetTemplatePoints();
+    public abstract TraceTemplateMetadata GetMetadata();
 
     protected static StrokePoint EvaluateBezier(StrokePoint p0, StrokePoint p1, StrokePoint p2, StrokePoint p3,
         double t)

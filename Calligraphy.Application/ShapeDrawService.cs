@@ -1,14 +1,19 @@
 ﻿using Calligraphy.Domain;
 using Calligraphy.Domain.Sessions;
+using Calligraphy.Infrastructure;
 
 namespace Calligraphy.Application;
 
 public class ShapeDrawService : GenericGameService<ShapeDrawSession>
 {
-    public void InitializeSession(Shape shape)
+    public ShapeDrawService(IRepository repository) : base(repository)
+    {
+    }
+
+    public void InitializeSession(string gameId, Shape shape)
     {
         var session = new ShapeDrawSession(shape);
-        InitializeSession(session);
+        InitializeSession(session, gameId);
     }
 
     public Shape GetShape()
