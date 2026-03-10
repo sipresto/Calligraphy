@@ -68,8 +68,8 @@ public partial class ColorPickerButton : UserControl
                 background.Source = new BitmapImage(
                     new Uri(
                         isSelected
-                            ? "/Resources/Assets/Images/Buttons/Pressed/Butto-pressed.png"
-                            : "/Resources/Assets/Images/Buttons/Butto.png",
+                            ? "/Resources/Assets/Images/Buttons/Pressed/Button-pressed.png"
+                            : "/Resources/Assets/Images/Buttons/Button.png",
                         UriKind.Relative));
             }
         }
