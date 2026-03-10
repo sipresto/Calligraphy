@@ -16,8 +16,8 @@ public abstract class
     private DateTime _startTime;
     private DispatcherTimer _waitTimer;
 
-    protected TimedGameViewModelBase(TService service, GameSettings settings, int waitDuration = 3)
-        : base(service, settings)
+    protected TimedGameViewModelBase(TService service, MainViewModel mainViewModel, GameSettings settings, int waitDuration = 3)
+        : base(service, mainViewModel, settings)
     {
         WaitDuration = waitDuration;
 

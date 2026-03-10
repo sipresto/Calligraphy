@@ -12,8 +12,8 @@ public class ShapeDrawViewModel : GameViewModelBase<ShapeDrawService, ShapeDrawS
 {
     private string _gameId;
     
-    public ShapeDrawViewModel(ShapeDrawService service, GameSettings settings)
-        : base(service, settings)
+    public ShapeDrawViewModel(ShapeDrawService service, MainViewModel mainViewModel, GameSettings settings)
+        : base(service, mainViewModel, settings)
     {
         CheckCommand = new RelayCommand(() => Check?.Invoke());
     }

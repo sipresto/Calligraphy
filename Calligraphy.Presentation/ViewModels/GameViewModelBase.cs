@@ -16,12 +16,15 @@ public abstract class GameViewModelBase<TService, TSession, TSettings> : ViewMod
     protected readonly TService Service;
     protected readonly GameSettings AllSettings;
     protected TSettings Settings;
+    protected readonly MainViewModel MainViewModel;
 
-    protected GameViewModelBase(TService service, GameSettings settings)
+    protected GameViewModelBase(TService service, MainViewModel mainViewModel, GameSettings settings)
     {
         Service = service;
+        MainViewModel = mainViewModel;
         AllSettings = settings;
         RestartCommand = new RelayCommand(RestartGame);
+        MenuCommand = new RelayCommand(Menu);
     }
 
     public bool HasNextLevel { get; set; } = false;
@@ -39,6 +42,7 @@ public abstract class GameViewModelBase<TService, TSession, TSettings> : ViewMod
     }
 
     public ICommand RestartCommand { get; }
+    public ICommand MenuCommand { get; }
 
     public event Action Restarted;
 
@@ -55,6 +59,11 @@ public abstract class GameViewModelBase<TService, TSession, TSettings> : ViewMod
         GameResult = Service.FinishGame(Settings.GetThresholds());
     }
 
+    private void Menu()
+    {
+        MainViewModel.NavigateToCategories();
+    }
+    
     protected abstract void RestartGame();
 
     protected void ResetGameState()
