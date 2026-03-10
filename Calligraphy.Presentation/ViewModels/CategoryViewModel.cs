@@ -3,17 +3,21 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace Calligraphy.Presentation.ViewModels;
 
-public class CategoryViewModel : ViewModelBase
+public partial class CategoryViewModel : ViewModelBase
 {
+    private readonly MainViewModel _mainViewModel;
+    
     public CategoryViewModel(MainViewModel mainViewModel)
     {
-        LetterCategoryCommand = new RelayCommand(() => mainViewModel.ShowTutorialForGame(""));
-        ShapeCategoryCommand = new RelayCommand(() => mainViewModel.ShowTutorialForGame("ShapeDraw"));
-        TraceCategoryCommand = new RelayCommand(() => mainViewModel.ShowTutorialForGame("TraceGame"));
+        _mainViewModel = mainViewModel;
     }
+
+    [RelayCommand]
+    private void LetterCategory() => _mainViewModel.ShowTutorialForGame("");
     
-    public ICommand LetterCategoryCommand { get; }
-    public ICommand ShapeCategoryCommand { get; }
-    public ICommand TraceCategoryCommand { get; }
+    [RelayCommand]
+    private void ShapeCategory() => _mainViewModel.ShowTutorialForGame("DiamondShapeGame");
     
+    [RelayCommand]
+    private void TraceCategory() => _mainViewModel.ShowTutorialForGame("TimedTraceHop");
 }

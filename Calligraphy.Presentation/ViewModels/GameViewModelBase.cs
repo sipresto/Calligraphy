@@ -16,6 +16,7 @@ public abstract class GameViewModelBase<TService, TSession, TSettings> : ViewMod
     protected readonly TService Service;
     protected readonly GameSettings AllSettings;
     protected TSettings Settings;
+    protected readonly MainViewModel MainViewModel;
 
     protected GameViewModelBase(TService service, MainViewModel mainViewModel, GameSettings settings)
     {
