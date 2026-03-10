@@ -61,6 +61,8 @@ public partial class App : System.Windows.Application
         services.AddTransient<TimedTraceGameViewModel>();
         services.AddTransient<InfinityRaceViewModel>();
         services.AddTransient<ShapeDrawViewModel>();
+        services.AddTransient<CategoryViewModel>();
+        services.AddTransient<LevelViewModel>();
 
         // Register Views
         services.AddTransient<SettingsView>();

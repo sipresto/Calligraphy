@@ -11,8 +11,8 @@ public class TimedTraceGameViewModel : TimedGameViewModelBase<TraceGameService, 
     private string _gameId;
     private TraceTemplate CurrentTemplate { get; set; }
     
-    public TimedTraceGameViewModel(TraceGameService service, GameSettings settings)
-        : base(service, settings)
+    public TimedTraceGameViewModel(TraceGameService service, MainViewModel mainViewModel, GameSettings settings)
+        : base(service, mainViewModel, settings)
     {
     }
 

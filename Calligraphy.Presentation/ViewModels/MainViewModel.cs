@@ -1,4 +1,5 @@
 using Calligraphy.Domain.Configuration;
+using System.Runtime.CompilerServices;
 using Calligraphy.Presentation.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +27,16 @@ public class MainViewModel : ObservableObject
     public void NavigateToHome()
     {
         CurrentViewModel = new HomeViewModel(this);
+    }
+
+    public void NavigateToCategories()
+    {
+        CurrentViewModel = new CategoryViewModel(this);
+    }
+
+    public void NavigateToLevels(string categoryName)
+    {
+        
     }
 
     public void ShowSettings()

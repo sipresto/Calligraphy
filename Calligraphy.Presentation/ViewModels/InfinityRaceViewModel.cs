@@ -10,8 +10,8 @@ public class InfinityRaceViewModel : TimedGameViewModelBase<InfinityRaceService,
     private const string GameId = "InfinityRace";
     private List<RaceCircle> _circles;
     
-    public InfinityRaceViewModel(InfinityRaceService service, GameSettings settings)
-        : base(service, settings)
+    public InfinityRaceViewModel(InfinityRaceService service, MainViewModel mainViewModel, GameSettings settings)
+        : base(service, mainViewModel, settings)
     {
         Settings = AllSettings.InfinityRace;
     }
