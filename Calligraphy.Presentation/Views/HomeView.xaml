@@ -42,6 +42,7 @@
 
                 <Button Command="{Binding ExitCommand}"
                         Style="{StaticResource ImageButtonStyle}"
+                        Margin="10, 0"
                         Tag="/Resources/Assets/Images/Buttons/Grass-Buttons-x.png"
                         Content="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed-x.png" />
 

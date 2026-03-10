@@ -41,7 +41,7 @@
     </UserControl.Resources>
 
     <Grid Background="#902D232F">
-        <Border Width="620" Height="520"
+        <Border Width="600" Height="440"
                 Background="#755679"
                 CornerRadius="50"
                 Padding="10">
@@ -49,30 +49,16 @@
                 <DropShadowEffect BlurRadius="25" ShadowDepth="8" Opacity="0.4" />
             </Border.Effect>
 
-            <Border CornerRadius="40" Background="#FFF9EB" Margin="0,0,0,8">
-                <Grid Margin="20">
+            <Border CornerRadius="40" Background="#FFF9EB" Margin="0,0,0,10">
+                <Grid Margin="40, 20">
                     <StackPanel Orientation="Vertical">
 
                         <TextBlock
                             Text="Tips"
                             FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
-                            FontSize="48"
+                            FontSize="40"
                             FontWeight="Bold"
                             TextAlignment="Center" />
-
-                        <StackPanel Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Left"
-                                    VerticalAlignment="Top">
-                            <Image Source="/Resources/Assets/Images/draw-hand-example.png"
-                                   Height="120"
-                                   Stretch="Uniform" />
-
-                            <TextBlock
-                                Text="Houd je arm ontspannen terwijl je schrijft en probeer je hand losjes te bewegen over de tablet."
-                                FontFamily="/Resources/Assets/Fonts/#Gluten Light"
-                                FontSize="24"
-                                TextWrapping="Wrap"
-                                MaxWidth="400" />
-                        </StackPanel>
 
                         <TextBlock
                             Text="{Binding PointsExplanation}"
@@ -81,15 +67,24 @@
                             FontSize="24"
                             MaxWidth="560"
                             TextWrapping="Wrap" />
+                        
+                        <TextBlock
+                            Text="Let op dat je niet te hard of te zacht drukt"
+                            FontFamily="/Resources/Assets/Fonts/#Gluten Light"
+                            Margin="0,10,0,0"
+                            FontSize="24"
+                            Visibility="{Binding ShowPressureInfo, Converter={StaticResource BoolToVisibility}}" />
 
                         <StackPanel Orientation="Vertical" Margin="0,20,0,0">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                 <!-- Use AnimatedStar with IsFilled="True" -->
                                 <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
+                                <controls:AnimatedStar IsFilled="False" Width="40" Height="40" Margin="0,0,5,0" />
+                                <controls:AnimatedStar IsFilled="False" Width="40" Height="40" Margin="0,0,5,0" />
                                 <TextBlock
                                     Text="{Binding OneStar}"
                                     FontFamily="/Resources/Assets/Fonts/#Gluten Light"
-                                    Margin="95,0,0,0"
+                                    Margin="10,0,0,0"
                                     FontSize="24"
                                     VerticalAlignment="Center" />
                             </StackPanel>
@@ -98,10 +93,11 @@
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,0">
                                 <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
                                 <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
+                                <controls:AnimatedStar IsFilled="False" Width="40" Height="40" Margin="0,0,5,0" />
                                 <TextBlock
                                     Text="{Binding TwoStars}"
                                     FontFamily="/Resources/Assets/Fonts/#Gluten Light"
-                                    Margin="50,0,0,0"
+                                    Margin="10,0,0,0"
                                     FontSize="24"
                                     VerticalAlignment="Center" />
                             </StackPanel>
@@ -114,29 +110,33 @@
                                 <TextBlock
                                     Text="{Binding ThreeStars}"
                                     FontFamily="/Resources/Assets/Fonts/#Gluten Light"
-                                    Margin="5,0,0,0"
+                                    Margin="10,0,0,0"
                                     FontSize="24"
                                     VerticalAlignment="Center" />
                             </StackPanel>
-
                         </StackPanel>
-
-                        <TextBlock
-                            Text="Let op dat je niet te hard en niet te zacht drukt"
-                            FontFamily="/Resources/Assets/Fonts/#Gluten Light"
-                            Margin="0,20,0,0"
-                            FontSize="24"
-                            Visibility="{Binding ShowPressureInfo, Converter={StaticResource BoolToVisibility}}" />
                     </StackPanel>
-
-                    <Button
-                        Command="{Binding CloseTutorialCommand}"
-                        Style="{StaticResource ImageButtonStyle}"
-                        Width="65"
+                    
+                    <StackPanel
+                        Orientation="Horizontal"
                         HorizontalAlignment="Center"
-                        VerticalAlignment="Bottom"
-                        Tag="/Resources/Assets/Images/Buttons/Grass-Buttons-arrow.png"
-                        Content="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed-arrow.png"/>
+                        VerticalAlignment="Bottom">
+                        <Button
+                            Command="{Binding CloseTutorialCommand}"
+                            Style="{StaticResource ImageButtonStyle}"
+                            Width="65"
+                            Margin="0, 0, 5, 0"
+                            Tag="/Resources/Assets/Images/Buttons/Buttons-arrow.png"
+                            Content="/Resources/Assets/Images/Buttons/Pressed/Buttons-pressed-arrow.png"/>
+                    
+                        <Button
+                            Command="{Binding MenuCommand}"
+                            Style="{StaticResource ImageButtonStyle}"
+                            Width="65"
+                            Margin="5, 0, 0, 0"
+                            Tag="/Resources/Assets/Images/Buttons/Buttons-house.png"
+                            Content="/Resources/Assets/Images/Buttons/Pressed/Buttons-pressed-house.png"/>
+            </StackPanel>
                 </Grid>
             </Border>
         </Border>
