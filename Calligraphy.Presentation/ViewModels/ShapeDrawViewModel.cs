@@ -9,8 +9,8 @@ namespace Calligraphy.Presentation.ViewModels;
 
 public class ShapeDrawViewModel : GameViewModelBase<ShapeDrawService, ShapeDrawSession>
 {
-    public ShapeDrawViewModel(ShapeDrawService service)
-        : base(service)
+    public ShapeDrawViewModel(ShapeDrawService service, MainViewModel mainViewModel)
+        : base(service, mainViewModel)
     {
         CheckCommand = new RelayCommand(() => Check?.Invoke());
     }

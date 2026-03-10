@@ -16,8 +16,8 @@ public class TimedTraceGameViewModel : TimedGameViewModelBase<TraceGameService, 
 
     private readonly TraceTemplate _tracePattern;
 
-    public TimedTraceGameViewModel(TraceGameService service)
-        : base(service, 30)
+    public TimedTraceGameViewModel(TraceGameService service, MainViewModel mainViewModel)
+        : base(service, mainViewModel, 30)
     {
         _tracePattern = new HopPattern(
             StartX,

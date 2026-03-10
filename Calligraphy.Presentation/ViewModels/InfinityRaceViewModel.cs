@@ -7,8 +7,8 @@ namespace Calligraphy.Presentation.ViewModels;
 public class InfinityRaceViewModel : TimedGameViewModelBase<InfinityRaceService, InfinityRaceSession>
 {
     // TODO: Magic number
-    public InfinityRaceViewModel(InfinityRaceService service)
-        : base(service, 20)
+    public InfinityRaceViewModel(InfinityRaceService service, MainViewModel mainViewModel)
+        : base(service, mainViewModel, 20)
     {
     }
 

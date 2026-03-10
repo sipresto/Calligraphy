@@ -13,8 +13,8 @@ public abstract class TimedGameViewModelBase<TService, TSession> : GameViewModel
     private DateTime _startTime;
     private DispatcherTimer _waitTimer;
 
-    protected TimedGameViewModelBase(TService service, int drawDuration, int waitDuration = 3)
-        : base(service)
+    protected TimedGameViewModelBase(TService service, MainViewModel mainViewModel, int drawDuration, int waitDuration = 3)
+        : base(service, mainViewModel)
     {
         DrawDuration = drawDuration;
         WaitDuration = waitDuration;

@@ -12,11 +12,14 @@ public abstract class GameViewModelBase<TService, TSession> : ViewModelBase
     where TSession : GameSession
 {
     protected readonly TService Service;
+    private readonly MainViewModel MainViewModel;
 
-    protected GameViewModelBase(TService service)
+    protected GameViewModelBase(TService service, MainViewModel mainViewModel)
     {
         Service = service;
+        MainViewModel = mainViewModel;
         RestartCommand = new RelayCommand(RestartGame);
+        MenuCommand = new RelayCommand(Menu);
     }
 
     public bool HasNextLevel { get; set; } = false;
@@ -34,6 +37,7 @@ public abstract class GameViewModelBase<TService, TSession> : ViewModelBase
     }
 
     public ICommand RestartCommand { get; }
+    public ICommand MenuCommand { get; }
 
     public event Action Restarted;
 
@@ -51,6 +55,11 @@ public abstract class GameViewModelBase<TService, TSession> : ViewModelBase
         GameResult = Service.FinishGame(thresholds);
     }
 
+    private void Menu()
+    {
+        MainViewModel.NavigateToCategories();
+    }
+    
     protected abstract void RestartGame();
 
     protected void ResetGameState()
