@@ -37,6 +37,7 @@ public partial class App : System.Windows.Application
         // Register DbContext
         services.AddDbContext<CallyDbContext>(options =>
             options.UseSqlite("Data Source=Cally.db"));
+        services.AddScoped<IRepository, Repository>();
         
         // Register Configuration
         var configuration = LoadConfiguration();
@@ -81,7 +82,9 @@ public partial class App : System.Windows.Application
 
     private void InitializeDatabase()
     {
-        using var context = ServiceProvider.GetRequiredService<CallyDbContext>();
-        context.CreateDatabase(delete: false);
+        using var scope = ServiceProvider.CreateScope();
+        var context = scope.ServiceProvider.GetRequiredService<CallyDbContext>();
+
+        context.CreateDatabase(false);
     }
 }
