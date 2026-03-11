@@ -23,7 +23,7 @@ public partial class TraceGameView : UserControl
         InkCanvas.SetDrawingEnabled(false);
         ResultPopup.DataContext = DataContext;
 
-        DrawHopTemplate();
+        DrawCurrentTemplate();
 
         ViewModel!.DrawingStarted += OnDrawingStarted;
         ViewModel!.DrawingEnded += OnDrawingEnded;
@@ -47,23 +47,35 @@ public partial class TraceGameView : UserControl
     {
         InkCanvas.Clear();
         ResultPopup.ResetStars();
-        DrawHopTemplate();
+        DrawCurrentTemplate();
     }
 
-    private void DrawHopTemplate()
+    private void DrawCurrentTemplate()
     {
-        TemplateCanvas.Children.Clear();
+        var template = ViewModel.CurrentTemplate;
+        var metadata = template.GetMetadata();
 
-        var figure = TraceTemplateGeometryBuilder.BuildHopFigure(ViewModel?.GetCurrentTemplateMetadata());
+        PathFigure figure = template.ShapeStyle switch
+        {
+            TraceShapeStyle.SquareWall => TraceTemplateGeometryBuilder.BuildCastleWallFigure(metadata),
+            TraceShapeStyle.SmoothWaves => TraceTemplateGeometryBuilder.BuildHopFigure(metadata),
+            _ => TraceTemplateGeometryBuilder.BuildHopFigure(metadata)
+        };
+
+        PenLineJoin wpfJoin = template.PreferredJoinStyle switch
+        {
+            TraceJoinStyle.Sharp => PenLineJoin.Miter,
+            TraceJoinStyle.Round => PenLineJoin.Round,
+            _ => PenLineJoin.Round
+        };
 
         var geometry = new PathGeometry(new[] { figure });
-
         TemplateCanvas.Children.Add(new Path
         {
             Data = geometry,
             Stroke = new SolidColorBrush(Color.FromArgb(60, 0, 0, 0)),
-            StrokeThickness = 10,
-            StrokeLineJoin = PenLineJoin.Round,
+            StrokeThickness = ViewModel.GetThickness(),
+            StrokeLineJoin = wpfJoin,
             StrokeStartLineCap = PenLineCap.Round,
             StrokeEndLineCap = PenLineCap.Round
         });

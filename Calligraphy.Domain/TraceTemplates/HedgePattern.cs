@@ -1,6 +1,6 @@
 namespace Calligraphy.Domain.TraceTemplates;
 
-public class HopPattern : TraceTemplate
+public class HedgePattern : TraceTemplate
 {
     private const double BaselineY = 450;
     private const int LoopCount = 9;
@@ -8,6 +8,8 @@ public class HopPattern : TraceTemplate
     private const int PointsPerLoop = 100;
     private const double StartX = 100;
     private const double TopY = 400;
+
+    public override TraceShapeStyle ShapeStyle => TraceShapeStyle.SmoothWaves;
 
     public override string Name => "HopPattern";
 

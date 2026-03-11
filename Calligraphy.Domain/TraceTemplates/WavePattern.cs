@@ -9,6 +9,8 @@ public class WavePattern : TraceTemplate
     private const double StartX = 100;
     private const double TopY = 500;
 
+    public override TraceShapeStyle ShapeStyle => TraceShapeStyle.SmoothWaves;
+    
     public override string Name => "WavePattern";
 
     public override List<StrokePoint> GetTemplatePoints()
