@@ -9,6 +9,6 @@ public static class TraceFactory
         var type = typeof(TraceTemplate).Assembly.GetTypes()
             .FirstOrDefault(t => t.Name == name && typeof(TraceTemplate).IsAssignableFrom(t));
 
-        return type != null ? (TraceTemplate)Activator.CreateInstance(type) : new HopPattern();
+        return type != null ? (TraceTemplate)Activator.CreateInstance(type) : new WavePattern();
     }
 }

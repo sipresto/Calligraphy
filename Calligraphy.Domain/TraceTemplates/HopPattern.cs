@@ -6,8 +6,8 @@ public class HopPattern : TraceTemplate
     private const int LoopCount = 9;
     private const double LoopWidth = 110;
     private const int PointsPerLoop = 100;
-    private const double StartX = 80;
-    private const double TopY = 290;
+    private const double StartX = 100;
+    private const double TopY = 400;
 
     public override string Name => "HopPattern";
 
