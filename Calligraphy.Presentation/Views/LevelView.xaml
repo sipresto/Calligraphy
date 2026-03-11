@@ -3,10 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Calligraphy.Presentation.Views"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        
-    </Grid>
+             d:DesignHeight="800" d:DesignWidth="1200">
+    <Viewbox Stretch="Uniform">
+        <Border Width="1000" Height="600"
+                Background="#755679" 
+                CornerRadius="50"
+                Padding="15">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="25" ShadowDepth="8" Opacity="0.4"/>
+            </Border.Effect>
+
+            <Border CornerRadius="40" Background="#FFF9EB" Margin="0,0,0,8">
+                <ListView ItemsSource="{Binding  }">
+                    
+                </ListView>
+            </Border>
+        </Border>
+
+    </Viewbox>
 </UserControl>

@@ -34,9 +34,13 @@ public class MainViewModel : ObservableObject
         CurrentViewModel = new CategoryViewModel(this);
     }
 
-    public void NavigateToLevels(string categoryName)
+    public void NavigateToLevels(string category)
     {
-        
+        switch (category)
+        {
+            
+        }
+        CurrentViewModel = new LevelViewModel(this);
     }
 
     public void ShowSettings()

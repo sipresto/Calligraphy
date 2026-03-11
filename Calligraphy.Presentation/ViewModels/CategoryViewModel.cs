@@ -13,11 +13,5 @@ public partial class CategoryViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void LetterCategory() => _mainViewModel.ShowTutorialForGame("InfinityRace");
-    
-    [RelayCommand]
-    private void ShapeCategory() => _mainViewModel.ShowTutorialForGame("DiamondShapeGame");
-    
-    [RelayCommand]
-    private void TraceCategory() => _mainViewModel.ShowTutorialForGame("TimedTraceHop");
+    private void ChooseCategory(string category) => _mainViewModel.NavigateToLevels(category);
 }
