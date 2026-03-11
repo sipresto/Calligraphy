@@ -10,11 +10,9 @@ public class TraceGameService : GenericGameService<TraceGameSession>
     {
     }
 
-    public void InitializeSession(string gameId, List<StrokePoint> templatePoints, double? toleranceDistance = null)
+    public void InitializeSession(string gameId, List<StrokePoint> templatePoints, double toleranceDistance)
     {
-        var session = toleranceDistance.HasValue
-            ? new TraceGameSession(templatePoints, toleranceDistance.Value)
-            : new TraceGameSession(templatePoints);
+        var session = new TraceGameSession(templatePoints, toleranceDistance);
         InitializeSession(session, gameId);
     }
 }
