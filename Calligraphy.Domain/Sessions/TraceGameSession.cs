@@ -8,7 +8,7 @@ public class TraceGameSession : GameSession
     private readonly double _toleranceDistance;
     private TraceEvaluationResult _evaluation;
 
-    public TraceGameSession(List<StrokePoint> templatePoints, double toleranceDistance = 30.0)
+    public TraceGameSession(List<StrokePoint> templatePoints, double toleranceDistance)
     {
         _templatePoints = templatePoints;
         _toleranceDistance = toleranceDistance;
@@ -17,17 +17,17 @@ public class TraceGameSession : GameSession
     protected override int CalculateScore()
     {
         _evaluation = TraceEvaluator.Evaluate(TotalStroke(), _templatePoints, _toleranceDistance);
-        return _evaluation.GetQualityScore();
+        return _evaluation.GetScore();
     }
 
     public override string GetFeedbackMessage(int stars)
     {
-        if (_evaluation != null && !_evaluation.IsSuccessful)
+        if (_evaluation != null)
         {
-            if (_evaluation.CoveragePercentage < 0.5)
+            if (_evaluation.CoverageScore < 0.5)
                 return "Probeer de hele lijn te volgen";
 
-            if (_evaluation.AverageDeviation > 40)
+            if (_evaluation.AccuracyScore < 0.5)
                 return "Blijf dichter bij de lijn";
 
             if (!_evaluation.DirectionCorrect)
