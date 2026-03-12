@@ -19,4 +19,4 @@ public partial class CategoryViewModel : ViewModelBase
     private void ShapeCategory() => _mainViewModel.ShowTutorialForGame("DiamondShapeGame");
     
     [RelayCommand]
-    private void TraceCategory() => _mainViewModel.ShowTutorialForGame("TimedTraceHedge");}
+    private void TraceCategory() => _mainViewModel.ShowTutorialForGame("TimedTraceCastle");}
