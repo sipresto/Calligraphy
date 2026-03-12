@@ -5,16 +5,37 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="clr-namespace:Calligraphy.Presentation.Views.Controls"
              xmlns:viewModels="clr-namespace:Calligraphy.Presentation.ViewModels"
+             xmlns:domain="clr-namespace:Calligraphy.Domain.TraceTemplates;assembly=Calligraphy.Domain"
+             xmlns:themes="clr-namespace:Calligraphy.Presentation.Views.themes"
              mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="1200"
              d:DataContext="{d:DesignInstance viewModels:TimedTraceGameViewModel}">
 
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+        <DataTemplate DataType="{x:Type domain:HedgePattern}">
+            <themes:HedgeThemeView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type domain:WavePattern}">
+            <themes:WaveThemeView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type domain:CastleWallPattern}">
+            <themes:CastleThemeView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type domain:LoopPattern}">
+            <themes:LoopThemeView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type domain:MountainPattern}">
+            <themes:MountainThemeView />
+        </DataTemplate>
     </UserControl.Resources>
 
     <Viewbox Stretch="Uniform">
         <Grid Width="1200" Height="800" Background="White">
+
+            <ContentControl Content="{Binding CurrentTemplate}"
+                            Grid.ColumnSpan="2"
+                            IsHitTestVisible="False" />
 
             <controls:InkCanvasControl
                 x:Name="InkCanvas"
