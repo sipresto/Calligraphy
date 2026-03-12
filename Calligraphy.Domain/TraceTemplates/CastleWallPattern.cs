@@ -52,16 +52,4 @@ public class CastleWallPattern : TraceTemplate
             ));
         }
     }
-
-    public override TraceTemplateMetadata GetMetadata()
-    {
-        return new TraceTemplateMetadata
-        {
-            StartX = WallStartX,
-            BaselineY = GroundY,
-            CapHeightY = BattlementY,
-            UnitWidth = MerlonWidth + CrenelWidth,
-            RepeatCount = MerlonCount
-        };
-    }
 }

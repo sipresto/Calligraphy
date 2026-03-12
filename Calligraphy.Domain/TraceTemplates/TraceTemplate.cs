@@ -6,7 +6,6 @@ public abstract class TraceTemplate
     public abstract TraceShapeStyle ShapeStyle { get; }
     public virtual TraceJoinStyle PreferredJoinStyle => TraceJoinStyle.Round;
     public abstract List<StrokePoint> GetTemplatePoints();
-    public abstract TraceTemplateMetadata GetMetadata();
 
     protected static StrokePoint EvaluateBezier(StrokePoint p0, StrokePoint p1, StrokePoint p2, StrokePoint p3,
         double t)

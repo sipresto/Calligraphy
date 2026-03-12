@@ -1,4 +1,5 @@
 ﻿using Calligraphy.Application;
+using Calligraphy.Domain;
 using Calligraphy.Domain.Configuration;
 using Calligraphy.Domain.Sessions;
 using Calligraphy.Domain.TraceTemplates;
@@ -34,14 +35,14 @@ public class TimedTraceGameViewModel : TimedGameViewModelBase<TraceGameService, 
         StartWaitPhase();
     }
 
+    public List<StrokePoint> GetTemplatePoints()
+    {
+        return _currentTemplate.GetTemplatePoints();
+    }
+
     public double GetThickness()
     {
         return Settings.ToleranceDistance*2;
-    }
-
-    public TraceTemplateMetadata GetCurrentTemplateMetadata()
-    {
-        return CurrentTemplate?.GetMetadata();
     }
     
     protected override void RestartGame()

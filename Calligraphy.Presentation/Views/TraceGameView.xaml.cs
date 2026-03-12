@@ -2,8 +2,6 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using Calligraphy.Domain.TraceTemplates;
-using Calligraphy.Presentation.TraceHelpers;
 using Calligraphy.Presentation.ViewModels;
 
 namespace Calligraphy.Presentation.Views;
@@ -23,7 +21,7 @@ public partial class TraceGameView : UserControl
         InkCanvas.SetDrawingEnabled(false);
         ResultPopup.DataContext = DataContext;
 
-        DrawCurrentTemplate();
+        DrawTemplate();
 
         ViewModel!.DrawingStarted += OnDrawingStarted;
         ViewModel!.DrawingEnded += OnDrawingEnded;
@@ -47,36 +45,35 @@ public partial class TraceGameView : UserControl
     {
         InkCanvas.Clear();
         ResultPopup.ResetStars();
-        DrawCurrentTemplate();
+        DrawTemplate();
     }
 
-    private void DrawCurrentTemplate()
+    private void DrawTemplate()
     {
-        var template = ViewModel.CurrentTemplate;
-        var metadata = template.GetMetadata();
+        TemplateCanvas.Children.Clear();
 
-        PathFigure figure = template.ShapeStyle switch
+        var points = ViewModel?.GetTemplatePoints();
+        if (points == null || !points.Any()) return;
+
+        var figure = new PathFigure
         {
-            TraceShapeStyle.SquareWall => TraceTemplateGeometryBuilder.BuildCastleWallFigure(metadata),
-            TraceShapeStyle.SmoothWaves => TraceTemplateGeometryBuilder.BuildHopFigure(metadata),
-            TraceShapeStyle.Cursive => TraceTemplateGeometryBuilder.BuildLoopFigure(metadata),
-            _ => TraceTemplateGeometryBuilder.BuildHopFigure(metadata)
+            StartPoint = new Point(points[0].X, points[0].Y),
+            IsClosed = false
         };
 
-        PenLineJoin wpfJoin = template.PreferredJoinStyle switch
-        {
-            TraceJoinStyle.Sharp => PenLineJoin.Miter, 
-            TraceJoinStyle.Round => PenLineJoin.Round,
-            _ => PenLineJoin.Round
-        };
+        var wpfPoints = points.Skip(1).Select(p => new Point(p.X, p.Y));
+
+        var segment = new PolyLineSegment(wpfPoints, true);
+        figure.Segments.Add(segment);
 
         var geometry = new PathGeometry(new[] { figure });
+
         TemplateCanvas.Children.Add(new Path
         {
             Data = geometry,
             Stroke = new SolidColorBrush(Color.FromArgb(60, 0, 0, 0)),
             StrokeThickness = ViewModel.GetThickness(),
-            StrokeLineJoin = wpfJoin,
+            StrokeLineJoin = PenLineJoin.Round,
             StrokeStartLineCap = PenLineCap.Round,
             StrokeEndLineCap = PenLineCap.Round
         });

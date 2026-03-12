@@ -49,16 +49,4 @@ public class HedgePattern : TraceTemplate
 
         return points;
     }
-    
-    public override TraceTemplateMetadata GetMetadata()
-    {
-        return new TraceTemplateMetadata
-        {
-            StartX = StartX,
-            BaselineY = BaselineY,
-            CapHeightY = TopY,
-            UnitWidth = LoopWidth,
-            RepeatCount = LoopCount
-        };
-    }
 }
