@@ -10,12 +10,20 @@ namespace Calligraphy.Presentation.ViewModels;
 public class TimedTraceGameViewModel : TimedGameViewModelBase<TraceGameService, TraceGameSession, TimedTraceGameSettings>, ITraceGameViewModel
 {
     private string _gameId;
-    private TraceTemplate CurrentTemplate { get; set; }
+    
+    private TraceTemplate _currentTemplate;
+    public TraceTemplate CurrentTemplate 
+    { 
+        get => _currentTemplate;
+        private set 
+        { 
+            _currentTemplate = value; 
+            OnPropertyChanged();
+        }
+    }
     
     public TimedTraceGameViewModel(TraceGameService service, MainViewModel mainViewModel, GameSettings settings)
-        : base(service, mainViewModel, settings)
-    {
-    }
+        : base(service, mainViewModel, settings) { }
 
     public void Initialize(string gameId)
     {
@@ -28,12 +36,12 @@ public class TimedTraceGameViewModel : TimedGameViewModelBase<TraceGameService, 
 
     public List<StrokePoint> GetTemplatePoints()
     {
-        return CurrentTemplate.GetTemplatePoints();
+        return _currentTemplate.GetTemplatePoints();
     }
 
     public double GetThickness()
     {
-        return Settings.ToleranceDistance * 2;
+        return Settings.ToleranceDistance*2;
     }
 
     public bool IsTimed => true;

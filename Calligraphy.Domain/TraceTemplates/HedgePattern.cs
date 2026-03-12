@@ -1,13 +1,15 @@
 namespace Calligraphy.Domain.TraceTemplates;
 
-public class HopPattern : TraceTemplate
+public class HedgePattern : TraceTemplate
 {
     private const double BaselineY = 450;
     private const int LoopCount = 9;
     private const double LoopWidth = 110;
     private const int PointsPerLoop = 100;
-    private const double StartX = 80;
-    private const double TopY = 290;
+    private const double StartX = 100;
+    private const double TopY = 400;
+
+    public override TraceShapeStyle ShapeStyle => TraceShapeStyle.SmoothWaves;
 
     public override string Name => "HopPattern";
 
@@ -46,17 +48,5 @@ public class HopPattern : TraceTemplate
         }
 
         return points;
-    }
-    
-    public override TraceTemplateMetadata GetMetadata()
-    {
-        return new TraceTemplateMetadata
-        {
-            StartX = StartX,
-            BaselineY = BaselineY,
-            TopY = TopY,
-            LoopWidth = LoopWidth,
-            LoopCount = LoopCount
-        };
     }
 }
