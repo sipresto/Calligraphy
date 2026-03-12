@@ -6,17 +6,19 @@ public class TraceGameSession : GameSession
 {
     private readonly List<StrokePoint> _templatePoints;
     private readonly double _toleranceDistance;
+    private readonly double _requiredAccuracy;
     private TraceEvaluationResult _evaluation;
 
-    public TraceGameSession(List<StrokePoint> templatePoints, double toleranceDistance)
+    public TraceGameSession(List<StrokePoint> templatePoints, double toleranceDistance, double requiredAccuracy)
     {
         _templatePoints = templatePoints;
         _toleranceDistance = toleranceDistance;
+        _requiredAccuracy = requiredAccuracy;
     }
 
     protected override int CalculateScore()
     {
-        _evaluation = TraceEvaluator.Evaluate(TotalStroke(), _templatePoints, _toleranceDistance);
+        _evaluation = TraceEvaluator.Evaluate(TotalStroke(), _templatePoints, _toleranceDistance, _requiredAccuracy);
         return _evaluation.GetScore();
     }
 

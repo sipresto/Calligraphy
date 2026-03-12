@@ -3,7 +3,7 @@
 public static class TraceEvaluator
 {
     // Evaluates how well the users strokes match the template
-    public static TraceEvaluationResult Evaluate(List<StrokePoint> userPoints, List<StrokePoint> templatePoints, double toleranceDistance)
+    public static TraceEvaluationResult Evaluate(List<StrokePoint> userPoints, List<StrokePoint> templatePoints, double toleranceDistance, double minCoverageScore)
     {
         if (userPoints.Count < 10)
             return new TraceEvaluationResult
@@ -11,6 +11,7 @@ public static class TraceEvaluator
                 AccuracyScore = 0,
                 CoverageScore = 0,
                 DirectionCorrect = false,
+                MinCoverageScore = minCoverageScore
             };
 
         return new TraceEvaluationResult
@@ -18,6 +19,7 @@ public static class TraceEvaluator
             AccuracyScore = CalculateAccuracy(userPoints, templatePoints, toleranceDistance),
             CoverageScore = CalculateCoverage(userPoints, templatePoints, toleranceDistance),
             DirectionCorrect = CheckDirectionConsistency(userPoints),
+            MinCoverageScore = minCoverageScore
         };
     }
     
@@ -77,11 +79,10 @@ public static class TraceEvaluator
 
 public class TraceEvaluationResult
 {
-    private const double MinCoverageScore = 0.90;
-
-    public double AccuracyScore { get; set; }
-    public double CoverageScore { get; set; }
-    public bool DirectionCorrect { get; set; }
+    public double MinCoverageScore;
+    public double AccuracyScore;
+    public double CoverageScore;
+    public bool DirectionCorrect;
 
     public int GetScore()
     {

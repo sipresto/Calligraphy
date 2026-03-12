@@ -28,7 +28,8 @@
             <controls:Timer
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
-                Margin="0,5,0,0" />
+                Margin="0,5,0,0"
+                Visibility="{Binding IsTimed, Converter={StaticResource BoolToVisibility}}" />
 
             <TextBlock
                 HorizontalAlignment="Center"
@@ -38,7 +39,7 @@
                 Foreground="Red"
                 Text="{Binding WaitTimerText}"
                 Visibility="{Binding IsPreviewVisible, Converter={StaticResource BoolToVisibility}}" />
-
+            
             <controls:GameResultPopup
                 x:Name="ResultPopup"
                 HorizontalAlignment="Center"

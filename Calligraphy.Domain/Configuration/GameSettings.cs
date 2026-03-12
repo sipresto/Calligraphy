@@ -29,12 +29,14 @@ public class TimedTraceGameSettings : TimedGameSettings
 {
     public string Template { get; set; }
     public double ToleranceDistance { get; set; }
+    public double RequiredAccuracy { get; set; }
 }
 
 public class TraceGameSettings : BaseGameSettings
 {
     public string Template { get; set; }
     public double ToleranceDistance { get; set; }
+    public double RequiredAccuracy { get; set; }
 }
 
 public class ShapeGameSettings : BaseGameSettings

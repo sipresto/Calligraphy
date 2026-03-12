@@ -54,6 +54,12 @@ public class TutorialViewModel : ViewModelBase
             var vm = _services.GetRequiredService<InfinityRaceViewModel>();
             _navigation.CurrentViewModel = vm;
         }
+        else if (TargetGameViewModelName == nameof(TraceGameViewModel))
+        {
+            var vm = _services.GetRequiredService<TraceGameViewModel>();
+            vm.Initialize(GameKey);
+            _navigation.CurrentViewModel = vm;
+        }
         else if (TargetGameViewModelName == nameof(TimedTraceGameViewModel))
         {
             var vm = _services.GetRequiredService<TimedTraceGameViewModel>();
