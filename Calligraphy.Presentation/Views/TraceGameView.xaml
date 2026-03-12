@@ -5,27 +5,27 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="clr-namespace:Calligraphy.Presentation.Views.Controls"
              xmlns:viewModels="clr-namespace:Calligraphy.Presentation.ViewModels"
-             xmlns:domain="clr-namespace:Calligraphy.Domain.TraceTemplates;assembly=Calligraphy.Domain"
              xmlns:themes="clr-namespace:Calligraphy.Presentation.Views.themes"
+             xmlns:repeatingTraces="clr-namespace:Calligraphy.Domain.TraceTemplates.RepeatingTraces;assembly=Calligraphy.Domain"
              mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="1200"
              d:DataContext="{d:DesignInstance viewModels:TimedTraceGameViewModel}">
 
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
-        <DataTemplate DataType="{x:Type domain:HedgePattern}">
+        <DataTemplate DataType="{x:Type repeatingTraces:HedgePattern}">
             <themes:HedgeThemeView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type domain:WavePattern}">
+        <DataTemplate DataType="{x:Type repeatingTraces:WavePattern}">
             <themes:WaveThemeView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type domain:CastleWallPattern}">
+        <DataTemplate DataType="{x:Type repeatingTraces:CastleWallPattern}">
             <themes:CastleThemeView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type domain:LoopPattern}">
+        <DataTemplate DataType="{x:Type repeatingTraces:LoopPattern}">
             <themes:LoopThemeView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type domain:MountainPattern}">
+        <DataTemplate DataType="{x:Type repeatingTraces:MountainPattern}">
             <themes:MountainThemeView />
         </DataTemplate>
     </UserControl.Resources>

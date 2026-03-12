@@ -1,6 +1,6 @@
-﻿namespace Calligraphy.Domain.TraceTemplates;
+﻿namespace Calligraphy.Domain.TraceTemplates.RepeatingTraces;
 
-public class LoopPattern : TraceTemplate
+public class LoopPattern : RepeatingTrace
 {
     private const double GroundY = 450; 
     private const double LoopTopY = 350;
@@ -11,7 +11,6 @@ public class LoopPattern : TraceTemplate
 
     public override TraceShapeStyle ShapeStyle => TraceShapeStyle.Cursive;
     public override TraceJoinStyle PreferredJoinStyle => TraceJoinStyle.Round;
-    public override string Name => "LoopPattern";
 
     public override List<StrokePoint> GetTemplatePoints()
     {

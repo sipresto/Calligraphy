@@ -1,4 +1,4 @@
-namespace Calligraphy.Domain.TraceTemplates;
+namespace Calligraphy.Domain.TraceTemplates.RepeatingTraces;
 
 public enum TraceShapeStyle
 {

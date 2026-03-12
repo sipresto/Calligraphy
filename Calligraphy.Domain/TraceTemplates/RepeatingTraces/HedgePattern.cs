@@ -1,17 +1,15 @@
-namespace Calligraphy.Domain.TraceTemplates;
+namespace Calligraphy.Domain.TraceTemplates.RepeatingTraces;
 
-public class WavePattern : TraceTemplate
+public class HedgePattern : RepeatingTrace
 {
     private const double BaselineY = 450;
     private const int LoopCount = 9;
     private const double LoopWidth = 110;
     private const int PointsPerLoop = 100;
     private const double StartX = 100;
-    private const double TopY = 500;
+    private const double TopY = 400;
 
     public override TraceShapeStyle ShapeStyle => TraceShapeStyle.SmoothWaves;
-    
-    public override string Name => "WavePattern";
 
     public override List<StrokePoint> GetTemplatePoints()
     {

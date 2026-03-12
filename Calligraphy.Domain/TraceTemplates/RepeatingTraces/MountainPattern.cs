@@ -1,6 +1,6 @@
-﻿namespace Calligraphy.Domain.TraceTemplates;
+﻿namespace Calligraphy.Domain.TraceTemplates.RepeatingTraces;
 
-public class MountainPattern : TraceTemplate
+public class MountainPattern : RepeatingTrace
 {
     private const double StartX = 100;
     private const double GroundY = 550;   // Positioned lower on screen
@@ -11,7 +11,6 @@ public class MountainPattern : TraceTemplate
 
     public override TraceShapeStyle ShapeStyle => TraceShapeStyle.SquareWall; // Uses sharp lines
     public override TraceJoinStyle PreferredJoinStyle => TraceJoinStyle.Sharp;
-    public override string Name => "MountainPattern";
 
     public override List<StrokePoint> GetTemplatePoints()
     {

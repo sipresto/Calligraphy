@@ -1,6 +1,6 @@
-namespace Calligraphy.Domain.TraceTemplates;
+namespace Calligraphy.Domain.TraceTemplates.RepeatingTraces;
 
-public class CastleWallPattern : TraceTemplate
+public class CastleWallPattern : RepeatingTrace
 {
     private const double GroundY = 450;
     private const int MerlonCount = 9;
@@ -12,7 +12,6 @@ public class CastleWallPattern : TraceTemplate
 
     public override TraceShapeStyle ShapeStyle => TraceShapeStyle.SquareWall;
     public override TraceJoinStyle PreferredJoinStyle => TraceJoinStyle.Sharp;
-    public override string Name => "CastleWallPattern";
 
     public override List<StrokePoint> GetTemplatePoints()
     {
