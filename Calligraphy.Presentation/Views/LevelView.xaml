@@ -1,13 +1,14 @@
-﻿<UserControl x:Class="Calligraphy.Presentation.Views.LevelView"
+<UserControl x:Class="Calligraphy.Presentation.Views.LevelView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="1200">
+
     <Viewbox Stretch="Uniform">
         <Border Width="1000" Height="600"
-                Background="#755679" 
+                Background="#755679"
                 CornerRadius="50"
                 Padding="15">
             <Border.Effect>
@@ -15,11 +16,105 @@
             </Border.Effect>
 
             <Border CornerRadius="40" Background="#FFF9EB" Margin="0,0,0,8">
-                <ListView ItemsSource="{Binding  }">
-                    
-                </ListView>
+                <Grid Margin="30,20,30,20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               Text="{Binding CategoryTitle}"
+                               FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
+                               FontSize="60"
+                               Foreground="#755679"
+                               HorizontalAlignment="Center"
+                               Margin="0,10,0,10"/>
+
+                    <ScrollViewer Grid.Row="1"
+                                  VerticalScrollBarVisibility="Auto"
+                                  HorizontalScrollBarVisibility="Disabled">
+                        <ItemsControl ItemsSource="{Binding Levels}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel HorizontalAlignment="Center"
+                                               Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Command="{Binding DataContext.LevelCommand,
+                                                        RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                            CommandParameter="{Binding Key}"
+                                            Margin="12"
+                                            Cursor="Pen">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Grid Width="200" Height="200" x:Name="Root">
+
+                                                    <Image Source="/Resources/Assets/Images/TextBars/Square.png"
+                                                           Stretch="Fill"/>
+
+                                                    <TextBlock Text="{Binding Key}"
+                                                               FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
+                                                               FontSize="34"
+                                                               Foreground="#755679"
+                                                               TextWrapping="Wrap"
+                                                               TextAlignment="Center"
+                                                               HorizontalAlignment="Center"
+                                                               VerticalAlignment="Center"
+                                                               Margin="16,0"/>
+
+                                                </Grid>
+
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsPressed" Value="True">
+                                                        <Setter TargetName="Root" Property="Margin" Value="0,8,0,0"/>
+                                                    </Trigger>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="Root" Property="Opacity" Value="0.85"/>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+
+                    <Button Grid.Row="2"
+                            Command="{Binding BackCommand}"
+                            HorizontalAlignment="Left"
+                            Cursor="Pen"
+                            Margin="0,8,0,0">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="BackBorder"
+                                        Background="#755679"
+                                        CornerRadius="20"
+                                        Padding="24,10">
+                                    <TextBlock Text="← Terug"
+                                               FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
+                                               FontSize="28"
+                                               Foreground="#FFF9EB"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="BackBorder" Property="Opacity" Value="0.75"/>
+                                        <Setter TargetName="BackBorder" Property="Margin" Value="0,4,0,0"/>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="BackBorder" Property="Opacity" Value="0.85"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                </Grid>
             </Border>
         </Border>
-
     </Viewbox>
 </UserControl>

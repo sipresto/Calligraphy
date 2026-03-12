@@ -14,4 +14,7 @@ public partial class CategoryViewModel : ViewModelBase
 
     [RelayCommand]
     private void ChooseCategory(string category) => _mainViewModel.NavigateToLevels(category);
+    
+    [RelayCommand]
+    private void Back() => _mainViewModel.NavigateToHome();
 }

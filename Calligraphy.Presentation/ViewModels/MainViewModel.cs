@@ -1,5 +1,4 @@
 using Calligraphy.Domain.Configuration;
-using System.Runtime.CompilerServices;
 using Calligraphy.Presentation.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,11 +35,7 @@ public class MainViewModel : ObservableObject
 
     public void NavigateToLevels(string category)
     {
-        switch (category)
-        {
-            
-        }
-        CurrentViewModel = new LevelViewModel(this);
+        CurrentViewModel = new LevelViewModel(this, _settings, category);
     }
 
     public void ShowSettings()
@@ -48,10 +43,12 @@ public class MainViewModel : ObservableObject
         CurrentViewModel = App.ServiceProvider.GetRequiredService<SettingsViewModel>();
     }
 
-    public void ShowTutorialForGame(string gameKey)
+    public void ShowTutorialForGame(string gameKey, string nextLevelKey = null)
     {
         var gameSettings = GetSettingsForGameKey(gameKey);
-        if (gameSettings == null || gameSettings.Tutorial == null) return;
+        if (gameSettings?.Tutorial == null) return;
+
+        nextLevelKey ??= GetNextLevelKey(gameKey);
 
         var info = new TutorialInfo
         {
@@ -64,12 +61,60 @@ public class MainViewModel : ObservableObject
         };
 
         var tutorialVm = _services.GetRequiredService<TutorialViewModel>();
-        
-        tutorialVm.SetTutorialInfo(info, gameKey); 
-        
+
+        tutorialVm.GameStarted += OnGameStarted;
+
+        void OnGameStarted(ViewModelBase gameVm)
+        {
+            tutorialVm.GameStarted -= OnGameStarted;
+
+            if (nextLevelKey != null && gameVm is INextLevelAware aware)
+                aware.SetNextLevel(nextLevelKey);
+        }
+
+        tutorialVm.SetTutorialInfo(info, gameKey);
         CurrentViewModel = tutorialVm;
     }
-    
+
+    private string GetNextLevelKey(string gameKey)
+    {
+        var ordered = GetCategoryKeysFor(gameKey);
+        var index   = ordered.IndexOf(gameKey);
+
+        return index >= 0 && index + 1 < ordered.Count
+            ? ordered[index + 1]
+            : null;
+    }
+
+    private List<string> GetCategoryKeysFor(string gameKey)
+    {
+        if (gameKey == "InfinityRace")
+            return ["InfinityRace"];
+
+        if (_settings.ShapeGames?.ContainsKey(gameKey) == true)
+            return _settings.ShapeGames
+                .OrderBy(kv => kv.Value.Level)
+                .ThenBy(kv => kv.Key)
+                .Select(kv => kv.Key)
+                .ToList();
+
+        if (_settings.TimedTraceGames?.ContainsKey(gameKey) == true)
+            return _settings.TimedTraceGames
+                .OrderBy(kv => kv.Value.Level)
+                .ThenBy(kv => kv.Key)
+                .Select(kv => kv.Key)
+                .ToList();
+
+        if (_settings.TraceGames?.ContainsKey(gameKey) == true)
+            return _settings.TraceGames
+                .OrderBy(kv => kv.Value.Level)
+                .ThenBy(kv => kv.Key)
+                .Select(kv => kv.Key)
+                .ToList();
+
+        return [];
+    }
+
     private BaseGameSettings GetSettingsForGameKey(string gameKey)
     {
         if (gameKey == "InfinityRace") return _settings.InfinityRace;

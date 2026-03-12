@@ -28,7 +28,6 @@ public partial class ShapeDrawView : UserControl
 
         ViewModel?.Restarted += OnReset;
         ViewModel?.Check += OnCheck;
-
         DrawTemplate();
     }
 
@@ -42,7 +41,8 @@ public partial class ShapeDrawView : UserControl
     private async void OnCheck()
     {
         var points = InkCanvas.EndDrawing();
-        ViewModel.FinishGame(points);
+        ViewModel?.IsClickable = false;
+        ViewModel?.FinishGame(points);
         if (ViewModel?.GameResult != null)
         {
             await ResultPopup.AnimateStars(ViewModel.GameResult.StarCount);

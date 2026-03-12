@@ -11,6 +11,7 @@ public class GameSettings
 public abstract class BaseGameSettings
 {
     public int[] StarThresholds { get; set; }
+    public int Level { get; set; } = 0;
     public TutorialSettings Tutorial { get; init; }
     
     public StarThresholds GetThresholds() => new (StarThresholds[0], StarThresholds[1], StarThresholds[2]);

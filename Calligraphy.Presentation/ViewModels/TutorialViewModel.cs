@@ -28,6 +28,8 @@ public class TutorialViewModel : ViewModelBase
 
     public ICommand CloseTutorialCommand { get; }
 
+    public event Action<ViewModelBase> GameStarted;
+
     public void SetTutorialInfo(TutorialInfo info, string gameKey)
     {
         PointsExplanation = info.PointsExplanation;
@@ -49,22 +51,28 @@ public class TutorialViewModel : ViewModelBase
     {
         if (string.IsNullOrEmpty(TargetGameViewModelName)) return;
 
+        ViewModelBase gameVm = null;
+
         if (TargetGameViewModelName == nameof(InfinityRaceViewModel))
         {
-            var vm = _services.GetRequiredService<InfinityRaceViewModel>();
-            _navigation.CurrentViewModel = vm;
+            gameVm = _services.GetRequiredService<InfinityRaceViewModel>();
         }
         else if (TargetGameViewModelName == nameof(TimedTraceGameViewModel))
         {
             var vm = _services.GetRequiredService<TimedTraceGameViewModel>();
             vm.Initialize(GameKey);
-            _navigation.CurrentViewModel = vm;
+            gameVm = vm;
         }
         else if (TargetGameViewModelName == nameof(ShapeDrawViewModel))
         {
             var vm = _services.GetRequiredService<ShapeDrawViewModel>();
             vm.Initialize(GameKey);
-            _navigation.CurrentViewModel = vm;
+            gameVm = vm;
         }
+
+        if (gameVm == null) return;
+
+        _navigation.CurrentViewModel = gameVm;
+        GameStarted?.Invoke(gameVm);
     }
 }

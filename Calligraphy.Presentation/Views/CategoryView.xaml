@@ -17,9 +17,11 @@
 
             <Border CornerRadius="40" Background="#FFF9EB" Margin="0,0,0,8">
                 <Grid Margin="20">
+                    
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" 
@@ -34,7 +36,7 @@
                                 Orientation="Horizontal" 
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center">
-                        
+
                         <Button Command="{Binding ChooseCategoryCommand}" 
                                 CommandParameter="InfinityRace"
                                 Margin="15,0" Cursor="Pen">
@@ -153,6 +155,36 @@
                         </Button>
 
                     </StackPanel>
+
+                    <Button Grid.Row="2"
+                            Command="{Binding BackCommand}"
+                            HorizontalAlignment="Left"
+                            Cursor="Pen"
+                            Margin="10">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="BackBorder"
+                                        Background="#755679"
+                                        CornerRadius="20"
+                                        Padding="24,10">
+                                    <TextBlock Text="← Terug"
+                                               FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
+                                               FontSize="28"
+                                               Foreground="#FFF9EB"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="BackBorder" Property="Opacity" Value="0.75"/>
+                                        <Setter TargetName="BackBorder" Property="Margin" Value="0,4,0,0"/>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="BackBorder" Property="Opacity" Value="0.85"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
                 </Grid>
             </Border>
         </Border>
