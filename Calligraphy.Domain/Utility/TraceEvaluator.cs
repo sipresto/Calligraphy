@@ -3,48 +3,43 @@
 public static class TraceEvaluator
 {
     // Evaluates how well the users strokes match the template
-    public static TraceEvaluationResult Evaluate(IReadOnlyList<StrokePoint> userPoints,
-        IReadOnlyList<StrokePoint> templatePoints, double toleranceDistance)
+    public static TraceEvaluationResult Evaluate(List<StrokePoint> userPoints, List<StrokePoint> templatePoints, double toleranceDistance)
     {
         if (userPoints.Count < 10)
             return new TraceEvaluationResult
             {
-                IsSuccessful = false,
-                CoveragePercentage = 0,
-                AverageDeviation = double.MaxValue,
-                MaxDeviation = double.MaxValue
+                AccuracyScore = 0,
+                CoverageScore = 0,
+                DirectionCorrect = false,
             };
-
-        // Calculate coverage, what percentage of template was traced
-        double coverage = CalculateCoverage(userPoints, templatePoints, toleranceDistance);
-
-        // Calculate deviation, how far off are the users strokes from the template
-        var deviations = CalculateDeviations(userPoints, templatePoints);
-        double avgDeviation = deviations.Average();
-        double maxDeviation = deviations.Max();
-
-        // Check direction consistency (left to right progression)
-        bool directionCorrect = CheckDirectionConsistency(userPoints);
-
-        // Determine success based on criteria
-        bool isSuccessful = coverage >= 0.70 && // At least 70% coverage
-                            avgDeviation <= toleranceDistance &&
-                            maxDeviation <= toleranceDistance * 2 &&
-                            directionCorrect;
 
         return new TraceEvaluationResult
         {
-            IsSuccessful = isSuccessful,
-            CoveragePercentage = coverage,
-            AverageDeviation = avgDeviation,
-            MaxDeviation = maxDeviation,
-            DirectionCorrect = directionCorrect
+            AccuracyScore = CalculateAccuracy(userPoints, templatePoints, toleranceDistance),
+            CoverageScore = CalculateCoverage(userPoints, templatePoints, toleranceDistance),
+            DirectionCorrect = CheckDirectionConsistency(userPoints),
         };
     }
+    
+    // Calculates how much of the user strokes were in the bounds of the template (0 - 1)
+    private static double CalculateAccuracy(List<StrokePoint> userPoints, List<StrokePoint> templatePoints, double toleranceDistance)
+    {
+        int coveredPoints = 0;
 
-    // Calculates what percentage of the template was covered by user strokes
-    private static double CalculateCoverage(IReadOnlyList<StrokePoint> userPoints,
-        IReadOnlyList<StrokePoint> templatePoints, double toleranceDistance)
+        foreach (var userPoint in userPoints)
+        {
+            bool isCovered = templatePoints.Any(templatePoint =>
+                Distance(userPoint, templatePoint) <= toleranceDistance);
+
+            if (isCovered)
+                coveredPoints++;
+        }
+
+        return (double)coveredPoints / userPoints.Count;
+    }
+
+    // Calculates how much of the template was covered by user strokes (0 - 1)
+    private static double CalculateCoverage(List<StrokePoint> userPoints, List<StrokePoint> templatePoints, double toleranceDistance)
     {
         int coveredPoints = 0;
 
@@ -58,22 +53,6 @@ public static class TraceEvaluator
         }
 
         return (double)coveredPoints / templatePoints.Count;
-    }
-
-    // Calculates deviation of each user point from the nearest template point
-    private static List<double> CalculateDeviations(IReadOnlyList<StrokePoint> userPoints,
-        IReadOnlyList<StrokePoint> templatePoints)
-    {
-        var deviations = new List<double>();
-
-        foreach (var userPoint in userPoints)
-        {
-            double minDistance = templatePoints
-                .Min(templatePoint => Distance(templatePoint, userPoint));
-            deviations.Add(minDistance);
-        }
-
-        return deviations;
     }
 
     // Checks if the user generally traced from left to right
@@ -98,22 +77,25 @@ public static class TraceEvaluator
 
 public class TraceEvaluationResult
 {
-    public bool IsSuccessful { get; set; }
-    public double CoveragePercentage { get; set; }
-    public double AverageDeviation { get; set; }
-    public double MaxDeviation { get; set; }
+    private const double MinCoverageScore = 0.90;
+
+    public double AccuracyScore { get; set; }
+    public double CoverageScore { get; set; }
     public bool DirectionCorrect { get; set; }
 
-    // Get a score from 0-100
-    public int GetQualityScore()
+    public int GetScore()
     {
-        if (!IsSuccessful)
-            return Math.Min((int)(CoveragePercentage * 50), 30);
-
-        // Base score on coverage and accuracy
-        double coverageScore = CoveragePercentage * 60; //60 points
-        double accuracyScore = Math.Max(0, 40 - (AverageDeviation / 2)); //40 points
-
-        return (int)Math.Min(coverageScore + accuracyScore, 100);
+        if (!DirectionCorrect)
+            return 0;
+        
+        double coverage = CoverageScore;
+        
+        if (coverage > MinCoverageScore)
+            coverage = 1;
+        else
+            coverage /= MinCoverageScore;
+        
+        double finalScore = AccuracyScore * coverage * 100;
+        return (int)Math.Round(finalScore);
     }
 }
