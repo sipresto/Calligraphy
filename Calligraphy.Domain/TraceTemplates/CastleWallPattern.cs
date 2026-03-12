@@ -2,40 +2,41 @@ namespace Calligraphy.Domain.TraceTemplates;
 
 public class CastleWallPattern : TraceTemplate
 {
-    private const double BaselineY = 450;
-    private const int LoopCount = 8;
-    private const double LoopWidth = 100;
-    private const int PointsPerLoop = 100;
-    private const double StartX = 100;
-    private const double TopY = 350;
+    private const double GroundY = 450;
+    private const int MerlonCount = 9;
+    private const double MerlonWidth = 50;
+    private const double CrenelWidth = 50;
+    private const int PointsPerMerlon = 100;
+    private const double WallStartX = 100;
+    private const double BattlementY = 400;
 
     public override TraceShapeStyle ShapeStyle => TraceShapeStyle.SquareWall;
     public override TraceJoinStyle PreferredJoinStyle => TraceJoinStyle.Sharp;
-
     public override string Name => "CastleWallPattern";
 
     public override List<StrokePoint> GetTemplatePoints()
     {
         var points = new List<StrokePoint>();
-        double x = StartX;
-        int ptsPerSegment = PointsPerLoop / 4;
+        double x = WallStartX;
+        int ptsPerSegment = PointsPerMerlon / 4;
 
-        for (int i = 0; i < LoopCount; i++)
+        for (int i = 0; i < MerlonCount; i++)
         {
-            // 1. Vertical Up
-            AddLinearPoints(points, x, BaselineY, x, TopY, ptsPerSegment);
-            
-            // 2. Horizontal Top
-            AddLinearPoints(points, x, TopY, x + LoopWidth * 0.5, TopY, ptsPerSegment);
-            
-            // 3. Vertical Down
-            AddLinearPoints(points, x + LoopWidth * 0.5, TopY, x + LoopWidth * 0.5, BaselineY, ptsPerSegment);
-            
-            // 4. Horizontal Bottom (Connect to next)
-            AddLinearPoints(points, x + LoopWidth * 0.5, BaselineY, x + LoopWidth, BaselineY, ptsPerSegment);
+            //Rise to battlement
+            AddLinearPoints(points, x, GroundY, x, BattlementY, ptsPerSegment);
+            //Cross the merlon top
+            AddLinearPoints(points, x, BattlementY, x + MerlonWidth, BattlementY, ptsPerSegment);
+            //Drop to ground
+            AddLinearPoints(points, x + MerlonWidth, BattlementY, x + MerlonWidth, GroundY, ptsPerSegment);
+            //Cross the crenel to next merlon
+            AddLinearPoints(points, x + MerlonWidth, GroundY, x + MerlonWidth + CrenelWidth, GroundY, ptsPerSegment);
 
-            x += LoopWidth;
+            x += MerlonWidth + CrenelWidth;
         }
+        //CLOSE
+        AddLinearPoints(points, x, GroundY, x, BattlementY, ptsPerSegment);
+        AddLinearPoints(points, x, BattlementY, x + MerlonWidth, BattlementY, ptsPerSegment);
+        AddLinearPoints(points, x + MerlonWidth, BattlementY, x + MerlonWidth, GroundY, ptsPerSegment);
 
         return points;
     }
@@ -56,11 +57,11 @@ public class CastleWallPattern : TraceTemplate
     {
         return new TraceTemplateMetadata
         {
-            StartX = StartX,
-            BaselineY = BaselineY,
-            TopY = TopY,
-            LoopWidth = LoopWidth,
-            LoopCount = LoopCount
+            StartX = WallStartX,
+            BaselineY = GroundY,
+            CapHeightY = BattlementY,
+            UnitWidth = MerlonWidth + CrenelWidth,
+            RepeatCount = MerlonCount
         };
     }
 }

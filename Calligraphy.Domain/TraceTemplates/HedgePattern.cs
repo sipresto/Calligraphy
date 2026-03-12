@@ -56,9 +56,9 @@ public class HedgePattern : TraceTemplate
         {
             StartX = StartX,
             BaselineY = BaselineY,
-            TopY = TopY,
-            LoopWidth = LoopWidth,
-            LoopCount = LoopCount
+            CapHeightY = TopY,
+            UnitWidth = LoopWidth,
+            RepeatCount = LoopCount
         };
     }
 }

@@ -59,12 +59,13 @@ public partial class TraceGameView : UserControl
         {
             TraceShapeStyle.SquareWall => TraceTemplateGeometryBuilder.BuildCastleWallFigure(metadata),
             TraceShapeStyle.SmoothWaves => TraceTemplateGeometryBuilder.BuildHopFigure(metadata),
+            TraceShapeStyle.Cursive => TraceTemplateGeometryBuilder.BuildLoopFigure(metadata),
             _ => TraceTemplateGeometryBuilder.BuildHopFigure(metadata)
         };
 
         PenLineJoin wpfJoin = template.PreferredJoinStyle switch
         {
-            TraceJoinStyle.Sharp => PenLineJoin.Miter,
+            TraceJoinStyle.Sharp => PenLineJoin.Miter, 
             TraceJoinStyle.Round => PenLineJoin.Round,
             _ => PenLineJoin.Round
         };

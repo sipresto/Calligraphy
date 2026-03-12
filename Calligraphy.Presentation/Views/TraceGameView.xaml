@@ -22,6 +22,9 @@
         <DataTemplate DataType="{x:Type domain:CastleWallPattern}">
             <themes:CastleThemeView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type domain:LoopPattern}">
+            <themes:LoopThemeView />
+        </DataTemplate>
     </UserControl.Resources>
 
     <Viewbox Stretch="Uniform">
