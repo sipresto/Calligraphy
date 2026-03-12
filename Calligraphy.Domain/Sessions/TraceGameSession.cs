@@ -34,8 +34,6 @@ public class TraceGameSession : GameSession
 
             if (!_evaluation.DirectionCorrect)
                 return "Volg de lijn van links naar rechts";
-
-            return "Bijna goed! Probeer het nog eens";
         }
 
         var strokeFeedback = AnalyzeStrokes();
