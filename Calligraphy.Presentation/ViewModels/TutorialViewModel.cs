@@ -23,6 +23,7 @@ public class TutorialViewModel : ViewModelBase
     public string TwoStars { get; set; }
     public string ThreeStars { get; set; }
     public bool ShowPressureInfo { get; set; }
+    public string ImageSource { get; set; }
     private string TargetGameViewModelName { get; set; }
     private string GameKey { get; set; }
 
@@ -36,6 +37,7 @@ public class TutorialViewModel : ViewModelBase
         ThreeStars = info.ThreeStars;
         ShowPressureInfo = info.ShowPressureInfo;
         TargetGameViewModelName = info.TargetGameViewModelName;
+        ImageSource = info.ImageSource;
         GameKey = gameKey;
 
         OnPropertyChanged(nameof(PointsExplanation));

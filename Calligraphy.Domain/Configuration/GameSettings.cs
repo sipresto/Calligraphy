@@ -49,4 +49,5 @@ public class TutorialSettings
     public string PointsExplanation { get; init; }
     public bool ShowPressureInfo { get; init; }
     public string TargetViewModel { get; init; }
+    public string ImageSource { get; init; }
 }

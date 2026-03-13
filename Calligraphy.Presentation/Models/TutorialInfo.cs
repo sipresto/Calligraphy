@@ -8,4 +8,5 @@ public class TutorialInfo
     public string ThreeStars { get; set; } = "";
     public bool ShowPressureInfo { get; set; } = true;
     public string TargetGameViewModelName { get; set; } = "";
+    public string ImageSource { get; set; } = null;
 }

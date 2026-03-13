@@ -82,6 +82,7 @@
         <Resource Include="Resources\Assets\Images\Buttons\Pressed\Grass-Buttons-pressed-v.png" />
         <Resource Include="Resources\Assets\Images\Buttons\Grass-Buttons-v.png" />
         <Resource Include="Resources\Assets\Images\Letters\lowercaseA.png" />
+        <Resource Include="Resources\Assets\Images\Letters\lowercaseB.png" />
     </ItemGroup>
 
 </Project>
