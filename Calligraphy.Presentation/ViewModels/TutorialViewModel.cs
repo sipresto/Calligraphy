@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Calligraphy.Presentation.ViewModels;
 
-public class TutorialViewModel : ViewModelBase
+public partial class TutorialViewModel : ViewModelBase
 {
     private readonly MainViewModel _navigation;
     private readonly IServiceProvider _services;
@@ -14,8 +14,6 @@ public class TutorialViewModel : ViewModelBase
     {
         _navigation = navigation;
         _services = services;
-
-        CloseTutorialCommand = new RelayCommand(CloseTutorial);
     }
 
     public string PointsExplanation { get; set; }
@@ -25,9 +23,7 @@ public class TutorialViewModel : ViewModelBase
     public bool ShowPressureInfo { get; set; }
     private string TargetGameViewModelName { get; set; }
     private string GameKey { get; set; }
-
-    public ICommand CloseTutorialCommand { get; }
-
+    
     public event Action<ViewModelBase> GameStarted;
 
     public void SetTutorialInfo(TutorialInfo info, string gameKey)
@@ -47,6 +43,7 @@ public class TutorialViewModel : ViewModelBase
         OnPropertyChanged(nameof(ShowPressureInfo));
     }
 
+    [RelayCommand]
     private void CloseTutorial()
     {
         if (string.IsNullOrEmpty(TargetGameViewModelName)) return;
@@ -75,4 +72,7 @@ public class TutorialViewModel : ViewModelBase
         _navigation.CurrentViewModel = gameVm;
         GameStarted?.Invoke(gameVm);
     }
+    
+    [RelayCommand]
+    private void Menu() => _navigation.NavigateBackToLevels(GameKey);
 }

@@ -37,6 +37,15 @@ public class MainViewModel : ObservableObject
     {
         CurrentViewModel = new LevelViewModel(this, _settings, category);
     }
+    
+    public void NavigateBackToLevels(string gameKey)
+    {
+        var category = GetSettingsForGameKey(gameKey)?.Category;
+        if (!string.IsNullOrEmpty(category))
+            NavigateToLevels(category);
+        else
+            NavigateToCategories();
+    }
 
     public void ShowSettings()
     {
@@ -67,7 +76,6 @@ public class MainViewModel : ObservableObject
         void OnGameStarted(ViewModelBase gameVm)
         {
             tutorialVm.GameStarted -= OnGameStarted;
-
             if (nextLevelKey != null && gameVm is INextLevelAware aware)
                 aware.SetNextLevel(nextLevelKey);
         }
@@ -80,39 +88,32 @@ public class MainViewModel : ObservableObject
     {
         var ordered = GetCategoryKeysFor(gameKey);
         var index   = ordered.IndexOf(gameKey);
-
-        return index >= 0 && index + 1 < ordered.Count
-            ? ordered[index + 1]
-            : null;
+        return index >= 0 && index + 1 < ordered.Count ? ordered[index + 1] : null;
     }
 
     private List<string> GetCategoryKeysFor(string gameKey)
     {
-        if (gameKey == "InfinityRace")
-            return ["InfinityRace"];
+        string category = GetSettingsForGameKey(gameKey)?.Category;
+        if (string.IsNullOrEmpty(category)) return [];
 
-        if (_settings.ShapeGames?.ContainsKey(gameKey) == true)
-            return _settings.ShapeGames
-                .OrderBy(kv => kv.Value.Level)
-                .ThenBy(kv => kv.Key)
-                .Select(kv => kv.Key)
-                .ToList();
+        var items = new List<(string Key, int Level)>();
 
-        if (_settings.TimedTraceGames?.ContainsKey(gameKey) == true)
-            return _settings.TimedTraceGames
-                .OrderBy(kv => kv.Value.Level)
-                .ThenBy(kv => kv.Key)
-                .Select(kv => kv.Key)
-                .ToList();
+        if (_settings.ShapeGames != null)
+            foreach (var (k, v) in _settings.ShapeGames)
+                if (string.Equals(v.Category, category, StringComparison.OrdinalIgnoreCase))
+                    items.Add((k, v.Level));
 
-        if (_settings.TraceGames?.ContainsKey(gameKey) == true)
-            return _settings.TraceGames
-                .OrderBy(kv => kv.Value.Level)
-                .ThenBy(kv => kv.Key)
-                .Select(kv => kv.Key)
-                .ToList();
+        if (_settings.TimedTraceGames != null)
+            foreach (var (k, v) in _settings.TimedTraceGames)
+                if (string.Equals(v.Category, category, StringComparison.OrdinalIgnoreCase))
+                    items.Add((k, v.Level));
 
-        return [];
+        if (_settings.TraceGames != null)
+            foreach (var (k, v) in _settings.TraceGames)
+                if (string.Equals(v.Category, category, StringComparison.OrdinalIgnoreCase))
+                    items.Add((k, v.Level));
+
+        return items.OrderBy(i => i.Level).ThenBy(i => i.Key).Select(i => i.Key).ToList();
     }
 
     private BaseGameSettings GetSettingsForGameKey(string gameKey)
