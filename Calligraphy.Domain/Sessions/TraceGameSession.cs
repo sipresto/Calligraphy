@@ -33,7 +33,7 @@ public class TraceGameSession : GameSession
                 return "Blijf dichter bij de lijn";
 
             if (!_evaluation.DirectionCorrect)
-                return "Volg de lijn van links naar rechts";
+                return "Let op dat je de vorm op de goede volgorde volgt";
         }
 
         var strokeFeedback = AnalyzeStrokes();

@@ -18,6 +18,7 @@ public class LowercaseC : Letter
         AddRelativeBezier(newPoints, ref cx, ref cy, 4.627818, -10.93086, 11.477981, -20.89973, 19.888568, -29.27522, pointsPerCurve);
         AddRelativeBezier(newPoints, ref cx, ref cy, 17.918678, -17.843891, 49.166338, -27.336873, 64.909068, -3.18034, pointsPerCurve);
 
+        newPoints.Reverse();
         rawPoints.AddRange(newPoints);
         
         return ScaleAndCenter(rawPoints, screenWidth: 1200, screenHeight: 800, marginY: 150);
