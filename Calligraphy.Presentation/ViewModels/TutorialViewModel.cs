@@ -60,7 +60,7 @@ public partial class TutorialViewModel : ViewModelBase
         {
             var vm = _services.GetRequiredService<TraceGameViewModel>();
             vm.Initialize(GameKey);
-            _navigation.CurrentViewModel = vm;
+            gameVm = vm;
         }
         else if (TargetGameViewModelName == nameof(TimedTraceGameViewModel))
         {
