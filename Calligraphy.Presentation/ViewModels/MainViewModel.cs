@@ -1,5 +1,4 @@
 using Calligraphy.Domain.Configuration;
-using System.Runtime.CompilerServices;
 using Calligraphy.Presentation.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,9 +33,18 @@ public class MainViewModel : ObservableObject
         CurrentViewModel = new CategoryViewModel(this);
     }
 
-    public void NavigateToLevels(string categoryName)
+    public void NavigateToLevels(string category)
     {
-        
+        CurrentViewModel = new LevelViewModel(this, _settings, category);
+    }
+    
+    public void NavigateBackToLevels(string gameKey)
+    {
+        var category = GetSettingsForGameKey(gameKey)?.Category;
+        if (!string.IsNullOrEmpty(category))
+            NavigateToLevels(category);
+        else
+            NavigateToCategories();
     }
 
     public void ShowSettings()
@@ -44,10 +52,12 @@ public class MainViewModel : ObservableObject
         CurrentViewModel = App.ServiceProvider.GetRequiredService<SettingsViewModel>();
     }
 
-    public void ShowTutorialForGame(string gameKey)
+    public void ShowTutorialForGame(string gameKey, string nextLevelKey = null)
     {
         var gameSettings = GetSettingsForGameKey(gameKey);
-        if (gameSettings == null || gameSettings.Tutorial == null) return;
+        if (gameSettings?.Tutorial == null) return;
+
+        nextLevelKey ??= GetNextLevelKey(gameKey);
 
         var info = new TutorialInfo
         {
@@ -60,12 +70,52 @@ public class MainViewModel : ObservableObject
         };
 
         var tutorialVm = _services.GetRequiredService<TutorialViewModel>();
-        
-        tutorialVm.SetTutorialInfo(info, gameKey); 
-        
+
+        tutorialVm.GameStarted += OnGameStarted;
+
+        void OnGameStarted(ViewModelBase gameVm)
+        {
+            tutorialVm.GameStarted -= OnGameStarted;
+            if (nextLevelKey != null && gameVm is INextLevelAware aware)
+                aware.SetNextLevel(nextLevelKey);
+        }
+
+        tutorialVm.SetTutorialInfo(info, gameKey);
         CurrentViewModel = tutorialVm;
     }
-    
+
+    private string GetNextLevelKey(string gameKey)
+    {
+        var ordered = GetCategoryKeysFor(gameKey);
+        var index   = ordered.IndexOf(gameKey);
+        return index >= 0 && index + 1 < ordered.Count ? ordered[index + 1] : null;
+    }
+
+    private List<string> GetCategoryKeysFor(string gameKey)
+    {
+        string category = GetSettingsForGameKey(gameKey)?.Category;
+        if (string.IsNullOrEmpty(category)) return [];
+
+        var items = new List<(string Key, int Level)>();
+
+        if (_settings.ShapeGames != null)
+            foreach (var (k, v) in _settings.ShapeGames)
+                if (string.Equals(v.Category, category, StringComparison.OrdinalIgnoreCase))
+                    items.Add((k, v.Level));
+
+        if (_settings.TimedTraceGames != null)
+            foreach (var (k, v) in _settings.TimedTraceGames)
+                if (string.Equals(v.Category, category, StringComparison.OrdinalIgnoreCase))
+                    items.Add((k, v.Level));
+
+        if (_settings.TraceGames != null)
+            foreach (var (k, v) in _settings.TraceGames)
+                if (string.Equals(v.Category, category, StringComparison.OrdinalIgnoreCase))
+                    items.Add((k, v.Level));
+
+        return items.OrderBy(i => i.Level).ThenBy(i => i.Key).Select(i => i.Key).ToList();
+    }
+
     private BaseGameSettings GetSettingsForGameKey(string gameKey)
     {
         if (gameKey == "InfinityRace") return _settings.InfinityRace;

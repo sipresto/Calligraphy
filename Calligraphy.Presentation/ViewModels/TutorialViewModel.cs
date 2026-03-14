@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Calligraphy.Presentation.ViewModels;
 
-public class TutorialViewModel : ViewModelBase
+public partial class TutorialViewModel : ViewModelBase
 {
     private readonly MainViewModel _navigation;
     private readonly IServiceProvider _services;
@@ -14,8 +14,6 @@ public class TutorialViewModel : ViewModelBase
     {
         _navigation = navigation;
         _services = services;
-
-        CloseTutorialCommand = new RelayCommand(CloseTutorial);
     }
 
     public string PointsExplanation { get; set; }
@@ -25,8 +23,8 @@ public class TutorialViewModel : ViewModelBase
     public bool ShowPressureInfo { get; set; }
     private string TargetGameViewModelName { get; set; }
     private string GameKey { get; set; }
-
-    public ICommand CloseTutorialCommand { get; }
+    
+    public event Action<ViewModelBase> GameStarted;
 
     public void SetTutorialInfo(TutorialInfo info, string gameKey)
     {
@@ -45,26 +43,36 @@ public class TutorialViewModel : ViewModelBase
         OnPropertyChanged(nameof(ShowPressureInfo));
     }
 
+    [RelayCommand]
     private void CloseTutorial()
     {
         if (string.IsNullOrEmpty(TargetGameViewModelName)) return;
 
+        ViewModelBase gameVm = null;
+
         if (TargetGameViewModelName == nameof(InfinityRaceViewModel))
         {
-            var vm = _services.GetRequiredService<InfinityRaceViewModel>();
-            _navigation.CurrentViewModel = vm;
+            gameVm = _services.GetRequiredService<InfinityRaceViewModel>();
         }
         else if (TargetGameViewModelName == nameof(TimedTraceGameViewModel))
         {
             var vm = _services.GetRequiredService<TimedTraceGameViewModel>();
             vm.Initialize(GameKey);
-            _navigation.CurrentViewModel = vm;
+            gameVm = vm;
         }
         else if (TargetGameViewModelName == nameof(ShapeDrawViewModel))
         {
             var vm = _services.GetRequiredService<ShapeDrawViewModel>();
             vm.Initialize(GameKey);
-            _navigation.CurrentViewModel = vm;
+            gameVm = vm;
         }
+
+        if (gameVm == null) return;
+
+        _navigation.CurrentViewModel = gameVm;
+        GameStarted?.Invoke(gameVm);
     }
+    
+    [RelayCommand]
+    private void Menu() => _navigation.NavigateBackToLevels(GameKey);
 }

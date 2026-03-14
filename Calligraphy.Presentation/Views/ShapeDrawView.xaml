@@ -63,7 +63,8 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
                 Margin="0,0,0,40"
-                Cursor="Pen">
+                Cursor="Pen"
+                IsEnabled="{Binding IsClickable}">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Grid>

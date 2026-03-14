@@ -13,17 +13,8 @@ public partial class CategoryViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void LetterCategory() => _mainViewModel.ShowTutorialForGame("InfinityRace");
+    private void ChooseCategory(string category) => _mainViewModel.NavigateToLevels(category);
     
     [RelayCommand]
-    private void ShapeCategory() => _mainViewModel.ShowTutorialForGame("DiamondShapeGame");
-    
-    [RelayCommand]
-    // private void TraceCategory() => _mainViewModel.ShowTutorialForGame("TimedTraceLoop");
-    // private void TraceCategory() => _mainViewModel.ShowTutorialForGame("TimedTraceHedge");
-    // private void TraceCategory() => _mainViewModel.ShowTutorialForGame("TimedTraceCastle");
-    // private void TraceCategory() => _mainViewModel.ShowTutorialForGame("TimedTraceWave");
-    private void TraceCategory() => _mainViewModel.ShowTutorialForGame("TimedTraceMountain");
-    
-    
+    private void Back() => _mainViewModel.NavigateToHome();
 }
