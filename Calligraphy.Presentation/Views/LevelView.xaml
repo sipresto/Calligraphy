@@ -129,24 +129,27 @@
                                         <Button.Template>
                                             <ControlTemplate TargetType="Button">
                                                 <Grid Width="130" Height="130" x:Name="Root">
-
-                                                    <Image Source="/Resources/Assets/Images/Buttons/Grass-button.png"
-                                                           Stretch="Fill"/>
-
-                                                    <TextBlock Text="{Binding DisplayName}"
-                                                               FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
-                                                               FontSize="24"
-                                                               Foreground="#755679"
-                                                               TextWrapping="Wrap"
-                                                               TextAlignment="Center"
-                                                               HorizontalAlignment="Center"
-                                                               VerticalAlignment="Center"
-                                                               Margin="10,0"/>
+                                                    
+                                                    <Image x:Name="ButtonImage"
+                                                           Source="/Resources/Assets/Images/Buttons/Grass-button.png"
+                                                           Stretch="Uniform" />
+                                                    
+                                                    <TextBlock 
+                                                        Text="{Binding DisplayName}"
+                                                        FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
+                                                        FontSize="24"
+                                                        Foreground="#755679"
+                                                        TextWrapping="Wrap"
+                                                        TextAlignment="Center"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Margin="10,0"/>
 
                                                 </Grid>
                                                 <ControlTemplate.Triggers>
                                                     <Trigger Property="IsPressed" Value="True">
-                                                        <Setter TargetName="Root" Property="Margin" Value="0,8,0,0"/>
+                                                        <Setter TargetName="ButtonImage" Property="Source"
+                                                                Value="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed.png" />
                                                     </Trigger>
                                                     <Trigger Property="IsMouseOver" Value="True">
                                                         <Setter TargetName="Root" Property="Opacity" Value="0.85"/>

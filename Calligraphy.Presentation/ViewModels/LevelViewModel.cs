@@ -51,19 +51,16 @@ public partial class LevelViewModel : ViewModelBase
                     Level = settings.InfinityRace.Level
                 });
         
-        for (int i = 0; i < 4; i++)
-        {
-            if (settings.ShapeGames != null)
-                foreach (var (key, val) in settings.ShapeGames)
-                    if (string.Equals(val.Category, category, StringComparison.OrdinalIgnoreCase))
-                        items.Add(new LevelItem
-                        {
-                            Key = key,
-                            DisplayName = !string.IsNullOrEmpty(val.GameName) ? val.GameName : val.Level.ToString(),
-                            CategoryLabel = val.Category,
-                            Level = val.Level
-                        });
-        }
+        if (settings.ShapeGames != null)
+            foreach (var (key, val) in settings.ShapeGames)
+                if (string.Equals(val.Category, category, StringComparison.OrdinalIgnoreCase))
+                    items.Add(new LevelItem
+                    {
+                        Key = key,
+                        DisplayName = !string.IsNullOrEmpty(val.GameName) ? val.GameName : val.Level.ToString(),
+                        CategoryLabel = val.Category,
+                        Level = val.Level
+                    });
     
         if (settings.TimedTraceGames != null)
             foreach (var (key, val) in settings.TimedTraceGames)
