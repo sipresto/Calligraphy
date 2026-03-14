@@ -7,7 +7,7 @@ using Calligraphy.Domain.Utility;
 
 namespace Calligraphy.Presentation.ViewModels;
 
-public class TimedTraceGameViewModel : TimedGameViewModelBase<TraceGameService, TraceGameSession, TimedTraceGameSettings>
+public class TimedTraceGameViewModel : TimedGameViewModelBase<TraceGameService, TraceGameSession, TimedTraceGameSettings>, ITraceGameViewModel
 {
     private string _gameId;
     
@@ -30,8 +30,7 @@ public class TimedTraceGameViewModel : TimedGameViewModelBase<TraceGameService, 
         _gameId = gameId;
         Settings = AllSettings.TimedTraceGames[gameId];
         CurrentTemplate = TraceFactory.GetTraceTemplate(Settings.Template);
-        
-        Service.InitializeSession(_gameId, CurrentTemplate.GetTemplatePoints(), Settings.ToleranceDistance);
+        Service.InitializeSession(_gameId, CurrentTemplate.GetTemplatePoints(), Settings.ToleranceDistance, Settings.RequiredAccuracy);
         StartWaitPhase();
     }
 
@@ -44,10 +43,19 @@ public class TimedTraceGameViewModel : TimedGameViewModelBase<TraceGameService, 
     {
         return Settings.ToleranceDistance*2;
     }
+
+    public bool IsTimed => true;
+
+    public bool EndOnLift => false;
     
+    public bool SegmentCountCompleted()
+    {
+        return true;
+    }
+
     protected override void RestartGame()
     {
-        Service.InitializeSession(_gameId, CurrentTemplate.GetTemplatePoints(), Settings.ToleranceDistance);
+        Service.InitializeSession(_gameId, CurrentTemplate.GetTemplatePoints(), Settings.ToleranceDistance, Settings.RequiredAccuracy);
         base.RestartGame();
     }
 }

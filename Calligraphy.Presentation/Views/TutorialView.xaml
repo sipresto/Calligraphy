@@ -4,11 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="clr-namespace:Calligraphy.Presentation.Views.Controls"
+             xmlns:converters="clr-namespace:Calligraphy.Presentation.Converters"
              mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="1200">
 
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+        <converters:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter" />
         <Style x:Key="ImageButtonStyle" TargetType="Button">
             <Setter Property="Cursor" Value="Hand" />
             <Setter Property="Template">
@@ -41,7 +43,9 @@
     </UserControl.Resources>
 
     <Grid Background="#902D232F">
-        <Border Width="600" Height="440"
+        <Border MinWidth="600" MinHeight="440"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
                 Background="#755679"
                 CornerRadius="50"
                 Padding="10">
@@ -51,7 +55,16 @@
 
             <Border CornerRadius="40" Background="#FFF9EB" Margin="0,0,0,10">
                 <Grid Margin="40, 20">
-                    <StackPanel Orientation="Vertical">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" MinWidth="520">
 
                         <TextBlock
                             Text="Tips"
@@ -67,7 +80,7 @@
                             FontSize="24"
                             MaxWidth="560"
                             TextWrapping="Wrap" />
-                        
+
                         <TextBlock
                             Text="Let op dat je niet te hard of te zacht drukt"
                             FontFamily="/Resources/Assets/Fonts/#Gluten Light"
@@ -75,7 +88,7 @@
                             FontSize="24"
                             Visibility="{Binding ShowPressureInfo, Converter={StaticResource BoolToVisibility}}" />
 
-                        <StackPanel Orientation="Vertical" Margin="0,20,0,0">
+                        <StackPanel Orientation="Vertical" Margin="0,20,0,20">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                 <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
                                 <controls:AnimatedStar IsFilled="False" Width="40" Height="40" Margin="0,0,5,0" />
@@ -88,7 +101,6 @@
                                     VerticalAlignment="Center" />
                             </StackPanel>
 
-                            <!-- Two Stars Row -->
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,0">
                                 <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
                                 <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
@@ -101,7 +113,6 @@
                                     VerticalAlignment="Center" />
                             </StackPanel>
 
-                            <!-- Three Stars Row -->
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,0">
                                 <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
                                 <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
@@ -115,27 +126,45 @@
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
-                    
+
+                    <Border
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="20,60,0,0"
+                        Padding="10"
+                        Background="#755679"
+                        CornerRadius="5"
+                        VerticalAlignment="Top"
+                        Visibility="{Binding ImageSource, Converter={StaticResource NullableToVisibilityConverter}}">
+
+                        <Image Source="{Binding ImageSource}"
+                               Height="200"
+                               Width="200"
+                               Stretch="Fill" />
+                    </Border>
+
                     <StackPanel
+                        Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                         Orientation="Horizontal"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Bottom">
+
                         <Button
                             Command="{Binding CloseTutorialCommand}"
                             Style="{StaticResource ImageButtonStyle}"
                             Width="65"
                             Margin="0, 0, 5, 0"
                             Tag="/Resources/Assets/Images/Buttons/Buttons-arrow.png"
-                            Content="/Resources/Assets/Images/Buttons/Pressed/Buttons-pressed-arrow.png"/>
-                    
+                            Content="/Resources/Assets/Images/Buttons/Pressed/Buttons-pressed-arrow.png" />
+
                         <Button
                             Command="{Binding MenuCommand}"
                             Style="{StaticResource ImageButtonStyle}"
                             Width="65"
                             Margin="5, 0, 0, 0"
                             Tag="/Resources/Assets/Images/Buttons/Buttons-house.png"
-                            Content="/Resources/Assets/Images/Buttons/Pressed/Buttons-pressed-house.png"/>
-            </StackPanel>
+                            Content="/Resources/Assets/Images/Buttons/Pressed/Buttons-pressed-house.png" />
+                    </StackPanel>
                 </Grid>
             </Border>
         </Border>

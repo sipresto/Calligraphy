@@ -32,12 +32,15 @@ public class TimedTraceGameSettings : TimedGameSettings
 {
     public string Template { get; set; }
     public double ToleranceDistance { get; set; }
+    public double RequiredAccuracy { get; set; }
 }
 
 public class TraceGameSettings : BaseGameSettings
 {
     public string Template { get; set; }
     public double ToleranceDistance { get; set; }
+    public double RequiredAccuracy { get; set; }
+    public int SegmentCount { get; set; } = 1;
 }
 
 public class ShapeGameSettings : BaseGameSettings
@@ -50,4 +53,5 @@ public class TutorialSettings
     public string PointsExplanation { get; init; }
     public bool ShowPressureInfo { get; init; }
     public string TargetViewModel { get; init; }
+    public string ImageSource { get; init; }
 }

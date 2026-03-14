@@ -24,6 +24,8 @@ public partial class InkCanvasControl : UserControl
 
         Loaded += InkCanvasControl_Loaded;
     }
+    
+    public event Action StylusUp;
 
     private void InkCanvasControl_Loaded(object sender, RoutedEventArgs e)
     {
@@ -40,9 +42,10 @@ public partial class InkCanvasControl : UserControl
         };
     }
 
-    public List<List<StrokePointDto>> EndDrawing()
+    public List<List<StrokePointDto>> EndDrawing(bool disableDrawing = true)
     {
-        CallyCanvas.IsEnabled = false;
+        if (disableDrawing)
+            CallyCanvas.IsEnabled = false;
 
         if (_liveStroke.Count > 0)
         {
@@ -62,11 +65,12 @@ public partial class InkCanvasControl : UserControl
         CallyCanvas.IsEnabled = enabled;
     }
 
-    public void Clear()
+    public void Clear(bool enableDrawing = false)
     {
         _strokes = [];
         _liveStroke = [];
         CallyCanvas.Strokes.Clear();
+        CallyCanvas.IsEnabled = enableDrawing;
     }
 
     private void CallyCanvas_StylusMove(object sender, StylusEventArgs e)
@@ -90,6 +94,7 @@ public partial class InkCanvasControl : UserControl
     {
         _strokes.Add(_liveStroke);
         _liveStroke = [];
+        StylusUp?.Invoke();
     }
 
     private void DisplayStoredStrokes(List<List<StrokePointDto>> strokes)

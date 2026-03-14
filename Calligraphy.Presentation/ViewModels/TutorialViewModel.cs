@@ -21,6 +21,7 @@ public partial class TutorialViewModel : ViewModelBase
     public string TwoStars { get; set; }
     public string ThreeStars { get; set; }
     public bool ShowPressureInfo { get; set; }
+    public string ImageSource { get; set; }
     private string TargetGameViewModelName { get; set; }
     private string GameKey { get; set; }
     
@@ -34,6 +35,7 @@ public partial class TutorialViewModel : ViewModelBase
         ThreeStars = info.ThreeStars;
         ShowPressureInfo = info.ShowPressureInfo;
         TargetGameViewModelName = info.TargetGameViewModelName;
+        ImageSource = info.ImageSource;
         GameKey = gameKey;
 
         OnPropertyChanged(nameof(PointsExplanation));
@@ -53,6 +55,12 @@ public partial class TutorialViewModel : ViewModelBase
         if (TargetGameViewModelName == nameof(InfinityRaceViewModel))
         {
             gameVm = _services.GetRequiredService<InfinityRaceViewModel>();
+        }
+        else if (TargetGameViewModelName == nameof(TraceGameViewModel))
+        {
+            var vm = _services.GetRequiredService<TraceGameViewModel>();
+            vm.Initialize(GameKey);
+            gameVm = vm;
         }
         else if (TargetGameViewModelName == nameof(TimedTraceGameViewModel))
         {

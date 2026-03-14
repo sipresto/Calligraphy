@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Calligraphy.Domain;
 using Calligraphy.Presentation.ViewModels;
 
 namespace Calligraphy.Presentation.Views;
@@ -14,11 +15,14 @@ public partial class TraceGameView : UserControl
         Loaded += OnLoaded;
     }
 
-    private TimedTraceGameViewModel ViewModel => DataContext as TimedTraceGameViewModel;
+    private ITraceGameViewModel ViewModel => DataContext as ITraceGameViewModel;
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        InkCanvas.SetDrawingEnabled(false);
+        if (ViewModel.IsTimed)
+        {
+            InkCanvas.SetDrawingEnabled(false);
+        }
         ResultPopup.DataContext = DataContext;
 
         DrawTemplate();
@@ -26,6 +30,13 @@ public partial class TraceGameView : UserControl
         ViewModel!.DrawingStarted += OnDrawingStarted;
         ViewModel!.DrawingEnded += OnDrawingEnded;
         ViewModel!.Restarted += OnRestart;
+        InkCanvas.StylusUp += OnStylusUp;
+    }
+
+    private void OnStylusUp()
+    {
+        if (ViewModel.EndOnLift && ViewModel.SegmentCountCompleted()) 
+            OnDrawingEnded();
     }
 
     private void OnDrawingStarted()
@@ -43,7 +54,7 @@ public partial class TraceGameView : UserControl
 
     private void OnRestart()
     {
-        InkCanvas.Clear();
+        InkCanvas.Clear(ViewModel.EndOnLift);
         ResultPopup.ResetStars();
         DrawTemplate();
     }
@@ -55,18 +66,40 @@ public partial class TraceGameView : UserControl
         var points = ViewModel?.GetTemplatePoints();
         if (points == null || !points.Any()) return;
 
-        var figure = new PathFigure
+        var geometry = new PathGeometry();
+
+        var currentFigure = new PathFigure
         {
             StartPoint = new Point(points[0].X, points[0].Y),
             IsClosed = false
         };
+        var currentSegment = new PolyLineSegment { IsStroked = true };
 
-        var wpfPoints = points.Skip(1).Select(p => new Point(p.X, p.Y));
+        for (int i = 1; i < points.Count; i++)
+        {
+            var prevPoint = points[i - 1];
+            var currentPoint = points[i];
 
-        var segment = new PolyLineSegment(wpfPoints, true);
-        figure.Segments.Add(segment);
+            if (Distance(prevPoint, currentPoint) > 40)
+            {
+                currentFigure.Segments.Add(currentSegment);
+                geometry.Figures.Add(currentFigure);
 
-        var geometry = new PathGeometry(new[] { figure });
+                currentFigure = new PathFigure
+                {
+                    StartPoint = new Point(currentPoint.X, currentPoint.Y),
+                    IsClosed = false
+                };
+                currentSegment = new PolyLineSegment { IsStroked = true };
+            }
+            else
+            {
+                currentSegment.Points.Add(new Point(currentPoint.X, currentPoint.Y));
+            }
+        }
+
+        currentFigure.Segments.Add(currentSegment);
+        geometry.Figures.Add(currentFigure);
 
         TemplateCanvas.Children.Add(new Path
         {
@@ -77,5 +110,12 @@ public partial class TraceGameView : UserControl
             StrokeStartLineCap = PenLineCap.Round,
             StrokeEndLineCap = PenLineCap.Round
         });
+    }
+    
+    private double Distance(StrokePoint p1, StrokePoint p2)
+    {
+        double dx = p1.X - p2.X;
+        double dy = p1.Y - p2.Y;
+        return Math.Sqrt(dx * dx + dy * dy);
     }
 }

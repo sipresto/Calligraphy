@@ -66,7 +66,8 @@ public class MainViewModel : ObservableObject
             TwoStars = FormatPoints(gameSettings.StarThresholds[1]),
             ThreeStars = FormatPoints(gameSettings.StarThresholds[2]),
             ShowPressureInfo = gameSettings.Tutorial.ShowPressureInfo,
-            TargetGameViewModelName = gameSettings.Tutorial.TargetViewModel
+            TargetGameViewModelName = gameSettings.Tutorial.TargetViewModel,
+            ImageSource = gameSettings.Tutorial.ImageSource
         };
 
         var tutorialVm = _services.GetRequiredService<TutorialViewModel>();
