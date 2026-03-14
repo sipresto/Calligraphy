@@ -65,11 +65,12 @@ public partial class InkCanvasControl : UserControl
         CallyCanvas.IsEnabled = enabled;
     }
 
-    public void Clear()
+    public void Clear(bool enableDrawing = false)
     {
         _strokes = [];
         _liveStroke = [];
         CallyCanvas.Strokes.Clear();
+        CallyCanvas.IsEnabled = enableDrawing;
     }
 
     private void CallyCanvas_StylusMove(object sender, StylusEventArgs e)

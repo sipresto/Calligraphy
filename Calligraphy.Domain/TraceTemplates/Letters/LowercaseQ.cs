@@ -39,9 +39,8 @@ public class LowercaseQ : Letter
         AddRelativeBezier(newPoints, ref cx, ref cy, -4.71664, 20.5578, -11.0198, 39.366, -15.2804, 59.6194, pointsPerCurve);
         AddRelativeBezier(newPoints, ref cx, ref cy, -6.70522, 31.8746, -15.1354, 73.1869, -21.7613, 105.128, pointsPerCurve);
 
-        // newPoints.Reverse();
         rawPoints.AddRange(newPoints);
         
-        return ScaleAndCenter(rawPoints, screenWidth: 1200, screenHeight: 800, marginY: 150);
+        return ScaleAndCenter(rawPoints);
     }
 }

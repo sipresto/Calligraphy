@@ -53,6 +53,7 @@ public class TraceGameViewModel : GameViewModelBase<TraceGameService, TraceGameS
     protected override void RestartGame()
     {
         Service.InitializeSession(_gameId, CurrentTemplate.GetTemplatePoints(), Settings.ToleranceDistance, Settings.RequiredAccuracy);
+        _currentSegmentCount = 1;
         ResetGameState();
     }
     

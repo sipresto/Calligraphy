@@ -31,7 +31,6 @@ public class LowercaseA : Letter
 
         AddRelativeBezier(newPoints, ref cx, ref cy, -2.90138, 11.6198, -10.56, 49.3471, -12.7274, 56.9129, pointsPerCurve);
 
-        // newPoints.Reverse();
         rawPoints.AddRange(newPoints);
         newPoints = [];
 
@@ -43,9 +42,8 @@ public class LowercaseA : Letter
         AddRelativeBezier(newPoints, ref cx, ref cy, 3.39126, 1.10818, 4.97608, 1.3572, 8.81943, 1.6937, pointsPerCurve);
         AddRelativeBezier(newPoints, ref cx, ref cy, 15.8709, 1.3896, 28.4559, -5.81474, 41.6278, -16.0799, pointsPerCurve);
 
-        // newPoints.Reverse();
         rawPoints.AddRange(newPoints);
 
-        return ScaleAndCenter(rawPoints, screenWidth: 1200, screenHeight: 800, marginY: 150);
+        return ScaleAndCenter(rawPoints);
     }
 }

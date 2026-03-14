@@ -20,7 +20,7 @@ public abstract class Letter : TraceTemplate
         cy = p3.Y;
     }
     
-    protected List<StrokePoint> ScaleAndCenter(List<StrokePoint> points, double screenWidth, double screenHeight, double marginY)
+    protected List<StrokePoint> ScaleAndCenter(List<StrokePoint> points, double screenWidth = 1200, double screenHeight = 800, double marginY = 300)
     {
         if (!points.Any()) return points;
 

@@ -39,6 +39,6 @@ public class LowercaseH : Letter
 
         rawPoints.AddRange(newPoints);
         
-        return ScaleAndCenter(rawPoints, screenWidth: 1200, screenHeight: 800, marginY: 150);
+        return ScaleAndCenter(rawPoints);
     }
 }

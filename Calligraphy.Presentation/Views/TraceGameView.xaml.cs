@@ -46,7 +46,7 @@ public partial class TraceGameView : UserControl
 
     private async void OnDrawingEnded()
     {
-        var strokes = InkCanvas.EndDrawing(!ViewModel.EndOnLift);
+        var strokes = InkCanvas.EndDrawing();
         ViewModel?.FinishGame(strokes);
 
         if (ViewModel?.GameResult != null) await ResultPopup.AnimateStars(ViewModel.GameResult.StarCount);
@@ -54,7 +54,7 @@ public partial class TraceGameView : UserControl
 
     private void OnRestart()
     {
-        InkCanvas.Clear();
+        InkCanvas.Clear(ViewModel.EndOnLift);
         ResultPopup.ResetStars();
         DrawTemplate();
     }

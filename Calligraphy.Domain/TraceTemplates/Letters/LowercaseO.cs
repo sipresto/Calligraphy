@@ -46,9 +46,8 @@ public class LowercaseO : Letter
         AddRelativeBezier(newPoints, ref cx, ref cy, 4.46107, 0.559407, 11.5584, 0.647937, 14.6037, 0.400367, pointsPerCurve);
         AddRelativeBezier(newPoints, ref cx, ref cy, 8.01193, -0.651346, 14.2592, -1.77002, 22.849, -4.64264, pointsPerCurve);
 
-        // newPoints.Reverse();
         rawPoints.AddRange(newPoints);
 
-        return ScaleAndCenter(rawPoints, screenWidth: 1200, screenHeight: 800, marginY: 150);
+        return ScaleAndCenter(rawPoints);
     }
 }
