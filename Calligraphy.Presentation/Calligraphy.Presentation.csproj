@@ -81,9 +81,24 @@
         <Resource Include="Resources\Assets\Images\Buttons\Buttons-return.png" />
         <Resource Include="Resources\Assets\Images\Buttons\Pressed\Grass-Buttons-pressed-v.png" />
         <Resource Include="Resources\Assets\Images\Buttons\Grass-Buttons-v.png" />
-        <Resource Include="Resources\Assets\Images\Letters\lowercaseB.png" />
-        <Resource Include="Resources\Assets\Images\Letters\lowercaseA.png" />
-        <Resource Include="Resources\Assets\Images\Letters\lowercaseC.png" />
+        <Resource Include="Resources\Assets\Images\Letters\lowercase-a.png" />
+        <Resource Include="Resources\Assets\Images\Letters\lowercase-b.png" />
+        <Resource Include="Resources\Assets\Images\Letters\lowercase-c.png" />
+        <Resource Include="Resources\Assets\Images\Letters\lowercase-d.png" />
+        <Resource Include="Resources\Assets\Images\Letters\lowercase-e.png" />
+        <Resource Include="Resources\Assets\Images\Letters\lowercase-f.png" />
+        <Resource Include="Resources\Assets\Images\Letters\lowercase-g.png" />
+        <Resource Include="Resources\Assets\Images\Letters\lowercase-h.png" />
+        <Resource Include="Resources\Assets\Images\Letters\lowercase-i.png" />
+        <Resource Include="Resources\Assets\Images\Letters\lowercase-j.png" />
+        <Resource Include="Resources\Assets\Images\Letters\lowercase-k.png" />
+        <Resource Include="Resources\Assets\Images\Letters\lowercase-l.png" />
+        <Resource Include="Resources\Assets\Images\Letters\lowercase-m.png" />
+        <Resource Include="Resources\Assets\Images\Letters\lowercase-n.png" />
+        <Resource Include="Resources\Assets\Images\Letters\lowercase-o.png" />
+        <Resource Include="Resources\Assets\Images\Letters\lowercase-p.png" />
+        <Resource Include="Resources\Assets\Images\Letters\lowercase-q.png" />
+        <Resource Include="Resources\Assets\Images\Letters\lowercase-r.png" />
     </ItemGroup>
 
 </Project>
