@@ -13,6 +13,7 @@ public interface ITraceGameViewModel
     GameResult GameResult { get; }
     public List<StrokePoint> GetTemplatePoints();
     public double GetThickness();
+    public bool SegmentCountCompleted();
     
     bool IsTimed { get; }
     bool EndOnLift { get; }

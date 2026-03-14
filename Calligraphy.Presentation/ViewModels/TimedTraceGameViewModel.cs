@@ -47,6 +47,11 @@ public class TimedTraceGameViewModel : TimedGameViewModelBase<TraceGameService, 
     public bool IsTimed => true;
 
     public bool EndOnLift => false;
+    
+    public bool SegmentCountCompleted()
+    {
+        return true;
+    }
 
     protected override void RestartGame()
     {

@@ -13,7 +13,7 @@ public partial class CategoryViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void LetterCategory() => _mainViewModel.ShowTutorialForGame("LowercaseG");
+    private void LetterCategory() => _mainViewModel.ShowTutorialForGame("LowercaseJ");
     
     [RelayCommand]
     private void ShapeCategory() => _mainViewModel.ShowTutorialForGame("DiamondShapeGame");

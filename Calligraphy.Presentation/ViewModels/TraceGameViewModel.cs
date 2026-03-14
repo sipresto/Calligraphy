@@ -13,6 +13,7 @@ public class TraceGameViewModel : GameViewModelBase<TraceGameService, TraceGameS
 {
     private string _gameId;
     private TraceTemplate CurrentTemplate { get; set; }
+    private int _currentSegmentCount = 1;
     
     public TraceGameViewModel(TraceGameService service, MainViewModel mainViewModel, GameSettings settings)
         : base(service, mainViewModel, settings)
@@ -37,6 +38,16 @@ public class TraceGameViewModel : GameViewModelBase<TraceGameService, TraceGameS
     public double GetThickness()
     {
         return Settings.ToleranceDistance * 2;
+    }
+
+    public bool SegmentCountCompleted()
+    {
+        if (Settings.SegmentCount > _currentSegmentCount)
+        {
+            _currentSegmentCount++;
+            return false;
+        }
+        return true;
     }
     
     protected override void RestartGame()
