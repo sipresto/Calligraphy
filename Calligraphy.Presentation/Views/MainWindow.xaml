@@ -45,6 +45,10 @@
         <DataTemplate DataType="{x:Type local:CategoryViewModel}">
             <views:CategoryView />
         </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type local:LevelViewModel}">
+            <views:LevelView />
+        </DataTemplate>
 
     </Window.Resources>
 

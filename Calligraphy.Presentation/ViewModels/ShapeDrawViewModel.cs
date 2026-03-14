@@ -23,12 +23,23 @@ public class ShapeDrawViewModel : GameViewModelBase<ShapeDrawService, ShapeDrawS
 
     private Shape CurrentShape { get; set; }
 
+    public bool IsClickable
+    {
+        get;
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+        }
+    }
+    
     public void Initialize(string gameId)
     {
         _gameId = gameId;
         Settings = AllSettings.ShapeGames[gameId];
         CurrentShape = ShapeFactory.GetShape(Settings.Shape);
         Service.InitializeSession(_gameId, CurrentShape);
+        IsClickable = true;
     }
 
     public List<List<StrokePoint>> GetCurrentTemplateShape(double w, double h)
@@ -40,5 +51,6 @@ public class ShapeDrawViewModel : GameViewModelBase<ShapeDrawService, ShapeDrawS
     {
         Service.InitializeSession(_gameId, CurrentShape);
         ResetGameState();
+        IsClickable = true;
     }
 }

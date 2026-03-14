@@ -81,6 +81,7 @@
         <Resource Include="Resources\Assets\Images\Buttons\Buttons-return.png" />
         <Resource Include="Resources\Assets\Images\Buttons\Pressed\Grass-Buttons-pressed-v.png" />
         <Resource Include="Resources\Assets\Images\Buttons\Grass-Buttons-v.png" />
+        <Resource Include="Resources\Assets\Images\Buttons\Pressed\Grass-Buttons-pressed.png" />
         <Resource Include="Resources\Assets\Images\Letters\lowercase-a.png" />
         <Resource Include="Resources\Assets\Images\Letters\lowercase-b.png" />
         <Resource Include="Resources\Assets\Images\Letters\lowercase-c.png" />

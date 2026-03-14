@@ -8,7 +8,7 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace Calligraphy.Presentation.ViewModels;
 
-public abstract class GameViewModelBase<TService, TSession, TSettings> : ViewModelBase
+public abstract class GameViewModelBase<TService, TSession, TSettings> : ViewModelBase, INextLevelAware
     where TService : GenericGameService<TSession>
     where TSession : GameSession
     where TSettings : BaseGameSettings
@@ -18,6 +18,8 @@ public abstract class GameViewModelBase<TService, TSession, TSettings> : ViewMod
     protected TSettings Settings;
     protected readonly MainViewModel MainViewModel;
 
+    private string _nextLevelKey;
+    
     protected GameViewModelBase(TService service, MainViewModel mainViewModel, GameSettings settings)
     {
         Service = service;
@@ -25,9 +27,19 @@ public abstract class GameViewModelBase<TService, TSession, TSettings> : ViewMod
         AllSettings = settings;
         RestartCommand = new RelayCommand(RestartGame);
         MenuCommand = new RelayCommand(Menu);
+        NextLevelCommand = new RelayCommand(NavigateToNextLevel);
     }
 
-    public bool HasNextLevel { get; set; } = false;
+    public bool HasNextLevel
+    {
+        get;
+        private set
+        {
+            field = value;
+            OnPropertyChanged();
+        }
+    }
+
     public bool IsGameResultVisible => GameResult != null;
 
     public GameResult GameResult
@@ -43,8 +55,15 @@ public abstract class GameViewModelBase<TService, TSession, TSettings> : ViewMod
 
     public ICommand RestartCommand { get; }
     public ICommand MenuCommand { get; }
+    public ICommand NextLevelCommand { get; }
 
     public event Action Restarted;
+
+    public void SetNextLevel(string nextLevelKey)
+    {
+        _nextLevelKey = nextLevelKey;
+        HasNextLevel  = nextLevelKey != null;
+    }
 
     public void FinishGame(List<List<StrokePointDto>> strokes)
     {
@@ -59,9 +78,13 @@ public abstract class GameViewModelBase<TService, TSession, TSettings> : ViewMod
         GameResult = Service.FinishGame(Settings.GetThresholds());
     }
 
-    private void Menu()
+    private void Menu() => MainViewModel.NavigateToCategories();
+
+    private void NavigateToNextLevel()
     {
-        MainViewModel.NavigateToCategories();
+        if (_nextLevelKey == null) return;
+
+        MainViewModel.ShowTutorialForGame(_nextLevelKey);
     }
     
     protected abstract void RestartGame();
