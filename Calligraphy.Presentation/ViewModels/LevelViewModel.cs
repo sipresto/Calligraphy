@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using Calligraphy.Application;
 using Calligraphy.Domain.Configuration;
 using Calligraphy.Presentation.Models;
 using CommunityToolkit.Mvvm.Input;
@@ -9,10 +10,16 @@ namespace Calligraphy.Presentation.ViewModels;
 public partial class LevelViewModel : ViewModelBase
 {
     private readonly MainViewModel _mainViewModel;
+    private readonly InfinityRaceService _infinityRaceService;
+    private readonly TraceGameService _traceGameService;
+    private readonly ShapeDrawService _shapeDrawService;
 
-    public LevelViewModel(MainViewModel mainViewModel, GameSettings settings, string category)
+    public LevelViewModel(MainViewModel mainViewModel, InfinityRaceService infinityRaceService, TraceGameService traceGameService, ShapeDrawService shapeDrawService, GameSettings settings, string category)
     {
         _mainViewModel = mainViewModel;
+        _infinityRaceService = infinityRaceService;
+        _traceGameService = traceGameService;
+        _shapeDrawService = shapeDrawService;
         CategoryTitle = category;
         Levels = BuildLevels(settings, category);
     }
@@ -35,7 +42,7 @@ public partial class LevelViewModel : ViewModelBase
     private void Back() => _mainViewModel.NavigateToCategories();
 
 
-    private static ObservableCollection<LevelItem> BuildLevels(GameSettings settings, string category)
+    private ObservableCollection<LevelItem> BuildLevels(GameSettings settings, string category)
     {
         var items = new List<LevelItem>();
 
@@ -48,7 +55,8 @@ public partial class LevelViewModel : ViewModelBase
                         ? settings.InfinityRace.GameName
                         : settings.InfinityRace.Level.ToString(),
                     CategoryLabel = settings.InfinityRace.Category,
-                    Level = settings.InfinityRace.Level
+                    Level = settings.InfinityRace.Level,
+                    Stars = _infinityRaceService.GetGameScore("InfinityRace")?.Stars ?? 0
                 });
         
         if (settings.ShapeGames != null)
@@ -59,7 +67,8 @@ public partial class LevelViewModel : ViewModelBase
                         Key = key,
                         DisplayName = !string.IsNullOrEmpty(val.GameName) ? val.GameName : val.Level.ToString(),
                         CategoryLabel = val.Category,
-                        Level = val.Level
+                        Level = val.Level,
+                        Stars = _shapeDrawService.GetGameScore(key)?.Stars ?? 0
                     });
     
         if (settings.TimedTraceGames != null)
@@ -70,7 +79,8 @@ public partial class LevelViewModel : ViewModelBase
                         Key = key,
                         DisplayName = !string.IsNullOrEmpty(val.GameName) ? val.GameName : val.Level.ToString(),
                         CategoryLabel = val.Category,
-                        Level = val.Level
+                        Level = val.Level,
+                        Stars = _traceGameService.GetGameScore(key)?.Stars ?? 0
                     });
 
         if (settings.TraceGames != null)
@@ -81,7 +91,8 @@ public partial class LevelViewModel : ViewModelBase
                         Key = key,
                         DisplayName = !string.IsNullOrEmpty(val.GameName) ? val.GameName : val.Level.ToString(),
                         CategoryLabel = val.Category,
-                        Level = val.Level
+                        Level = val.Level,
+                        Stars = _traceGameService.GetGameScore(key)?.Stars ?? 0
                     });
 
         return new ObservableCollection<LevelItem>(

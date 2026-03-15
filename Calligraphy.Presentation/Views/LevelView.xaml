@@ -3,18 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:Calligraphy.Presentation.Views.Controls"
+             xmlns:converters="clr-namespace:Calligraphy.Presentation.Converters"
              mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="1200">
 
     <UserControl.Resources>
-
+        <converters:StarFillConverter x:Key="StarFillConverter" />
+        
         <Style x:Key="ScrollThumbStyle" TargetType="Thumb">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Thumb">
                         <Border Background="#755679"
                                 CornerRadius="6"
-                                Margin="2,0"/>
+                                Margin="2,0" />
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -24,14 +27,14 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="RepeatButton">
-                        <Border Background="Transparent"/>
+                        <Border Background="Transparent" />
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
 
         <Style x:Key="StyledVerticalScrollBar" TargetType="ScrollBar">
-            <Setter Property="Width" Value="18"/>
+            <Setter Property="Width" Value="18" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ScrollBar">
@@ -41,14 +44,14 @@
                             <Track x:Name="PART_Track" IsDirectionReversed="True">
                                 <Track.DecreaseRepeatButton>
                                     <RepeatButton Style="{StaticResource ScrollRepeatButtonStyle}"
-                                                  Command="ScrollBar.PageUpCommand"/>
+                                                  Command="ScrollBar.PageUpCommand" />
                                 </Track.DecreaseRepeatButton>
                                 <Track.Thumb>
-                                    <Thumb Style="{StaticResource ScrollThumbStyle}"/>
+                                    <Thumb Style="{StaticResource ScrollThumbStyle}" />
                                 </Track.Thumb>
                                 <Track.IncreaseRepeatButton>
                                     <RepeatButton Style="{StaticResource ScrollRepeatButtonStyle}"
-                                                  Command="ScrollBar.PageDownCommand"/>
+                                                  Command="ScrollBar.PageDownCommand" />
                                 </Track.IncreaseRepeatButton>
                             </Track>
                         </Border>
@@ -63,17 +66,17 @@
                     <ControlTemplate TargetType="ScrollViewer">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <ScrollContentPresenter Grid.Column="0"/>
+                            <ScrollContentPresenter Grid.Column="0" />
                             <ScrollBar Grid.Column="1"
                                        x:Name="PART_VerticalScrollBar"
                                        Style="{StaticResource StyledVerticalScrollBar}"
                                        Value="{TemplateBinding VerticalOffset}"
                                        Maximum="{TemplateBinding ScrollableHeight}"
                                        ViewportSize="{TemplateBinding ViewportHeight}"
-                                       Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"/>
+                                       Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" />
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -89,15 +92,15 @@
                 CornerRadius="50"
                 Padding="15">
             <Border.Effect>
-                <DropShadowEffect BlurRadius="25" ShadowDepth="8" Opacity="0.4"/>
+                <DropShadowEffect BlurRadius="25" ShadowDepth="8" Opacity="0.4" />
             </Border.Effect>
 
             <Border CornerRadius="40" Background="#FFF9EB" Margin="0,0,0,8">
                 <Grid Margin="20">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0"
@@ -106,7 +109,7 @@
                                FontSize="52"
                                Foreground="#755679"
                                HorizontalAlignment="Center"
-                               Margin="0,6,0,4"/>
+                               Margin="0,6,0,4" />
 
                     <ScrollViewer Grid.Row="1"
                                   Style="{StaticResource StyledScrollViewer}"
@@ -115,49 +118,78 @@
                         <ItemsControl ItemsSource="{Binding Levels}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal"/>
+                                    <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal" />
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
 
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Button Command="{Binding DataContext.LevelCommand,
+                                    <Grid
+                                        Margin="8,6">
+                                        <Button
+                                            x:Name="LevelButton"
+                                            Command="{Binding DataContext.LevelCommand,
                                                         RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                             CommandParameter="{Binding Key}"
-                                            Margin="8,6"
                                             Cursor="Pen">
-                                        <Button.Template>
-                                            <ControlTemplate TargetType="Button">
-                                                <Grid Width="130" Height="130" x:Name="Root">
-                                                    
-                                                    <Image x:Name="ButtonImage"
-                                                           Source="/Resources/Assets/Images/Buttons/Grass-button.png"
-                                                           Stretch="Uniform" />
-                                                    
-                                                    <TextBlock 
-                                                        Text="{Binding DisplayName}"
-                                                        FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
-                                                        FontSize="24"
-                                                        Foreground="#755679"
-                                                        TextWrapping="Wrap"
-                                                        TextAlignment="Center"
-                                                        HorizontalAlignment="Center"
-                                                        VerticalAlignment="Center"
-                                                        Margin="10,0"/>
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Grid Width="130" Height="130" x:Name="Root">
 
-                                                </Grid>
-                                                <ControlTemplate.Triggers>
-                                                    <Trigger Property="IsPressed" Value="True">
-                                                        <Setter TargetName="ButtonImage" Property="Source"
-                                                                Value="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed.png" />
-                                                    </Trigger>
-                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter TargetName="Root" Property="Opacity" Value="0.85"/>
-                                                    </Trigger>
-                                                </ControlTemplate.Triggers>
-                                            </ControlTemplate>
-                                        </Button.Template>
-                                    </Button>
+                                                        <Image x:Name="ButtonImage"
+                                                               Source="/Resources/Assets/Images/Buttons/Grass-button.png"
+                                                               Stretch="Uniform" />
+
+                                                        <TextBlock
+                                                            Text="{Binding DisplayName}"
+                                                            FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
+                                                            FontSize="24"
+                                                            Foreground="#755679"
+                                                            TextWrapping="Wrap"
+                                                            TextAlignment="Center"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Margin="10,0" />
+
+                                                    </Grid>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsPressed" Value="True">
+                                                            <Setter TargetName="ButtonImage" Property="Source"
+                                                                    Value="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed.png" />
+                                                        </Trigger>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter TargetName="Root" Property="Opacity" Value="0.85" />
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                        <StackPanel
+                                            Margin="0, 12"
+                                            VerticalAlignment="Bottom"
+                                            HorizontalAlignment="Center"
+                                            Orientation="Horizontal">
+                                            <StackPanel.Style>
+                                                <Style TargetType="StackPanel">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=LevelButton}" Value="True">
+                                                            <Setter Property="Opacity" Value="0.85" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </StackPanel.Style>
+                                            
+                                            <controls:AnimatedStar Width="34" 
+                                                                   IsFilled="{Binding Stars, Converter={StaticResource StarFillConverter}, ConverterParameter=1}" />
+                           
+                                            <controls:AnimatedStar Width="34" 
+                                                                   IsFilled="{Binding Stars, Converter={StaticResource StarFillConverter}, ConverterParameter=2}" 
+                                                                   Margin="5,0" />
+                           
+                                            <controls:AnimatedStar Width="34" 
+                                                                   IsFilled="{Binding Stars, Converter={StaticResource StarFillConverter}, ConverterParameter=3}" />
+                                        </StackPanel>
+                                    </Grid>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
@@ -177,15 +209,15 @@
                                     <TextBlock Text="← Terug"
                                                FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
                                                FontSize="28"
-                                               Foreground="#FFF9EB"/>
+                                               Foreground="#FFF9EB" />
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsPressed" Value="True">
-                                        <Setter TargetName="BackBorder" Property="Opacity" Value="0.75"/>
-                                        <Setter TargetName="BackBorder" Property="Margin" Value="0,4,0,0"/>
+                                        <Setter TargetName="BackBorder" Property="Opacity" Value="0.75" />
+                                        <Setter TargetName="BackBorder" Property="Margin" Value="0,4,0,0" />
                                     </Trigger>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter TargetName="BackBorder" Property="Opacity" Value="0.85"/>
+                                        <Setter TargetName="BackBorder" Property="Opacity" Value="0.85" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>

@@ -48,6 +48,7 @@ public partial class App : System.Windows.Application
         
         services.AddSingleton<DrawingState>();
         services.AddSingleton<ColorOptions>();
+        services.AddSingleton<LevelViewModelFactory>();
 
         // Register game services
         services.AddTransient<InfinityRaceService>();
@@ -58,12 +59,12 @@ public partial class App : System.Windows.Application
         services.AddTransient<SettingsViewModel>();
         services.AddTransient<TutorialViewModel>();
         services.AddSingleton<MainViewModel>();
+        services.AddSingleton<HomeViewModel>();
         services.AddTransient<TraceGameViewModel>();
         services.AddTransient<TimedTraceGameViewModel>();
         services.AddTransient<InfinityRaceViewModel>();
         services.AddTransient<ShapeDrawViewModel>();
         services.AddTransient<CategoryViewModel>();
-        services.AddTransient<LevelViewModel>();
 
         // Register Views
         services.AddTransient<SettingsView>();
