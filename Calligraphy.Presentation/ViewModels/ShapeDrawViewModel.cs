@@ -36,6 +36,7 @@ public class ShapeDrawViewModel : GameViewModelBase<ShapeDrawService, ShapeDrawS
     public void Initialize(string gameId)
     {
         _gameId = gameId;
+        LoadBestScore(_gameId);
         Settings = AllSettings.ShapeGames[gameId];
         CurrentShape = ShapeFactory.GetShape(Settings.Shape);
         Service.InitializeSession(_gameId, CurrentShape);
@@ -50,6 +51,7 @@ public class ShapeDrawViewModel : GameViewModelBase<ShapeDrawService, ShapeDrawS
     protected override void RestartGame()
     {
         Service.InitializeSession(_gameId, CurrentShape);
+        LoadBestScore(_gameId);
         ResetGameState();
         IsClickable = true;
     }
