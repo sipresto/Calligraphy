@@ -19,6 +19,7 @@ public class InfinityRaceViewModel : TimedGameViewModelBase<InfinityRaceService,
     public void Initialize(List<RaceCircle> circles)
     {
         _circles = circles;
+        LoadBestScore(GameId);
         Service.InitializeSession(GameId, _circles);
         StartWaitPhase();
     }
@@ -26,6 +27,7 @@ public class InfinityRaceViewModel : TimedGameViewModelBase<InfinityRaceService,
     protected override void RestartGame()
     {
         Service.InitializeSession(GameId, _circles);
+        LoadBestScore(GameId);
         base.RestartGame(); 
     }
 }

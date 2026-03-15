@@ -49,4 +49,9 @@ public abstract class GenericGameService<TSession>
             FeedbackMessage = feedbackMessage
         };
     }
+
+    public GameResultRecord GetGameScore(string gameId)
+    {
+        return _repository.Get(gameId);
+    }
 }

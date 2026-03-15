@@ -16,14 +16,14 @@ public abstract class GameViewModelBase<TService, TSession, TSettings> : ViewMod
     protected readonly TService Service;
     protected readonly GameSettings AllSettings;
     protected TSettings Settings;
-    protected readonly MainViewModel MainViewModel;
-
+    private readonly MainViewModel _mainViewModel;
+    
     private string _nextLevelKey;
     
     protected GameViewModelBase(TService service, MainViewModel mainViewModel, GameSettings settings)
     {
         Service = service;
-        MainViewModel = mainViewModel;
+        _mainViewModel = mainViewModel;
         AllSettings = settings;
         RestartCommand = new RelayCommand(RestartGame);
         MenuCommand = new RelayCommand(Menu);
@@ -52,6 +52,16 @@ public abstract class GameViewModelBase<TService, TSession, TSettings> : ViewMod
             OnPropertyChanged(nameof(IsGameResultVisible));
         }
     }
+    
+    public int? BestScore
+    {
+        get;
+        private set
+        {
+            field = value;
+            OnPropertyChanged();
+        }
+    }
 
     public ICommand RestartCommand { get; }
     public ICommand MenuCommand { get; }
@@ -78,13 +88,18 @@ public abstract class GameViewModelBase<TService, TSession, TSettings> : ViewMod
         GameResult = Service.FinishGame(Settings.GetThresholds());
     }
 
-    private void Menu() => MainViewModel.NavigateToCategories();
+    private void Menu() => _mainViewModel.NavigateToCategories();
 
     private void NavigateToNextLevel()
     {
         if (_nextLevelKey == null) return;
 
-        MainViewModel.ShowTutorialForGame(_nextLevelKey);
+        _mainViewModel.ShowTutorialForGame(_nextLevelKey);
+    }
+    
+    protected void LoadBestScore(string gameId)
+    {
+        BestScore = Service.GetGameScore(gameId)?.Score;
     }
     
     protected abstract void RestartGame();

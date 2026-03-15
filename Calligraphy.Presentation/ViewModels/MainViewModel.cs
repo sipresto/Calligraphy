@@ -9,11 +9,14 @@ public class MainViewModel : ObservableObject
 {
     private readonly GameSettings _settings;
     private readonly IServiceProvider _services;
+    private readonly LevelViewModelFactory _viewModelFactory;
     
-    public MainViewModel(GameSettings settings, IServiceProvider services)
+    public MainViewModel(GameSettings settings, IServiceProvider services, LevelViewModelFactory viewModelFactory)
     {
         _settings = settings;
         _services = services;
+        _viewModelFactory = viewModelFactory;
+        
         NavigateToHome();
     }
 
@@ -35,7 +38,7 @@ public class MainViewModel : ObservableObject
 
     public void NavigateToLevels(string category)
     {
-        CurrentViewModel = new LevelViewModel(this, _settings, category);
+        CurrentViewModel = _viewModelFactory.CreateLevelViewModel(category);
     }
     
     public void NavigateBackToLevels(string gameKey)
@@ -49,7 +52,7 @@ public class MainViewModel : ObservableObject
 
     public void ShowSettings()
     {
-        CurrentViewModel = App.ServiceProvider.GetRequiredService<SettingsViewModel>();
+        CurrentViewModel = _services.GetRequiredService<SettingsViewModel>();
     }
 
     public void ShowTutorialForGame(string gameKey, string nextLevelKey = null)

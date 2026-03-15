@@ -28,6 +28,7 @@ public class TimedTraceGameViewModel : TimedGameViewModelBase<TraceGameService, 
     public void Initialize(string gameId)
     {
         _gameId = gameId;
+        LoadBestScore(_gameId);
         Settings = AllSettings.TimedTraceGames[gameId];
         CurrentTemplate = TraceFactory.GetTraceTemplate(Settings.Template);
         Service.InitializeSession(_gameId, CurrentTemplate.GetTemplatePoints(), Settings.ToleranceDistance, Settings.RequiredAccuracy);
@@ -56,6 +57,7 @@ public class TimedTraceGameViewModel : TimedGameViewModelBase<TraceGameService, 
     protected override void RestartGame()
     {
         Service.InitializeSession(_gameId, CurrentTemplate.GetTemplatePoints(), Settings.ToleranceDistance, Settings.RequiredAccuracy);
+        LoadBestScore(_gameId);
         base.RestartGame();
     }
 }

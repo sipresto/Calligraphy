@@ -23,6 +23,7 @@ public class TraceGameViewModel : GameViewModelBase<TraceGameService, TraceGameS
     public void Initialize(string gameId)
     {
         _gameId = gameId;
+        LoadBestScore(_gameId);
         Settings = AllSettings.TraceGames[gameId];
         CurrentTemplate = TraceFactory.GetTraceTemplate(Settings.Template);
         Service.InitializeSession(_gameId, CurrentTemplate.GetTemplatePoints(), Settings.ToleranceDistance, Settings.RequiredAccuracy);
@@ -54,6 +55,7 @@ public class TraceGameViewModel : GameViewModelBase<TraceGameService, TraceGameS
     {
         Service.InitializeSession(_gameId, CurrentTemplate.GetTemplatePoints(), Settings.ToleranceDistance, Settings.RequiredAccuracy);
         _currentSegmentCount = 1;
+        LoadBestScore(_gameId);
         ResetGameState();
     }
     
