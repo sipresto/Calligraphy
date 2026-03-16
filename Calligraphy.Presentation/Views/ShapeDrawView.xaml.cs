@@ -12,12 +12,10 @@ public partial class ShapeDrawView : UserControl
     public ShapeDrawView()
     {
         InitializeComponent();
-
         Loaded += OnLoaded;
     }
 
-    private ShapeDrawViewModel ViewModel =>
-        DataContext as ShapeDrawViewModel;
+    private ShapeDrawViewModel ViewModel => DataContext as ShapeDrawViewModel;
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
@@ -26,24 +24,24 @@ public partial class ShapeDrawView : UserControl
 
         ResultPopup.DataContext = DataContext;
 
-        ViewModel?.Restarted += OnReset;
-        ViewModel?.Check += OnCheck;
+        ViewModel.Restarted += OnReset;
+        ViewModel.Check += OnCheck;
         DrawTemplate();
     }
 
     private void OnReset()
     {
-        InkCanvas.SetDrawingEnabled(true);
-        InkCanvas.Clear();
+        InkCanvas.Clear(true);
         ResultPopup.ResetStars();
     }
 
     private async void OnCheck()
     {
+        ViewModel.IsClickable = false;
         var points = InkCanvas.EndDrawing();
-        ViewModel?.IsClickable = false;
-        ViewModel?.FinishGame(points);
-        if (ViewModel?.GameResult != null)
+        ViewModel.FinishGame(points);
+
+        if (ViewModel.GameResult != null)
         {
             await ResultPopup.AnimateStars(ViewModel.GameResult.StarCount);
         }
