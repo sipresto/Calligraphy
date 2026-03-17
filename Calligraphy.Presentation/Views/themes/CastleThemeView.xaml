@@ -3,10 +3,183 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Calligraphy.Presentation.Views.themes"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        
+             d:DesignHeight="800" d:DesignWidth="1200">
+    
+
+    <Grid Width="1200" Height="800" Background="Transparent">
+        <Canvas Width="1200" Height="800">
+            
+            <!-- BATTLEMENTS: full-width fill row behind crenels at BattlementY=400 -->
+            <!-- <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/Wall.png"          Canvas.Left="150" Canvas.Top="400" Width="51" Height="51" Stretch="Fill"/> -->
+            <!-- <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/Wall.png"          Canvas.Left="250" Canvas.Top="400" Width="51" Height="51" Stretch="Fill"/> -->
+            <!-- <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/Wall.png"          Canvas.Left="350" Canvas.Top="400" Width="51" Height="51" Stretch="Fill"/> -->
+            <!-- <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/Wall.png"          Canvas.Left="450" Canvas.Top="400" Width="51" Height="51" Stretch="Fill"/> -->
+            <!-- <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/Wall.png"          Canvas.Left="550" Canvas.Top="400" Width="51" Height="51" Stretch="Fill"/> -->
+            <!-- <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/Wall.png"          Canvas.Left="650" Canvas.Top="400" Width="51" Height="51" Stretch="Fill"/> -->
+            <!-- <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/Wall.png"          Canvas.Left="750" Canvas.Top="400" Width="51" Height="51" Stretch="Fill"/> -->
+            <!-- <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/Wall.png"          Canvas.Left="850" Canvas.Top="400" Width="51" Height="51" Stretch="Fill"/> -->
+            <!-- <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/Wall.png"          Canvas.Left="950" Canvas.Top="400" Width="51" Height="51" Stretch="Fill"/> -->
+
+            <!-- MERLON CAPS on top at merlon X positions only -->
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallLeftThing.png"  Canvas.Left="100"  Canvas.Top="400" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/Wall.png"           Canvas.Left="200"  Canvas.Top="400" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/Wall.png"           Canvas.Left="300"  Canvas.Top="400" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/Wall.png"           Canvas.Left="400"  Canvas.Top="400" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/Wall.png"           Canvas.Left="500"  Canvas.Top="400" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/Wall.png"           Canvas.Left="600"  Canvas.Top="400" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/Wall.png"           Canvas.Left="700"  Canvas.Top="400" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/Wall.png"           Canvas.Left="800"  Canvas.Top="400" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/Wall.png"           Canvas.Left="900"  Canvas.Top="400" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallRightThing.png" Canvas.Left="1000" Canvas.Top="400" Width="51" Height="51" Stretch="Fill"/>
+
+            <!-- WALL BODY Row Y=450 -->
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFillLeftThing.png"  Canvas.Left="100"  Canvas.Top="450" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="150"  Canvas.Top="450" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="200"  Canvas.Top="450" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="250"  Canvas.Top="450" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="300"  Canvas.Top="450" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="350"  Canvas.Top="450" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="400"  Canvas.Top="450" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="450"  Canvas.Top="450" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="500"  Canvas.Top="450" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="550"  Canvas.Top="450" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="600"  Canvas.Top="450" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="650"  Canvas.Top="450" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="700"  Canvas.Top="450" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="750"  Canvas.Top="450" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="800"  Canvas.Top="450" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="850"  Canvas.Top="450" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="900"  Canvas.Top="450" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="950"  Canvas.Top="450" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFillRightThing.png" Canvas.Left="1000" Canvas.Top="450" Width="51" Height="51" Stretch="Fill"/>
+
+            <!-- WALL BODY Row Y=500 -->
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFillLeftThing.png"  Canvas.Left="100"  Canvas.Top="500" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="150"  Canvas.Top="500" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="200"  Canvas.Top="500" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="250"  Canvas.Top="500" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="300"  Canvas.Top="500" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="350"  Canvas.Top="500" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="400"  Canvas.Top="500" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="450"  Canvas.Top="500" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="500"  Canvas.Top="500" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="550"  Canvas.Top="500" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="600"  Canvas.Top="500" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="650"  Canvas.Top="500" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="700"  Canvas.Top="500" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="750"  Canvas.Top="500" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="800"  Canvas.Top="500" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="850"  Canvas.Top="500" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="900"  Canvas.Top="500" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="950"  Canvas.Top="500" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFillRightThing.png" Canvas.Left="1000" Canvas.Top="500" Width="51" Height="51" Stretch="Fill"/>
+
+            <!-- WALL BODY Row Y=550 -->
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFillLeftThing.png"  Canvas.Left="100"  Canvas.Top="550" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="150"  Canvas.Top="550" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="200"  Canvas.Top="550" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="250"  Canvas.Top="550" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="300"  Canvas.Top="550" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="350"  Canvas.Top="550" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="400"  Canvas.Top="550" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="450"  Canvas.Top="550" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="500"  Canvas.Top="550" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="550"  Canvas.Top="550" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="600"  Canvas.Top="550" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="650"  Canvas.Top="550" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="700"  Canvas.Top="550" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="750"  Canvas.Top="550" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="800"  Canvas.Top="550" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="850"  Canvas.Top="550" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="900"  Canvas.Top="550" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="950"  Canvas.Top="550" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFillRightThing.png" Canvas.Left="1000" Canvas.Top="550" Width="51" Height="51" Stretch="Fill"/>
+
+            <!-- WALL BODY Row Y=600 -->
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFillLeftThing.png"  Canvas.Left="100"  Canvas.Top="600" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="150"  Canvas.Top="600" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="200"  Canvas.Top="600" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="250"  Canvas.Top="600" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="300"  Canvas.Top="600" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="350"  Canvas.Top="600" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="400"  Canvas.Top="600" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="450"  Canvas.Top="600" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="500"  Canvas.Top="600" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="550"  Canvas.Top="600" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="600"  Canvas.Top="600" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="650"  Canvas.Top="600" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="700"  Canvas.Top="600" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="750"  Canvas.Top="600" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="800"  Canvas.Top="600" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="850"  Canvas.Top="600" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="900"  Canvas.Top="600" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="950"  Canvas.Top="600" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFillRightThing.png" Canvas.Left="1000" Canvas.Top="600" Width="51" Height="51" Stretch="Fill"/>
+
+            <!-- WALL BODY Row Y=650 -->
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFillLeftThing.png"  Canvas.Left="100"  Canvas.Top="650" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="150"  Canvas.Top="650" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="200"  Canvas.Top="650" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="250"  Canvas.Top="650" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="300"  Canvas.Top="650" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="350"  Canvas.Top="650" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="400"  Canvas.Top="650" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="450"  Canvas.Top="650" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="500"  Canvas.Top="650" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="550"  Canvas.Top="650" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="600"  Canvas.Top="650" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="650"  Canvas.Top="650" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="700"  Canvas.Top="650" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="750"  Canvas.Top="650" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="800"  Canvas.Top="650" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="850"  Canvas.Top="650" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="900"  Canvas.Top="650" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="950"  Canvas.Top="650" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFillRightThing.png" Canvas.Left="1000" Canvas.Top="650" Width="51" Height="51" Stretch="Fill"/>
+
+            <!-- WALL BODY Row Y=700 -->
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFillLeftThing.png"  Canvas.Left="100"  Canvas.Top="700" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="150"  Canvas.Top="700" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="200"  Canvas.Top="700" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="250"  Canvas.Top="700" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="300"  Canvas.Top="700" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="350"  Canvas.Top="700" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="400"  Canvas.Top="700" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="450"  Canvas.Top="700" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="500"  Canvas.Top="700" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="550"  Canvas.Top="700" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="600"  Canvas.Top="700" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="650"  Canvas.Top="700" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="700"  Canvas.Top="700" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="750"  Canvas.Top="700" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="800"  Canvas.Top="700" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="850"  Canvas.Top="700" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="900"  Canvas.Top="700" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="950"  Canvas.Top="700" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFillRightThing.png" Canvas.Left="1000" Canvas.Top="700" Width="51" Height="51" Stretch="Fill"/>
+
+            <!-- WALL BODY Row Y=750 -->
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFillLeftThing.png"  Canvas.Left="100"  Canvas.Top="750" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="150"  Canvas.Top="750" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="200"  Canvas.Top="750" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="250"  Canvas.Top="750" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="300"  Canvas.Top="750" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="350"  Canvas.Top="750" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="400"  Canvas.Top="750" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="450"  Canvas.Top="750" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="500"  Canvas.Top="750" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="550"  Canvas.Top="750" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="600"  Canvas.Top="750" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="650"  Canvas.Top="750" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="700"  Canvas.Top="750" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="750"  Canvas.Top="750" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="800"  Canvas.Top="750" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="850"  Canvas.Top="750" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill1.png"          Canvas.Left="900"  Canvas.Top="750" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFill2.png"          Canvas.Left="950"  Canvas.Top="750" Width="51" Height="51" Stretch="Fill"/>
+            <Image Source="/Resources/Assets/Images/Themes/Castle/Tiles/WallFillRightThing.png" Canvas.Left="1000" Canvas.Top="750" Width="51" Height="51" Stretch="Fill"/>
+
+        </Canvas>
     </Grid>
 </UserControl>
