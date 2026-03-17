@@ -10,9 +10,8 @@ public class InfinityRaceService : GenericGameService<InfinityRaceSession>
     {
     }
 
-    public void InitializeSession(string gameId, List<RaceCircle> circles)
+    public void StartSession(string gameId, List<RaceCircle> circles)
     {
-        var session = new InfinityRaceSession(circles);
-        InitializeSession(session, gameId);
+        Initialize(gameId, () => new InfinityRaceSession(circles));
     }
 }

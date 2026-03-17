@@ -1,11 +1,9 @@
-using System.Windows.Input;
 using Calligraphy.Application;
 using Calligraphy.Domain;
 using Calligraphy.Domain.Configuration;
 using Calligraphy.Domain.Sessions;
 using Calligraphy.Domain.TraceTemplates;
 using Calligraphy.Domain.Utility;
-using CommunityToolkit.Mvvm.Input;
 
 namespace Calligraphy.Presentation.ViewModels;
 
@@ -26,7 +24,7 @@ public class TraceGameViewModel : GameViewModelBase<TraceGameService, TraceGameS
         LoadBestScore(_gameId);
         Settings = AllSettings.TraceGames[gameId];
         CurrentTemplate = TraceFactory.GetTraceTemplate(Settings.Template);
-        Service.InitializeSession(_gameId, CurrentTemplate.GetTemplatePoints(), Settings.ToleranceDistance, Settings.RequiredAccuracy);
+        Service.StartSession(_gameId, CurrentTemplate.GetTemplatePoints(), Settings.ToleranceDistance, Settings.RequiredAccuracy);
     }
 
     public event Action DrawingStarted;
@@ -53,7 +51,7 @@ public class TraceGameViewModel : GameViewModelBase<TraceGameService, TraceGameS
     
     protected override void RestartGame()
     {
-        Service.InitializeSession(_gameId, CurrentTemplate.GetTemplatePoints(), Settings.ToleranceDistance, Settings.RequiredAccuracy);
+        Service.StartSession(_gameId, CurrentTemplate.GetTemplatePoints(), Settings.ToleranceDistance, Settings.RequiredAccuracy);
         _currentSegmentCount = 1;
         LoadBestScore(_gameId);
         ResetGameState();

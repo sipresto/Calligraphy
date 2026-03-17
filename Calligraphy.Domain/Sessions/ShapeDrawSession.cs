@@ -4,18 +4,18 @@ namespace Calligraphy.Domain.Sessions;
 
 public class ShapeDrawSession : GameSession
 {
+    private readonly Shape _shape;
+    
     public ShapeDrawSession(Shape shape)
     {
-        Shape = shape;
+        _shape = shape;
     }
-
-    public Shape Shape { get; }
 
     protected override int CalculateScore()
     {
-        double accuracy = Recognizer.CalculateAccuracy(TotalStroke(), Shape.Name);
+        double accuracy = Recognizer.CalculateAccuracy(TotalStroke(), _shape.Name);
 
-        double threshold = Shape.Name switch
+        double threshold = _shape.Name switch
         {
             "Circle" => 0.45,
             "Square" => 0.42,

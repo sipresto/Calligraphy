@@ -39,7 +39,7 @@ public class ShapeDrawViewModel : GameViewModelBase<ShapeDrawService, ShapeDrawS
         LoadBestScore(_gameId);
         Settings = AllSettings.ShapeGames[gameId];
         CurrentShape = ShapeFactory.GetShape(Settings.Shape);
-        Service.InitializeSession(_gameId, CurrentShape);
+        Service.StartSession(_gameId, CurrentShape);
         IsClickable = true;
     }
 
@@ -50,7 +50,7 @@ public class ShapeDrawViewModel : GameViewModelBase<ShapeDrawService, ShapeDrawS
 
     protected override void RestartGame()
     {
-        Service.InitializeSession(_gameId, CurrentShape);
+        Service.StartSession(_gameId, CurrentShape);
         LoadBestScore(_gameId);
         ResetGameState();
         IsClickable = true;

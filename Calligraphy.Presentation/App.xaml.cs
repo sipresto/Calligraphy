@@ -54,6 +54,7 @@ public partial class App : System.Windows.Application
         services.AddTransient<InfinityRaceService>();
         services.AddTransient<TraceGameService>();
         services.AddTransient<ShapeDrawService>();
+        services.AddTransient<WordGameService>();
 
         // Register ViewModels
         services.AddTransient<SettingsViewModel>();
@@ -65,6 +66,7 @@ public partial class App : System.Windows.Application
         services.AddTransient<InfinityRaceViewModel>();
         services.AddTransient<ShapeDrawViewModel>();
         services.AddTransient<CategoryViewModel>();
+        services.AddTransient<WordGameViewModel>();
 
         // Register Views
         services.AddTransient<SettingsView>();

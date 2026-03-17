@@ -13,20 +13,20 @@ public class InfinityRaceViewModel : TimedGameViewModelBase<InfinityRaceService,
     public InfinityRaceViewModel(InfinityRaceService service, MainViewModel mainViewModel, GameSettings settings)
         : base(service, mainViewModel, settings)
     {
-        Settings = AllSettings.InfinityRace;
+        Settings = AllSettings.InfinityRace[GameId];
     }
 
     public void Initialize(List<RaceCircle> circles)
     {
         _circles = circles;
         LoadBestScore(GameId);
-        Service.InitializeSession(GameId, _circles);
+        Service.StartSession(GameId, _circles);
         StartWaitPhase();
     }
     
     protected override void RestartGame()
     {
-        Service.InitializeSession(GameId, _circles);
+        Service.StartSession(GameId, _circles);
         LoadBestScore(GameId);
         base.RestartGame(); 
     }
