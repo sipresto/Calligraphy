@@ -24,7 +24,16 @@ public class ShapeDrawSession : GameSession
             "Star" => 0.38,
             "Pentagon" => 0.40,
             "Hexagon" => 0.40,
-            _ => 0.40
+            "Oval"           => 0.42,
+            "Heart"          => 0.40,
+            "Arrow"          => 0.38,
+            "Cross"          => 0.38,
+            "Plus"           => 0.38,
+            "Trapezoid"      => 0.40,
+            "HalfMoon"       => 0.38,
+            "WaningMoon"     => 0.36,
+            "FourLeafClover" => 0.36,
+            _                => 0.40
         };
 
         return accuracy >= threshold

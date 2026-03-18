@@ -31,11 +31,20 @@ public static class Recognizer
             "Circle" => ScoreCircle(aspect, convex, closure),
             "Square" => ScoreSquare(aspect, convex, corners),
             "Triangle" => ScoreTriangle(aspect, convex, corners),
-            "Diamond" => ScoreDiamond(aspect, convex, corners),
-            "Star" => ScoreStar(convex, corners, closure, smoothed),
-            "Pentagon" => ScorePentagon(convex, corners),
-            "Hexagon" => ScoreHexagon(convex, corners),
-            _ => 0
+            "Diamond"        => ScoreDiamond(aspect, convex, corners),
+            "Star"           => ScoreStar(convex, corners, closure, smoothed),
+            "Pentagon"       => ScorePentagon(convex, corners),
+            "Hexagon"        => ScoreHexagon(convex, corners),
+            "Oval"           => ScoreOval(aspect, convex, closure),
+            "Heart"          => ScoreHeart(aspect, convex, closure, corners),
+            "Arrow"          => ScoreArrow(aspect, convex, corners),
+            "Cross"          => ScoreCross(aspect, convex, corners),
+            "Plus"           => ScorePlus(aspect, convex, corners),
+            "Trapezoid"      => ScoreTrapezoid(aspect, convex, corners),
+            "HalfMoon"       => ScoreHalfMoon(aspect, convex, closure),
+            "WaningMoon"     => ScoreWaningMoon(convex, closure, smoothed),
+            "FourLeafClover" => ScoreFourLeafClover(convex, closure, corners),
+            _                => 0
         };
 
         return score;
@@ -93,6 +102,104 @@ public static class Recognizer
         double sCorners = GaussianScore(corners, 10.0, 3.0);
         double sEvenness = ScaleScore(evenness, 0.15, 0.60);
         return 0.40 * sConvex + 0.35 * sCorners + 0.25 * sEvenness;
+    }
+
+    // ── New shape scorers ─────────────────────────────────────────────────────
+
+    private static double ScoreOval(double aspect, double convex, double closure)
+    {
+        // Oval: wider than tall (aspect > 1), very convex, closed stroke.
+        // Differs from Circle by rewarding a wider aspect ratio (1.3–2.0).
+        double sAspect  = GaussianScore(aspect, 1.6, 0.40);
+        double sConvex  = ScaleScore(convex,  0.85, 1.00);
+        double sClosure = ScaleScore(closure, 0.60, 1.00);
+        return 0.35 * sAspect + 0.30 * sConvex + 0.35 * sClosure;
+    }
+
+    private static double ScoreHeart(double aspect, double convex, double closure, int corners)
+    {
+        // Heart: roughly square aspect, moderately concave (indent at top),
+        // closed stroke, and typically 1 concave corner at the top dip.
+        double sAspect  = GaussianScore(aspect,  1.0,  0.35);
+        double sConvex  = GaussianScore(convex,  0.80, 0.15); // not fully convex
+        double sClosure = ScaleScore(closure, 0.55, 1.00);
+        double sCorners = GaussianScore(corners, 1.0,  1.5);  // the top notch
+        return 0.25 * sAspect + 0.30 * sConvex + 0.25 * sClosure + 0.20 * sCorners;
+    }
+
+    private static double ScoreArrow(double aspect, double convex, int corners)
+    {
+        // Arrow: wide shape (aspect > 1), moderately convex, ~5-7 corners
+        // (shaft corners + head corners).
+        double sAspect  = GaussianScore(aspect,  1.8,  0.50);
+        double sConvex  = ScaleScore(convex,  0.65, 0.90);
+        double sCorners = GaussianScore(corners, 6.0,  2.0);
+        return 0.30 * sAspect + 0.30 * sConvex + 0.40 * sCorners;
+    }
+
+    private static double ScoreCross(double aspect, double convex, int corners)
+    {
+        // Cross (×): near-square aspect, low convexity (concave indentations),
+        // many corners (~8 for a tidy ×).
+        double sAspect  = GaussianScore(aspect,  1.0,  0.30);
+        double sConvex  = GaussianScore(convex,  0.50, 0.20);
+        double sCorners = GaussianScore(corners, 8.0,  2.5);
+        return 0.25 * sAspect + 0.30 * sConvex + 0.45 * sCorners;
+    }
+
+    private static double ScorePlus(double aspect, double convex, int corners)
+    {
+        // Plus (+): near-square aspect, low convexity (4 re-entrant corners),
+        // ~8-12 corners (the junctions of the four arms).
+        double sAspect  = GaussianScore(aspect,  1.0,  0.30);
+        double sConvex  = GaussianScore(convex,  0.50, 0.20);
+        double sCorners = GaussianScore(corners, 8.0,  2.5);
+        return 0.25 * sAspect + 0.30 * sConvex + 0.45 * sCorners;
+    }
+
+    private static double ScoreTrapezoid(double aspect, double convex, int corners)
+    {
+        // Trapezoid: wide (aspect ~ 1.6-2.5), convex, ~4 corners.
+        double sAspect  = GaussianScore(aspect,  2.0,  0.50);
+        double sConvex  = ScaleScore(convex,  0.80, 1.00);
+        double sCorners = GaussianScore(corners, 4.0,  1.5);
+        return 0.30 * sAspect + 0.30 * sConvex + 0.40 * sCorners;
+    }
+
+    private static double ScoreHalfMoon(double aspect, double convex, double closure)
+    {
+        // Half-moon (D-shape): near-square or slightly wide aspect,
+        // highly convex (no indent), stroke is NOT fully closed (flat edge).
+        double sAspect  = GaussianScore(aspect,  1.0,  0.35);
+        double sConvex  = ScaleScore(convex,  0.85, 1.00);
+        double sClosure = GaussianScore(closure, 0.55, 0.20); // partially closed
+        return 0.25 * sAspect + 0.40 * sConvex + 0.35 * sClosure;
+    }
+
+    private static double ScoreWaningMoon(double convex, double closure,
+        List<(double x, double y)> pts)
+    {
+        // Waning crescent: low convexity (concave inner arc),
+        // closed (the two arcs join), roughly circular bounding box.
+        if (closure < 0.45) return 0;
+        double sConvex  = GaussianScore(convex,  0.60, 0.20);
+        double sClosure = ScaleScore(closure, 0.45, 1.00);
+        // Reward roughly circular overall outline
+        var box = BoundingBox(pts);
+        double aspect = box.h > 0 ? box.w / box.h : 1.0;
+        double sAspect = GaussianScore(aspect, 1.0, 0.40);
+        return 0.35 * sConvex + 0.35 * sClosure + 0.30 * sAspect;
+    }
+
+    private static double ScoreFourLeafClover(double convex, double closure, int corners)
+    {
+        // Four-leaf clover: low convexity (4 concave waist-points between petals),
+        // closed, ~8 corners (peaks and valleys of the 4 petals).
+        if (closure < 0.50) return 0;
+        double sConvex  = GaussianScore(convex,  0.55, 0.18);
+        double sClosure = ScaleScore(closure, 0.50, 1.00);
+        double sCorners = GaussianScore(corners, 8.0,  3.0);
+        return 0.40 * sConvex + 0.30 * sClosure + 0.30 * sCorners;
     }
 
     /// <summary>
