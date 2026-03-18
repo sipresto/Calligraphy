@@ -9,7 +9,7 @@
     <Canvas Width="1200" Height="800">
         <Image Source="/Resources/Assets/Images/Themes/Wave/waves.png"
                Canvas.Left="100"
-               Canvas.Top="420"
+               Canvas.Top="415"
                Width="990"
                Height="240"
                Stretch="Fill">
