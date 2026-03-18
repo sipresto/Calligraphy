@@ -51,6 +51,7 @@ public class ShapeGameSettings : BaseGameSettings
 
 public class WordGameSettings : BaseGameSettings
 {
+    public double ToleranceDistance { get; set; }
     public List<WordPosition> Words { get; set; }
     public string ImageSource { get; set; }
 }

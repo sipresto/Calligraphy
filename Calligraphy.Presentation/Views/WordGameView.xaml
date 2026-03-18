@@ -5,9 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="clr-namespace:Calligraphy.Presentation.Views.Controls"
              xmlns:viewModels="clr-namespace:Calligraphy.Presentation.ViewModels"
+             xmlns:converters="clr-namespace:Calligraphy.Presentation.Converters"
              mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="1200"
              d:DataContext="{d:DesignInstance viewModels:WordGameViewModel}">
+    
+    <UserControl.Resources>
+        <converters:StrokePointsToGeometryConverter x:Key="PointsToGeometry" />
+    </UserControl.Resources>
+    
     <Viewbox Stretch="Uniform">
         <Grid Width="1200" Height="800" Background="White">
             
@@ -24,7 +30,15 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Grid Width="70" Height="70" Background="White">
+                        <Grid Width="{Binding Size}" Height="{Binding Size}" Background="White" Opacity="0.85">
+                            <Path Data="{Binding LetterPoints, Converter={StaticResource PointsToGeometry}}"
+                                  Stroke="#3C000000"
+                                  StrokeThickness="{Binding LineThickness}"
+                                  StrokeLineJoin="Round"
+                                  StrokeStartLineCap="Round"
+                                  StrokeEndLineCap="Round"
+                                  IsHitTestVisible="False" />
+                            
                             <controls:InkCanvasControl x:Name="LetterCanvas" />
                         </Grid>
                     </DataTemplate>

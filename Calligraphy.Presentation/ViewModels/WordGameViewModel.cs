@@ -10,7 +10,7 @@ namespace Calligraphy.Presentation.ViewModels;
 public class WordGameViewModel : GameViewModelBase<WordGameService, WordGameSession, WordGameSettings>
 {
     private string _gameId;
-    private const int LetterSpacing = 74;
+    private const int CanvasSize = 110;
     
     public WordGameViewModel(WordGameService service, MainViewModel mainViewModel, GameSettings settings) : base(service, mainViewModel, settings)
     {
@@ -19,6 +19,8 @@ public class WordGameViewModel : GameViewModelBase<WordGameService, WordGameSess
     public ObservableCollection<LetterItem> Letters { get; set; }
     
     public string ImageSource => Settings.ImageSource;
+    
+    public double LineThickness() => Settings.ToleranceDistance * 2;
     
     public void Initialize(string gameId)
     {
@@ -39,6 +41,7 @@ public class WordGameViewModel : GameViewModelBase<WordGameService, WordGameSess
     private ObservableCollection<LetterItem> BuildLetters()
     {
         var letters = new List<LetterItem>();
+        var thickness = Settings.ToleranceDistance * 2;
         
         foreach (var word in Settings.Words)
         {
@@ -47,11 +50,12 @@ public class WordGameViewModel : GameViewModelBase<WordGameService, WordGameSess
             
             foreach (var letter in word.Word)
             {
-                var templatePoints = TraceFactory.GetTraceTemplateByLetter(letter).GetTemplatePoints();
+                var template = TraceFactory.GetTraceTemplateByLetter(letter);
+                var templatePoints = template.GetTemplatePoints(CanvasSize, CanvasSize);
                 
-                letters.Add(new LetterItem(templatePoints, currentX, currentY));
+                letters.Add(new LetterItem(templatePoints, currentX, currentY, CanvasSize, thickness));
                 
-                currentX += LetterSpacing;
+                currentX += CanvasSize + 4;
             }
         }
         
