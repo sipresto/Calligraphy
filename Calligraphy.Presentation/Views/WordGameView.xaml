@@ -12,8 +12,31 @@
         <Grid Width="1200" Height="800" Background="White">
             
             <Image Grid.ColumnSpan="2" 
-                   Source="/Resources/Assets/Images/WordBackgrounds/farm.png" 
+                   Source="{Binding ImageSource}" 
                    Stretch="Fill" />
+            
+            <ItemsControl ItemsSource="{Binding Letters}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas Width="1200" Height="800"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Width="70" Height="70" Background="White">
+                            <controls:InkCanvasControl x:Name="LetterCanvas" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="Canvas.Left" Value="{Binding X}" />
+                        <Setter Property="Canvas.Top" Value="{Binding Y}" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+            </ItemsControl>
             
             <controls:GameResultPopup
                 x:Name="ResultPopup"

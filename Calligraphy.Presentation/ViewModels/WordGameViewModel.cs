@@ -10,12 +10,15 @@ namespace Calligraphy.Presentation.ViewModels;
 public class WordGameViewModel : GameViewModelBase<WordGameService, WordGameSession, WordGameSettings>
 {
     private string _gameId;
+    private const int LetterSpacing = 74;
     
     public WordGameViewModel(WordGameService service, MainViewModel mainViewModel, GameSettings settings) : base(service, mainViewModel, settings)
     {
     }
     
     public ObservableCollection<LetterItem> Letters { get; set; }
+    
+    public string ImageSource => Settings.ImageSource;
     
     public void Initialize(string gameId)
     {
@@ -39,15 +42,16 @@ public class WordGameViewModel : GameViewModelBase<WordGameService, WordGameSess
         
         foreach (var word in Settings.Words)
         {
-            for (int i = 0; i < word.Word.Length; i++)
+            int currentX = word.X;
+            int currentY = word.Y;
+            
+            foreach (var letter in word.Word)
             {
-                char letter = word.Word[i];
+                var templatePoints = TraceFactory.GetTraceTemplateByLetter(letter).GetTemplatePoints();
                 
-                letters.Add(new LetterItem(
-                        TraceFactory.GetTraceTemplateByLetter(letter).GetTemplatePoints(),
-                        i == 0 ? word.X : null,
-                        i == 0 ? word.Y : null
-                    ));
+                letters.Add(new LetterItem(templatePoints, currentX, currentY));
+                
+                currentX += LetterSpacing;
             }
         }
         

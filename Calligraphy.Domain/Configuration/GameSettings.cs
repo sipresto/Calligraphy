@@ -52,6 +52,7 @@ public class ShapeGameSettings : BaseGameSettings
 public class WordGameSettings : BaseGameSettings
 {
     public List<WordPosition> Words { get; set; }
+    public string ImageSource { get; set; }
 }
 
 public class WordPosition

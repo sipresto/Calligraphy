@@ -16,7 +16,7 @@ public static class TraceFactory
 
     public static TraceTemplate GetTraceTemplateByLetter(char letter)
     {
-        string className = $"Letter{char.ToUpper(letter)}";
+        string className = $"Lowercase{char.ToUpper(letter)}";
 
         try
         {
