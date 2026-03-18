@@ -3,16 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Calligraphy.Presentation.Views.themes"
              mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="1200">
-    <Canvas Width="1200" Height="800">
-        <Image Source="/Resources/Assets/Images/Themes/Wave/waves.png"
-               Canvas.Left="100"
-               Canvas.Top="415"
-               Width="990"
-               Height="240"
-               Stretch="Fill">
-        </Image>
-    </Canvas>
+
+    <Grid Width="1200" Height="800" Background="Transparent">
+        <Canvas x:Name="TerrainCanvas" Width="1200" Height="800"/>
+    </Grid>
+
 </UserControl>

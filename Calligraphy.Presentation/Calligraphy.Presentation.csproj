@@ -133,6 +133,18 @@
         <Resource Include="Resources\Assets\Images\Themes\Mountain\terrain_snow_block_bottom.png" />
         <Resource Include="Resources\Assets\Images\Themes\Mountain\terrain_snow_block_bottom_left.png" />
         <Resource Include="Resources\Assets\Images\Themes\Mountain\terrain_snow_block_bottom_right.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Wave\terrain_stone_vertical_bottom.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Wave\terrain_stone_vertical_middle.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Wave\terrain_stone_vertical_top.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Hedge\terrain_grass_block_bottom.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Hedge\terrain_grass_block_bottom_left.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Hedge\terrain_grass_block_bottom_right.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Hedge\terrain_grass_block_center.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Hedge\terrain_grass_block_left.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Hedge\terrain_grass_block_right.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Hedge\terrain_grass_block_top.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Hedge\terrain_grass_block_top_left.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Hedge\terrain_grass_block_top_right.png" />
     </ItemGroup>
 
 </Project>
