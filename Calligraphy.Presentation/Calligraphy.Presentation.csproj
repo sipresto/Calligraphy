@@ -124,6 +124,14 @@
         <Resource Include="Resources\Assets\Images\Themes\Castle\Tiles\Wall.png" />
         <None Remove="Resources\Assets\Images\Themes\Wave\waves.png" />
         <Resource Include="Resources\Assets\Images\Themes\Wave\waves.png" />
+        <None Remove="Resources\Assets\Images\Themes\Hedge\Hedge.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Hedge\Hedge.png" />
+        <None Remove="Resources\Assets\Images\Themes\Mountain\Mountain1.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Mountain\Mountain1.png" />
+        <None Remove="Resources\Assets\Images\Themes\Mountain\Mountain2.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Mountain\Mountain2.png" />
+        <None Remove="Resources\Assets\Images\Themes\Mountain\MountainLow.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Mountain\MountainLow.png" />
     </ItemGroup>
 
 </Project>
