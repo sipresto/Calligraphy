@@ -122,6 +122,8 @@
         <Resource Include="Resources\Assets\Images\Themes\Castle\Tiles\WallRightThing.png" />
         <None Remove="Resources\Assets\Images\Themes\Castle\Tiles\Wall.png" />
         <Resource Include="Resources\Assets\Images\Themes\Castle\Tiles\Wall.png" />
+        <None Remove="Resources\Assets\Images\Themes\Wave\waves.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Wave\waves.png" />
     </ItemGroup>
 
 </Project>
