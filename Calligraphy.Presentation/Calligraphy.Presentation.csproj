@@ -127,11 +127,36 @@
         <None Remove="Resources\Assets\Images\Themes\Hedge\Hedge.png" />
         <Resource Include="Resources\Assets\Images\Themes\Hedge\Hedge.png" />
         <None Remove="Resources\Assets\Images\Themes\Mountain\Mountain1.png" />
-        <Resource Include="Resources\Assets\Images\Themes\Mountain\Mountain1.png" />
         <None Remove="Resources\Assets\Images\Themes\Mountain\Mountain2.png" />
-        <Resource Include="Resources\Assets\Images\Themes\Mountain\Mountain2.png" />
         <None Remove="Resources\Assets\Images\Themes\Mountain\MountainLow.png" />
-        <Resource Include="Resources\Assets\Images\Themes\Mountain\MountainLow.png" />
+        <None Remove="Resources\Assets\Images\Themes\Mountain\terrain_snow_block_bottom.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Mountain\terrain_snow_block_bottom.png" />
+        <None Remove="Resources\Assets\Images\Themes\Mountain\terrain_snow_block_bottom_left.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Mountain\terrain_snow_block_bottom_left.png" />
+        <None Remove="Resources\Assets\Images\Themes\Mountain\terrain_snow_block_bottom_right.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Mountain\terrain_snow_block_bottom_right.png" />
+        <None Remove="Resources\Assets\Images\Themes\Mountain\terrain_snow_block_center.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Mountain\terrain_snow_block_center.png" />
+        <None Remove="Resources\Assets\Images\Themes\Mountain\terrain_snow_block_left.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Mountain\terrain_snow_block_left.png" />
+        <None Remove="Resources\Assets\Images\Themes\Mountain\terrain_snow_block_right.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Mountain\terrain_snow_block_right.png" />
+        <None Remove="Resources\Assets\Images\Themes\Mountain\terrain_snow_block_top.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Mountain\terrain_snow_block_top.png" />
+        <None Remove="Resources\Assets\Images\Themes\Mountain\terrain_snow_block_top_left.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Mountain\terrain_snow_block_top_left.png" />
+        <None Remove="Resources\Assets\Images\Themes\Mountain\terrain_snow_block_top_right.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Mountain\terrain_snow_block_top_right.png" />
+        <None Remove="Resources\Assets\Images\Themes\Mountain\terrain_snow_ramp_long_a.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Mountain\terrain_snow_ramp_long_a.png" />
+        <None Remove="Resources\Assets\Images\Themes\Mountain\terrain_snow_ramp_long_b.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Mountain\terrain_snow_ramp_long_b.png" />
+        <None Remove="Resources\Assets\Images\Themes\Mountain\terrain_snow_ramp_long_c.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Mountain\terrain_snow_ramp_long_c.png" />
+        <None Remove="Resources\Assets\Images\Themes\Mountain\terrain_snow_ramp_short_a.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Mountain\terrain_snow_ramp_short_a.png" />
+        <None Remove="Resources\Assets\Images\Themes\Mountain\terrain_snow_ramp_short_b.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Mountain\terrain_snow_ramp_short_b.png" />
     </ItemGroup>
 
 </Project>
