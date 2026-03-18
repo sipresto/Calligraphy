@@ -3,12 +3,12 @@ namespace Calligraphy.Domain.TraceTemplates.RepeatingTraces;
 public class CastleWallPattern : RepeatingTrace
 {
     private const double GroundY = 450;
+    private const double BattlementY = 400;
     private const int MerlonCount = 9;
     private const double MerlonWidth = 50;
     private const double CrenelWidth = 50;
     private const int PointsPerMerlon = 100;
     private const double WallStartX = 100;
-    private const double BattlementY = 400;
 
     public override TraceShapeStyle ShapeStyle => TraceShapeStyle.SquareWall;
     public override TraceJoinStyle PreferredJoinStyle => TraceJoinStyle.Sharp;
@@ -19,23 +19,27 @@ public class CastleWallPattern : RepeatingTrace
         double x = WallStartX;
         int ptsPerSegment = PointsPerMerlon / 4;
 
-        for (int i = 0; i < MerlonCount; i++)
+        double offset = 12; 
+
+        double hoverTop = BattlementY - offset;
+        double hoverBottom = GroundY - offset;
+
+        for (int i = 0; i <= MerlonCount; i++)
         {
-            //Rise to battlement
-            AddLinearPoints(points, x, GroundY, x, BattlementY, ptsPerSegment);
-            //Cross the merlon top
-            AddLinearPoints(points, x, BattlementY, x + MerlonWidth, BattlementY, ptsPerSegment);
-            //Drop to ground
-            AddLinearPoints(points, x + MerlonWidth, BattlementY, x + MerlonWidth, GroundY, ptsPerSegment);
-            //Cross the crenel to next merlon
-            AddLinearPoints(points, x + MerlonWidth, GroundY, x + MerlonWidth + CrenelWidth, GroundY, ptsPerSegment);
+            AddLinearPoints(points, x - offset, hoverBottom, x - offset, hoverTop, ptsPerSegment);
+
+            AddLinearPoints(points, x - offset, hoverTop, x + MerlonWidth + offset, hoverTop, ptsPerSegment);
+
+            AddLinearPoints(points, x + MerlonWidth + offset, hoverTop, x + MerlonWidth + offset, hoverBottom, ptsPerSegment);
+
+            if (i < MerlonCount)
+            {
+                double nextX = x + MerlonWidth + CrenelWidth;
+                AddLinearPoints(points, x + MerlonWidth + offset, hoverBottom, nextX - offset, hoverBottom, ptsPerSegment);
+            }
 
             x += MerlonWidth + CrenelWidth;
         }
-        //CLOSE
-        AddLinearPoints(points, x, GroundY, x, BattlementY, ptsPerSegment);
-        AddLinearPoints(points, x, BattlementY, x + MerlonWidth, BattlementY, ptsPerSegment);
-        AddLinearPoints(points, x + MerlonWidth, BattlementY, x + MerlonWidth, GroundY, ptsPerSegment);
 
         return points;
     }

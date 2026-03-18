@@ -7,37 +7,36 @@ namespace Calligraphy.Presentation.Views.themes
     public partial class MountainThemeView : UserControl
     {
         // ── Asset paths ──────────────────────────────────────────────────────────
-        private const string Base          = "/Resources/Assets/Images/Themes/Mountain/";
-        private const string RampShortB    = Base + "terrain_snow_ramp_short_b.png";
-        private const string BlockTopLeft  = Base + "terrain_snow_block_top_left.png";
-        private const string BlockTop      = Base + "terrain_snow_block_top.png";
+        private const string Base = "/Resources/Assets/Images/Themes/Mountain/";
+        private const string RampShortB = Base + "terrain_snow_ramp_short_b.png";
+        private const string BlockTopLeft = Base + "terrain_snow_block_top_left.png";
+        private const string BlockTop = Base + "terrain_snow_block_top.png";
         private const string BlockTopRight = Base + "terrain_snow_block_top_right.png";
-        private const string BlockLeft     = Base + "terrain_snow_block_left.png";
-        private const string BlockCenter   = Base + "terrain_snow_block_center.png";
-        private const string BlockRight    = Base + "terrain_snow_block_right.png";
-        private const string BlockBotLeft  = Base + "terrain_snow_block_bottom_left.png";
-        private const string BlockBot      = Base + "terrain_snow_block_bottom.png";
+        private const string BlockLeft = Base + "terrain_snow_block_left.png";
+        private const string BlockCenter = Base + "terrain_snow_block_center.png";
+        private const string BlockRight = Base + "terrain_snow_block_right.png";
+        private const string BlockBotLeft = Base + "terrain_snow_block_bottom_left.png";
+        private const string BlockBot = Base + "terrain_snow_block_bottom.png";
         private const string BlockBotRight = Base + "terrain_snow_block_bottom_right.png";
 
         // ── Peak constants ───────────────────────────────────────────────────────
-        private const int PeakCount  = 12;
+        private const int PeakCount = 12;
         private const int PeakStartX = 100;
-        private const int PeakStep   = 80;
-        private const int PeakTop    = 430;
-        private const int RampW      = 42;
-        private const int RampH      = 150;
+        private const int PeakStep = 80;
+        private const int PeakTop = 430;
+        private const int RampW = 42;
+        private const int RampH = 150;
 
         // ── Block tile constants ─────────────────────────────────────────────────
-        // Tiles are 60×60. Overlap by 1 px to kill sub-pixel white seams.
-        private const int BlockSize   = 60;
+        private const int BlockSize = 60;
         private const int BlockStartX = 40;
-        private const int BlockCols   = 17;
+        private const int BlockCols = 17;
 
-        // Row Y positions stepped by 59 (60-1) to also close vertical seams
-        private const int TopY     = 570;
+        // Row Y positions
+        private const int TopY = 570;
         private const int MidRow1Y = 629;
         private const int MidRow2Y = 688;
-        private const int BotY     = 747; 
+        private const int BotY = 747;
 
         public MountainThemeView()
         {
@@ -48,10 +47,10 @@ namespace Calligraphy.Presentation.Views.themes
         private void BuildTerrain()
         {
             BuildPeaks();
-            BuildBlockRow(TopY,     BlockTopLeft, BlockTop,    BlockTopRight);
-            BuildBlockRow(MidRow1Y, BlockLeft,    BlockCenter, BlockRight);
-            BuildBlockRow(MidRow2Y, BlockLeft,    BlockCenter, BlockRight);
-            BuildBlockRow(BotY,     BlockBotLeft, BlockBot,    BlockBotRight);
+            BuildBlockRow(TopY, BlockTopLeft, BlockTop, BlockTopRight);
+            BuildBlockRow(MidRow1Y, BlockLeft, BlockCenter, BlockRight);
+            BuildBlockRow(MidRow2Y, BlockLeft, BlockCenter, BlockRight);
+            BuildBlockRow(BotY, BlockBotLeft, BlockBot, BlockBotRight);
         }
 
         // Peaks
@@ -90,9 +89,9 @@ namespace Calligraphy.Presentation.Views.themes
         {
             var img = new Image
             {
-                Source  = new BitmapImage(new Uri(packUri, UriKind.Relative)),
-                Width   = width,
-                Height  = height,
+                Source = new BitmapImage(new Uri(packUri, UriKind.Relative)),
+                Width = width,
+                Height = height,
                 Stretch = Stretch.Fill,
             };
             Canvas.SetLeft(img, left);

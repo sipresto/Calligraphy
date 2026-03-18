@@ -8,31 +8,31 @@ namespace Calligraphy.Presentation.Views.themes
     public partial class CastleThemeView : UserControl
     {
         // ── Asset paths ──────────────────────────────────────────────────────────
-        private const string Base          = "/Resources/Assets/Images/Themes/Castle/Tiles/";
-        private const string WallLeft      = Base + "WallLeftThing.png";
-        private const string Wall          = Base + "Wall.png";
-        private const string WallRight     = Base + "WallRightThing.png";
-        private const string WallFillLeft  = Base + "WallFillLeftThing.png";
-        private const string WallFill1     = Base + "WallFill1.png";
-        private const string WallFill2     = Base + "WallFill2.png";
+        private const string Base = "/Resources/Assets/Images/Themes/Castle/Tiles/";
+        private const string WallLeft = Base + "WallLeftThing.png";
+        private const string Wall = Base + "Wall.png";
+        private const string WallRight = Base + "WallRightThing.png";
+        private const string WallFillLeft = Base + "WallFillLeftThing.png";
+        private const string WallFill1 = Base + "WallFill1.png";
+        private const string WallFill2 = Base + "WallFill2.png";
         private const string WallFillRight = Base + "WallFillRightThing.png";
 
         // ── Layout constants ─────────────────────────────────────────────────────
-        private const int TileSize = 51;
+        private const int TileSize = 60;
 
-        // Merlon caps: original spacing is every 100px (100, 200, 300 ...)
-        private const int MerlonStartX = 100;
-        private const int MerlonStep   = 100;
-        private const int MerlonTop    = 400;
-        private const int MerlonCols   = 8;  // centre Wall tiles between left and right caps
+        // Merlon caps
+        private const int MerlonStartX = 95;
+        private const int MerlonStep = 100;
+        private const int MerlonTop = 400;
+        private const int MerlonCols = 8;
 
-        // Body rows: tiles every 50px (100, 150, 200 ...), overlap by 1px to seal seams
-        private const int BodyStartX   = 100;
-        private const int BodyStep     = 50; // 51 - 1 overlap
+        // Body rows
+        private const int BodyStartX = 95;
+        private const int BodyStep = 50;
         private const int BodyTopFirst = 450;
-        private const int BodyRowStep  = 50; // vertical overlap too
-        private const int BodyRows     = 7;
-        private const int BodyCols     = 17; // centre tiles between left and right caps
+        private const int BodyRowStep = 50;
+        private const int BodyRows = 7;
+        private const int BodyCols = 17;
 
         public CastleThemeView()
         {
@@ -87,9 +87,9 @@ namespace Calligraphy.Presentation.Views.themes
         {
             var img = new Image
             {
-                Source  = new BitmapImage(new Uri(packUri, UriKind.Relative)),
-                Width   = TileSize,
-                Height  = TileSize,
+                Source = new BitmapImage(new Uri(packUri, UriKind.Relative)),
+                Width = TileSize,
+                Height = TileSize,
                 Stretch = System.Windows.Media.Stretch.Fill,
             };
             Canvas.SetLeft(img, left);

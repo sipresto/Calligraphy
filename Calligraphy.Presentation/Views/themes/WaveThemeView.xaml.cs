@@ -9,18 +9,18 @@ namespace Calligraphy.Presentation.Views.themes
     public partial class WaveThemeView : UserControl
     {
         // ── Asset paths ──────────────────────────────────────────────────────────
-        private const string Base         = "/Resources/Assets/Images/Themes/Wave/";
-        private const string PillarTop    = Base + "terrain_stone_vertical_top.png";
+        private const string Base = "/Resources/Assets/Images/Themes/Wave/";
+        private const string PillarTop = Base + "terrain_stone_vertical_top.png";
         private const string PillarMiddle = Base + "terrain_stone_vertical_middle.png";
         private const string PillarBottom = Base + "terrain_stone_vertical_bottom.png";
-        private const string Waves        = Base + "waves.png";
+        private const string Waves = Base + "waves.png";
 
         // ── Layout constants ─────────────────────────────────────────────────────
-        private const int PillarSize    = 80;
-        private const int PillarTopY    = 415;
-        private const int PillarMiddles = 4;    // middle segments per pillar
-        private const int LeftPillarX   = 20;
-        private const int RightPillarX  = 1090;
+        private const int PillarSize = 80;
+        private const int PillarTopY = 415;
+        private const int PillarMiddles = 4;
+        private const int LeftPillarX = 20;
+        private const int RightPillarX = 1090;
 
         private const int WavesX = 100;
         private const int WavesY = 415;
@@ -60,9 +60,9 @@ namespace Calligraphy.Presentation.Views.themes
         {
             var img = new Image
             {
-                Source  = new BitmapImage(new Uri(packUri, UriKind.Relative)),
-                Width   = width,
-                Height  = height,
+                Source = new BitmapImage(new Uri(packUri, UriKind.Relative)),
+                Width = width,
+                Height = height,
                 Stretch = Stretch.Fill,
             };
             Canvas.SetLeft(img, left);
