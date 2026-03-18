@@ -9,7 +9,7 @@ public abstract class GenericGameService<TSession>
 {
     private readonly IRepository _repository;
     private string _gameName;
-    private TSession Session { get; set; }
+    protected TSession Session { get; private set; }
 
     protected GenericGameService(IRepository repository)
     {

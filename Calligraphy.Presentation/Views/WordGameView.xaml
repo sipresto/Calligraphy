@@ -21,7 +21,8 @@
                    Source="{Binding ImageSource}" 
                    Stretch="Fill" />
             
-            <ItemsControl ItemsSource="{Binding Letters}">
+            <ItemsControl x:Name="LettersItemsControl"
+                          ItemsSource="{Binding Letters}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Canvas Width="1200" Height="800"/>
@@ -51,6 +52,32 @@
                     </Style>
                 </ItemsControl.ItemContainerStyle>
             </ItemsControl>
+            
+            <Button
+                Command="{Binding CheckCommand}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Margin="0,0,0,40"
+                Cursor="Pen"
+                IsEnabled="{Binding IsClickable}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Image x:Name="ButtonImage"
+                                   Source="/Resources/Assets/Images/Buttons/Grass-Buttons-v.png"
+                                   Width="100"
+                                   Stretch="Uniform" />
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonImage" Property="Source"
+                                        Value="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed-v.png" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
             
             <controls:GameResultPopup
                 x:Name="ResultPopup"

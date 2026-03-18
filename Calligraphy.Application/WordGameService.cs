@@ -1,3 +1,4 @@
+using Calligraphy.Domain;
 using Calligraphy.Domain.Sessions;
 using Calligraphy.Infrastructure;
 
@@ -9,8 +10,13 @@ public class WordGameService : GenericGameService<WordGameSession>
     {
     }
     
-    public void StartSession(string gameId, List<string> words)
+    public void StartSession(string gameId, List<string> words, double toleranceDistance, double requiredAccuracy)
     {
-        Initialize(gameId, () => new WordGameSession(words));
+        Initialize(gameId, () => new WordGameSession(words, toleranceDistance, requiredAccuracy));
+    }
+
+    public void AddLetter(List<StrokePoint> templatePoints, List<StrokePoint> userPoints)
+    {
+        Session.AddLetter(templatePoints, userPoints);
     }
 }
