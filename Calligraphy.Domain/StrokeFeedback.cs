@@ -22,5 +22,7 @@ public enum FeedbackType
     TraceWrongDirection,
     TraceAccuracy,
     TraceCoverage,
+    WordAccuracy,
+    WordCoverage,
     Perfect
 }

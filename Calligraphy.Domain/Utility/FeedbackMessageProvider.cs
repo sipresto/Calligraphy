@@ -70,6 +70,20 @@ public static class FeedbackMessageProvider
             ]
         },
         {
+            FeedbackType.WordAccuracy,
+            [
+                "Blijf dichter bij de lijnen",
+                "Volg de lijnen zo goed mogelijk"
+            ]
+        },
+        {
+            FeedbackType.WordCoverage,
+            [
+                "Probeer de alle letters volledig te volgen",
+                "Probeer geen letters over te slaan"
+            ]
+        },
+        {
             FeedbackType.Perfect,
             [
                 string.Empty
@@ -139,5 +153,21 @@ public static class FeedbackMessageProvider
 
         int index = Random.Next(options.Length);
         return options[index];
+    }
+
+    public static string GetRandomWordWrongDirectionMessage(List<string> wrongLetters)
+    {
+        if (!wrongLetters.Any()) return string.Empty;
+
+        var letterList = string.Join(", ", wrongLetters);
+
+        string[] messages =
+        [
+            $"De richting van {letterList} was niet correct. Ga terug naar de lettersoefeningen om dit te trainen!",
+            $"Let op de richting bij {letterList}. Oefen deze letters nog eens apart!",
+            $"{letterList} hadden de verkeerde richting. Oefen ze eerst apart voordat je verder gaat met woorden!"
+        ];
+
+        return messages[Random.Next(messages.Length)];
     }
 }

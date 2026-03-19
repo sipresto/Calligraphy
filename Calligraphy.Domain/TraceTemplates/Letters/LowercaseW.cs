@@ -2,6 +2,8 @@ namespace Calligraphy.Domain.TraceTemplates.Letters;
 
 public class LowercaseW : Letter
 {
+    public override string Name { get; } = "w";
+    
     public override List<StrokePoint> GetTemplatePoints() 
         => ScaleAndCenter(GenerateRawPoints());
     

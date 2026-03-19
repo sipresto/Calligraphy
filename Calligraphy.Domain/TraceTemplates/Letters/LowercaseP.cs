@@ -7,6 +7,8 @@ public class LowercaseP : Letter
         IsLow = true;
     }
     
+    public override string Name { get; } = "p";
+    
     public override List<StrokePoint> GetTemplatePoints() 
         => ScaleAndCenter(GenerateRawPoints());
     
