@@ -23,7 +23,7 @@
                 Orientation="Horizontal"
                 Margin="0, 50, 0, 0">
                 <Border Width="520" Height="520"
-                        Background="#755679"
+                        Background="{StaticResource SecondaryColor}"
                         CornerRadius="10"
                         Margin="30">
                     <Border.Effect>
@@ -40,7 +40,7 @@
                 </Border>
 
                 <Border Width="520" Height="520"
-                        Background="#755679"
+                        Background="{StaticResource SecondaryColor}"
                         CornerRadius="10"
                         Margin="30">
                     <Border.Effect>

@@ -34,16 +34,16 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Background="#902D232F">
+    <Grid Background="{StaticResource BackgroundColor}">
         <Border Width="620" Height="520"
-                Background="#755679" 
+                Background="{StaticResource SecondaryColor}" 
                 CornerRadius="50"
                 Padding="10">
             <Border.Effect>
                 <DropShadowEffect BlurRadius="25" ShadowDepth="8" Opacity="0.4"/>
             </Border.Effect>
 
-            <Border CornerRadius="40" Background="#FFF9EB" Margin="0,0,0,8">
+            <Border CornerRadius="40" Background="{StaticResource 'PrimaryColor'}" Margin="0,0,0,8">
                 <Grid Margin="20">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -55,7 +55,7 @@
                                Text="Kies de kleur van jouw pen!"
                                FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
                                FontSize="30"
-                               Foreground="#755679"
+                               Foreground="{StaticResource SecondaryColor}"
                                HorizontalAlignment="Center"
                                Margin="0,10,0,20"/>
 

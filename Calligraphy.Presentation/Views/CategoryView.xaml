@@ -9,14 +9,14 @@
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
 
         <Border Width="1000" Height="700"
-                Background="#755679"
+                Background="{StaticResource SecondaryColor}"
                 CornerRadius="50"
                 Padding="15">
             <Border.Effect>
                 <DropShadowEffect BlurRadius="25" ShadowDepth="8" Opacity="0.4" />
             </Border.Effect>
 
-            <Border CornerRadius="40" Background="#FFF9EB" Margin="0,0,0,8">
+            <Border CornerRadius="40" Background="{StaticResource PrimaryColor}" Margin="0,0,0,8">
                 <Grid Margin="20">
 
                     <Grid.RowDefinitions>
@@ -29,7 +29,7 @@
                                Text="Wat wil je oefenen?"
                                FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
                                FontSize="80"
-                               Foreground="#755679"
+                               Foreground="{StaticResource SecondaryColor}"
                                HorizontalAlignment="Center"
                                Margin="0,20,0,10" />
 
@@ -73,7 +73,7 @@
                                                        Text="Schetsen"
                                                        FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
                                                        FontSize="40"
-                                                       Foreground="#755679"
+                                                       Foreground="{StaticResource SecondaryColor}"
                                                        HorizontalAlignment="Center"
                                                        VerticalAlignment="Bottom"
                                                        Margin="0, 0, 0, 18" />
@@ -119,7 +119,7 @@
                                                        Text="Vormen"
                                                        FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
                                                        FontSize="40"
-                                                       Foreground="#755679"
+                                                       Foreground="{StaticResource SecondaryColor}"
                                                        HorizontalAlignment="Center"
                                                        VerticalAlignment="Bottom"
                                                        Margin="0, 0, 0, 18" />
@@ -166,7 +166,7 @@
                                                        Text="Letters"
                                                        FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
                                                        FontSize="40"
-                                                       Foreground="#755679"
+                                                       Foreground="{StaticResource SecondaryColor}"
                                                        HorizontalAlignment="Center"
                                                        VerticalAlignment="Bottom"
                                                        Margin="0, 0, 0, 18" />
@@ -240,7 +240,7 @@
                                                        Text="Woorden"
                                                        FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
                                                        FontSize="40"
-                                                       Foreground="#755679"
+                                                       Foreground="{StaticResource SecondaryColor}"
                                                        HorizontalAlignment="Center"
                                                        VerticalAlignment="Bottom"
                                                        Margin="0, 0, 0, 18" />
@@ -266,13 +266,13 @@
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border x:Name="BackBorder"
-                                        Background="#755679"
+                                        Background="{StaticResource SecondaryColor}"
                                         CornerRadius="20"
                                         Padding="24,10">
                                     <TextBlock Text="← Terug"
                                                FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
                                                FontSize="28"
-                                               Foreground="#FFF9EB" />
+                                               Foreground="{StaticResource PrimaryColor}" />
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsPressed" Value="True">

@@ -29,7 +29,7 @@
                 <TextBlock Text="Cally"
                            FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
                            FontSize="60"
-                           Foreground="#755679"
+                           Foreground="{StaticResource SecondaryColor}"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center" />
             </Grid>

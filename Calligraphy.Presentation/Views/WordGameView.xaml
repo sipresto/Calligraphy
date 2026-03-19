@@ -32,7 +32,7 @@
                     <DataTemplate>
                         <Grid Width="{Binding Size}" Height="{Binding Size}" Background="White" Opacity="0.85">
                             <Path Data="{Binding LetterPoints, Converter={StaticResource PointsToGeometry}}"
-                                  Stroke="#3C000000"
+                                  Stroke="{StaticResource TraceLineColor}"
                                   StrokeThickness="{Binding LineThickness}"
                                   StrokeLineJoin="Round"
                                   StrokeStartLineCap="Round"
