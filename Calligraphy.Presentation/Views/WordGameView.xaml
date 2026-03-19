@@ -6,6 +6,7 @@
              xmlns:controls="clr-namespace:Calligraphy.Presentation.Views.Controls"
              xmlns:viewModels="clr-namespace:Calligraphy.Presentation.ViewModels"
              xmlns:converters="clr-namespace:Calligraphy.Presentation.Converters"
+             xmlns:styles="clr-namespace:Calligraphy.Presentation.Styles"
              mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="1200"
              d:DataContext="{d:DesignInstance viewModels:WordGameViewModel}">
@@ -52,31 +53,15 @@
                 </ItemsControl.ItemContainerStyle>
             </ItemsControl>
 
-            <Button
-                Command="{Binding CheckCommand}"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Bottom"
-                Margin="0,0,0,40"
-                Cursor="Pen"
-                IsEnabled="{Binding IsClickable}">
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Grid>
-                            <Image x:Name="ButtonImage"
-                                   Source="/Resources/Assets/Images/Buttons/Grass-Buttons-v-white.png"
-                                   Width="100"
-                                   Stretch="Uniform" />
-                        </Grid>
-
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="ButtonImage" Property="Source"
-                                        Value="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed-v.png" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
+            <Button Command="{Binding CheckCommand}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Margin="0,0,0,40"
+                    Width="100"
+                    IsEnabled="{Binding IsClickable}"
+                    Style="{StaticResource ImageButtonStyle}"
+                    styles:ImageButton.NormalImage="/Resources/Assets/Images/Buttons/Grass-Buttons-v-white.png"
+                    styles:ImageButton.PressedImage="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed-v.png" />
 
             <controls:GameResultPopup
                 x:Name="ResultPopup"
