@@ -8,10 +8,5 @@ public class LevelItem : ObservableObject
     public string DisplayName { get; init; }
     public string CategoryLabel { get; init; }
     public int Level { get; init; }
-
-    public int Stars
-    {
-        get;
-        set => SetProperty(ref field, value);
-    }
+    public int Stars { get; init; }
 }
