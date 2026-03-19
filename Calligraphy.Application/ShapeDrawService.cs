@@ -10,14 +10,8 @@ public class ShapeDrawService : GenericGameService<ShapeDrawSession>
     {
     }
 
-    public void InitializeSession(string gameId, Shape shape)
+    public void StartSession(string gameId, Shape shape)
     {
-        var session = new ShapeDrawSession(shape);
-        InitializeSession(session, gameId);
-    }
-
-    public Shape GetShape()
-    {
-        return Session.Shape;
+        Initialize(gameId, () => new ShapeDrawSession(shape));
     }
 }

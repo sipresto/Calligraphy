@@ -20,6 +20,7 @@ public class LevelViewModelFactory
             _services.GetRequiredService<InfinityRaceService>(),
             _services.GetRequiredService<TraceGameService>(),
             _services.GetRequiredService<ShapeDrawService>(),
+            _services.GetRequiredService<WordGameService>(),
             _services.GetRequiredService<GameSettings>(),
             category);
     }

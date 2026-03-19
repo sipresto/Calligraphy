@@ -74,6 +74,12 @@ public partial class TutorialViewModel : ViewModelBase
             vm.Initialize(GameKey);
             gameVm = vm;
         }
+        else if (TargetGameViewModelName == nameof(WordGameViewModel))
+        {
+            var vm = _services.GetRequiredService<WordGameViewModel>();
+            vm.Initialize(GameKey);
+            gameVm = vm;
+        }
 
         if (gameVm == null) return;
 

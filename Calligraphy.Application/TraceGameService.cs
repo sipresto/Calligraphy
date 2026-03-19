@@ -10,9 +10,9 @@ public class TraceGameService : GenericGameService<TraceGameSession>
     {
     }
 
-    public void InitializeSession(string gameId, List<StrokePoint> templatePoints, double toleranceDistance, double requiredAccuracy)
+    public void StartSession(string gameId, List<StrokePoint> templatePoints, double toleranceDistance,
+        double requiredAccuracy)
     {
-        var session = new TraceGameSession(templatePoints, toleranceDistance, requiredAccuracy);
-        InitializeSession(session, gameId);
+        Initialize(gameId, () => new TraceGameSession(templatePoints, toleranceDistance, requiredAccuracy));
     }
 }

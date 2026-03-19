@@ -86,6 +86,9 @@ public abstract class GameViewModelBase<TService, TSession, TSettings> : ViewMod
         }
 
         GameResult = Service.FinishGame(Settings.GetThresholds());
+
+        if (GameResult?.Score > BestScore)
+            BestScore = GameResult.Score;
     }
 
     private void Menu() => _mainViewModel.NavigateToCategories();

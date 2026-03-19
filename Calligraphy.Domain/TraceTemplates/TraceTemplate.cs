@@ -3,6 +3,11 @@ namespace Calligraphy.Domain.TraceTemplates;
 public abstract class TraceTemplate
 {
     public abstract List<StrokePoint> GetTemplatePoints();
+    
+    public virtual List<StrokePoint> GetTemplatePoints(double width, double height) 
+    {
+        return GetTemplatePoints();
+    }
 
     protected static StrokePoint EvaluateBezier(StrokePoint p0, StrokePoint p1, StrokePoint p2, StrokePoint p3,
         double t)
