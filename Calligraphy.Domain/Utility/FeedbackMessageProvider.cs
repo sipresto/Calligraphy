@@ -8,8 +8,10 @@ public static class FeedbackMessageProvider
             FeedbackType.PressureInconsistent,
             [
                 "Probeer de hele tijd even hard te drukken",
-                "Let erop dat je pen overal even stevig op het blad staat",
-                "Oefen om met een gelijke druk te schrijven"
+                "Let erop dat je pen overal even stevig op de tablet staat",
+                "Oefen om met een gelijke druk te schrijven",
+                "Probeer rustig en gelijkmatig te schrijven",
+                "Houd je pen stabiel en druk niet te hard of te zacht"
             ]
         },
         {
@@ -17,7 +19,9 @@ public static class FeedbackMessageProvider
             [
                 "Probeer iets zachter te drukken",
                 "Je mag je pen wat lichter vasthouden",
-                "Let op je druk, probeer minder hard te schrijven"
+                "Let op je druk, probeer minder hard te schrijven",
+                "Schrijf wat lichter, dan gaat het makkelijker",
+                "Minder druk geeft een mooier resultaat"
             ]
         },
         {
@@ -25,7 +29,44 @@ public static class FeedbackMessageProvider
             [
                 "Probeer iets steviger te drukken",
                 "Druk iets harder zodat de lijn duidelijker wordt",
-                "Houd de pen wat steviger vast tijdens het schrijven"
+                "Houd de pen wat steviger vast tijdens het schrijven",
+                "Je druk is te licht, zet wat meer kracht",
+                "Druk de pen iets steviger op de tablet"
+            ]
+        },
+        {
+            FeedbackType.InfinityWrongDirection,
+            [
+                "Let op dat je de richting van de pijl volgt om de liggende 8 vorm te tekenen",
+                "De pijl laat zien hoe je moet beginnen, probeer die te volgen"
+            ]
+        },
+        {
+            FeedbackType.InfinityCirclesHit,
+            [
+                "Let op dat je om de cirkels heen gaat",
+                "Probeer de cirkels niet te raken"
+            ]
+        },
+        {
+            FeedbackType.TraceWrongDirection,
+            [
+                "Let op dat je de vorm in de goede volgorde volgt",
+                "Volg de lijn in de juiste richting"
+            ]
+        },
+        {
+            FeedbackType.TraceAccuracy,
+            [
+                "Blijf dichter bij de lijn",
+                "Volg de lijn zo goed mogelijk"
+            ]
+        },
+        {
+            FeedbackType.TraceCoverage,
+            [
+                "Probeer de hele lijn te volgen",
+                "Probeer geen stukje over te slaan"
             ]
         },
         {
@@ -43,7 +84,9 @@ public static class FeedbackMessageProvider
             [
                 "Geweldig! Je hebt het heel goed gedaan!",
                 "Fantastisch! Dat was perfect!",
-                "Super gedaan! Je bent een echte schrijver!"
+                "Super gedaan! Je bent een echte schrijver!",
+                "Perfecte score! Je bent een ster!",
+                "Wauw, dat was uitstekend!"
             ]
         },
         {
@@ -51,7 +94,9 @@ public static class FeedbackMessageProvider
             [
                 "Goed gedaan! Het was al bijna perfect!",
                 "Heel netjes! Nog een klein beetje oefenen!",
-                "Mooi werk! Je bent goed bezig!"
+                "Mooi werk! Je bent goed bezig!",
+                "Bijna perfect, nog even doorgaan!",
+                "Heel goed, met wat meer oefening lukt het helemaal!"
             ]
         },
         {
@@ -59,7 +104,9 @@ public static class FeedbackMessageProvider
             [
                 "Niet slecht! Probeer het nog eens!",
                 "Goed geprobeerd! Nog een keer oefenen?",
-                "Je bent al goed op weg! Probeer het nog eens!"
+                "Je bent al goed op weg! Probeer het nog eens!",
+                "Één ster, blijf oefenen!",
+                "Volgende keer meer sterren, je kunt het!"
             ]
         },
         {
@@ -67,7 +114,9 @@ public static class FeedbackMessageProvider
             [
                 "Blijf oefenen! Je kunt het beter doen!",
                 "Houd vol! Volgende keer gaat het beter!",
-                "Niet opgeven! Probeer het opnieuw!"
+                "Niet opgeven! Probeer het opnieuw!",
+                "Het lukt de volgende keer vast beter!",
+                "Nog even doorzetten, je komt er wel!"
             ]
         }
     };
