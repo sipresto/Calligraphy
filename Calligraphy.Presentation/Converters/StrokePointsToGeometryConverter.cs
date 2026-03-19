@@ -19,7 +19,7 @@ public class StrokePointsToGeometryConverter : IValueConverter
 
         for (int i = 1; i < points.Count; i++)
         {
-            if (Math.Sqrt(Math.Pow(points[i].X - points[i-1].X, 2) + Math.Pow(points[i].Y - points[i-1].Y, 2)) > 40)
+            if (Math.Sqrt(Math.Pow(points[i].X - points[i-1].X, 2) + Math.Pow(points[i].Y - points[i-1].Y, 2)) > 10)
             {
                 figure.Segments.Add(segment);
                 geometry.Figures.Add(figure);
