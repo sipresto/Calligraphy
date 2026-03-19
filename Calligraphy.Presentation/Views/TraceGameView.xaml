@@ -31,7 +31,7 @@
     </UserControl.Resources>
 
     <Viewbox Stretch="Uniform">
-        <Grid Width="1200" Height="800" Background="White">
+        <Grid Width="1200" Height="800" Background="Transparent">
 
             <ContentControl Content="{Binding CurrentTemplate}"
                             Grid.ColumnSpan="2"
