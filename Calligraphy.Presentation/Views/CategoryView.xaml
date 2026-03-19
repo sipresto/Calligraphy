@@ -13,16 +13,16 @@
                 CornerRadius="50"
                 Padding="15">
             <Border.Effect>
-                <DropShadowEffect BlurRadius="25" ShadowDepth="8" Opacity="0.4"/>
+                <DropShadowEffect BlurRadius="25" ShadowDepth="8" Opacity="0.4" />
             </Border.Effect>
 
             <Border CornerRadius="40" Background="#FFF9EB" Margin="0,0,0,8">
                 <Grid Margin="20">
 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0"
@@ -31,13 +31,13 @@
                                FontSize="80"
                                Foreground="#755679"
                                HorizontalAlignment="Center"
-                               Margin="0,20,0,10"/>
+                               Margin="0,20,0,10" />
 
                     <StackPanel Grid.Row="1"
                                 Orientation="Horizontal"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center">
-                        
+
                         <Button Command="{Binding ChooseCategoryCommand}"
                                 CommandParameter="Schetsen"
                                 Margin="15,0" Cursor="Pen">
@@ -45,27 +45,29 @@
                                 <ControlTemplate TargetType="Button">
                                     <Grid Width="210" Height="210" x:Name="Root">
 
-                                        <Image Source="/Resources/Assets/Images/TextBars/Square.png" Stretch="Fill"/>
+                                        <Image Source="/Resources/Assets/Images/TextBars/Square.png" Stretch="Fill" />
 
-                                        
+
                                         <Grid>
                                             <Grid.RowDefinitions>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="70"/>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="70" />
                                             </Grid.RowDefinitions>
-                                        
-                                        <Viewbox Grid.Row="0" Height="80" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <Canvas Width="260" Height="150">
-                                                <Path Stroke="#755679" StrokeThickness="14"
-                                                      StrokeDashArray="1 1.5" StrokeDashCap="Round"
-                                                      StrokeStartLineCap="Round" StrokeEndLineCap="Round"
-                                                      Data="M 20,100 C 50,20 100,20 130,100 S 210,180 250,100"/>
-                                                <Ellipse Fill="#2D232F" Width="24" Height="24" Canvas.Left="8" Canvas.Top="88"/>
-                                                <Path Fill="#2D232F"
-                                                      Data="M 10,0 L 13,7 L 20,7 L 15,12 L 17,19 L 10,15 L 3,19 L 5,12 L 0,7 L 7,7 Z"
-                                                      Canvas.Left="240" Canvas.Top="90"/>
-                                            </Canvas>
-                                        </Viewbox>
+
+                                            <Viewbox Grid.Row="0" Height="80" HorizontalAlignment="Center"
+                                                     VerticalAlignment="Center">
+                                                <Canvas Width="260" Height="150">
+                                                    <Path Stroke="#755679" StrokeThickness="14"
+                                                          StrokeDashArray="1 1.5" StrokeDashCap="Round"
+                                                          StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                                                          Data="M 20,100 C 50,20 100,20 130,100 S 210,180 250,100" />
+                                                    <Ellipse Fill="#2D232F" Width="24" Height="24" Canvas.Left="8"
+                                                             Canvas.Top="88" />
+                                                    <Path Fill="#2D232F"
+                                                          Data="M 10,0 L 13,7 L 20,7 L 15,12 L 17,19 L 10,15 L 3,19 L 5,12 L 0,7 L 7,7 Z"
+                                                          Canvas.Left="240" Canvas.Top="90" />
+                                                </Canvas>
+                                            </Viewbox>
 
                                             <TextBlock Grid.Row="1"
                                                        Text="Schetsen"
@@ -74,18 +76,18 @@
                                                        Foreground="#755679"
                                                        HorizontalAlignment="Center"
                                                        VerticalAlignment="Bottom"
-                                                       Margin="0, 0, 0, 18"/>
+                                                       Margin="0, 0, 0, 18" />
                                         </Grid>
                                     </Grid>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsPressed" Value="True">
-                                            <Setter TargetName="Root" Property="Margin" Value="0,8,0,0"/>
+                                            <Setter TargetName="Root" Property="Margin" Value="0,8,0,0" />
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
                             </Button.Template>
                         </Button>
-                        
+
                         <Button Command="{Binding ChooseCategoryCommand}"
                                 CommandParameter="Vormen"
                                 Margin="15,0" Cursor="Pen">
@@ -93,42 +95,45 @@
                                 <ControlTemplate TargetType="Button">
                                     <Grid Width="210" Height="210" x:Name="Root">
 
-                                        <Image Source="/Resources/Assets/Images/TextBars/Square.png" Stretch="Fill"/>
+                                        <Image Source="/Resources/Assets/Images/TextBars/Square.png" Stretch="Fill" />
 
                                         <Grid>
                                             <Grid.RowDefinitions>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="70"/>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="70" />
                                             </Grid.RowDefinitions>
-                                        
-                                            <Viewbox Grid.Row="0" Height="65" VerticalAlignment="Top" Margin="0, 55, 0, 0">
-                                            <StackPanel Orientation="Horizontal">
-                                                <Rectangle Fill="#755679" Width="40" Height="40" RadiusX="8" RadiusY="8" Margin="8"/>
-                                                <Ellipse Fill="#2D232F" Width="42" Height="42" Margin="8"/>
-                                                <Path Fill="#755679" Stroke="#755679" StrokeThickness="6" StrokeLineJoin="Round"
-                                                      Data="M 20,0 L 40,35 L 0,35 Z" Margin="8"/>
-                                            </StackPanel>
-                                        </Viewbox>
 
-                                        <TextBlock Grid.Row="1"
-                                            Text="Vormen"
-                                                   FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
-                                                   FontSize="40"
-                                                   Foreground="#755679"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Bottom"
-                                            Margin="0, 0, 0, 18"/>
+                                            <Viewbox Grid.Row="0" Height="65" VerticalAlignment="Top"
+                                                     Margin="0, 55, 0, 0">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Rectangle Fill="#755679" Width="40" Height="40" RadiusX="8"
+                                                               RadiusY="8" Margin="8" />
+                                                    <Ellipse Fill="#2D232F" Width="42" Height="42" Margin="8" />
+                                                    <Path Fill="#755679" Stroke="#755679" StrokeThickness="6"
+                                                          StrokeLineJoin="Round"
+                                                          Data="M 20,0 L 40,35 L 0,35 Z" Margin="8" />
+                                                </StackPanel>
+                                            </Viewbox>
+
+                                            <TextBlock Grid.Row="1"
+                                                       Text="Vormen"
+                                                       FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
+                                                       FontSize="40"
+                                                       Foreground="#755679"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Bottom"
+                                                       Margin="0, 0, 0, 18" />
                                         </Grid>
                                     </Grid>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsPressed" Value="True">
-                                            <Setter TargetName="Root" Property="Margin" Value="0,8,0,0"/>
+                                            <Setter TargetName="Root" Property="Margin" Value="0,8,0,0" />
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
                             </Button.Template>
                         </Button>
-                        
+
                         <Button Command="{Binding ChooseCategoryCommand}"
                                 CommandParameter="Letters"
                                 Margin="15,0" Cursor="Pen">
@@ -136,45 +141,46 @@
                                 <ControlTemplate TargetType="Button">
                                     <Grid Width="210" Height="210" x:Name="Root">
 
-                                        <Image Source="/Resources/Assets/Images/TextBars/Square.png" Stretch="Fill"/>
+                                        <Image Source="/Resources/Assets/Images/TextBars/Square.png" Stretch="Fill" />
 
                                         <Grid>
                                             <Grid.RowDefinitions>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="70"/>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="70" />
                                             </Grid.RowDefinitions>
-                                        
-                                            <Viewbox Grid.Row="0" Height="100" VerticalAlignment="Center" Margin="0, 30, 0, 0">
-                                            <Grid Width="100" Height="100">
-                                                <Path Fill="#755679"
-                                                      Data="M 50,0 L 5,95 L 25,95 L 35,75 L 65,75 L 75,95 L 95,95 Z M 50,25 L 60,60 L 40,60 Z"
-                                                      Stroke="#755679" StrokeThickness="8" StrokeLineJoin="Round"/>
-                                                <Path Stroke="#FFF9EB" StrokeThickness="3"
-                                                      StrokeDashArray="2 2" StrokeDashCap="Round"
-                                                      StrokeStartLineCap="Round" StrokeEndLineCap="Round"
-                                                      Data="M 50,15 L 20,85 M 50,15 L 80,85 M 35,68 L 65,68"/>
-                                            </Grid>
-                                        </Viewbox>
 
-                                        <TextBlock Grid.Row="1"
-                                            Text="Letters"
-                                                   FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
-                                                   FontSize="40"
-                                                   Foreground="#755679"
-                                                   HorizontalAlignment="Center"
-                                                   VerticalAlignment="Bottom"
-                                                   Margin="0, 0, 0, 18"/>
+                                            <Viewbox Grid.Row="0" Height="100" VerticalAlignment="Center"
+                                                     Margin="0, 30, 0, 0">
+                                                <Grid Width="100" Height="100">
+                                                    <Path Fill="#755679"
+                                                          Data="M 50,0 L 5,95 L 25,95 L 35,75 L 65,75 L 75,95 L 95,95 Z M 50,25 L 60,60 L 40,60 Z"
+                                                          Stroke="#755679" StrokeThickness="8" StrokeLineJoin="Round" />
+                                                    <Path Stroke="#FFF9EB" StrokeThickness="3"
+                                                          StrokeDashArray="2 2" StrokeDashCap="Round"
+                                                          StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                                                          Data="M 50,15 L 20,85 M 50,15 L 80,85 M 35,68 L 65,68" />
+                                                </Grid>
+                                            </Viewbox>
+
+                                            <TextBlock Grid.Row="1"
+                                                       Text="Letters"
+                                                       FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
+                                                       FontSize="40"
+                                                       Foreground="#755679"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Bottom"
+                                                       Margin="0, 0, 0, 18" />
                                         </Grid>
                                     </Grid>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsPressed" Value="True">
-                                            <Setter TargetName="Root" Property="Margin" Value="0,8,0,0"/>
+                                            <Setter TargetName="Root" Property="Margin" Value="0,8,0,0" />
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
                             </Button.Template>
                         </Button>
-                        
+
                         <Button Command="{Binding ChooseCategoryCommand}"
                                 CommandParameter="Woorden"
                                 Margin="15,0" Cursor="Pen">
@@ -182,66 +188,67 @@
                                 <ControlTemplate TargetType="Button">
                                     <Grid Width="210" Height="210" x:Name="Root">
 
-                                        <Image Source="/Resources/Assets/Images/TextBars/Square.png" Stretch="Fill"/>
+                                        <Image Source="/Resources/Assets/Images/TextBars/Square.png" Stretch="Fill" />
 
                                         <Grid>
                                             <Grid.RowDefinitions>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="70"/>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="70" />
                                             </Grid.RowDefinitions>
-                                        
-                                            <Viewbox Grid.Row="0" Height="120" VerticalAlignment="Center" Margin="0,26,0,0">
+
+                                            <Viewbox Grid.Row="0" Height="120" VerticalAlignment="Center"
+                                                     Margin="0,26,0,0">
                                                 <Grid Width="100" Height="100">
                                                     <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
                                                         <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="Auto"/>
-                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition Width="Auto" />
                                                         </Grid.ColumnDefinitions>
                                                         <Grid.RowDefinitions>
-                                                            <RowDefinition Height="Auto"/>
-                                                            <RowDefinition Height="Auto"/>
+                                                            <RowDefinition Height="Auto" />
+                                                            <RowDefinition Height="Auto" />
                                                         </Grid.RowDefinitions>
 
-                                                        <TextBlock Grid.Row="0" Grid.Column="0" 
-                                                                   Text="A" 
-                                                                   FontSize="50" 
-                                                                   FontWeight="UltraBold" 
-                                                                   Foreground="#755679" 
-                                                                   HorizontalAlignment="Right"/>
-                                                        <TextBlock Grid.Row="1" Grid.Column="0" 
-                                                                   Text="C" 
-                                                                   FontSize="50" 
-                                                                   FontWeight="UltraBold" 
-                                                                   Foreground="#755679" 
-                                                                   Margin="0,-20,0,0"/>
-                                                        <TextBlock Grid.Row="0" Grid.Column="1" 
-                                                                   Text=" B" 
-                                                                   FontSize="50" 
-                                                                   FontWeight="UltraBold" 
-                                                                   Foreground="#755679"/>
-                                                        <TextBlock Grid.Row="1" Grid.Column="1" 
-                                                                   Text=" D" 
-                                                                   FontSize="50" 
-                                                                   FontWeight="UltraBold" 
-                                                                   Foreground="#755679" 
-                                                                   Margin="0,-20,0,0"/>
+                                                        <TextBlock Grid.Row="0" Grid.Column="0"
+                                                                   Text="A"
+                                                                   FontSize="50"
+                                                                   FontWeight="UltraBold"
+                                                                   Foreground="#755679"
+                                                                   HorizontalAlignment="Right" />
+                                                        <TextBlock Grid.Row="1" Grid.Column="0"
+                                                                   Text="C"
+                                                                   FontSize="50"
+                                                                   FontWeight="UltraBold"
+                                                                   Foreground="#755679"
+                                                                   Margin="0,-20,0,0" />
+                                                        <TextBlock Grid.Row="0" Grid.Column="1"
+                                                                   Text=" B"
+                                                                   FontSize="50"
+                                                                   FontWeight="UltraBold"
+                                                                   Foreground="#755679" />
+                                                        <TextBlock Grid.Row="1" Grid.Column="1"
+                                                                   Text=" D"
+                                                                   FontSize="50"
+                                                                   FontWeight="UltraBold"
+                                                                   Foreground="#755679"
+                                                                   Margin="0,-20,0,0" />
                                                     </Grid>
                                                 </Grid>
                                             </Viewbox>
 
-                                        <TextBlock Grid.Row="1"
-                                            Text="Woorden"
-                                                   FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
-                                                   FontSize="40"
-                                                   Foreground="#755679"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Bottom"
-                                            Margin="0, 0, 0, 18"/>
+                                            <TextBlock Grid.Row="1"
+                                                       Text="Woorden"
+                                                       FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
+                                                       FontSize="40"
+                                                       Foreground="#755679"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Bottom"
+                                                       Margin="0, 0, 0, 18" />
                                         </Grid>
                                     </Grid>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsPressed" Value="True">
-                                            <Setter TargetName="Root" Property="Margin" Value="0,8,0,0"/>
+                                            <Setter TargetName="Root" Property="Margin" Value="0,8,0,0" />
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -265,15 +272,15 @@
                                     <TextBlock Text="← Terug"
                                                FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
                                                FontSize="28"
-                                               Foreground="#FFF9EB"/>
+                                               Foreground="#FFF9EB" />
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsPressed" Value="True">
-                                        <Setter TargetName="BackBorder" Property="Opacity" Value="0.75"/>
-                                        <Setter TargetName="BackBorder" Property="Margin" Value="0,4,0,0"/>
+                                        <Setter TargetName="BackBorder" Property="Opacity" Value="0.75" />
+                                        <Setter TargetName="BackBorder" Property="Margin" Value="0,4,0,0" />
                                     </Trigger>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter TargetName="BackBorder" Property="Opacity" Value="0.85"/>
+                                        <Setter TargetName="BackBorder" Property="Opacity" Value="0.85" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>

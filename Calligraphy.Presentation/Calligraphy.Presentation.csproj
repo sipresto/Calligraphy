@@ -147,6 +147,7 @@
         <Resource Include="Resources\Assets\Images\Themes\Hedge\terrain_grass_block_top_right.png" />
         <Resource Include="Resources\Assets\Images\WordBackgrounds\farm.png" />
         <Resource Include="Resources\Assets\Images\WordBackgrounds\jungle.png" />
+        <Resource Include="Resources\Assets\Images\Buttons\Grass-Buttons-v-white.png" />
     </ItemGroup>
 
 </Project>

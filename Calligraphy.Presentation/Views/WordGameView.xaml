@@ -9,23 +9,22 @@
              mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="1200"
              d:DataContext="{d:DesignInstance viewModels:WordGameViewModel}">
-    
+
     <UserControl.Resources>
         <converters:StrokePointsToGeometryConverter x:Key="PointsToGeometry" />
     </UserControl.Resources>
-    
+
     <Viewbox Stretch="Uniform">
         <Grid Width="1200" Height="800" Background="White">
-            
-            <Image Grid.ColumnSpan="2" 
-                   Source="{Binding ImageSource}" 
+
+            <Image Source="{Binding ImageSource}"
                    Stretch="Fill" />
-            
+
             <ItemsControl x:Name="LettersItemsControl"
                           ItemsSource="{Binding Letters}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <Canvas Width="1200" Height="800"/>
+                        <Canvas Width="1200" Height="800" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 
@@ -39,7 +38,7 @@
                                   StrokeStartLineCap="Round"
                                   StrokeEndLineCap="Round"
                                   IsHitTestVisible="False" />
-                            
+
                             <controls:InkCanvasControl x:Name="LetterCanvas" />
                         </Grid>
                     </DataTemplate>
@@ -52,7 +51,7 @@
                     </Style>
                 </ItemsControl.ItemContainerStyle>
             </ItemsControl>
-            
+
             <Button
                 Command="{Binding CheckCommand}"
                 HorizontalAlignment="Center"
@@ -64,7 +63,7 @@
                     <ControlTemplate TargetType="Button">
                         <Grid>
                             <Image x:Name="ButtonImage"
-                                   Source="/Resources/Assets/Images/Buttons/Grass-Buttons-v.png"
+                                   Source="/Resources/Assets/Images/Buttons/Grass-Buttons-v-white.png"
                                    Width="100"
                                    Stretch="Uniform" />
                         </Grid>
@@ -78,18 +77,14 @@
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            
+
             <controls:GameResultPopup
                 x:Name="ResultPopup"
-                Grid.Column="0"
-                Grid.ColumnSpan="2"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center" />
 
             <controls:MascotFeedbackControl
-                x:Name="MascotFeedback"
-                Grid.Column="0"
-                Grid.ColumnSpan="2" />
+                x:Name="MascotFeedback" />
 
         </Grid>
     </Viewbox>
