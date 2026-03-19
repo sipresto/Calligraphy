@@ -5,41 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="clr-namespace:Calligraphy.Presentation.Views.Controls"
              xmlns:converters="clr-namespace:Calligraphy.Presentation.Converters"
+             xmlns:styles="clr-namespace:Calligraphy.Presentation.Styles"
              mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="1200">
 
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
         <converters:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter" />
-        <Style x:Key="ImageButtonStyle" TargetType="Button">
-            <Setter Property="Cursor" Value="Hand" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="Transparent">
-                            <Grid>
-                                <Image x:Name="NormalImage"
-                                       Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Tag}"
-                                       Stretch="Uniform" />
-                                <Image x:Name="PressedImage"
-                                       Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content}"
-                                       Visibility="Collapsed"
-                                       Stretch="Uniform" />
-                            </Grid>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="NormalImage" Property="Visibility" Value="Collapsed" />
-                                <Setter TargetName="PressedImage" Property="Visibility" Value="Visible" />
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Opacity" Value="0.9" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
     </UserControl.Resources>
 
     <Grid Background="{StaticResource BackgroundColor}">
@@ -149,21 +121,19 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Bottom">
 
-                        <Button
-                            Command="{Binding CloseTutorialCommand}"
-                            Style="{StaticResource ImageButtonStyle}"
-                            Width="65"
-                            Margin="0, 0, 5, 0"
-                            Tag="/Resources/Assets/Images/Buttons/Buttons-arrow.png"
-                            Content="/Resources/Assets/Images/Buttons/Pressed/Buttons-pressed-arrow.png" />
+                        <Button Command="{Binding CloseTutorialCommand}"
+                                Style="{StaticResource ImageButtonStyle}"
+                                Width="65"
+                                Margin="0,0,5,0"
+                                styles:ImageButton.NormalImage="/Resources/Assets/Images/Buttons/Buttons-arrow.png"
+                                styles:ImageButton.PressedImage="/Resources/Assets/Images/Buttons/Pressed/Buttons-pressed-arrow.png" />
 
-                        <Button
-                            Command="{Binding MenuCommand}"
-                            Style="{StaticResource ImageButtonStyle}"
-                            Width="65"
-                            Margin="5, 0, 0, 0"
-                            Tag="/Resources/Assets/Images/Buttons/Buttons-house.png"
-                            Content="/Resources/Assets/Images/Buttons/Pressed/Buttons-pressed-house.png" />
+                        <Button Command="{Binding MenuCommand}"
+                                Style="{StaticResource ImageButtonStyle}"
+                                Width="65"
+                                Margin="5,0,0,0"
+                                styles:ImageButton.NormalImage="/Resources/Assets/Images/Buttons/Buttons-house.png"
+                                styles:ImageButton.PressedImage="/Resources/Assets/Images/Buttons/Pressed/Buttons-pressed-house.png" />
                     </StackPanel>
                 </Grid>
             </Border>
