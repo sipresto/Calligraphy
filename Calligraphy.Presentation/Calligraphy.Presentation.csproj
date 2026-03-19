@@ -109,6 +109,7 @@
         <Resource Include="Resources\Assets\Images\Letters\lowercase-y.png" />
         <Resource Include="Resources\Assets\Images\Letters\lowercase-p.png" />
         <Resource Include="Resources\Assets\Images\WordBackgrounds\farm.png" />
+        <Resource Include="Resources\Assets\Images\WordBackgrounds\jungle.png" />
     </ItemGroup>
 
 </Project>
