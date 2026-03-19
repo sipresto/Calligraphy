@@ -118,7 +118,7 @@
                         <ItemsControl ItemsSource="{Binding Levels}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                                    <WrapPanel HorizontalAlignment="Left" Orientation="Horizontal" Margin="10,0" />
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
 

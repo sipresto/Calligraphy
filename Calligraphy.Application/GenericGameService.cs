@@ -16,27 +16,27 @@ public abstract class GenericGameService<TSession>
         _repository = repository;
     }
 
-    protected void InitializeSession(TSession session, string gameId)
+    protected void Initialize(string gameId, Func<TSession> sessionFactory)
     {
-        Session = session;
         _gameName = gameId;
+        Session = sessionFactory();
     }
 
     public void AddStroke(List<StrokePoint> stroke)
     {
         Session.AddStroke(stroke);
     }
-    
+
     public GameResult FinishGame(StarThresholds thresholds)
     {
         var score = Session.Score;
-        
+
         var stars = Session.CalculateStars(thresholds);
 
         var feedbackMessage = Session.GetFeedbackMessage(stars);
 
         var existingScore = _repository.Get(_gameName)?.Score;
-        
+
         if (existingScore == null || existingScore < score)
         {
             _repository.Save(new GameResultRecord(_gameName, score, stars, DateTime.Now));
