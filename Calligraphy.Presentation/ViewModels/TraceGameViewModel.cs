@@ -34,10 +34,9 @@ public class TraceGameViewModel : GameViewModelBase<TraceGameService, TraceGameS
     
     public bool EndOnLift => true;
     
-    public double GetThickness()
-    {
-        return Settings.ToleranceDistance * 2;
-    }
+    public List<StrokePoint> TemplatePoints => CurrentTemplate?.GetTemplatePoints() ?? [];
+    
+    public double TemplateThickness => Settings.ToleranceDistance * 2;
 
     public bool SegmentCountCompleted()
     {
@@ -55,10 +54,5 @@ public class TraceGameViewModel : GameViewModelBase<TraceGameService, TraceGameS
         _currentSegmentCount = 1;
         LoadBestScore(_gameId);
         ResetGameState();
-    }
-    
-    public List<StrokePoint> GetTemplatePoints()
-    {
-        return CurrentTemplate?.GetTemplatePoints() ?? new List<StrokePoint>();
     }
 }
