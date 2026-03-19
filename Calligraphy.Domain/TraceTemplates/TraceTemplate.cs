@@ -2,6 +2,8 @@ namespace Calligraphy.Domain.TraceTemplates;
 
 public abstract class TraceTemplate
 {
+    public virtual string Name { get; } = string.Empty;
+    
     public abstract List<StrokePoint> GetTemplatePoints();
     
     public virtual List<StrokePoint> GetTemplatePoints(double width, double height) 

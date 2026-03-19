@@ -10,13 +10,13 @@ public class WordGameService : GenericGameService<WordGameSession>
     {
     }
     
-    public void StartSession(string gameId, List<string> words, double toleranceDistance, double requiredAccuracy)
+    public void StartSession(string gameId, double toleranceDistance, double requiredAccuracy)
     {
-        Initialize(gameId, () => new WordGameSession(words, toleranceDistance, requiredAccuracy));
+        Initialize(gameId, () => new WordGameSession(toleranceDistance, requiredAccuracy));
     }
 
-    public void AddLetter(List<StrokePoint> templatePoints, List<StrokePoint> userPoints)
+    public void AddLetter(string name, List<StrokePoint> templatePoints, List<StrokePoint> userPoints)
     {
-        Session.AddLetter(templatePoints, userPoints);
+        Session.AddLetter(name, templatePoints, userPoints);
     }
 }
