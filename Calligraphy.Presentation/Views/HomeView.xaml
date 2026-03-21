@@ -3,16 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:styles="clr-namespace:Calligraphy.Presentation.Styles"
              mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="1000">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Resources/Styles/ButtonStyles.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
-
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/Resources/Assets/Images/Backgrounds/Background_Blue.png"
@@ -29,7 +22,7 @@
                 <TextBlock Text="Cally"
                            FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
                            FontSize="60"
-                           Foreground="#755679"
+                           Foreground="{StaticResource SecondaryColor}"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center" />
             </Grid>
@@ -37,19 +30,19 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Command="{Binding PlayCommand}"
                         Style="{StaticResource ImageButtonStyle}"
-                        Tag="/Resources/Assets/Images/Buttons/Grass-Buttons-arrow.png"
-                        Content="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed-arrow.png" />
+                        styles:ImageButton.NormalImage="/Resources/Assets/Images/Buttons/Grass-Buttons-arrow.png"
+                        styles:ImageButton.PressedImage="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed-arrow.png" />
 
                 <Button Command="{Binding ExitCommand}"
                         Style="{StaticResource ImageButtonStyle}"
                         Margin="10, 0"
-                        Tag="/Resources/Assets/Images/Buttons/Grass-Buttons-x.png"
-                        Content="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed-x.png" />
+                        styles:ImageButton.NormalImage="/Resources/Assets/Images/Buttons/Grass-Buttons-x.png"
+                        styles:ImageButton.PressedImage="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed-x.png" />
 
                 <Button Command="{Binding SettingsCommand}"
                         Style="{StaticResource ImageButtonStyle}"
-                        Tag="/Resources/Assets/Images/Buttons/Grass-Buttons-setting.png"
-                        Content="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed-setting.png" />
+                        styles:ImageButton.NormalImage="/Resources/Assets/Images/Buttons/Grass-Buttons-setting.png"
+                        styles:ImageButton.PressedImage="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed-setting.png" />
             </StackPanel>
         </StackPanel>
     </Grid>

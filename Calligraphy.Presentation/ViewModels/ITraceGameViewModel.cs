@@ -11,10 +11,11 @@ public interface ITraceGameViewModel
     
     void FinishGame(List<List<StrokePointDto>> strokes);
     GameResult GameResult { get; }
-    public List<StrokePoint> GetTemplatePoints();
-    public double GetThickness();
     public bool SegmentCountCompleted();
     
     bool IsTimed { get; }
     bool EndOnLift { get; }
+    
+    List<StrokePoint> TemplatePoints { get; }
+    double TemplateThickness { get; }
 }

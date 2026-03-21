@@ -8,6 +8,8 @@ namespace Calligraphy.Presentation.Converters;
 
 public class StrokePointsToGeometryConverter : IValueConverter
 {
+    public double GapThreshold { get; set; } = 10;
+    
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         if (value is not List<StrokePoint> points || !points.Any())

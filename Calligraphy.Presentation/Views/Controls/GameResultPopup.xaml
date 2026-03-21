@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Calligraphy.Presentation.Views.Controls"
              xmlns:converters="clr-namespace:Calligraphy.Presentation.Converters"
+             xmlns:styles="clr-namespace:Calligraphy.Presentation.Styles"
              mc:Ignorable="d"
              d:DesignHeight="400" d:DesignWidth="600">
 
@@ -66,77 +67,26 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom">
 
-                <Button
-                    Command="{Binding RestartCommand}"
-                    HorizontalAlignment="Center"
-                    Margin="0,0,10,0"
-                    Cursor="Pen">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Grid>
-                                <Image x:Name="ButtonImage"
-                                       Source="/Resources/Assets/Images/Buttons/Buttons-return.png"
-                                       Width="100"
-                                       Stretch="Uniform" />
-                            </Grid>
+                <Button Command="{Binding RestartCommand}"
+                        Width="100"
+                        Margin="0,0,10,0"
+                        Style="{StaticResource ImageButtonStyle}"
+                        styles:ImageButton.NormalImage="/Resources/Assets/Images/Buttons/Buttons-return.png"
+                        styles:ImageButton.PressedImage="/Resources/Assets/Images/Buttons/Pressed/Buttons-pressed-return.png" />
 
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="ButtonImage" Property="Source"
-                                            Value="/Resources/Assets/Images/Buttons/Pressed/Buttons-pressed-return.png" />
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+                <Button Command="{Binding MenuCommand}"
+                        Width="100"
+                        Style="{StaticResource ImageButtonStyle}"
+                        styles:ImageButton.NormalImage="/Resources/Assets/Images/Buttons/Buttons-house.png"
+                        styles:ImageButton.PressedImage="/Resources/Assets/Images/Buttons/Pressed/Buttons-pressed-house.png" />
 
-                <Button
-                    Command="{Binding MenuCommand}"
-                    HorizontalAlignment="Center"
-                    Cursor="Pen">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Grid>
-                                <Image x:Name="ButtonImage"
-                                       Source="/Resources/Assets/Images/Buttons/Buttons-house.png"
-                                       Width="100"
-                                       Stretch="Uniform" />
-                            </Grid>
-
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="ButtonImage" Property="Source"
-                                            Value="/Resources/Assets/Images/Buttons/Pressed/Buttons-pressed-house.png" />
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-
-                <Button
-                    Command="{Binding NextLevelCommand}"
-                    HorizontalAlignment="Center"
-                    Margin="10,0,0,0"
-                    Cursor="Pen"
-                    Visibility="{Binding HasNextLevel, Converter={StaticResource BoolToVisibility}}">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Grid>
-                                <Image x:Name="ButtonImage"
-                                       Source="/Resources/Assets/Images/Buttons/Buttons-arrow2.png"
-                                       Width="100"
-                                       Stretch="Uniform" />
-                            </Grid>
-
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="ButtonImage" Property="Source"
-                                            Value="/Resources/Assets/Images/Buttons/Pressed/Buttons-pressed-arrow2.png" />
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+                <Button Command="{Binding NextLevelCommand}"
+                        Width="100"
+                        Margin="10,0,0,0"
+                        Visibility="{Binding HasNextLevel, Converter={StaticResource BoolToVisibility}}"
+                        Style="{StaticResource ImageButtonStyle}"
+                        styles:ImageButton.NormalImage="/Resources/Assets/Images/Buttons/Buttons-arrow2.png"
+                        styles:ImageButton.PressedImage="/Resources/Assets/Images/Buttons/Pressed/Buttons-pressed-arrow2.png" />
 
             </StackPanel>
 

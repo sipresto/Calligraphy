@@ -5,55 +5,27 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="clr-namespace:Calligraphy.Presentation.Views.Controls"
              xmlns:converters="clr-namespace:Calligraphy.Presentation.Converters"
+             xmlns:styles="clr-namespace:Calligraphy.Presentation.Styles"
              mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="1200">
 
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
         <converters:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter" />
-        <Style x:Key="ImageButtonStyle" TargetType="Button">
-            <Setter Property="Cursor" Value="Hand" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="Transparent">
-                            <Grid>
-                                <Image x:Name="NormalImage"
-                                       Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Tag}"
-                                       Stretch="Uniform" />
-                                <Image x:Name="PressedImage"
-                                       Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content}"
-                                       Visibility="Collapsed"
-                                       Stretch="Uniform" />
-                            </Grid>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="NormalImage" Property="Visibility" Value="Collapsed" />
-                                <Setter TargetName="PressedImage" Property="Visibility" Value="Visible" />
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Opacity" Value="0.9" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
     </UserControl.Resources>
 
-    <Grid Background="#902D232F">
+    <Grid Background="{StaticResource BackgroundColor}">
         <Border MinWidth="600" MinHeight="440"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Background="#755679"
+                Background="{StaticResource SecondaryColor}"
                 CornerRadius="50"
                 Padding="10">
             <Border.Effect>
                 <DropShadowEffect BlurRadius="25" ShadowDepth="8" Opacity="0.4" />
             </Border.Effect>
 
-            <Border CornerRadius="40" Background="#FFF9EB" Margin="0,0,0,10">
+            <Border CornerRadius="40" Background="{StaticResource PrimaryColor}" Margin="0,0,0,10">
                 <Grid Margin="40, 20">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
@@ -132,7 +104,7 @@
                         Grid.Column="1"
                         Margin="20,60,0,0"
                         Padding="10"
-                        Background="#755679"
+                        Background="{StaticResource SecondaryColor}"
                         CornerRadius="5"
                         VerticalAlignment="Top"
                         Visibility="{Binding ImageSource, Converter={StaticResource NullableToVisibilityConverter}}">
@@ -149,21 +121,19 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Bottom">
 
-                        <Button
-                            Command="{Binding CloseTutorialCommand}"
-                            Style="{StaticResource ImageButtonStyle}"
-                            Width="65"
-                            Margin="0, 0, 5, 0"
-                            Tag="/Resources/Assets/Images/Buttons/Buttons-arrow.png"
-                            Content="/Resources/Assets/Images/Buttons/Pressed/Buttons-pressed-arrow.png" />
+                        <Button Command="{Binding CloseTutorialCommand}"
+                                Style="{StaticResource ImageButtonStyle}"
+                                Width="65"
+                                Margin="0,0,5,0"
+                                styles:ImageButton.NormalImage="/Resources/Assets/Images/Buttons/Buttons-arrow.png"
+                                styles:ImageButton.PressedImage="/Resources/Assets/Images/Buttons/Pressed/Buttons-pressed-arrow.png" />
 
-                        <Button
-                            Command="{Binding MenuCommand}"
-                            Style="{StaticResource ImageButtonStyle}"
-                            Width="65"
-                            Margin="5, 0, 0, 0"
-                            Tag="/Resources/Assets/Images/Buttons/Buttons-house.png"
-                            Content="/Resources/Assets/Images/Buttons/Pressed/Buttons-pressed-house.png" />
+                        <Button Command="{Binding MenuCommand}"
+                                Style="{StaticResource ImageButtonStyle}"
+                                Width="65"
+                                Margin="5,0,0,0"
+                                styles:ImageButton.NormalImage="/Resources/Assets/Images/Buttons/Buttons-house.png"
+                                styles:ImageButton.PressedImage="/Resources/Assets/Images/Buttons/Pressed/Buttons-pressed-house.png" />
                     </StackPanel>
                 </Grid>
             </Border>
