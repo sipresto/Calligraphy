@@ -13,7 +13,7 @@ public class ShapeDrawSession : GameSession
 
     protected override int CalculateScore()
     {
-        double accuracy = Recognizer.CalculateAccuracy(TotalStroke(), _shape.Name);
+        double accuracy = Recognizer.CalculateAccuracy(Strokes, _shape.Name);
 
         return (int)Math.Round(accuracy * 100);
     }
