@@ -14,16 +14,26 @@
                                Source="{Binding Path=(styles:ImageButton.NormalImage), 
                                RelativeSource={RelativeSource TemplatedParent}}"
                                Stretch="Uniform" />
+                        <Border x:Name="HoverOverlay"
+                                Background="White"
+                                Opacity="0"
+                                IsHitTestVisible="False">
+                            <Border.OpacityMask>
+                                <ImageBrush ImageSource="{Binding Path=(styles:ImageButton.NormalImage), 
+                                        RelativeSource={RelativeSource TemplatedParent}}"
+                                            Stretch="Uniform" />
+                            </Border.OpacityMask>
+                        </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="ButtonImage" Property="Source"
                                     Value="{Binding Path=(styles:ImageButton.PressedImage), 
                                     RelativeSource={RelativeSource TemplatedParent}}" />
-                            <Setter TargetName="Root" Property="Opacity" Value="0.75" />
+                            <Setter TargetName="HoverOverlay" Property="Opacity" Value="0.2" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Root" Property="Opacity" Value="0.85" />
+                            <Setter TargetName="HoverOverlay" Property="Opacity" Value="0.2" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -36,20 +46,27 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border x:Name="ButtonBorder"
-                            Background="{TemplateBinding Background}"
-                            CornerRadius="20"
-                            Padding="24,10">
-                        <ContentPresenter HorizontalAlignment="Center"
-                                          VerticalAlignment="Center" />
-                    </Border>
+                    <Grid>
+                        <Border x:Name="ButtonBorder"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="20"
+                                Padding="24,10">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <Border x:Name="HoverOverlay"
+                                Background="White"
+                                CornerRadius="20"
+                                Opacity="0"
+                                IsHitTestVisible="False" />
+                    </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.75" />
+                            <Setter TargetName="HoverOverlay" Property="Opacity" Value="0.2" />
                             <Setter TargetName="ButtonBorder" Property="Margin" Value="0,4,0,0" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.85" />
+                            <Setter TargetName="HoverOverlay" Property="Opacity" Value="0.2" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
