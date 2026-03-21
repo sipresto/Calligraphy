@@ -45,13 +45,13 @@ public class WordGameViewModel : GameViewModelBase<WordGameService, WordGameSess
         LoadBestScore(_gameId);
         Settings = AllSettings.WordGames[gameId];
         Letters = BuildLetters();
-        Service.StartSession(_gameId, Settings.Words.Select(w => w.Word).ToList(), Settings.ToleranceDistance, Settings.RequiredAccuracy);
+        Service.StartSession(_gameId, Settings.ToleranceDistance, Settings.RequiredAccuracy);
         IsClickable = true;
     }
 
     protected override void RestartGame()
     {
-        Service.StartSession(_gameId, Settings.Words.Select(w => w.Word).ToList(), Settings.ToleranceDistance, Settings.RequiredAccuracy);        
+        Service.StartSession(_gameId, Settings.ToleranceDistance, Settings.RequiredAccuracy);        
         LoadBestScore(_gameId);
         ResetGameState();
         IsClickable = true;
@@ -72,7 +72,7 @@ public class WordGameViewModel : GameViewModelBase<WordGameService, WordGameSess
                 var template = TraceFactory.GetTraceTemplateByLetter(letter);
                 var templatePoints = template.GetTemplatePoints(CanvasSize, CanvasSize);
                 
-                letters.Add(new LetterItem(templatePoints, currentX, currentY, CanvasSize, thickness));
+                letters.Add(new LetterItem(template.Name, templatePoints, currentX, currentY, CanvasSize, thickness));
                 
                 currentX += CanvasSize + 4;
             }
@@ -81,12 +81,12 @@ public class WordGameViewModel : GameViewModelBase<WordGameService, WordGameSess
         return new ObservableCollection<LetterItem>(letters);
     }
 
-    public void AddLetter(List<StrokePoint> templatePoints, List<StrokePointDto> userPoints)
+    public void AddLetter(LetterItem letterItem, List<StrokePointDto> userPoints)
     {
         var domainStroke = userPoints
             .Select(p => new StrokePoint(p.X, p.Y, p.Pressure, p.Timestamp))
             .ToList();
         
-        Service.AddLetter(templatePoints, domainStroke);
+        Service.AddLetter(letterItem.Name, letterItem.LetterPoints, domainStroke);
     }
 }

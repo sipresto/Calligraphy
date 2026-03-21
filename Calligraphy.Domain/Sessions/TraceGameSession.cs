@@ -27,13 +27,13 @@ public class TraceGameSession : GameSession
         if (_evaluation != null)
         {
             if (_evaluation.CoverageScore < 0.5)
-                return "Probeer de hele lijn te volgen";
+                return FeedbackMessageProvider.GetRandomMessage(FeedbackType.TraceCoverage);
 
             if (_evaluation.AccuracyScore < 0.5)
-                return "Blijf dichter bij de lijn";
+                return FeedbackMessageProvider.GetRandomMessage(FeedbackType.TraceAccuracy);
 
             if (!_evaluation.DirectionCorrect)
-                return "Let op dat je de vorm op de goede volgorde volgt";
+                return FeedbackMessageProvider.GetRandomMessage(FeedbackType.TraceWrongDirection);
         }
 
         var strokeFeedback = AnalyzeStrokes();

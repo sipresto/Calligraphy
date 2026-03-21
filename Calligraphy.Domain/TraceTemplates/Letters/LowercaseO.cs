@@ -2,6 +2,8 @@ namespace Calligraphy.Domain.TraceTemplates.Letters;
 
 public class LowercaseO : Letter
 {
+    public override string Name { get; } = "o";
+    
     public override List<StrokePoint> GetTemplatePoints() 
         => ScaleAndCenter(GenerateRawPoints());
     

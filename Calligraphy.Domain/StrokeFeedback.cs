@@ -17,8 +17,12 @@ public enum FeedbackType
     PressureTooHigh,
     PressureTooLow,
     PressureInconsistent,
-    SpeedTooHigh,
-    SpeedTooLow,
-    SpeedInconsistent,
+    InfinityWrongDirection,
+    InfinityCirclesHit,
+    TraceWrongDirection,
+    TraceAccuracy,
+    TraceCoverage,
+    WordAccuracy,
+    WordCoverage,
     Perfect
 }

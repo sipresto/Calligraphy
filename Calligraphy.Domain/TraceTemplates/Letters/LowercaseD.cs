@@ -7,6 +7,8 @@ public class LowercaseD : Letter
         IsTall = true;
     }
 
+    public override string Name { get; } = "d";
+    
     public override List<StrokePoint> GetTemplatePoints() 
         => ScaleAndCenter(GenerateRawPoints());
     

@@ -67,7 +67,7 @@ public partial class WordGameView : UserControl
                 .SelectMany(stroke => stroke)
                 .ToList();
 
-            ViewModel.AddLetter(letterItem.LetterPoints, localStroke);
+            ViewModel.AddLetter(letterItem, localStroke);
         }
         
         ViewModel.FinishGame([]);
