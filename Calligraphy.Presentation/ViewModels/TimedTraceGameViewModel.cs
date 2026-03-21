@@ -34,16 +34,10 @@ public class TimedTraceGameViewModel : TimedGameViewModelBase<TraceGameService, 
         Service.StartSession(_gameId, CurrentTemplate.GetTemplatePoints(), Settings.ToleranceDistance, Settings.RequiredAccuracy);
         StartWaitPhase();
     }
-
-    public List<StrokePoint> GetTemplatePoints()
-    {
-        return _currentTemplate.GetTemplatePoints();
-    }
-
-    public double GetThickness()
-    {
-        return Settings.ToleranceDistance*2;
-    }
+    
+    public List<StrokePoint> TemplatePoints => CurrentTemplate?.GetTemplatePoints() ?? [];
+    
+    public double TemplateThickness => Settings.ToleranceDistance * 2;
 
     public bool IsTimed => true;
 

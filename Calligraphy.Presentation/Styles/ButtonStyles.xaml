@@ -1,0 +1,76 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:styles="clr-namespace:Calligraphy.Presentation.Styles">
+    
+    <Style x:Key="ImageButtonStyle" TargetType="Button">
+        <Setter Property="Cursor" Value="Pen" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid x:Name="Root"
+                          Width="{TemplateBinding Width}"
+                          Height="{TemplateBinding Height}">
+                        <Image x:Name="ButtonImage"
+                               Source="{Binding Path=(styles:ImageButton.NormalImage), 
+                               RelativeSource={RelativeSource TemplatedParent}}"
+                               Stretch="Uniform" />
+                        <Border x:Name="HoverOverlay"
+                                Background="White"
+                                Opacity="0"
+                                IsHitTestVisible="False">
+                            <Border.OpacityMask>
+                                <ImageBrush ImageSource="{Binding Path=(styles:ImageButton.NormalImage), 
+                                        RelativeSource={RelativeSource TemplatedParent}}"
+                                            Stretch="Uniform" />
+                            </Border.OpacityMask>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="ButtonImage" Property="Source"
+                                    Value="{Binding Path=(styles:ImageButton.PressedImage), 
+                                    RelativeSource={RelativeSource TemplatedParent}}" />
+                            <Setter TargetName="HoverOverlay" Property="Opacity" Value="0.2" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="HoverOverlay" Property="Opacity" Value="0.2" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="RoundedButtonStyle" TargetType="Button">
+        <Setter Property="Cursor" Value="Pen" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border x:Name="ButtonBorder"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="20"
+                                Padding="24,10">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <Border x:Name="HoverOverlay"
+                                Background="White"
+                                CornerRadius="20"
+                                Opacity="0"
+                                IsHitTestVisible="False" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="HoverOverlay" Property="Opacity" Value="0.2" />
+                            <Setter TargetName="ButtonBorder" Property="Margin" Value="0,4,0,0" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="HoverOverlay" Property="Opacity" Value="0.2" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

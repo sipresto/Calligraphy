@@ -7,12 +7,14 @@
              xmlns:viewModels="clr-namespace:Calligraphy.Presentation.ViewModels"
              xmlns:themes="clr-namespace:Calligraphy.Presentation.Views.themes"
              xmlns:repeatingTraces="clr-namespace:Calligraphy.Domain.TraceTemplates.RepeatingTraces;assembly=Calligraphy.Domain"
+             xmlns:converters="clr-namespace:Calligraphy.Presentation.Converters"
              mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="1200"
              d:DataContext="{d:DesignInstance viewModels:TimedTraceGameViewModel}">
 
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+        <converters:StrokePointsToGeometryConverter x:Key="StrokeToGeometry" GapThreshold="40" />
         <DataTemplate DataType="{x:Type repeatingTraces:HedgePattern}">
             <themes:HedgeThemeView />
         </DataTemplate>
@@ -37,14 +39,17 @@
                             Grid.ColumnSpan="2"
                             IsHitTestVisible="False" />
 
-            <controls:InkCanvasControl
-                x:Name="InkCanvas"
-                Grid.ColumnSpan="2" />
+            <Grid>
+                <Path IsHitTestVisible="False"
+                      Data="{Binding TemplatePoints, Converter={StaticResource StrokeToGeometry}}"
+                      StrokeThickness="{Binding TemplateThickness}"
+                      Stroke="{StaticResource TraceLineColor}"
+                      StrokeLineJoin="Round"
+                      StrokeStartLineCap="Round"
+                      StrokeEndLineCap="Round" />
 
-            <Canvas x:Name="TemplateCanvas"
-                    IsHitTestVisible="False"
-                    Width="1200"
-                    Height="800" />
+                <controls:InkCanvasControl x:Name="InkCanvas" />
+            </Grid>
 
             <controls:Timer
                 HorizontalAlignment="Center"

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -8,30 +9,22 @@ namespace Calligraphy.Presentation.Views.Controls;
 public partial class ColorPickerButton : UserControl
 {
     public static readonly DependencyProperty PencilColorProperty =
-        DependencyProperty.Register(
-            nameof(PencilColor),
-            typeof(Brush),
-            typeof(ColorPickerButton),
+        DependencyProperty.Register(nameof(PencilColor), typeof(Brush), typeof(ColorPickerButton),
             new PropertyMetadata(Brushes.Black));
 
     public static readonly DependencyProperty IsSelectedProperty =
-        DependencyProperty.Register(
-            nameof(IsSelected),
-            typeof(bool),
-            typeof(ColorPickerButton),
-            new PropertyMetadata(false, OnIsSelectedChanged));
+        DependencyProperty.Register(nameof(IsSelected), typeof(bool), typeof(ColorPickerButton),
+            new PropertyMetadata(false));
 
-    public static readonly RoutedEvent ColorSelectedEvent =
-        EventManager.RegisterRoutedEvent(
-            nameof(ColorSelected),
-            RoutingStrategy.Bubble,
-            typeof(RoutedEventHandler),
-            typeof(ColorPickerButton));
+    public static readonly DependencyProperty CommandProperty =
+        DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(ColorPickerButton),
+            new PropertyMetadata(null));
 
-    public ColorPickerButton()
-    {
-        InitializeComponent();
-    }
+    public static readonly DependencyProperty CommandParameterProperty =
+        DependencyProperty.Register(nameof(CommandParameter), typeof(object), typeof(ColorPickerButton),
+            new PropertyMetadata(null));
+
+    public ColorPickerButton() => InitializeComponent();
 
     public Brush PencilColor
     {
@@ -45,33 +38,21 @@ public partial class ColorPickerButton : UserControl
         set => SetValue(IsSelectedProperty, value);
     }
 
-    public event RoutedEventHandler ColorSelected
+    public ICommand Command
     {
-        add => AddHandler(ColorSelectedEvent, value);
-        remove => RemoveHandler(ColorSelectedEvent, value);
+        get => (ICommand)GetValue(CommandProperty);
+        set => SetValue(CommandProperty, value);
+    }
+
+    public object CommandParameter
+    {
+        get => GetValue(CommandParameterProperty);
+        set => SetValue(CommandParameterProperty, value);
     }
 
     private void ColorButton_Click(object sender, RoutedEventArgs e)
     {
-        RaiseEvent(new RoutedEventArgs(ColorSelectedEvent, this));
-    }
-
-    private static void OnIsSelectedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        if (d is ColorPickerButton button)
-        {
-            bool isSelected = (bool)e.NewValue;
-
-            var image = button.ColorButton.Content as Grid;
-            if (image?.Children[0] is Image background)
-            {
-                background.Source = new BitmapImage(
-                    new Uri(
-                        isSelected
-                            ? "/Resources/Assets/Images/Buttons/Pressed/Button-pressed.png"
-                            : "/Resources/Assets/Images/Buttons/Button.png",
-                        UriKind.Relative));
-            }
-        }
+        if (Command?.CanExecute(CommandParameter) == true)
+            Command.Execute(CommandParameter);
     }
 }

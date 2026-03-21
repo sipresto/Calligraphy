@@ -41,6 +41,7 @@ public partial class SettingsViewModel : ViewModelBase
         }
     }
 
+    [RelayCommand]
     public void SelectColor(ColorOption colorOption)
     {
         SelectedColor = colorOption;
