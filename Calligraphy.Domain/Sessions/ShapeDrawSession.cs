@@ -4,16 +4,16 @@ namespace Calligraphy.Domain.Sessions;
 
 public class ShapeDrawSession : GameSession
 {
+    private readonly Shape _shape;
+    
     public ShapeDrawSession(Shape shape)
     {
-        Shape = shape;
+        _shape = shape;
     }
-
-    public Shape Shape { get; }
 
     protected override int CalculateScore()
     {
-        double accuracy = Recognizer.CalculateAccuracy(Strokes, Shape.Name);
+        double accuracy = Recognizer.CalculateAccuracy(TotalStroke(), _shape.Name);
 
         return (int)Math.Round(accuracy * 100);
     }

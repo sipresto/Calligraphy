@@ -2,6 +2,9 @@ namespace Calligraphy.Domain.TraceTemplates.Letters;
 
 public abstract class Letter : TraceTemplate
 {
+    public bool IsTall { get; protected set; } = false;
+    public bool IsLow { get; protected set; } = false;
+    
     protected void AddRelativeBezier(List<StrokePoint> points, ref double cx, ref double cy, 
         double dx1, double dy1, double dx2, double dy2, double dx3, double dy3, int count)
     {
@@ -49,5 +52,58 @@ public abstract class Letter : TraceTemplate
         }
 
         return scaledPoints;
+    }
+    
+    protected List<StrokePoint> ScaleToSize(List<StrokePoint> points, double targetWidth, double targetHeight)
+    {
+        if (!points.Any()) return points;
+
+        double minX = points.Min(p => p.X);
+        double maxX = points.Max(p => p.X);
+        double minY = points.Min(p => p.Y);
+        double maxY = points.Max(p => p.Y);
+
+        double originalWidth = maxX - minX;
+        double originalHeight = maxY - minY;
+        
+        double zoneOffsetY;
+        double zoneHeight;
+
+        if (IsTall && IsLow)
+        {
+            zoneOffsetY = 0;
+            zoneHeight  = targetHeight;
+        }
+        else if (IsTall)
+        {
+            zoneOffsetY = 0;
+            zoneHeight  = targetHeight * 0.75;
+        }
+        else if (IsLow)
+        {
+            zoneOffsetY = targetHeight * 0.25;
+            zoneHeight  = targetHeight * 0.75;
+        }
+        else
+        {
+            zoneOffsetY = targetHeight * 0.25;
+            zoneHeight  = targetHeight * 0.50;
+        }
+
+        double scaleX = targetWidth / originalWidth;
+        double scaleY = zoneHeight  / originalHeight;
+        double scale  = Math.Min(scaleX, scaleY) * 0.8;
+
+        double scaledWidth  = originalWidth  * scale;
+        double scaledHeight = originalHeight * scale;
+
+        double offsetX = (targetWidth  - scaledWidth)  / 2;
+        double offsetY = zoneOffsetY + (zoneHeight - scaledHeight) / 2;
+
+        return points.Select(p => new StrokePoint(
+            ((p.X - minX) * scale) + offsetX,
+            ((p.Y - minY) * scale) + offsetY,
+            p.Pressure
+        )).ToList();
     }
 }

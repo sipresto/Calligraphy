@@ -102,6 +102,11 @@ public class MainViewModel : ObservableObject
 
         var items = new List<(string Key, int Level)>();
 
+        if (_settings.InfinityRace != null)
+            foreach (var (k, v) in _settings.InfinityRace)
+                if (string.Equals(v.Category, category, StringComparison.OrdinalIgnoreCase))
+                    items.Add((k, v.Level));
+        
         if (_settings.ShapeGames != null)
             foreach (var (k, v) in _settings.ShapeGames)
                 if (string.Equals(v.Category, category, StringComparison.OrdinalIgnoreCase))
@@ -116,16 +121,22 @@ public class MainViewModel : ObservableObject
             foreach (var (k, v) in _settings.TraceGames)
                 if (string.Equals(v.Category, category, StringComparison.OrdinalIgnoreCase))
                     items.Add((k, v.Level));
+        
+        if (_settings.WordGames != null)
+            foreach (var (k, v) in _settings.WordGames)
+                if (string.Equals(v.Category, category, StringComparison.OrdinalIgnoreCase))
+                    items.Add((k, v.Level));
 
         return items.OrderBy(i => i.Level).ThenBy(i => i.Key).Select(i => i.Key).ToList();
     }
 
     private BaseGameSettings GetSettingsForGameKey(string gameKey)
     {
-        if (gameKey == "InfinityRace") return _settings.InfinityRace;
+        if (_settings.InfinityRace?.ContainsKey(gameKey) == true) return _settings.InfinityRace[gameKey];
         if (_settings.TimedTraceGames?.ContainsKey(gameKey) == true) return _settings.TimedTraceGames[gameKey];
         if (_settings.TraceGames?.ContainsKey(gameKey) == true) return _settings.TraceGames[gameKey];
         if (_settings.ShapeGames?.ContainsKey(gameKey) == true) return _settings.ShapeGames[gameKey];
+        if (_settings.WordGames?.ContainsKey(gameKey) == true) return _settings.WordGames[gameKey];
         return null;
     }
 

@@ -1,0 +1,91 @@
+<UserControl x:Class="Calligraphy.Presentation.Views.WordGameView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:Calligraphy.Presentation.Views.Controls"
+             xmlns:viewModels="clr-namespace:Calligraphy.Presentation.ViewModels"
+             xmlns:converters="clr-namespace:Calligraphy.Presentation.Converters"
+             mc:Ignorable="d"
+             d:DesignHeight="800" d:DesignWidth="1200"
+             d:DataContext="{d:DesignInstance viewModels:WordGameViewModel}">
+
+    <UserControl.Resources>
+        <converters:StrokePointsToGeometryConverter x:Key="PointsToGeometry" />
+    </UserControl.Resources>
+
+    <Viewbox Stretch="Uniform">
+        <Grid Width="1200" Height="800" Background="White">
+
+            <Image Source="{Binding ImageSource}"
+                   Stretch="Fill" />
+
+            <ItemsControl x:Name="LettersItemsControl"
+                          ItemsSource="{Binding Letters}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas Width="1200" Height="800" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Width="{Binding Size}" Height="{Binding Size}" Background="White" Opacity="0.85">
+                            <Path Data="{Binding LetterPoints, Converter={StaticResource PointsToGeometry}}"
+                                  Stroke="#3C000000"
+                                  StrokeThickness="{Binding LineThickness}"
+                                  StrokeLineJoin="Round"
+                                  StrokeStartLineCap="Round"
+                                  StrokeEndLineCap="Round"
+                                  IsHitTestVisible="False" />
+
+                            <controls:InkCanvasControl x:Name="LetterCanvas" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="Canvas.Left" Value="{Binding X}" />
+                        <Setter Property="Canvas.Top" Value="{Binding Y}" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+            </ItemsControl>
+
+            <Button
+                Command="{Binding CheckCommand}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Margin="0,0,0,40"
+                Cursor="Pen"
+                IsEnabled="{Binding IsClickable}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Image x:Name="ButtonImage"
+                                   Source="/Resources/Assets/Images/Buttons/Grass-Buttons-v-white.png"
+                                   Width="100"
+                                   Stretch="Uniform" />
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonImage" Property="Source"
+                                        Value="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed-v.png" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <controls:GameResultPopup
+                x:Name="ResultPopup"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center" />
+
+            <controls:MascotFeedbackControl
+                x:Name="MascotFeedback" />
+
+        </Grid>
+    </Viewbox>
+</UserControl>

@@ -2,7 +2,20 @@ namespace Calligraphy.Domain.TraceTemplates.Letters;
 
 public class LowercaseP : Letter
 {
-    public override List<StrokePoint> GetTemplatePoints()
+    public LowercaseP()
+    {
+        IsLow = true;
+    }
+    
+    public override string Name { get; } = "p";
+    
+    public override List<StrokePoint> GetTemplatePoints() 
+        => ScaleAndCenter(GenerateRawPoints());
+    
+    public override List<StrokePoint> GetTemplatePoints(double width, double height) 
+        => ScaleToSize(GenerateRawPoints(), width, height);
+    
+    private List<StrokePoint> GenerateRawPoints()
     {
         var rawPoints = new List<StrokePoint>();
         var newPoints = new List<StrokePoint>();

@@ -13,13 +13,15 @@ public partial class LevelViewModel : ViewModelBase
     private readonly InfinityRaceService _infinityRaceService;
     private readonly TraceGameService _traceGameService;
     private readonly ShapeDrawService _shapeDrawService;
+    private readonly WordGameService _wordGameService;
 
-    public LevelViewModel(MainViewModel mainViewModel, InfinityRaceService infinityRaceService, TraceGameService traceGameService, ShapeDrawService shapeDrawService, GameSettings settings, string category)
+    public LevelViewModel(MainViewModel mainViewModel, InfinityRaceService infinityRaceService, TraceGameService traceGameService, ShapeDrawService shapeDrawService, WordGameService wordGameService, GameSettings settings, string category)
     {
         _mainViewModel = mainViewModel;
         _infinityRaceService = infinityRaceService;
         _traceGameService = traceGameService;
         _shapeDrawService = shapeDrawService;
+        _wordGameService = wordGameService;
         CategoryTitle = category;
         Levels = BuildLevels(settings, category);
     }
@@ -47,17 +49,16 @@ public partial class LevelViewModel : ViewModelBase
         var items = new List<LevelItem>();
 
         if (settings.InfinityRace != null)
-            if (string.Equals(settings.InfinityRace.Category, category, StringComparison.OrdinalIgnoreCase))
-                items.Add(new LevelItem
-                {
-                    Key = "InfinityRace",
-                    DisplayName = !string.IsNullOrEmpty(settings.InfinityRace.GameName)
-                        ? settings.InfinityRace.GameName
-                        : settings.InfinityRace.Level.ToString(),
-                    CategoryLabel = settings.InfinityRace.Category,
-                    Level = settings.InfinityRace.Level,
-                    Stars = _infinityRaceService.GetGameScore("InfinityRace")?.Stars ?? 0
-                });
+            foreach (var (key, val) in settings.InfinityRace)
+                if (string.Equals(val.Category, category, StringComparison.OrdinalIgnoreCase))
+                    items.Add(new LevelItem
+                    {
+                        Key = key,
+                        DisplayName = !string.IsNullOrEmpty(val.GameName) ? val.GameName : val.Level.ToString(),
+                        CategoryLabel = val.Category,
+                        Level = val.Level,
+                        Stars = _infinityRaceService.GetGameScore(key)?.Stars ?? 0
+                    });
         
         if (settings.ShapeGames != null)
             foreach (var (key, val) in settings.ShapeGames)
@@ -93,6 +94,18 @@ public partial class LevelViewModel : ViewModelBase
                         CategoryLabel = val.Category,
                         Level = val.Level,
                         Stars = _traceGameService.GetGameScore(key)?.Stars ?? 0
+                    });
+        
+        if (settings.WordGames != null)
+            foreach (var (key, val) in settings.WordGames)
+                if (string.Equals(val.Category, category, StringComparison.OrdinalIgnoreCase))
+                    items.Add(new LevelItem
+                    {
+                        Key = key,
+                        DisplayName = !string.IsNullOrEmpty(val.GameName) ? val.GameName : val.Level.ToString(),
+                        CategoryLabel = val.Category,
+                        Level = val.Level,
+                        Stars = _wordGameService.GetGameScore(key)?.Stars ?? 0
                     });
 
         return new ObservableCollection<LevelItem>(
