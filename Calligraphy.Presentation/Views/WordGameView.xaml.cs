@@ -24,6 +24,7 @@ public partial class WordGameView : UserControl
             return;
 
         ResultPopup.DataContext = DataContext;
+        PausePopup.DataContext = DataContext;
         
         ViewModel.Check += OnCheck;
         ViewModel.Restarted += OnRestart;
@@ -48,8 +49,6 @@ public partial class WordGameView : UserControl
     private async void OnCheck()
     {
         ViewModel.IsClickable = false;
-        
-        var allStrokes = new List<List<StrokePointDto>>();
         
         foreach (var item in LettersItemsControl.Items)
         {

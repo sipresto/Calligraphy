@@ -23,6 +23,7 @@ public partial class ShapeDrawView : UserControl
             return;
 
         ResultPopup.DataContext = DataContext;
+        PausePopup.DataContext = DataContext;
 
         ViewModel.Restarted += OnReset;
         ViewModel.Check += OnCheck;
