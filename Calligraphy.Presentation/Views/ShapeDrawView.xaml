@@ -10,6 +10,10 @@
              d:DesignHeight="800" d:DesignWidth="1200"
              d:DataContext="{d:DesignInstance viewModels:ShapeDrawViewModel}">
 
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+    </UserControl.Resources>
+    
     <Viewbox Stretch="Uniform">
         <Grid Height="800" Width="1200">
 
@@ -80,7 +84,7 @@
                 Style="{StaticResource ImageButtonStyle}"
                 styles:ImageButton.NormalImage="/Resources/Assets/Images/Buttons/pause-button.png"
                 styles:ImageButton.PressedImage="/Resources/Assets/Images/Buttons/pause-button.png"
-                Visibility="{Binding IsPauseButtonVisible}" />
+                Visibility="{Binding IsPauseButtonVisible, Converter={StaticResource BoolToVisibility}}" />
             
             <controls:GameResultPopup
                 x:Name="ResultPopup"

@@ -79,8 +79,9 @@ public class InfinityRaceSession : GameSession
 
     public override string GetFeedbackMessage(int stars)
     {
-        if (_wrongWay)
-            return FeedbackMessageProvider.GetRandomMessage(FeedbackType.InfinityWrongDirection);
+        // TODO: check if this can be fixed
+        /*if (_wrongWay)
+            return FeedbackMessageProvider.GetRandomMessage(FeedbackType.InfinityWrongDirection);*/
 
         if (_tooManyCirclesHit)
             return FeedbackMessageProvider.GetRandomMessage(FeedbackType.InfinityCirclesHit);

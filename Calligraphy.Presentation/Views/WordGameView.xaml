@@ -13,6 +13,7 @@
 
     <UserControl.Resources>
         <converters:StrokePointsToGeometryConverter x:Key="PointsToGeometry" />
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
     </UserControl.Resources>
 
     <Viewbox Stretch="Uniform">
@@ -74,7 +75,7 @@
                 Style="{StaticResource ImageButtonStyle}"
                 styles:ImageButton.NormalImage="/Resources/Assets/Images/Buttons/pause-button.png"
                 styles:ImageButton.PressedImage="/Resources/Assets/Images/Buttons/pause-button.png"
-                Visibility="{Binding IsPauseButtonVisible}" />
+                Visibility="{Binding IsPauseButtonVisible, Converter={StaticResource BoolToVisibility}}" />
             
             <controls:GameResultPopup
                 x:Name="ResultPopup"
