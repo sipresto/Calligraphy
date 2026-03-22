@@ -151,6 +151,7 @@
         <Resource Include="Resources\Assets\Images\WordBackgrounds\farm.png" />
         <Resource Include="Resources\Assets\Images\WordBackgrounds\jungle.png" />
         <Resource Include="Resources\Assets\Images\Buttons\Grass-Buttons-v-white.png" />
+        <Resource Include="Resources\Assets\Images\Buttons\pause-button.png" />
     </ItemGroup>
 
 </Project>

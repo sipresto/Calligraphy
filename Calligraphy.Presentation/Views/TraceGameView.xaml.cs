@@ -1,8 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Shapes;
-using Calligraphy.Domain;
 using Calligraphy.Presentation.ViewModels;
 
 namespace Calligraphy.Presentation.Views;
@@ -20,10 +17,10 @@ public partial class TraceGameView : UserControl
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
         if (ViewModel.IsTimed)
-        {
             InkCanvas.SetDrawingEnabled(false);
-        }
+
         ResultPopup.DataContext = DataContext;
+        PausePopup.DataContext = DataContext;
 
         ViewModel!.DrawingStarted += OnDrawingStarted;
         ViewModel!.DrawingEnded += OnDrawingEnded;
@@ -33,7 +30,7 @@ public partial class TraceGameView : UserControl
 
     private void OnStylusUp()
     {
-        if (ViewModel.EndOnLift && ViewModel.SegmentCountCompleted()) 
+        if (ViewModel.EndOnLift && ViewModel.SegmentCountCompleted())
             OnDrawingEnded();
     }
 
@@ -47,7 +44,8 @@ public partial class TraceGameView : UserControl
         var strokes = InkCanvas.EndDrawing();
         ViewModel?.FinishGame(strokes);
 
-        if (ViewModel?.GameResult != null) await ResultPopup.AnimateStars(ViewModel.GameResult.StarCount);
+        if (ViewModel?.GameResult != null)
+            await ResultPopup.AnimateStars(ViewModel.GameResult.StarCount);
     }
 
     private void OnRestart()
