@@ -16,6 +16,13 @@ public partial class InkCanvasControl : UserControl
     private List<StrokePointDto> _liveStroke = [];
     private List<List<StrokePointDto>> _strokes = [];
 
+    public static readonly DependencyProperty IsDrawingEnabledProperty =
+        DependencyProperty.Register(
+            nameof(IsDrawingEnabled),
+            typeof(bool),
+            typeof(InkCanvasControl),
+            new PropertyMetadata(false, OnIsDrawingEnabledChanged));
+    
     public InkCanvasControl()
     {
         InitializeComponent();
@@ -25,7 +32,19 @@ public partial class InkCanvasControl : UserControl
         Loaded += InkCanvasControl_Loaded;
     }
     
+    public bool IsDrawingEnabled
+    {
+        get => (bool)GetValue(IsDrawingEnabledProperty);
+        set => SetValue(IsDrawingEnabledProperty, value);
+    }
+    
     public event Action StylusUp;
+    
+    private static void OnIsDrawingEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is InkCanvasControl control)
+            control.CallyCanvas.IsEnabled = (bool)e.NewValue;
+    }
 
     private void InkCanvasControl_Loaded(object sender, RoutedEventArgs e)
     {

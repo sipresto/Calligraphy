@@ -1,6 +1,5 @@
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Shapes;
 using Calligraphy.Domain;
 using Calligraphy.Presentation.ViewModels;
 
@@ -20,6 +19,7 @@ public partial class InfinityRaceView : UserControl
     {
         InkCanvas.SetDrawingEnabled(false);
         ResultPopup.DataContext = DataContext;
+        PausePopup.DataContext = DataContext;
 
         List<RaceCircle> circles = GetCircleData();
 
@@ -42,9 +42,7 @@ public partial class InfinityRaceView : UserControl
         ViewModel?.FinishGame(strokes);
 
         if (ViewModel?.GameResult != null)
-        {
             await ResultPopup.AnimateStars(ViewModel.GameResult.StarCount);
-        }
     }
 
     private void OnRestart()

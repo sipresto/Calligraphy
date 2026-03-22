@@ -17,9 +17,9 @@ public abstract class GameViewModelBase<TService, TSession, TSettings> : ViewMod
     protected readonly GameSettings AllSettings;
     protected TSettings Settings;
     private readonly MainViewModel _mainViewModel;
-    
+
     private string _nextLevelKey;
-    
+
     protected GameViewModelBase(TService service, MainViewModel mainViewModel, GameSettings settings)
     {
         Service = service;
@@ -28,7 +28,44 @@ public abstract class GameViewModelBase<TService, TSession, TSettings> : ViewMod
         RestartCommand = new RelayCommand(RestartGame);
         MenuCommand = new RelayCommand(Menu);
         NextLevelCommand = new RelayCommand(NavigateToNextLevel);
+        PauseCommand = new RelayCommand(Pause);
+        ResumeCommand = new RelayCommand(Resume);
     }
+    
+    public bool IsPauseVisible
+    {
+        get;
+        private set
+        {
+            field = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(IsPauseButtonVisible));
+            OnPropertyChanged(nameof(IsDrawingEnabled));
+        }
+    }
+
+    public bool IsPauseButtonVisible => GameResult == null;
+    
+    public bool IsDrawingEnabled => !IsPauseVisible;
+
+    public ICommand PauseCommand { get; }
+    public ICommand ResumeCommand { get; }
+
+    private void Pause()
+    {
+        IsPauseVisible = true;
+        OnPause();
+    }
+
+    private void Resume()
+    {
+        IsPauseVisible = false;
+        OnResume();
+    }
+
+    protected virtual void OnPause() { }
+
+    protected virtual void OnResume() { }
 
     public bool HasNextLevel
     {
@@ -50,9 +87,10 @@ public abstract class GameViewModelBase<TService, TSession, TSettings> : ViewMod
             field = value;
             OnPropertyChanged();
             OnPropertyChanged(nameof(IsGameResultVisible));
+            OnPropertyChanged(nameof(IsPauseButtonVisible));
         }
     }
-    
+
     public int? BestScore
     {
         get;
@@ -72,7 +110,7 @@ public abstract class GameViewModelBase<TService, TSession, TSettings> : ViewMod
     public void SetNextLevel(string nextLevelKey)
     {
         _nextLevelKey = nextLevelKey;
-        HasNextLevel  = nextLevelKey != null;
+        HasNextLevel = nextLevelKey != null;
     }
 
     public void FinishGame(List<List<StrokePointDto>> strokes)
@@ -96,19 +134,19 @@ public abstract class GameViewModelBase<TService, TSession, TSettings> : ViewMod
     private void NavigateToNextLevel()
     {
         if (_nextLevelKey == null) return;
-
         _mainViewModel.ShowTutorialForGame(_nextLevelKey);
     }
-    
+
     protected void LoadBestScore(string gameId)
     {
         BestScore = Service.GetGameScore(gameId)?.Score;
     }
-    
+
     protected abstract void RestartGame();
 
     protected void ResetGameState()
     {
+        IsPauseVisible = false;
         GameResult = null;
         Restarted?.Invoke();
     }

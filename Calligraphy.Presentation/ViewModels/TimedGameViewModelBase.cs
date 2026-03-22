@@ -5,8 +5,7 @@ using Calligraphy.Domain.Sessions;
 
 namespace Calligraphy.Presentation.ViewModels;
 
-public abstract class
-    TimedGameViewModelBase<TService, TSession, TSettings> : GameViewModelBase<TService, TSession, TSettings>
+public abstract class TimedGameViewModelBase<TService, TSession, TSettings> : GameViewModelBase<TService, TSession, TSettings>
     where TService : GenericGameService<TSession>
     where TSession : GameSession
     where TSettings : TimedGameSettings
@@ -15,6 +14,7 @@ public abstract class
     private bool _started;
     private DateTime _startTime;
     private DispatcherTimer _waitTimer;
+    private TimeSpan _timeElapsed;
 
     protected TimedGameViewModelBase(TService service, MainViewModel mainViewModel, GameSettings settings, int waitDuration = 3)
         : base(service, mainViewModel, settings)
@@ -63,6 +63,22 @@ public abstract class
     public event Action DrawingStarted;
     public event Action DrawingEnded;
 
+    protected override void OnPause()
+    {
+        _drawTimer.Stop();
+        _waitTimer.Stop();
+    }
+
+    protected override void OnResume()
+    {
+        _startTime = DateTime.Now - _timeElapsed;
+
+        if (_started)
+            _drawTimer.Start();
+        else
+            _waitTimer.Start();
+    }
+    
     protected void StartWaitPhase()
     {
         TimerText = $"{DrawDuration:F0}";
@@ -110,7 +126,8 @@ public abstract class
     {
         if (!_started) return;
 
-        var timeLeft = DrawDuration - (DateTime.Now - _startTime).TotalSeconds;
+        _timeElapsed = DateTime.Now - _startTime;
+        var timeLeft = DrawDuration - _timeElapsed.TotalSeconds;
         TimerText = $"{Math.Max(0, timeLeft):F0}";
 
         if (timeLeft <= 0)
@@ -123,7 +140,8 @@ public abstract class
 
     private void TickWaitTimer(object sender, EventArgs e)
     {
-        var timeLeft = WaitDuration - (DateTime.Now - _startTime).TotalSeconds;
+        _timeElapsed = DateTime.Now - _startTime;
+        var timeLeft = WaitDuration - _timeElapsed.TotalSeconds;
         WaitTimerText = timeLeft < 1 ? "START" : $"{timeLeft:F0}";
 
         if (timeLeft <= 0)
