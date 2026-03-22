@@ -40,19 +40,19 @@ public static class Recognizer
         return shapeName switch
         {
             "Circle" => ScoreCircle(aspect, convex),
-            "Square" => LooseScore(ScoreSquare(aspect, convex, corners), 0.65, 0.1),
+            "Square" => ScoreSquare(aspect, convex, corners),
             "Triangle" => ScoreTriangle(aspect, convex, corners),
             "Diamond" => ScoreDiamond(aspect, convex, corners),
-            "Star" => LooseScore(ScoreStar(convex, corners, allPoints), 0.65, 0.1),
+            "Star" => LooseScore(ScoreStar(convex, corners, allPoints), 0.65, 0.05),
             "Pentagon" => ScorePentagon(convex, corners),
             "Hexagon" => ScoreHexagon(convex, corners),
-            "Oval" => LooseScore(ScoreOval(aspect, convex), 0.6, 0.15),
+            "Oval" => ScoreOval(aspect, convex),
             "Heart" => LooseScore(ScoreHeart(aspect, convex, corners), 0.7, 0.1),
             "Cross" => ScoreCross(aspect, convex, corners),
             "Plus" => ScorePlus(aspect, convex, corners),
             "Trapezoid" => ScoreTrapezoid(aspect, convex, corners),
             "HalfMoon" => ScoreHalfMoon(aspect, convex, corners),
-            "WaningMoon" => ScoreWaningMoon(aspect, convex, corners),
+            "WaningMoon" => LooseScore(ScoreWaningMoon(aspect, convex, corners), 0.6, 0.05),
             _ => 0
         };
     }
@@ -78,16 +78,16 @@ public static class Recognizer
     {
         // Penalise aspect ratios close to 1.0 (that's a circle).
         // Reward aspect in the range ~1.3–2.2.
-        double sAspect = GaussianScore(aspect, 1.9,  0.4);
-        double sConvex = ScaleScore(convex, 0.85, 1.00);
-        return 0.6 * sAspect + 0.4 * sConvex;
+        double sAspect = GaussianScore(aspect, 2.6,  0.8);
+        double sConvex = ScaleScore(convex, 0.9, 1.00);
+        return 0.7 * sAspect + 0.3 * sConvex;
     }
 
     private static double ScoreSquare(double aspect, double convex, int corners)
     {
         double sAspect  = GaussianScore(aspect, 1.0, 0.25);
         double sConvex  = ScaleScore(convex, 0.82, 1.00);
-        double sCorners = GaussianScore(corners, 4.0, 1.5);
+        double sCorners = GaussianScore(corners, 4.0, 1);
         return 0.30 * sAspect + 0.30 * sConvex + 0.40 * sCorners;
     }
 
@@ -113,10 +113,10 @@ public static class Recognizer
     {
         if (convex > 0.70) return 0;
         double evenness  = ComputeCornerEvenness(allPoints);
-        double sConvex   = GaussianScore(convex, 0.44, 0.15);
-        double sCorners  = GaussianScore(corners, 10.0, 3.0);
-        double sEvenness = ScaleScore(evenness, 0.15, 0.60);
-        return 0.40 * sConvex + 0.35 * sCorners + 0.25 * sEvenness;
+        double sConvex   = GaussianScore(convex, 0.44, 0.2);
+        double sCorners  = GaussianScore(corners, 10.0, 3.5);
+        double sEvenness = ScaleScore(evenness, 0.14, 0.60);
+        return 0.50 * sConvex + 0.35 * sCorners + 0.15 * sEvenness;
     }
 
     private static double ScorePentagon(double convex, int corners)
@@ -177,10 +177,10 @@ public static class Recognizer
 
     private static double ScoreWaningMoon(double aspect, double convex, int corners)
     {
-        double sAspect  = GaussianScore(aspect, 1.0,  0.40);
-        double sConvex  = GaussianScore(convex, 0.68, 0.18);
-        double sCorners = GaussianScore(corners, 2.0,  1.5);
-        return 0.25 * sAspect + 0.50 * sConvex + 0.25 * sCorners;
+        double sAspect  = GaussianScore(aspect, 0.7,  0.40);
+        double sConvex  = GaussianScore(convex, 0.68, 0.3);
+        double sCorners = GaussianScore(corners, 2.0,  1);
+        return 0.25 * sAspect + 0.40 * sConvex + 0.35 * sCorners;
     }
     
     // ── Feature computation ───────────────────────────────────────────────────
