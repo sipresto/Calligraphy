@@ -40,14 +40,14 @@ public static class Recognizer
         return shapeName switch
         {
             "Circle" => ScoreCircle(aspect, convex),
-            "Square" => ScoreSquare(aspect, convex, corners),
+            "Square" => LooseScore(ScoreSquare(aspect, convex, corners), 0.65, 0.1),
             "Triangle" => ScoreTriangle(aspect, convex, corners),
             "Diamond" => ScoreDiamond(aspect, convex, corners),
-            "Star" => ScoreStar(convex, corners, allPoints),
+            "Star" => LooseScore(ScoreStar(convex, corners, allPoints), 0.65, 0.1),
             "Pentagon" => ScorePentagon(convex, corners),
             "Hexagon" => ScoreHexagon(convex, corners),
-            "Oval" => ScoreOval(aspect, convex),
-            "Heart" => ScoreHeart(aspect, convex, corners),
+            "Oval" => LooseScore(ScoreOval(aspect, convex), 0.6, 0.15),
+            "Heart" => LooseScore(ScoreHeart(aspect, convex, corners), 0.7, 0.1),
             "Cross" => ScoreCross(aspect, convex, corners),
             "Plus" => ScorePlus(aspect, convex, corners),
             "Trapezoid" => ScoreTrapezoid(aspect, convex, corners),
@@ -59,6 +59,14 @@ public static class Recognizer
 
     // ── Shape scorers ─────────────────────────────────────────────────────────
 
+    private static double LooseScore(double score, double treshold = 0.7, double add = 0)
+    {
+        if (score < treshold)
+            return score;
+        double finalScore = score + add;
+        return finalScore > 1 ? 1 : finalScore;
+    }
+    
     private static double ScoreCircle(double aspect, double convex)
     {
         double sAspect = GaussianScore(aspect, 1.0,  0.35);
@@ -70,9 +78,9 @@ public static class Recognizer
     {
         // Penalise aspect ratios close to 1.0 (that's a circle).
         // Reward aspect in the range ~1.3–2.2.
-        double sAspect = GaussianScore(aspect, 1.6,  0.35);
+        double sAspect = GaussianScore(aspect, 1.9,  0.4);
         double sConvex = ScaleScore(convex, 0.85, 1.00);
-        return 0.50 * sAspect + 0.50 * sConvex;
+        return 0.6 * sAspect + 0.4 * sConvex;
     }
 
     private static double ScoreSquare(double aspect, double convex, int corners)
