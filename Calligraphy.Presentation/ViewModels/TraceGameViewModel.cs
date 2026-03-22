@@ -12,12 +12,15 @@ public class TraceGameViewModel : GameViewModelBase<TraceGameService, TraceGameS
     private string _gameId;
     private TraceTemplate CurrentTemplate { get; set; }
     private int _currentSegmentCount = 1;
-    
+
+    public event Action DrawingStarted;
+    public event Action DrawingEnded;
+
     public TraceGameViewModel(TraceGameService service, MainViewModel mainViewModel, GameSettings settings)
         : base(service, mainViewModel, settings)
     {
     }
-    
+
     public void Initialize(string gameId)
     {
         _gameId = gameId;
@@ -25,17 +28,16 @@ public class TraceGameViewModel : GameViewModelBase<TraceGameService, TraceGameS
         Settings = AllSettings.TraceGames[gameId];
         CurrentTemplate = TraceFactory.GetTraceTemplate(Settings.Template);
         Service.StartSession(_gameId, CurrentTemplate.GetTemplatePoints(), Settings.ToleranceDistance, Settings.RequiredAccuracy);
+
+        DrawingStarted?.Invoke();
     }
 
-    public event Action DrawingStarted;
-    public event Action DrawingEnded;
-
     public bool IsTimed => false;
-    
+
     public bool EndOnLift => true;
-    
+
     public List<StrokePoint> TemplatePoints => CurrentTemplate?.GetTemplatePoints() ?? [];
-    
+
     public double TemplateThickness => Settings.ToleranceDistance * 2;
 
     public bool SegmentCountCompleted()
@@ -47,12 +49,13 @@ public class TraceGameViewModel : GameViewModelBase<TraceGameService, TraceGameS
         }
         return true;
     }
-    
+
     protected override void RestartGame()
     {
         Service.StartSession(_gameId, CurrentTemplate.GetTemplatePoints(), Settings.ToleranceDistance, Settings.RequiredAccuracy);
         _currentSegmentCount = 1;
         LoadBestScore(_gameId);
         ResetGameState();
+        DrawingStarted?.Invoke();
     }
 }
