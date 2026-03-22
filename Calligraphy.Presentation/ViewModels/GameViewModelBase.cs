@@ -8,7 +8,7 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace Calligraphy.Presentation.ViewModels;
 
-public abstract class GameViewModelBase<TService, TSession, TSettings> : ViewModelBase, INextLevelAware
+public abstract partial class GameViewModelBase<TService, TSession, TSettings> : ViewModelBase, INextLevelAware
     where TService : GenericGameService<TSession>
     where TSession : GameSession
     where TSettings : BaseGameSettings
@@ -28,8 +28,6 @@ public abstract class GameViewModelBase<TService, TSession, TSettings> : ViewMod
         RestartCommand = new RelayCommand(RestartGame);
         MenuCommand = new RelayCommand(Menu);
         NextLevelCommand = new RelayCommand(NavigateToNextLevel);
-        PauseCommand = new RelayCommand(Pause);
-        ResumeCommand = new RelayCommand(Resume);
     }
     
     public bool IsPauseVisible
@@ -47,16 +45,15 @@ public abstract class GameViewModelBase<TService, TSession, TSettings> : ViewMod
     public bool IsPauseButtonVisible => GameResult == null;
     
     public bool IsDrawingEnabled => !IsPauseVisible;
-
-    public ICommand PauseCommand { get; }
-    public ICommand ResumeCommand { get; }
-
+    
+    [RelayCommand]
     private void Pause()
     {
         IsPauseVisible = true;
         OnPause();
     }
 
+    [RelayCommand]
     private void Resume()
     {
         IsPauseVisible = false;
