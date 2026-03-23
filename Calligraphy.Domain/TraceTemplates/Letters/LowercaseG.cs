@@ -31,6 +31,7 @@ public class LowercaseG : Letter
         AddRelativeBezier(newPoints, ref cx, ref cy, 7.892993, -19.22557, 26.055946, -35.364594, 46.897967, -37.503309, pointsPerCurve);
         AddRelativeBezier(newPoints, ref cx, ref cy, 9.11746, -0.93558, 25.42002, 4.896579, 29.63333, 7.164421, pointsPerCurve);
 
+        newPoints.Reverse();
         rawPoints.AddRange(newPoints);
         newPoints = [];
 
