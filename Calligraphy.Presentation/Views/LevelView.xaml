@@ -10,7 +10,7 @@
 
     <UserControl.Resources>
         <converters:StarFillConverter x:Key="StarFillConverter" />
-        
+        <converters:CountToVisibilityConverter x:Key="CountToVisibility" />
         <Style x:Key="ScrollThumbStyle" TargetType="Thumb">
             <Setter Property="Template">
                 <Setter.Value>
@@ -83,6 +83,68 @@
             </Setter>
         </Style>
 
+        <DataTemplate x:Key="LevelButtonTemplate">
+            <Grid Margin="8,6">
+                <Button
+                    x:Name="LevelButton"
+                    Command="{Binding DataContext.LevelCommand,
+                                RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                    CommandParameter="{Binding Key}"
+                    Cursor="Pen">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Grid Width="130" Height="130" x:Name="Root">
+                                <Image x:Name="ButtonImage"
+                                       Source="/Resources/Assets/Images/Buttons/Grass-button.png"
+                                       Stretch="Uniform" />
+                                <TextBlock
+                                    Text="{Binding DisplayName}"
+                                    FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
+                                    FontSize="40"
+                                    Foreground="{StaticResource SecondaryColor}"
+                                    TextWrapping="Wrap"
+                                    TextAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Margin="10,0" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="ButtonImage" Property="Source"
+                                            Value="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed.png" />
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Root" Property="Opacity" Value="0.85" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <StackPanel
+                    Margin="0,12"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsMouseOver, ElementName=LevelButton}" Value="True">
+                                    <Setter Property="Opacity" Value="0.85" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+                    <controls:AnimatedStar Width="34"
+                                           IsFilled="{Binding Stars, Converter={StaticResource StarFillConverter}, ConverterParameter=1}" />
+                    <controls:AnimatedStar Width="34"
+                                           IsFilled="{Binding Stars, Converter={StaticResource StarFillConverter}, ConverterParameter=2}"
+                                           Margin="5,0" />
+                    <controls:AnimatedStar Width="34"
+                                           IsFilled="{Binding Stars, Converter={StaticResource StarFillConverter}, ConverterParameter=3}" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
     </UserControl.Resources>
 
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -115,84 +177,81 @@
                                   Style="{StaticResource StyledScrollViewer}"
                                   VerticalScrollBarVisibility="Auto"
                                   HorizontalScrollBarVisibility="Disabled">
-                        <ItemsControl ItemsSource="{Binding Levels}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel HorizontalAlignment="Left" Orientation="Horizontal" Margin="10,0" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
+                        <StackPanel Margin="10,0">
 
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid
-                                        Margin="8,6">
-                                        <Button
-                                            x:Name="LevelButton"
-                                            Command="{Binding DataContext.LevelCommand,
-                                                        RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                            CommandParameter="{Binding Key}"
-                                            Cursor="Pen">
-                                            <Button.Template>
-                                                <ControlTemplate TargetType="Button">
-                                                    <Grid Width="130" Height="130" x:Name="Root">
+                            <!-- Easy -->
+                            <StackPanel Visibility="{Binding EasyLevels.Count, Converter={StaticResource CountToVisibility}}">
+                                <StackPanel Orientation="Horizontal" Margin="8,10,0,0">
+                                    <Ellipse Width="22" Height="22" Fill="#5DBF5D" VerticalAlignment="Center" Margin="0,0,8,0" />
+                                    <TextBlock Text="Makkelijk"
+                                               FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
+                                               FontSize="30"
+                                               Foreground="{StaticResource SecondaryColor}" />
+                                </StackPanel>
+                                <ItemsControl ItemsSource="{Binding EasyLevels}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel HorizontalAlignment="Left" Orientation="Horizontal" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <ContentPresenter Content="{Binding}"
+                                                              ContentTemplate="{StaticResource LevelButtonTemplate}" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
 
-                                                        <Image x:Name="ButtonImage"
-                                                               Source="/Resources/Assets/Images/Buttons/Grass-button.png"
-                                                               Stretch="Uniform" />
+                            <!-- Medium -->
+                            <StackPanel Visibility="{Binding MediumLevels.Count, Converter={StaticResource CountToVisibility}}">
+                                <StackPanel Orientation="Horizontal" Margin="8,10,0,0">
+                                    <Ellipse Width="22" Height="22" Fill="#E8C84A" VerticalAlignment="Center" Margin="0,0,8,0" />
+                                    <TextBlock Text="Gemiddeld"
+                                               FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
+                                               FontSize="30"
+                                               Foreground="{StaticResource SecondaryColor}" />
+                                </StackPanel>
+                                <ItemsControl ItemsSource="{Binding MediumLevels}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel HorizontalAlignment="Left" Orientation="Horizontal" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <ContentPresenter Content="{Binding}"
+                                                              ContentTemplate="{StaticResource LevelButtonTemplate}" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
 
-                                                        <TextBlock
-                                                            Text="{Binding DisplayName}"
-                                                            FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
-                                                            FontSize="40"
-                                                            Foreground="{StaticResource SecondaryColor}"
-                                                            TextWrapping="Wrap"
-                                                            TextAlignment="Center"
-                                                            HorizontalAlignment="Center"
-                                                            VerticalAlignment="Center"
-                                                            Margin="10,0" />
+                            <!-- Hard -->
+                            <StackPanel Visibility="{Binding HardLevels.Count, Converter={StaticResource CountToVisibility}}">
+                                <StackPanel Orientation="Horizontal" Margin="8,10,0,0">
+                                    <Ellipse Width="22" Height="22" Fill="#E05555" VerticalAlignment="Center" Margin="0,0,8,0" />
+                                    <TextBlock Text="Moeilijk"
+                                               FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
+                                               FontSize="30"
+                                               Foreground="{StaticResource SecondaryColor}" />
+                                </StackPanel>
+                                <ItemsControl ItemsSource="{Binding HardLevels}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel HorizontalAlignment="Left" Orientation="Horizontal" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <ContentPresenter Content="{Binding}"
+                                                              ContentTemplate="{StaticResource LevelButtonTemplate}" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
 
-                                                    </Grid>
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsPressed" Value="True">
-                                                            <Setter TargetName="ButtonImage" Property="Source"
-                                                                    Value="/Resources/Assets/Images/Buttons/Pressed/Grass-Buttons-pressed.png" />
-                                                        </Trigger>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter TargetName="Root" Property="Opacity" Value="0.85" />
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Button.Template>
-                                        </Button>
-                                        <StackPanel
-                                            Margin="0, 12"
-                                            VerticalAlignment="Bottom"
-                                            HorizontalAlignment="Center"
-                                            Orientation="Horizontal">
-                                            <StackPanel.Style>
-                                                <Style TargetType="StackPanel">
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=LevelButton}" Value="True">
-                                                            <Setter Property="Opacity" Value="0.85" />
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </StackPanel.Style>
-                                            
-                                            <controls:AnimatedStar Width="34" 
-                                                                   IsFilled="{Binding Stars, Converter={StaticResource StarFillConverter}, ConverterParameter=1}" />
-                           
-                                            <controls:AnimatedStar Width="34" 
-                                                                   IsFilled="{Binding Stars, Converter={StaticResource StarFillConverter}, ConverterParameter=2}" 
-                                                                   Margin="5,0" />
-                           
-                                            <controls:AnimatedStar Width="34" 
-                                                                   IsFilled="{Binding Stars, Converter={StaticResource StarFillConverter}, ConverterParameter=3}" />
-                                        </StackPanel>
-                                    </Grid>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                        </StackPanel>
                     </ScrollViewer>
 
                     <Button Grid.Row="2"

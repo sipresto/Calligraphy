@@ -16,6 +16,7 @@ public abstract class BaseGameSettings
     public string Category { get; set; } = string.Empty;
     public string GameName { get; set; } = string.Empty;
     public TutorialSettings Tutorial { get; init; }
+    public string Difficulty { get; set; } = "Makkelijk";
     
     public StarThresholds GetThresholds() => new (StarThresholds[0], StarThresholds[1], StarThresholds[2]);
 }

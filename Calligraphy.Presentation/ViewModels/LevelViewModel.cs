@@ -24,20 +24,23 @@ public partial class LevelViewModel : ViewModelBase
         _wordGameService = wordGameService;
         CategoryTitle = category;
         Levels = BuildLevels(settings, category);
+        var all = BuildLevels(settings, category);
+        EasyLevels  = new ObservableCollection<LevelItem>(all.Where(l => l.Difficulty == "Makkelijk"));
+        MediumLevels = new ObservableCollection<LevelItem>(all.Where(l => l.Difficulty == "Gemiddeld"));
+        HardLevels  = new ObservableCollection<LevelItem>(all.Where(l => l.Difficulty == "Moeilijk"));
     }
 
     public string CategoryTitle { get; }
     public ObservableCollection<LevelItem> Levels { get; }
+    public ObservableCollection<LevelItem> EasyLevels { get; }
+    public ObservableCollection<LevelItem> MediumLevels { get; }
+    public ObservableCollection<LevelItem> HardLevels { get; }
 
 
     [RelayCommand]
     private void Level(string levelKey)
     {
-        var list = Levels.ToList();
-        var index = list.FindIndex(l => l.Key == levelKey);
-        var nextKey = (index >= 0 && index + 1 < list.Count) ? list[index + 1].Key : null;
-
-        _mainViewModel.ShowTutorialForGame(levelKey, nextKey);
+        _mainViewModel.ShowTutorialForGame(levelKey);
     }
 
     [RelayCommand]
@@ -57,7 +60,8 @@ public partial class LevelViewModel : ViewModelBase
                         DisplayName = !string.IsNullOrEmpty(val.GameName) ? val.GameName : val.Level.ToString(),
                         CategoryLabel = val.Category,
                         Level = val.Level,
-                        Stars = _infinityRaceService.GetGameScore(key)?.Stars ?? 0
+                        Stars = _infinityRaceService.GetGameScore(key)?.Stars ?? 0,
+                        Difficulty = val.Difficulty
                     });
         
         if (settings.ShapeGames != null)
@@ -69,9 +73,9 @@ public partial class LevelViewModel : ViewModelBase
                         DisplayName = !string.IsNullOrEmpty(val.GameName) ? val.GameName : val.Level.ToString(),
                         CategoryLabel = val.Category,
                         Level = val.Level,
-                        Stars = _shapeDrawService.GetGameScore(key)?.Stars ?? 0
+                        Stars = _shapeDrawService.GetGameScore(key)?.Stars ?? 0,
+                        Difficulty = val.Difficulty
                     });
-    
         if (settings.TimedTraceGames != null)
             foreach (var (key, val) in settings.TimedTraceGames)
                 if (string.Equals(val.Category, category, StringComparison.OrdinalIgnoreCase))
@@ -81,7 +85,8 @@ public partial class LevelViewModel : ViewModelBase
                         DisplayName = !string.IsNullOrEmpty(val.GameName) ? val.GameName : val.Level.ToString(),
                         CategoryLabel = val.Category,
                         Level = val.Level,
-                        Stars = _traceGameService.GetGameScore(key)?.Stars ?? 0
+                        Stars = _traceGameService.GetGameScore(key)?.Stars ?? 0,
+                        Difficulty = val.Difficulty
                     });
 
         if (settings.TraceGames != null)
@@ -93,7 +98,8 @@ public partial class LevelViewModel : ViewModelBase
                         DisplayName = !string.IsNullOrEmpty(val.GameName) ? val.GameName : val.Level.ToString(),
                         CategoryLabel = val.Category,
                         Level = val.Level,
-                        Stars = _traceGameService.GetGameScore(key)?.Stars ?? 0
+                        Stars = _traceGameService.GetGameScore(key)?.Stars ?? 0,
+                        Difficulty = val.Difficulty
                     });
         
         if (settings.WordGames != null)
@@ -105,7 +111,8 @@ public partial class LevelViewModel : ViewModelBase
                         DisplayName = !string.IsNullOrEmpty(val.GameName) ? val.GameName : val.Level.ToString(),
                         CategoryLabel = val.Category,
                         Level = val.Level,
-                        Stars = _wordGameService.GetGameScore(key)?.Stars ?? 0
+                        Stars = _wordGameService.GetGameScore(key)?.Stars ?? 0,
+                        Difficulty = val.Difficulty
                     });
 
         return new ObservableCollection<LevelItem>(
