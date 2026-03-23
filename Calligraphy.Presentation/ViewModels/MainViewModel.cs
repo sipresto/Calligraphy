@@ -90,9 +90,35 @@ public class MainViewModel : ObservableObject
 
     private string GetNextLevelKey(string gameKey)
     {
-        var ordered = GetCategoryKeysFor(gameKey);
-        var index   = ordered.IndexOf(gameKey);
-        return index >= 0 && index + 1 < ordered.Count ? ordered[index + 1] : null;
+        var currentSettings = GetSettingsForGameKey(gameKey);
+        if (currentSettings == null) return null;
+
+        var allInCategory = GetCategoryKeysFor(gameKey);
+
+        var sameDifficulty = allInCategory
+            .Where(k => GetSettingsForGameKey(k)?.Difficulty == currentSettings.Difficulty)
+            .OrderBy(k => GetSettingsForGameKey(k)?.Level)
+            .ToList();
+
+        var index = sameDifficulty.IndexOf(gameKey);
+
+        if (index >= 0 && index + 1 < sameDifficulty.Count)
+        {
+            return sameDifficulty[index + 1];
+        }
+
+        string nextDifficulty = currentSettings.Difficulty switch
+        {
+            null or "" or "Makkelijk" => "Gemiddeld",
+            "Gemiddeld" => "Moeilijk",
+            _ => null
+        };
+
+        if (nextDifficulty == null) return null;
+
+        return allInCategory.FirstOrDefault(k => 
+            GetSettingsForGameKey(k)?.Difficulty == nextDifficulty && 
+            GetSettingsForGameKey(k)?.Level == 1);
     }
 
     private List<string> GetCategoryKeysFor(string gameKey)

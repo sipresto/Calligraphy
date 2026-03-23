@@ -64,7 +64,10 @@ namespace Calligraphy.Presentation.Views.themes
                 Width = width,
                 Height = height,
                 Stretch = Stretch.Fill,
+                SnapsToDevicePixels = true,
+                UseLayoutRounding = true,
             };
+            RenderOptions.SetBitmapScalingMode(img, BitmapScalingMode.NearestNeighbor);
             Canvas.SetLeft(img, left);
             Canvas.SetTop(img, top);
             return img;
