@@ -40,11 +40,7 @@ public partial class LevelViewModel : ViewModelBase
     [RelayCommand]
     private void Level(string levelKey)
     {
-        var list = Levels.ToList();
-        var index = list.FindIndex(l => l.Key == levelKey);
-        var nextKey = (index >= 0 && index + 1 < list.Count) ? list[index + 1].Key : null;
-
-        _mainViewModel.ShowTutorialForGame(levelKey, nextKey);
+        _mainViewModel.ShowTutorialForGame(levelKey);
     }
 
     [RelayCommand]
