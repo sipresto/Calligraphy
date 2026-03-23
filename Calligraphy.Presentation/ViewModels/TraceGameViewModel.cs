@@ -10,7 +10,7 @@ namespace Calligraphy.Presentation.ViewModels;
 public class TraceGameViewModel : GameViewModelBase<TraceGameService, TraceGameSession, TraceGameSettings>, ITraceGameViewModel
 {
     private string _gameId;
-    private TraceTemplate CurrentTemplate { get; set; }
+    public TraceTemplate CurrentTemplate { get; private set; }    
     private int _currentSegmentCount = 1;
 
     public event Action DrawingStarted;

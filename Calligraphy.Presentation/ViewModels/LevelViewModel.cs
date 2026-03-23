@@ -26,7 +26,7 @@ public partial class LevelViewModel : ViewModelBase
         Levels = BuildLevels(settings, category);
         var all = BuildLevels(settings, category);
         EasyLevels  = new ObservableCollection<LevelItem>(all.Where(l => l.Difficulty == "Makkelijk"));
-        MediumLevels = new ObservableCollection<LevelItem>(all.Where(l => l.Difficulty == "Normaal"));
+        MediumLevels = new ObservableCollection<LevelItem>(all.Where(l => l.Difficulty == "Gemiddeld"));
         HardLevels  = new ObservableCollection<LevelItem>(all.Where(l => l.Difficulty == "Moeilijk"));
     }
 
@@ -65,7 +65,7 @@ public partial class LevelViewModel : ViewModelBase
                         CategoryLabel = val.Category,
                         Level = val.Level,
                         Stars = _infinityRaceService.GetGameScore(key)?.Stars ?? 0,
-                        Difficulty = "Moeilijk"
+                        Difficulty = val.Difficulty
                     });
         
         if (settings.ShapeGames != null)
@@ -78,7 +78,7 @@ public partial class LevelViewModel : ViewModelBase
                         CategoryLabel = val.Category,
                         Level = val.Level,
                         Stars = _shapeDrawService.GetGameScore(key)?.Stars ?? 0,
-                        Difficulty = "Normaal"
+                        Difficulty = val.Difficulty
                     });
         if (settings.TimedTraceGames != null)
             foreach (var (key, val) in settings.TimedTraceGames)
@@ -90,7 +90,7 @@ public partial class LevelViewModel : ViewModelBase
                         CategoryLabel = val.Category,
                         Level = val.Level,
                         Stars = _traceGameService.GetGameScore(key)?.Stars ?? 0,
-                        Difficulty = "Moeilijk"
+                        Difficulty = val.Difficulty
                     });
 
         if (settings.TraceGames != null)
@@ -103,7 +103,7 @@ public partial class LevelViewModel : ViewModelBase
                         CategoryLabel = val.Category,
                         Level = val.Level,
                         Stars = _traceGameService.GetGameScore(key)?.Stars ?? 0,
-                        Difficulty = "Makkelijk"
+                        Difficulty = val.Difficulty
                     });
         
         if (settings.WordGames != null)
@@ -116,7 +116,7 @@ public partial class LevelViewModel : ViewModelBase
                         CategoryLabel = val.Category,
                         Level = val.Level,
                         Stars = _wordGameService.GetGameScore(key)?.Stars ?? 0,
-                        Difficulty = "Moeilijk"
+                        Difficulty = val.Difficulty
                     });
 
         return new ObservableCollection<LevelItem>(

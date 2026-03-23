@@ -9,6 +9,6 @@ public class LevelItem : ObservableObject
     public string CategoryLabel { get; init; }
     public int Level { get; init; }
     public int Stars { get; init; }
-    public string Difficulty { get; set; } // "Makkelijk", "Normaal", "Moeilijk"
+    public string Difficulty { get; set; } // "Makkelijk", "Gemiddeld", "Moeilijk"
 
 }

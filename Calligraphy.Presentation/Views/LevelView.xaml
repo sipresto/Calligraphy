@@ -207,7 +207,7 @@
                             <StackPanel Visibility="{Binding MediumLevels.Count, Converter={StaticResource CountToVisibility}}">
                                 <StackPanel Orientation="Horizontal" Margin="8,10,0,0">
                                     <Ellipse Width="22" Height="22" Fill="#E8C84A" VerticalAlignment="Center" Margin="0,0,8,0" />
-                                    <TextBlock Text="Normaal"
+                                    <TextBlock Text="Gemiddeld"
                                                FontFamily="/Resources/Assets/Fonts/#Gluten Medium"
                                                FontSize="30"
                                                Foreground="{StaticResource SecondaryColor}" />
