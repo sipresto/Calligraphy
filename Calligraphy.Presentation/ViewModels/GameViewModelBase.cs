@@ -88,7 +88,7 @@ public abstract partial class GameViewModelBase<TService, TSession, TSettings> :
         }
     }
 
-    public int? BestScore
+    public int BestScore
     {
         get;
         private set
@@ -123,7 +123,7 @@ public abstract partial class GameViewModelBase<TService, TSession, TSettings> :
         GameResult = Service.FinishGame(Settings.GetThresholds());
 
         if (GameResult?.Score > BestScore)
-            BestScore = GameResult.Score;
+            BestScore = GameResult.Score ?? BestScore;
     }
 
     private void Menu() => _mainViewModel.NavigateToCategories();
@@ -136,7 +136,7 @@ public abstract partial class GameViewModelBase<TService, TSession, TSettings> :
 
     protected void LoadBestScore(string gameId)
     {
-        BestScore = Service.GetGameScore(gameId)?.Score;
+        BestScore = Service.GetGameScore(gameId)?.Score ?? 0;
     }
 
     protected abstract void RestartGame();
