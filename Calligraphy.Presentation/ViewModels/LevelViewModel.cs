@@ -6,7 +6,6 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace Calligraphy.Presentation.ViewModels;
 
-
 public partial class LevelViewModel : ViewModelBase
 {
     private readonly MainViewModel _mainViewModel;
@@ -14,20 +13,30 @@ public partial class LevelViewModel : ViewModelBase
     private readonly TraceGameService _traceGameService;
     private readonly ShapeDrawService _shapeDrawService;
     private readonly WordGameService _wordGameService;
+    private readonly LetterStringGameService _letterStringGameService;
 
-    public LevelViewModel(MainViewModel mainViewModel, InfinityRaceService infinityRaceService, TraceGameService traceGameService, ShapeDrawService shapeDrawService, WordGameService wordGameService, GameSettings settings, string category)
+    public LevelViewModel(
+        MainViewModel mainViewModel,
+        InfinityRaceService infinityRaceService,
+        TraceGameService traceGameService,
+        ShapeDrawService shapeDrawService,
+        WordGameService wordGameService,
+        LetterStringGameService letterStringGameService,
+        GameSettings settings,
+        string category)
     {
         _mainViewModel = mainViewModel;
         _infinityRaceService = infinityRaceService;
         _traceGameService = traceGameService;
         _shapeDrawService = shapeDrawService;
         _wordGameService = wordGameService;
+        _letterStringGameService = letterStringGameService;
         CategoryTitle = category;
         Levels = BuildLevels(settings, category);
         var all = BuildLevels(settings, category);
-        EasyLevels  = new ObservableCollection<LevelItem>(all.Where(l => l.Difficulty == "Makkelijk"));
+        EasyLevels = new ObservableCollection<LevelItem>(all.Where(l => l.Difficulty == "Makkelijk"));
         MediumLevels = new ObservableCollection<LevelItem>(all.Where(l => l.Difficulty == "Gemiddeld"));
-        HardLevels  = new ObservableCollection<LevelItem>(all.Where(l => l.Difficulty == "Moeilijk"));
+        HardLevels = new ObservableCollection<LevelItem>(all.Where(l => l.Difficulty == "Moeilijk"));
     }
 
     public string CategoryTitle { get; }
@@ -35,7 +44,6 @@ public partial class LevelViewModel : ViewModelBase
     public ObservableCollection<LevelItem> EasyLevels { get; }
     public ObservableCollection<LevelItem> MediumLevels { get; }
     public ObservableCollection<LevelItem> HardLevels { get; }
-
 
     [RelayCommand]
     private void Level(string levelKey)
@@ -45,7 +53,6 @@ public partial class LevelViewModel : ViewModelBase
 
     [RelayCommand]
     private void Back() => _mainViewModel.NavigateToCategories();
-
 
     private ObservableCollection<LevelItem> BuildLevels(GameSettings settings, string category)
     {
@@ -63,7 +70,7 @@ public partial class LevelViewModel : ViewModelBase
                         Stars = _infinityRaceService.GetGameScore(key)?.Stars ?? 0,
                         Difficulty = val.Difficulty
                     });
-        
+
         if (settings.ShapeGames != null)
             foreach (var (key, val) in settings.ShapeGames)
                 if (string.Equals(val.Category, category, StringComparison.OrdinalIgnoreCase))
@@ -76,6 +83,7 @@ public partial class LevelViewModel : ViewModelBase
                         Stars = _shapeDrawService.GetGameScore(key)?.Stars ?? 0,
                         Difficulty = val.Difficulty
                     });
+
         if (settings.TimedTraceGames != null)
             foreach (var (key, val) in settings.TimedTraceGames)
                 if (string.Equals(val.Category, category, StringComparison.OrdinalIgnoreCase))
@@ -101,7 +109,7 @@ public partial class LevelViewModel : ViewModelBase
                         Stars = _traceGameService.GetGameScore(key)?.Stars ?? 0,
                         Difficulty = val.Difficulty
                     });
-        
+
         if (settings.WordGames != null)
             foreach (var (key, val) in settings.WordGames)
                 if (string.Equals(val.Category, category, StringComparison.OrdinalIgnoreCase))
@@ -112,6 +120,19 @@ public partial class LevelViewModel : ViewModelBase
                         CategoryLabel = val.Category,
                         Level = val.Level,
                         Stars = _wordGameService.GetGameScore(key)?.Stars ?? 0,
+                        Difficulty = val.Difficulty
+                    });
+
+        if (settings.LetterStringGames != null)
+            foreach (var (key, val) in settings.LetterStringGames)
+                if (string.Equals(val.Category, category, StringComparison.OrdinalIgnoreCase))
+                    items.Add(new LevelItem
+                    {
+                        Key = key,
+                        DisplayName = !string.IsNullOrEmpty(val.GameName) ? val.GameName : val.Level.ToString(),
+                        CategoryLabel = val.Category,
+                        Level = val.Level,
+                        Stars = _letterStringGameService.GetGameScore(key)?.Stars ?? 0,
                         Difficulty = val.Difficulty
                     });
 
