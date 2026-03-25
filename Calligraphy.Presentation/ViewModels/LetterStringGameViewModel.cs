@@ -16,7 +16,7 @@ public class
     private const int MaxLetterWidth = 200;
     private const int MinLetterWidth = 60;
     private const int CanvasHeightConst = 200;
-    private const int LetterGap = 16;
+    private const int LetterGap = 30;
     private const int AvailableWidth = 1160;
     private const double BridgePointSpacing = 8;
     private const double ScreenWidth = 1200;
@@ -67,7 +67,7 @@ public class
 
         for (int i = 0; i < count; i++)
         {
-            var template = TraceFactory.GetTraceTemplateByLetter(Settings.LetterString[i]);
+            var template = TraceFactory.GetConnectorTraceTemplateByLetter(Settings.LetterString[i]);
             var localPoints = template.GetTemplatePoints(letterWidth, CanvasHeightConst);
 
             double localInkMinX = localPoints.Min(p => p.X);
@@ -124,7 +124,7 @@ public class
         Letters = new ObservableCollection<LetterStringItem>(centeredItems);
     }
 
-    private static void InsertBridge(List<StrokePoint> points, StrokePoint from, StrokePoint to)
+    /*private static void InsertBridge(List<StrokePoint> points, StrokePoint from, StrokePoint to)
     {
         double dx = to.X - from.X;
         double dy = to.Y - from.Y;
@@ -139,6 +139,31 @@ public class
 
         for (int s = 1; s < steps; s++)
             points.Add(new StrokePoint(from.X + stepX * s, from.Y + stepY * s));
+    }*/
+    
+    private static void InsertBridge(List<StrokePoint> points, StrokePoint from, StrokePoint to)
+    {
+        double dx = to.X - from.X;
+        double dy = to.Y - from.Y;
+        double dist = Math.Sqrt(dx * dx + dy * dy);
+
+        if (dist <= BridgePointSpacing)
+            return;
+        
+        double ctrlX = (from.X + to.X) / 2.0;
+        double ctrlY = (from.Y + to.Y) / 2.0 + dist * 0.15;
+        
+        int steps = (int)Math.Ceiling(dist / BridgePointSpacing);
+        
+        for (int s = 1; s < steps; s++)
+        {
+            double t = s / (double)steps;
+            double u = 1.0 - t;
+            double x = u * u * from.X + 2 * u * t * ctrlX + t * t * to.X;
+            double y = u * u * from.Y + 2 * u * t * ctrlY + t * t * to.Y;
+            
+            points.Add(new StrokePoint(x, y));
+        }
     }
 
     public void AddLetter(LetterStringItem item, List<StrokePointDto> userPoints)
