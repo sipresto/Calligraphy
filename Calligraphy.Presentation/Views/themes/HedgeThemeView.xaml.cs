@@ -1,10 +1,14 @@
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using Calligraphy.Domain;
+using XamlAnimatedGif;
 
 namespace Calligraphy.Presentation.Views.themes
 {
-    public partial class HedgeThemeView : UserControl
+    public partial class HedgeThemeView : UserControl, IThemeView
     {
         // ── Asset paths ──────────────────────────────────────────────────────────
         private const string Base = "/Resources/Assets/Images/Themes/Hedge/";
@@ -98,6 +102,47 @@ namespace Calligraphy.Presentation.Views.themes
             Canvas.SetLeft(img, left);
             Canvas.SetTop(img, top);
             return img;
+        }
+
+        public async Task PlayVictoryAnimation()
+        {
+            var squirel = new Image
+            {
+                Width = 200,
+                Height = 200,
+                Stretch = Stretch.Fill
+            };
+
+            var uri = new Uri("pack://application:,,,/Resources/Assets/Images/Themes/Hedge/squirle.gif", UriKind.Absolute);
+            AnimationBehavior.SetSourceUri(squirel, uri);
+            AnimationBehavior.SetRepeatBehavior(squirel, RepeatBehavior.Forever);
+
+            Canvas.SetLeft(squirel, 3);
+            Canvas.SetTop(squirel, 335);
+            AnimationCanvas.Children.Add(squirel);
+
+            var tcs = new TaskCompletionSource<bool>();
+
+            var anim = new DoubleAnimation
+            {
+                From = 50,
+                To = 1000,
+                Duration = new Duration(TimeSpan.FromSeconds(6))
+            };
+
+            anim.Completed += (_, __) =>
+            {
+                AnimationCanvas.Children.Remove(squirel);
+                tcs.SetResult(true);
+            };
+
+            squirel.BeginAnimation(Canvas.LeftProperty, anim);
+            await tcs.Task;
+        }
+
+        public Task PlayVictoryAnimation(List<StrokePoint> templatePoints)
+        {
+            return PlayVictoryAnimation(); 
         }
     }
 }

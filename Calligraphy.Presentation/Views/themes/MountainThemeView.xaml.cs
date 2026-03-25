@@ -1,10 +1,14 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using Calligraphy.Domain;
+using XamlAnimatedGif;
 
 namespace Calligraphy.Presentation.Views.themes
 {
-    public partial class MountainThemeView : UserControl
+    public partial class MountainThemeView : UserControl, IThemeView
     {
         // ── Asset paths ──────────────────────────────────────────────────────────
         private const string Base = "/Resources/Assets/Images/Themes/Mountain/";
@@ -97,6 +101,47 @@ namespace Calligraphy.Presentation.Views.themes
             Canvas.SetLeft(img, left);
             Canvas.SetTop(img, top);
             return img;
+        }
+        
+        public async Task PlayVictoryAnimation()
+        {
+            var goat = new Image
+            {
+                Width = 200,
+                Height = 200,
+                Stretch = Stretch.Fill
+            };
+
+            var uri = new Uri("pack://application:,,,/Resources/Assets/Images/Themes/Mountain/goat.gif", UriKind.Absolute);
+            AnimationBehavior.SetSourceUri(goat, uri);
+            AnimationBehavior.SetRepeatBehavior(goat, RepeatBehavior.Forever);
+
+            Canvas.SetLeft(goat, -100);
+            Canvas.SetTop(goat, 400);
+            AnimationCanvas.Children.Add(goat);
+
+            var tcs = new TaskCompletionSource<bool>();
+
+            var anim = new DoubleAnimation
+            {
+                From = 50,
+                To = 1000,
+                Duration = new Duration(TimeSpan.FromSeconds(8))
+            };
+
+            anim.Completed += (_, __) =>
+            {
+                AnimationCanvas.Children.Remove(goat);
+                tcs.SetResult(true);
+            };
+
+            goat.BeginAnimation(Canvas.LeftProperty, anim);
+            await tcs.Task;
+        }
+
+        public Task PlayVictoryAnimation(List<StrokePoint> templatePoints)
+        {
+            return PlayVictoryAnimation(); 
         }
     }
 }

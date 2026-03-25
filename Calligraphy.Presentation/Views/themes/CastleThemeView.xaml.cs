@@ -1,11 +1,16 @@
 using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using Calligraphy.Domain;
+using XamlAnimatedGif;
 
 namespace Calligraphy.Presentation.Views.themes
 {
-    public partial class CastleThemeView : UserControl
+    public partial class CastleThemeView : UserControl, IThemeView
     {
         // ── Asset paths ──────────────────────────────────────────────────────────
         private const string Base = "/Resources/Assets/Images/Themes/Castle/Tiles/";
@@ -95,6 +100,47 @@ namespace Calligraphy.Presentation.Views.themes
             Canvas.SetLeft(img, left);
             Canvas.SetTop(img, top);
             return img;
+        }
+
+        public async Task PlayVictoryAnimation()
+        {
+            var knight = new Image
+            {
+                Width = 140,
+                Height = 140,
+                Stretch = Stretch.Fill
+            };
+
+            var uri = new Uri("pack://application:,,,/Resources/Assets/Images/Themes/Castle/knight.gif", UriKind.Absolute);
+            AnimationBehavior.SetSourceUri(knight, uri);
+            AnimationBehavior.SetRepeatBehavior(knight, RepeatBehavior.Forever);
+
+            Canvas.SetLeft(knight, 50);
+            Canvas.SetTop(knight, 329);
+            AnimationCanvas.Children.Add(knight);
+
+            var tcs = new TaskCompletionSource<bool>();
+
+            var anim = new DoubleAnimation
+            {
+                From = 50,
+                To = 1000,
+                Duration = new Duration(TimeSpan.FromSeconds(10))
+            };
+
+            anim.Completed += (_, __) =>
+            {
+                AnimationCanvas.Children.Remove(knight);
+                tcs.SetResult(true);
+            };
+
+            knight.BeginAnimation(Canvas.LeftProperty, anim);
+            await tcs.Task;
+        }
+
+        public Task PlayVictoryAnimation(List<StrokePoint> templatePoints)
+        {
+            return PlayVictoryAnimation(); 
         }
     }
 }

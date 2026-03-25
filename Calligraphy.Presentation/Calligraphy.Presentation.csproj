@@ -15,6 +15,7 @@
         <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.3" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.3" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.3"/>
+        <PackageReference Include="XamlAnimatedGif" Version="2.3.1" />
     </ItemGroup>
 
     <ItemGroup>
@@ -152,6 +153,11 @@
         <Resource Include="Resources\Assets\Images\WordBackgrounds\jungle.png" />
         <Resource Include="Resources\Assets\Images\Buttons\Grass-Buttons-v-white.png" />
         <Resource Include="Resources\Assets\Images\Buttons\pause-button.png" />
+        <Resource Include="Resources\Assets\Images\Themes\Castle\knight.gif" />
+        <Resource Include="Resources\Assets\Images\Themes\plane.gif" />
+        <Resource Include="Resources\Assets\Images\Themes\Hedge\squirle.gif" />
+        <Resource Include="Resources\Assets\Images\Themes\Mountain\goat.gif" />
+        <Resource Include="Resources\Assets\Images\Themes\Wave\boat.gif" />
     </ItemGroup>
 
 </Project>

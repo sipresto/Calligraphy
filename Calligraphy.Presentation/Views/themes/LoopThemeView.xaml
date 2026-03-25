@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:Calligraphy.Presentation.Views.themes"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        
-    </Grid>
+    <Grid Width="1200" Height="800" Background="Transparent">
+        <Canvas x:Name="AnimationCanvas" Width="1200" Height="800"
+                IsHitTestVisible="False" />
+        </Grid>
 </UserControl>

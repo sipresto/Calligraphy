@@ -8,6 +8,7 @@ public interface ITraceGameViewModel
     event Action DrawingStarted;
     event Action DrawingEnded;
     event Action Restarted;
+    bool IsAnimationPlaying { get; set; }
     
     void FinishGame(List<List<StrokePointDto>> strokes);
     GameResult GameResult { get; }
