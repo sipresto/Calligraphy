@@ -35,8 +35,9 @@
 
     <Viewbox Stretch="Uniform">
         <Grid Width="1200" Height="800" Background="Transparent">
-
-            <ContentControl Content="{Binding CurrentTemplate}"
+            
+            <ContentControl x:Name="ThemeHost"
+                            Content="{Binding CurrentTemplate}"
                             Grid.ColumnSpan="2"
                             IsHitTestVisible="False" />
 
@@ -89,8 +90,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center" />
 
-            <controls:MascotFeedbackControl />
-
+            <controls:MascotFeedbackControl x:Name="MascotFeedback" />
         </Grid>
     </Viewbox>
 </UserControl>
