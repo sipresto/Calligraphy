@@ -77,17 +77,17 @@ public abstract class Letter : TraceTemplate
         else if (IsTall)
         {
             zoneOffsetY = 0;
-            zoneHeight  = targetHeight * 0.75;
+            zoneHeight  = targetHeight * 0.66;
         }
         else if (IsLow)
         {
-            zoneOffsetY = targetHeight * 0.25;
-            zoneHeight  = targetHeight * 0.75;
+            zoneOffsetY = targetHeight * 0.33;
+            zoneHeight  = targetHeight * 0.66;
         }
         else
         {
-            zoneOffsetY = targetHeight * 0.25;
-            zoneHeight  = targetHeight * 0.50;
+            zoneOffsetY = targetHeight * 0.33;
+            zoneHeight  = targetHeight * 0.33;
         }
 
         double scaleX = targetWidth / originalWidth;
