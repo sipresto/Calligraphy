@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
+using Calligraphy.Presentation.Views.Controls;
 using Calligraphy.Presentation.ViewModels;
 
 namespace Calligraphy.Presentation.Views;
@@ -58,9 +59,6 @@ public partial class LetterStringGameView : UserControl
  
         ViewModel.FinishGame([]);
  
-        if (ViewModel.GameResult != null)
-        {
-            await ResultPopup.AnimateStars(ViewModel.GameResult.StarCount);
-        }
+        await GameResultViewHelpers.AnimateStarsIfResultAsync(ResultPopup, ViewModel.GameResult);
     }
 }

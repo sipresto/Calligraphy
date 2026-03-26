@@ -1,5 +1,11 @@
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using Calligraphy.Domain;
 
 namespace Calligraphy.Presentation.Views.themes
@@ -78,6 +84,28 @@ namespace Calligraphy.Presentation.Views.themes
 
             element.RenderTransform = new RotateTransform(Math.Atan2(dy, dx) * (180 / Math.PI));
             return point;
+        }
+
+        public static async Task PlayStoryboardAsync(FrameworkElement host, Storyboard storyboard,
+            CancellationToken cancellationToken)
+        {
+            var tcs = new TaskCompletionSource<bool>();
+            EventHandler completedHandler = null;
+            completedHandler = (_, __) => tcs.TrySetResult(true);
+
+            storyboard.Completed += completedHandler;
+            storyboard.Begin(host, true);
+
+            using (cancellationToken.Register(() =>
+                   {
+                       storyboard.Stop(host);
+                       tcs.TrySetResult(false);
+                   }))
+            {
+                await tcs.Task;
+            }
+
+            storyboard.Completed -= completedHandler;
         }
     }
 }

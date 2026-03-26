@@ -10,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Calligraphy.Presentation.Views.Controls;
 
-public partial class InkCanvasControl : UserControl
+public partial class InkCanvasControl
 {
     private readonly Stopwatch _stopwatch = Stopwatch.StartNew();
     private List<StrokePointDto> _liveStroke = [];
@@ -26,8 +26,8 @@ public partial class InkCanvasControl : UserControl
     public InkCanvasControl()
     {
         InitializeComponent();
-        CallyCanvas.EditingMode = InkCanvasEditingMode.Ink;
-        CallyCanvas.EditingModeInverted = InkCanvasEditingMode.None;
+        InkCanvas.EditingMode = InkCanvasEditingMode.Ink;
+        InkCanvas.EditingModeInverted = InkCanvasEditingMode.None;
 
         Loaded += InkCanvasControl_Loaded;
     }
@@ -38,12 +38,12 @@ public partial class InkCanvasControl : UserControl
         set => SetValue(IsDrawingEnabledProperty, value);
     }
     
-    public event Action StylusUp;
+    public new event Action StylusUp;
     
     private static void OnIsDrawingEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         if (d is InkCanvasControl control)
-            control.CallyCanvas.IsEnabled = (bool)e.NewValue;
+            control.InkCanvas.IsEnabled = (bool)e.NewValue;
     }
 
     private void InkCanvasControl_Loaded(object sender, RoutedEventArgs e)
@@ -51,20 +51,20 @@ public partial class InkCanvasControl : UserControl
         var drawingState = App.ServiceProvider.GetRequiredService<DrawingState>();
 
         if (drawingState.PenColor is SolidColorBrush initialBrush)
-            CallyCanvas.DefaultDrawingAttributes.Color = initialBrush.Color;
+            InkCanvas.DefaultDrawingAttributes.Color = initialBrush.Color;
 
-        drawingState.PropertyChanged += (s, args) =>
+        drawingState.PropertyChanged += (_, args) =>
         {
             if (args.PropertyName == nameof(DrawingState.PenColor)
                 && drawingState.PenColor is SolidColorBrush brush)
-                CallyCanvas.DefaultDrawingAttributes.Color = brush.Color;
+                InkCanvas.DefaultDrawingAttributes.Color = brush.Color;
         };
     }
 
     public List<List<StrokePointDto>> EndDrawing(bool disableDrawing = true)
     {
         if (disableDrawing)
-            CallyCanvas.IsEnabled = false;
+            InkCanvas.IsEnabled = false;
 
         if (_liveStroke.Count > 0)
         {
@@ -81,20 +81,20 @@ public partial class InkCanvasControl : UserControl
 
     public void SetDrawingEnabled(bool enabled)
     {
-        CallyCanvas.IsEnabled = enabled;
+        InkCanvas.IsEnabled = enabled;
     }
 
     public void Clear(bool enableDrawing = false)
     {
         _strokes = [];
         _liveStroke = [];
-        CallyCanvas.Strokes.Clear();
-        CallyCanvas.IsEnabled = enableDrawing;
+        InkCanvas.Strokes.Clear();
+        InkCanvas.IsEnabled = enableDrawing;
     }
 
-    private void CallyCanvas_StylusMove(object sender, StylusEventArgs e)
+    private void InkCanvas_StylusMove(object sender, StylusEventArgs e)
     {
-        StylusPointCollection points = e.GetStylusPoints(CallyCanvas);
+        StylusPointCollection points = e.GetStylusPoints(InkCanvas);
 
         foreach (var point in points)
         {
@@ -109,7 +109,7 @@ public partial class InkCanvasControl : UserControl
         }
     }
 
-    private void CallyCanvas_StylusUp(object sender, StylusEventArgs e)
+    private void InkCanvas_StylusUp(object sender, StylusEventArgs e)
     {
         _strokes.Add(_liveStroke);
         _liveStroke = [];
@@ -118,7 +118,7 @@ public partial class InkCanvasControl : UserControl
 
     private void DisplayStoredStrokes(List<List<StrokePointDto>> strokes)
     {
-        CallyCanvas.Strokes.Clear();
+        InkCanvas.Strokes.Clear();
 
         var drawingState = App.ServiceProvider.GetRequiredService<DrawingState>();
         var color = drawingState.PenColor is SolidColorBrush brush ? brush.Color : Colors.Black;
@@ -133,7 +133,7 @@ public partial class InkCanvasControl : UserControl
 
             var newStroke = new Stroke(stylusPoints);
             newStroke.DrawingAttributes.Color = color;
-            CallyCanvas.Strokes.Add(newStroke);
+            InkCanvas.Strokes.Add(newStroke);
         }
     }
 }

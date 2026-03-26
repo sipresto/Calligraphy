@@ -6,10 +6,10 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Background="Transparent">
-        <InkCanvas x:Name="CallyCanvas"
+        <InkCanvas x:Name="InkCanvas"
                    Background="Transparent"
-                   StylusUp="CallyCanvas_StylusUp"
-                   StylusMove="CallyCanvas_StylusMove">
+                   StylusUp="InkCanvas_StylusUp"
+                   StylusMove="InkCanvas_StylusMove">
             <InkCanvas.DefaultDrawingAttributes>
                 <DrawingAttributes Color="Black"
                                    Width="2"

@@ -1,4 +1,4 @@
-﻿using System.Windows;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -113,8 +113,6 @@ namespace Calligraphy.Presentation.Views.themes
             Canvas.SetTop(goat, 400);
             AnimationCanvas.Children.Add(goat);
             _animatedElement = goat; 
-            
-            var tcs = new TaskCompletionSource<bool>();
 
             var anim = new DoubleAnimation
             {
@@ -128,18 +126,7 @@ namespace Calligraphy.Presentation.Views.themes
             Storyboard.SetTargetProperty(anim, new PropertyPath(Canvas.LeftProperty));
             _storyboard.Children.Add(anim);
 
-            _storyboard.Completed += (_, __) => tcs.TrySetResult(true);
-            
-            _storyboard.Begin(this, true);
-
-            using (cancellationToken.Register(() =>
-                   {
-                       _storyboard?.Stop(this); 
-                       tcs.TrySetResult(false);
-                   }))
-            {
-                await tcs.Task;
-            }
+            await ThemeAnimationHelper.PlayStoryboardAsync(this, _storyboard, cancellationToken);
             AnimationCanvas.Children.Remove(goat);
         }
         public void PauseAnimation()

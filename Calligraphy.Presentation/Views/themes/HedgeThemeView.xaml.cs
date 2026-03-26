@@ -114,8 +114,6 @@ namespace Calligraphy.Presentation.Views.themes
             AnimationCanvas.Children.Add(squirrel);
             _animatedElement = squirrel; 
 
-            var tcs = new TaskCompletionSource<bool>();
-
             var anim = new DoubleAnimation
             {
                 From = 50,
@@ -128,18 +126,7 @@ namespace Calligraphy.Presentation.Views.themes
             Storyboard.SetTargetProperty(anim, new PropertyPath(Canvas.LeftProperty));
             _storyboard.Children.Add(anim);
 
-            _storyboard.Completed += (_, __) => tcs.TrySetResult(true);
-            
-            _storyboard.Begin(this, true);
-
-            using (cancellationToken.Register(() =>
-                   {
-                       _storyboard?.Stop(this); 
-                       tcs.TrySetResult(false);
-                   }))
-            {
-                await tcs.Task;
-            }
+            await ThemeAnimationHelper.PlayStoryboardAsync(this, _storyboard, cancellationToken);
 
             AnimationCanvas.Children.Remove(squirrel);
         }

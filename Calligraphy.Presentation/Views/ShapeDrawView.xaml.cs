@@ -1,8 +1,9 @@
-﻿using System.Windows;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Calligraphy.Presentation.ViewModels;
+using Calligraphy.Presentation.Views.Controls;
 
 //TODO: make sure mouse doesn't work
 namespace Calligraphy.Presentation.Views;
@@ -42,10 +43,7 @@ public partial class ShapeDrawView : UserControl
         var points = InkCanvas.EndDrawing();
         ViewModel.FinishGame(points);
 
-        if (ViewModel.GameResult != null)
-        {
-            await ResultPopup.AnimateStars(ViewModel.GameResult.StarCount);
-        }
+        await GameResultViewHelpers.AnimateStarsIfResultAsync(ResultPopup, ViewModel.GameResult);
     }
 
     private void DrawTemplate()
