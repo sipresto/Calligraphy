@@ -11,6 +11,7 @@ A **Windows desktop application** (WPF, .NET 10) that teaches children to write 
 - [Game Types](#game-types)
 - [Technical Overview](#technical-overview)
 - [Adding Content](#adding-content)
+- [Used Assets](#used-assets)
 
 ---
 
@@ -190,3 +191,9 @@ Cally uses a Layered Architecture with MVVM and Dependency Injection (Microsoft.
     }
 }
 ```
+---
+
+## Used Assets
+
+1. We used a cozy theme for the main layout of the application: https://mandinhart.itch.io/garden-cozy-ui-kit-buttons-icons
+2. For the games themselves we used platform game assets from: https://kenney.nl/assets/platformer-art-deluxe
