@@ -6,6 +6,7 @@
         <Nullable>disable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
+        <ApplicationIcon>Resources\Assets\Icon\icon.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
@@ -160,6 +161,7 @@
         <Resource Include="Resources\Assets\Images\Themes\Wave\boat.gif" />
         <Resource Include="Resources\Assets\Sounds\button-press.wav" />
         <Resource Include="Resources\Assets\Sounds\star.wav" />
+        <Resource Include="Resources\Assets\Icon\icon.ico" />
     </ItemGroup>
 
 </Project>
