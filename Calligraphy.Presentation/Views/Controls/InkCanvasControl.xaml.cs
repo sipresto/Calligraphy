@@ -29,9 +29,9 @@ public partial class InkCanvasControl
         InkCanvas.EditingMode = InkCanvasEditingMode.Ink;
         InkCanvas.EditingModeInverted = InkCanvasEditingMode.None;
 
-        CallyCanvas.AddHandler(PreviewMouseDownEvent, new MouseButtonEventHandler(SuppressMouseEvent), handledEventsToo: true);
-        CallyCanvas.AddHandler(PreviewMouseMoveEvent, new MouseEventHandler(SuppressMouseMoveEvent), handledEventsToo: true);
-        CallyCanvas.AddHandler(PreviewMouseUpEvent, new MouseButtonEventHandler(SuppressMouseEvent), handledEventsToo: true);
+        InkCanvas.AddHandler(PreviewMouseDownEvent, new MouseButtonEventHandler(SuppressMouseEvent), handledEventsToo: true);
+        InkCanvas.AddHandler(PreviewMouseMoveEvent, new MouseEventHandler(SuppressMouseMoveEvent), handledEventsToo: true);
+        InkCanvas.AddHandler(PreviewMouseUpEvent, new MouseButtonEventHandler(SuppressMouseEvent), handledEventsToo: true);
 
         Loaded += InkCanvasControl_Loaded;
     }
