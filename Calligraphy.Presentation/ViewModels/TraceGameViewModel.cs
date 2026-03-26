@@ -21,8 +21,9 @@ public class TraceGameViewModel : GameViewModelBase<TraceGameService, TraceGameS
     {
     }
 
-    public void Initialize(string gameId)
+    public void Initialize(string gameId, string directionImageSource = null)
     {
+        DirectionImageSource = directionImageSource;
         _gameId = gameId;
         LoadBestScore(_gameId);
         Settings = AllSettings.TraceGames[gameId];
@@ -39,6 +40,8 @@ public class TraceGameViewModel : GameViewModelBase<TraceGameService, TraceGameS
     public List<StrokePoint> TemplatePoints => CurrentTemplate?.GetTemplatePoints() ?? [];
 
     public double TemplateThickness => Settings.ToleranceDistance * 2;
+
+    public string DirectionImageSource { get; private set; }
 
     public bool SegmentCountCompleted()
     {

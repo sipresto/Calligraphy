@@ -29,7 +29,23 @@ public partial class InkCanvasControl : UserControl
         CallyCanvas.EditingMode = InkCanvasEditingMode.Ink;
         CallyCanvas.EditingModeInverted = InkCanvasEditingMode.None;
 
+        CallyCanvas.AddHandler(PreviewMouseDownEvent, new MouseButtonEventHandler(SuppressMouseEvent), handledEventsToo: true);
+        CallyCanvas.AddHandler(PreviewMouseMoveEvent, new MouseEventHandler(SuppressMouseMoveEvent), handledEventsToo: true);
+        CallyCanvas.AddHandler(PreviewMouseUpEvent, new MouseButtonEventHandler(SuppressMouseEvent), handledEventsToo: true);
+
         Loaded += InkCanvasControl_Loaded;
+    }
+    
+    private void SuppressMouseEvent(object sender, MouseButtonEventArgs e)
+    {
+        if (e.StylusDevice == null)
+            e.Handled = true;
+    }
+
+    private void SuppressMouseMoveEvent(object sender, MouseEventArgs e)
+    {
+        if (e.StylusDevice == null)
+            e.Handled = true;
     }
     
     public bool IsDrawingEnabled
@@ -52,6 +68,9 @@ public partial class InkCanvasControl : UserControl
 
         if (drawingState.PenColor is SolidColorBrush initialBrush)
             CallyCanvas.DefaultDrawingAttributes.Color = initialBrush.Color;
+
+        CallyCanvas.DefaultDrawingAttributes.Width = 3;
+        CallyCanvas.DefaultDrawingAttributes.Height = 3;
 
         drawingState.PropertyChanged += (s, args) =>
         {
