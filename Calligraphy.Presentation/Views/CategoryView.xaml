@@ -34,6 +34,9 @@
                             </Grid>
                         </Grid>
                         <ControlTemplate.Triggers>
+                            <EventTrigger RoutedEvent="Button.Click">
+                                <SoundPlayerAction Source="/Resources/Assets/Sounds/button-press.wav" />
+                            </EventTrigger>
                             <Trigger Property="IsPressed" Value="True">
                                 <Setter TargetName="Root" Property="Margin" Value="0,8,0,0" />
                             </Trigger>
