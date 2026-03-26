@@ -45,8 +45,10 @@ public class WordGameSession : GameSession
                     _toleranceDistance,
                     _requiredAccuracy);
 
-                if (!result.DirectionCorrect && !_wrongLetters.Contains(drawing.Key))
+                if (!result.DirectionCorrect && attempt.UserPoints.Count != 0 && !_wrongLetters.Contains(drawing.Key))
+                {
                     _wrongLetters.Add(drawing.Key);
+                } 
 
                 totalScore += result.GetScore();
                 totalAccuracy += result.AccuracyScore;
