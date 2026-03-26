@@ -37,7 +37,6 @@ public class ConnectorLowercaseG : Letter
         AddRelativeBezier(newPoints, ref cx, ref cy, 2.7871, 0.449111, 5.15482, 1.13647, 7.76111, 2.42589, pointsPerCurve);
         AddRelativeBezier(newPoints, ref cx, ref cy, 2.69614, 1.33386, 4.96652, 2.63414, 7.81791, 3.95251, pointsPerCurve);
 
-        // newPoints.Reverse();
         rawPoints.AddRange(newPoints);
         newPoints = [];
 
@@ -67,7 +66,7 @@ public class ConnectorLowercaseG : Letter
         AddRelativeBezier(newPoints, ref cx, ref cy, 1.29991, -3.47474, 3.12649, -6.70346, 5.10656, -9.87778, pointsPerCurve);
         AddRelativeBezier(newPoints, ref cx, ref cy, 2.05321, -3.29157, 4.91354, -6.38579, 7.87391, -9.17222, pointsPerCurve);
 
-        // newPoints.Reverse();
+        newPoints.Reverse();
         rawPoints.AddRange(newPoints);
         newPoints = [];
 
@@ -92,7 +91,6 @@ public class ConnectorLowercaseG : Letter
         AddRelativeBezier(newPoints, ref cx, ref cy, 0.805625, -2.0577, 1.59838, -4.96663, 2.3573, -7.05556, pointsPerCurve);
         AddRelativeBezier(newPoints, ref cx, ref cy, 2.3362, -6.43049, 5.19109, -10.6984, 8.62754, -16.5806, pointsPerCurve);
 
-        // newPoints.Reverse();
         rawPoints.AddRange(newPoints);
         newPoints = [];
 

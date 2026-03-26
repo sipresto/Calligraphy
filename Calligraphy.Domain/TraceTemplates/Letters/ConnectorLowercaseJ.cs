@@ -30,7 +30,6 @@ public class ConnectorLowercaseJ : Letter
         AddRelativeBezier(newPoints, ref cx, ref cy, -1.53065, 7.62015, -3.0872, 14.8332, -6.05506, 27.1984, pointsPerCurve);
         AddRelativeBezier(newPoints, ref cx, ref cy, -2.8817, 12.0062, -2.91245, 15.4906, -6.35783, 29.4671, pointsPerCurve);
 
-        // newPoints.Reverse();
         rawPoints.AddRange(newPoints);
         newPoints = [];
 
