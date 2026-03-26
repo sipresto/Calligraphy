@@ -155,7 +155,7 @@
         <Resource Include="Resources\Assets\Images\Buttons\pause-button.png" />
         <Resource Include="Resources\Assets\Images\Themes\Castle\knight.gif" />
         <Resource Include="Resources\Assets\Images\Themes\plane.gif" />
-        <Resource Include="Resources\Assets\Images\Themes\Hedge\squirle.gif" />
+        <Resource Include="Resources\Assets\Images\Themes\Hedge\squirrel.gif" />
         <Resource Include="Resources\Assets\Images\Themes\Mountain\goat.gif" />
         <Resource Include="Resources\Assets\Images\Themes\Wave\boat.gif" />
         <Resource Include="Resources\Assets\Sounds\button-press.wav" />

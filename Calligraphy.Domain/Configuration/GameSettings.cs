@@ -1,5 +1,7 @@
 namespace Calligraphy.Domain.Configuration;
 
+using System.Collections.Generic;
+
 public class GameSettings
 {
     public Dictionary<string, InfinityRaceSettings> InfinityRace { get; init; }
@@ -19,6 +21,8 @@ public abstract class BaseGameSettings
     public TutorialSettings Tutorial { get; init; }
     public string Difficulty { get; set; } = "Makkelijk";
     
+    public abstract string TargetViewModel { get; }
+    
     public StarThresholds GetThresholds() => new (StarThresholds[0], StarThresholds[1], StarThresholds[2]);
 }
 
@@ -29,6 +33,7 @@ public abstract class TimedGameSettings : BaseGameSettings
 
 public class InfinityRaceSettings : TimedGameSettings
 {
+    public override string TargetViewModel => "InfinityRaceViewModel";
 }
 
 public class TimedTraceGameSettings : TimedGameSettings
@@ -36,6 +41,7 @@ public class TimedTraceGameSettings : TimedGameSettings
     public string Template { get; set; }
     public double ToleranceDistance { get; set; }
     public double RequiredAccuracy { get; set; }
+    public override string TargetViewModel => "TimedTraceGameViewModel";
 }
 
 public class TraceGameSettings : BaseGameSettings
@@ -44,11 +50,13 @@ public class TraceGameSettings : BaseGameSettings
     public double ToleranceDistance { get; set; }
     public double RequiredAccuracy { get; set; }
     public int SegmentCount { get; set; } = 1;
+    public override string TargetViewModel => "TraceGameViewModel";
 }
 
 public class ShapeGameSettings : BaseGameSettings
 {
     public string Shape { get; set; }
+    public override string TargetViewModel => "ShapeDrawViewModel";
 }
 
 public class WordGameSettings : BaseGameSettings
@@ -57,6 +65,7 @@ public class WordGameSettings : BaseGameSettings
     public double RequiredAccuracy { get; set; }
     public List<WordPosition> Words { get; set; }
     public string ImageSource { get; set; }
+    public override string TargetViewModel => "WordGameViewModel";
 }
 
 public class WordPosition
@@ -72,12 +81,12 @@ public class LetterStringGameSettings : BaseGameSettings
     public double RequiredAccuracy { get; set; }
     public string LetterString { get; set; }
     public int SegmentCount { get; set; } = 1;
+    public override string TargetViewModel => "LetterStringGameViewModel";
 }
 
 public class TutorialSettings
 {
     public string PointsExplanation { get; init; }
     public bool ShowPressureInfo { get; init; }
-    public string TargetViewModel { get; init; }
     public string ImageSource { get; init; }
 }

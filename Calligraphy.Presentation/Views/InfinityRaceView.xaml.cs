@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Calligraphy.Domain;
 using Calligraphy.Presentation.ViewModels;
+using Calligraphy.Presentation.Views.Controls;
 
 namespace Calligraphy.Presentation.Views;
 
@@ -41,8 +42,7 @@ public partial class InfinityRaceView : UserControl
 
         ViewModel?.FinishGame(strokes);
 
-        if (ViewModel?.GameResult != null)
-            await ResultPopup.AnimateStars(ViewModel.GameResult.StarCount);
+        await GameResultViewHelpers.AnimateStarsIfResultAsync(ResultPopup, ViewModel?.GameResult);
     }
 
     private void OnRestart()

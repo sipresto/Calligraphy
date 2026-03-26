@@ -94,34 +94,12 @@ namespace Calligraphy.Presentation.Views.themes
             const double msPerFrame = 16.0;
             const double pixelsPerFrame = speedPixelsPerSecond * (msPerFrame / 1000.0);
 
-            var evenPoints = new List<StrokePoint>();
-            evenPoints.Add(templatePoints[0]);
-
-            double accumulated = 0;
-            int srcIndex = 0;
-            var current = templatePoints[0];
-
-            while (srcIndex < templatePoints.Count - 1)
-            {
-                var next = templatePoints[srcIndex + 1];
-                double dx = next.X - current.X;
-                double dy = next.Y - current.Y;
-                double segLen = Math.Sqrt(dx * dx + dy * dy);
-
-                if (accumulated + segLen >= pixelsPerFrame)
-                {
-                    double t = (pixelsPerFrame - accumulated) / segLen;
-                    current = new StrokePoint(current.X + dx * t, current.Y + dy * t);
-                    evenPoints.Add(current);
-                    accumulated = 0;
-                }
-                else
-                {
-                    accumulated += segLen;
-                    srcIndex++;
-                    current = next;
-                }
-            }
+        var evenPoints = ThemeAnimationHelper.ResamplePointsEvenly(templatePoints, pixelsPerFrame);
+        if (evenPoints.Count == 0)
+        {
+            AnimationCanvas.Children.Remove(boat);
+            return;
+        }
 
             StrokePoint lastAnglePoint = evenPoints[0];
             foreach (var point in evenPoints)
@@ -133,26 +111,9 @@ namespace Calligraphy.Presentation.Views.themes
                 Canvas.SetLeft(boat, point.X - boat.Width / 2 + boatXOffset);
                 Canvas.SetTop(boat, point.Y - boat.Height / 2 + boatYOffset);
 
-                double dx = point.X - lastAnglePoint.X;
-                double dy = point.Y - lastAnglePoint.Y;
-                if (Math.Sqrt(dx * dx + dy * dy) > 5.0)
-                {
-                    boat.RenderTransform = new RotateTransform(Math.Atan2(dy, dx) * (180 / Math.PI));
-                    lastAnglePoint = point;
-                }
+                lastAnglePoint = ThemeAnimationHelper.UpdateRotationIfMovedEnough(boat, lastAnglePoint, point, 5.0);
 
-                while (_isPaused)
-                {
-                    if (cancellationToken.IsCancellationRequested) break;
-                    try
-                    {
-                        await Task.Delay(50, cancellationToken);
-                    }
-                    catch (TaskCanceledException)
-                    {
-                        break;
-                    }
-                }
+                await ThemeAnimationHelper.WaitWhilePausedAsync(() => _isPaused, cancellationToken);
 
                 try
                 {
