@@ -29,7 +29,19 @@ public abstract partial class GameViewModelBase<TService, TSession, TSettings> :
         MenuCommand = new RelayCommand(Menu);
         NextLevelCommand = new RelayCommand(NavigateToNextLevel);
     }
-    
+
+    public bool IsAnimationPlaying
+    {
+        get;
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(IsPauseButtonVisible));
+            OnPropertyChanged(nameof(IsGameResultVisible));
+        }
+    } = false;
+
     public bool IsPauseVisible
     {
         get;
@@ -42,15 +54,16 @@ public abstract partial class GameViewModelBase<TService, TSession, TSettings> :
         }
     }
 
-    public bool IsPauseButtonVisible => GameResult == null;
-    
+    public bool IsPauseButtonVisible => GameResult == null || IsAnimationPlaying;
+
     public bool IsDrawingEnabled => !IsPauseVisible;
-    
+
     [RelayCommand]
     private void Pause()
     {
         IsPauseVisible = true;
         OnPause();
+        Paused?.Invoke();
     }
 
     [RelayCommand]
@@ -58,6 +71,7 @@ public abstract partial class GameViewModelBase<TService, TSession, TSettings> :
     {
         IsPauseVisible = false;
         OnResume();
+        Resumed?.Invoke();
     }
 
     protected virtual void OnPause() { }
@@ -74,7 +88,7 @@ public abstract partial class GameViewModelBase<TService, TSession, TSettings> :
         }
     }
 
-    public bool IsGameResultVisible => GameResult != null;
+    public bool IsGameResultVisible => GameResult != null && !IsAnimationPlaying;
 
     public GameResult GameResult
     {
@@ -103,7 +117,8 @@ public abstract partial class GameViewModelBase<TService, TSession, TSettings> :
     public ICommand NextLevelCommand { get; }
 
     public event Action Restarted;
-
+    public event Action Paused;
+    public event Action Resumed;
     public void SetNextLevel(string nextLevelKey)
     {
         _nextLevelKey = nextLevelKey;
@@ -144,6 +159,7 @@ public abstract partial class GameViewModelBase<TService, TSession, TSettings> :
     protected void ResetGameState()
     {
         IsPauseVisible = false;
+        IsAnimationPlaying = false;
         GameResult = null;
         Restarted?.Invoke();
     }
