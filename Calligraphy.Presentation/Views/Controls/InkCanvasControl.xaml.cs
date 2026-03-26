@@ -69,6 +69,9 @@ public partial class InkCanvasControl : UserControl
         if (drawingState.PenColor is SolidColorBrush initialBrush)
             CallyCanvas.DefaultDrawingAttributes.Color = initialBrush.Color;
 
+        CallyCanvas.DefaultDrawingAttributes.Width = 3;
+        CallyCanvas.DefaultDrawingAttributes.Height = 3;
+
         drawingState.PropertyChanged += (s, args) =>
         {
             if (args.PropertyName == nameof(DrawingState.PenColor)
