@@ -12,6 +12,7 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
         <converters:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter" />
+        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBoolToVisibility" />
     </UserControl.Resources>
 
     <Border
@@ -28,16 +29,13 @@
         <Grid>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <StackPanel Grid.Row="0">
-                <StackPanel
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Center"
-                    Margin="0,40,0,0">
-
+            <StackPanel Grid.Row="0"
+                        Visibility="{Binding GameResult.ShowDirectionImage, Converter={StaticResource InverseBoolToVisibility}}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,40,0,0">
                     <local:AnimatedStar x:Name="Star1" Margin="0,0,10,0" />
                     <local:AnimatedStar x:Name="Star2" />
                     <local:AnimatedStar x:Name="Star3" Margin="10,0,0,0" />
@@ -59,6 +57,21 @@
                     HorizontalAlignment="Center"
                     Visibility="{Binding BestScore, Converter={StaticResource NullableToVisibilityConverter}}" />
             </StackPanel>
+
+            <Border
+                Grid.Row="0"
+                Margin="0,30,0,30"
+                Padding="10"
+                Background="{StaticResource SecondaryColor}"
+                CornerRadius="5"
+                HorizontalAlignment="Center"
+                Visibility="{Binding GameResult.ShowDirectionImage, Converter={StaticResource BoolToVisibility}}">
+                <Image
+                    Source="{Binding DirectionImageSource}"
+                    Height="150"
+                    Width="150"
+                    Stretch="Fill" />
+            </Border>
 
             <StackPanel
                 Grid.Row="1"
