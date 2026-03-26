@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using Calligraphy.Application;
 using Calligraphy.Domain.Configuration;
 using Calligraphy.Presentation.Models;
@@ -67,7 +67,7 @@ public partial class LevelViewModel : ViewModelBase
                         DisplayName = !string.IsNullOrEmpty(val.GameName) ? val.GameName : val.Level.ToString(),
                         CategoryLabel = val.Category,
                         Level = val.Level,
-                        Stars = _infinityRaceService.GetGameScore(key)?.Stars ?? 0,
+                        Stars = _infinityRaceService.GetGameResultRecord(key)?.Stars ?? 0,
                         Difficulty = val.Difficulty
                     });
 
@@ -80,7 +80,7 @@ public partial class LevelViewModel : ViewModelBase
                         DisplayName = !string.IsNullOrEmpty(val.GameName) ? val.GameName : val.Level.ToString(),
                         CategoryLabel = val.Category,
                         Level = val.Level,
-                        Stars = _shapeDrawService.GetGameScore(key)?.Stars ?? 0,
+                        Stars = _shapeDrawService.GetGameResultRecord(key)?.Stars ?? 0,
                         Difficulty = val.Difficulty
                     });
 
@@ -93,7 +93,7 @@ public partial class LevelViewModel : ViewModelBase
                         DisplayName = !string.IsNullOrEmpty(val.GameName) ? val.GameName : val.Level.ToString(),
                         CategoryLabel = val.Category,
                         Level = val.Level,
-                        Stars = _traceGameService.GetGameScore(key)?.Stars ?? 0,
+                        Stars = _traceGameService.GetGameResultRecord(key)?.Stars ?? 0,
                         Difficulty = val.Difficulty
                     });
 
@@ -106,7 +106,7 @@ public partial class LevelViewModel : ViewModelBase
                         DisplayName = !string.IsNullOrEmpty(val.GameName) ? val.GameName : val.Level.ToString(),
                         CategoryLabel = val.Category,
                         Level = val.Level,
-                        Stars = _traceGameService.GetGameScore(key)?.Stars ?? 0,
+                        Stars = _traceGameService.GetGameResultRecord(key)?.Stars ?? 0,
                         Difficulty = val.Difficulty
                     });
 
@@ -119,7 +119,7 @@ public partial class LevelViewModel : ViewModelBase
                         DisplayName = !string.IsNullOrEmpty(val.GameName) ? val.GameName : val.Level.ToString(),
                         CategoryLabel = val.Category,
                         Level = val.Level,
-                        Stars = _wordGameService.GetGameScore(key)?.Stars ?? 0,
+                        Stars = _wordGameService.GetGameResultRecord(key)?.Stars ?? 0,
                         Difficulty = val.Difficulty
                     });
 
@@ -132,7 +132,7 @@ public partial class LevelViewModel : ViewModelBase
                         DisplayName = !string.IsNullOrEmpty(val.GameName) ? val.GameName : val.Level.ToString(),
                         CategoryLabel = val.Category,
                         Level = val.Level,
-                        Stars = _letterStringGameService.GetGameScore(key)?.Stars ?? 0,
+                        Stars = _letterStringGameService.GetGameResultRecord(key)?.Stars ?? 0,
                         Difficulty = val.Difficulty
                     });
 

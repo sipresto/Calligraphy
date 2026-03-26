@@ -107,7 +107,7 @@ namespace Calligraphy.Presentation.Views.themes
         {
             var squirrel = new Image { Width = 200, Height = 200, Stretch = Stretch.Fill };
             AnimationBehavior.SetSourceUri(squirrel,
-                new Uri("pack://application:,,,/Resources/Assets/Images/Themes/Hedge/squirle.gif", UriKind.Absolute));
+                new Uri("pack://application:,,,/Resources/Assets/Images/Themes/Hedge/squirrel.gif", UriKind.Absolute));
             AnimationBehavior.SetRepeatBehavior(squirrel, RepeatBehavior.Forever);
             Canvas.SetLeft(squirrel, 3);
             Canvas.SetTop(squirrel, 335);

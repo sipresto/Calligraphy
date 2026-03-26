@@ -2,24 +2,24 @@ namespace Calligraphy.Domain.Utility;
 
 public static class StrokeAnalysis
 {
-    private const double MinPres = 0.15;
-    private const double MaxPres = 0.6;
-    private const long PresDuration = 1000;
-    private const double MaxPresStdDev = 0.15;
+    private const double MinPressure = 0.15;
+    private const double MaxPressure = 0.6;
+    private const long PressureDurationMs = 1000;
+    private const double MaxPressureStdDev = 0.15;
 
-    public static bool IsPressureTooHigh(IEnumerable<StrokePoint> stroke, double max = MaxPres,
-        long durationMs = PresDuration)
+    public static bool IsPressureTooHigh(IEnumerable<StrokePoint> stroke, double max = MaxPressure,
+        long durationMs = PressureDurationMs)
     {
         return CheckPressure(stroke, p => p > max, durationMs);
     }
 
-    public static bool IsPressureTooLow(IEnumerable<StrokePoint> stroke, double min = MinPres,
-        long durationMs = PresDuration)
+    public static bool IsPressureTooLow(IEnumerable<StrokePoint> stroke, double min = MinPressure,
+        long durationMs = PressureDurationMs)
     {
         return CheckPressure(stroke, p => p < min, durationMs);
     }
 
-    public static bool IsStandardDeviationOff(IEnumerable<StrokePoint> stroke, double maxStdDev = MaxPresStdDev)
+    public static bool IsStandardDeviationOff(IEnumerable<StrokePoint> stroke, double maxStdDev = MaxPressureStdDev)
     {
         var pressures = stroke
             .Where(p => p.Pressure.HasValue)

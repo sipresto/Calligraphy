@@ -1,4 +1,4 @@
-﻿using Calligraphy.Domain;
+using Calligraphy.Domain;
 using Calligraphy.Domain.Sessions;
 using Calligraphy.Infrastructure;
 
@@ -8,7 +8,7 @@ public abstract class GenericGameService<TSession>
     where TSession : GameSession
 {
     private readonly IRepository _repository;
-    private string _gameName;
+    private string _gameId;
     protected TSession Session { get; private set; }
 
     protected GenericGameService(IRepository repository)
@@ -18,7 +18,7 @@ public abstract class GenericGameService<TSession>
 
     protected void Initialize(string gameId, Func<TSession> sessionFactory)
     {
-        _gameName = gameId;
+        _gameId = gameId;
         Session = sessionFactory();
     }
 
@@ -35,11 +35,11 @@ public abstract class GenericGameService<TSession>
 
         var feedbackMessage = Session.GetFeedbackMessage(stars);
 
-        var existingScore = _repository.Get(_gameName)?.Score;
+        var existingScore = _repository.Get(_gameId)?.Score;
 
         if (existingScore == null || existingScore < score)
         {
-            _repository.Save(new GameResultRecord(_gameName, score, stars, DateTime.Now));
+            _repository.Save(new GameResultRecord(_gameId, score, stars, DateTime.Now));
         }
 
         return new GameResult
@@ -50,7 +50,7 @@ public abstract class GenericGameService<TSession>
         };
     }
 
-    public GameResultRecord GetGameScore(string gameId)
+    public GameResultRecord GetGameResultRecord(string gameId)
     {
         return _repository.Get(gameId);
     }

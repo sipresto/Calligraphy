@@ -151,7 +151,7 @@ public abstract partial class GameViewModelBase<TService, TSession, TSettings> :
 
     protected void LoadBestScore(string gameId)
     {
-        BestScore = Service.GetGameScore(gameId)?.Score ?? 0;
+        BestScore = Service.GetGameResultRecord(gameId)?.Score ?? 0;
     }
 
     protected abstract void RestartGame();

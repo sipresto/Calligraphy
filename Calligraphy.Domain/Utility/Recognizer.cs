@@ -1,4 +1,4 @@
-﻿namespace Calligraphy.Domain.Utility;
+namespace Calligraphy.Domain.Utility;
 
 public static class Recognizer
 {
@@ -59,9 +59,9 @@ public static class Recognizer
 
     // ── Shape scorers ─────────────────────────────────────────────────────────
 
-    private static double LooseScore(double score, double treshold = 0.7, double add = 0)
+    private static double LooseScore(double score, double threshold = 0.7, double add = 0)
     {
-        if (score < treshold)
+        if (score < threshold)
             return score;
         double finalScore = score + add;
         return finalScore > 1 ? 1 : finalScore;
