@@ -79,7 +79,7 @@ public static class FeedbackMessageProvider
         {
             FeedbackType.WordCoverage,
             [
-                "Probeer de alle letters volledig te volgen",
+                "Probeer alle letters volledig te volgen",
                 "Probeer geen letters over te slaan"
             ]
         },
