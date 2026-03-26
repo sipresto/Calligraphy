@@ -158,6 +158,8 @@
         <Resource Include="Resources\Assets\Images\Themes\Hedge\squirle.gif" />
         <Resource Include="Resources\Assets\Images\Themes\Mountain\goat.gif" />
         <Resource Include="Resources\Assets\Images\Themes\Wave\boat.gif" />
+        <Resource Include="Resources\Assets\Sounds\button-press.wav" />
+        <Resource Include="Resources\Assets\Sounds\star.wav" />
     </ItemGroup>
 
 </Project>
