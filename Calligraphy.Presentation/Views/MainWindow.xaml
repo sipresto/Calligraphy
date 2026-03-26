@@ -6,7 +6,8 @@
         Title="Cally" Height="800" Width="1200"
         MinWidth="900"
         MinHeight="600"
-        WindowState="Maximized">
+        WindowState="Maximized"
+        Icon="pack://application:,,,/Resources/Assets/Images/Mascot/mascot-bear-1.png">
 
     <Window.Background>
         <ImageBrush ImageSource="/Resources/Assets/Images/Backgrounds/Background_Blue.png"
