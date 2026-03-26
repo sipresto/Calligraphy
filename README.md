@@ -11,6 +11,7 @@ A **Windows desktop application** (WPF, .NET 10) that teaches children to write 
 - [Game Types](#game-types)
 - [Technical Overview](#technical-overview)
 - [Adding Content](#adding-content)
+- [Used Assets](#used-assets)
 
 ---
 
@@ -51,7 +52,7 @@ dotnet run --project Calligraphy.Presentation
 
 **Letters**: Tracing games to learn the general shapes of letters.
 
-**Woorden (Words)**: Tracing games in smaller spaces to practise precise writing.
+**Woorden (Words)**: Tracing games in smaller spaces to practise precise writing and tracing games with connected letters.
 
 ---
 
@@ -120,8 +121,7 @@ Cally uses a Layered Architecture with MVVM and Dependency Injection (Microsoft.
     "RequiredAccuracy": 0.9,
     "Tutorial": {
         "PointsExplanation": "Teken de Ls zo netjes mogelijk!",
-        "ShowPressureInfo": true,
-        "TargetViewModel": "TimedTraceGameViewModel"
+        "ShowPressureInfo": true
     }
 }
 ```
@@ -140,8 +140,7 @@ Cally uses a Layered Architecture with MVVM and Dependency Injection (Microsoft.
     "StarThresholds": [40, 60, 85],
     "Tutorial": {
         "PointsExplanation": "Verdien punten door zo goed mogelijk de vorm na te tekenen",
-        "ShowPressureInfo": true,
-        "TargetViewModel": "ShapeDrawViewModel"
+        "ShowPressureInfo": true
     }
 }
 ```
@@ -167,8 +166,34 @@ Cally uses a Layered Architecture with MVVM and Dependency Injection (Microsoft.
     "ImageSource": "/Resources/Assets/Images/WordBackgrounds/farm.png", // background image used - screen size used is 1200x800
     "Tutorial": {
         "PointsExplanation": "Schrijf alle letters in de vakjes",
-        "ShowPressureInfo": true,
-        "TargetViewModel": "WordGameViewModel"
+        "ShowPressureInfo": true
     }
 }
 ```
+
+### New connected letters level
+
+1. Add a new entry to `appsettings.json` under `LetterStringGames`.
+
+```json
+"dot": {
+    "Category": "Woorden",
+    "Difficulty": "Moeilijk",
+    "Level": 10,
+    "LetterString": "stip", // Letter string to be drawn
+    "ToleranceDistance": 6,
+    "RequiredAccuracy": 0.9,
+    "SegmentCount": 3,
+    "StarThresholds": [ 40, 65, 85 ],
+    "Tutorial": {
+        "PointsExplanation": "Teken de letters zo nauwkeurig mogelijk na.",
+        "ShowPressureInfo": true
+    }
+}
+```
+---
+
+## Used Assets
+
+1. We used a cozy theme for the main layout of the application: https://mandinhart.itch.io/garden-cozy-ui-kit-buttons-icons
+2. For the games themselves we used platform game assets from: https://kenney.nl/assets/platformer-art-deluxe
