@@ -21,8 +21,6 @@ public abstract class BaseGameSettings
     public TutorialSettings Tutorial { get; init; }
     public string Difficulty { get; set; } = "Makkelijk";
     
-    // Abstract get-only property ensures every derived class assigns a ViewModel,
-    // but the JSON deserializer won't look for it in your JSON file.
     public abstract string TargetViewModel { get; }
     
     public StarThresholds GetThresholds() => new (StarThresholds[0], StarThresholds[1], StarThresholds[2]);
