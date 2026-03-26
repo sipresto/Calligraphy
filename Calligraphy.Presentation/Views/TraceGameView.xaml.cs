@@ -54,12 +54,13 @@ public partial class TraceGameView : UserControl
         {
             _animationCts = new CancellationTokenSource();
             var themeView = FindThemeView(ThemeHost);
-            
+        
             if (themeView != null)
             {
+                ViewModel.IsAnimationPlaying = true;
                 await themeView.PlayVictoryAnimation(ViewModel.TemplatePoints, _animationCts.Token);
             }
-            
+        
             if (_animationCts == null || _animationCts.IsCancellationRequested || ViewModel?.GameResult == null)
             {
                 return;

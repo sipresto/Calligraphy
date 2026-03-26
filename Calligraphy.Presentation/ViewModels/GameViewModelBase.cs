@@ -40,7 +40,7 @@ public abstract partial class GameViewModelBase<TService, TSession, TSettings> :
             OnPropertyChanged(nameof(IsPauseButtonVisible));
             OnPropertyChanged(nameof(IsGameResultVisible));
         }
-    }
+    } = false;
 
     public bool IsPauseVisible
     {
@@ -136,7 +136,6 @@ public abstract partial class GameViewModelBase<TService, TSession, TSettings> :
         }
 
         GameResult = Service.FinishGame(Settings.GetThresholds());
-        IsAnimationPlaying = true;
 
         if (GameResult?.Score > BestScore)
             BestScore = GameResult.Score;
