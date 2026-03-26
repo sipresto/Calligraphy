@@ -9,6 +9,7 @@
              xmlns:repeatingTraces="clr-namespace:Calligraphy.Domain.TraceTemplates.RepeatingTraces;assembly=Calligraphy.Domain"
              xmlns:converters="clr-namespace:Calligraphy.Presentation.Converters"
              xmlns:styles="clr-namespace:Calligraphy.Presentation.Styles"
+             xmlns:traceTemplates="clr-namespace:Calligraphy.Domain.TraceTemplates;assembly=Calligraphy.Domain"
              mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="1200"
              d:DataContext="{d:DesignInstance viewModels:TimedTraceGameViewModel}">
@@ -30,6 +31,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type repeatingTraces:MountainPattern}">
             <themes:MountainThemeView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type traceTemplates:TraceTemplate}">
+            <Grid />
         </DataTemplate>
     </UserControl.Resources>
 
