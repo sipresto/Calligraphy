@@ -66,14 +66,14 @@ public class WordGameSession : GameSession
 
     public override string GetFeedbackMessage(int stars)
     {
-        if (_coverageScore < 0.5)
-            return FeedbackMessageProvider.GetRandomMessage(FeedbackType.WordCoverage);
-
-        if (_accuracyScore < 0.5)
-            return FeedbackMessageProvider.GetRandomMessage(FeedbackType.WordAccuracy);
-
         if (_wrongLetters.Count != 0)
             return FeedbackMessageProvider.GetRandomWordWrongDirectionMessage(_wrongLetters);
+        
+        if (_accuracyScore < 0.5)
+            return FeedbackMessageProvider.GetRandomMessage(FeedbackType.WordAccuracy);
+        
+        if (_coverageScore < 0.5)
+            return FeedbackMessageProvider.GetRandomMessage(FeedbackType.WordCoverage);
         
         var strokeFeedback = AnalyzeStrokes();
         if (strokeFeedback.Type != FeedbackType.Perfect)

@@ -26,17 +26,17 @@ public class TraceGameSession : GameSession
     {
         if (_evaluation != null)
         {
-            if (_evaluation.CoverageScore < 0.5)
-                return FeedbackMessageProvider.GetRandomMessage(FeedbackType.TraceCoverage);
-
-            if (_evaluation.AccuracyScore < 0.5)
-                return FeedbackMessageProvider.GetRandomMessage(FeedbackType.TraceAccuracy);
-
             if (!_evaluation.DirectionCorrect)
             {
                 ShouldShowDirectionImage = true;
                 return FeedbackMessageProvider.GetRandomMessage(FeedbackType.TraceWrongDirection);
             }
+            
+            if (_evaluation.AccuracyScore < 0.5)
+                return FeedbackMessageProvider.GetRandomMessage(FeedbackType.TraceAccuracy);
+            
+            if (_evaluation.CoverageScore < 0.5)
+                return FeedbackMessageProvider.GetRandomMessage(FeedbackType.TraceCoverage);
         }
 
         var strokeFeedback = AnalyzeStrokes();
