@@ -53,6 +53,10 @@
         <DataTemplate DataType="{x:Type local:WordGameViewModel}">
             <views:WordGameView />
         </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type local:LetterStringGameViewModel}">
+            <views:LetterStringGameView />
+        </DataTemplate>
 
     </Window.Resources>
 

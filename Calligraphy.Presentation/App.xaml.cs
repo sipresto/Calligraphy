@@ -55,6 +55,7 @@ public partial class App : System.Windows.Application
         services.AddTransient<TraceGameService>();
         services.AddTransient<ShapeDrawService>();
         services.AddTransient<WordGameService>();
+        services.AddTransient<LetterStringGameService>();
 
         // Register ViewModels
         services.AddTransient<SettingsViewModel>();
@@ -67,6 +68,7 @@ public partial class App : System.Windows.Application
         services.AddTransient<ShapeDrawViewModel>();
         services.AddTransient<CategoryViewModel>();
         services.AddTransient<WordGameViewModel>();
+        services.AddTransient<LetterStringGameViewModel>();
 
         // Register Views
         services.AddTransient<SettingsView>();

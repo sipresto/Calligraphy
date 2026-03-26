@@ -10,13 +10,13 @@ public class MainViewModel : ObservableObject
     private readonly GameSettings _settings;
     private readonly IServiceProvider _services;
     private readonly LevelViewModelFactory _viewModelFactory;
-    
+
     public MainViewModel(GameSettings settings, IServiceProvider services, LevelViewModelFactory viewModelFactory)
     {
         _settings = settings;
         _services = services;
         _viewModelFactory = viewModelFactory;
-        
+
         NavigateToHome();
     }
 
@@ -40,7 +40,7 @@ public class MainViewModel : ObservableObject
     {
         CurrentViewModel = _viewModelFactory.CreateLevelViewModel(category);
     }
-    
+
     public void NavigateBackToLevels(string gameKey)
     {
         var category = GetSettingsForGameKey(gameKey)?.Category;
@@ -116,8 +116,8 @@ public class MainViewModel : ObservableObject
 
         if (nextDifficulty == null) return null;
 
-        return allInCategory.FirstOrDefault(k => 
-            GetSettingsForGameKey(k)?.Difficulty == nextDifficulty && 
+        return allInCategory.FirstOrDefault(k =>
+            GetSettingsForGameKey(k)?.Difficulty == nextDifficulty &&
             GetSettingsForGameKey(k)?.Level == 1);
     }
 
@@ -132,7 +132,7 @@ public class MainViewModel : ObservableObject
             foreach (var (k, v) in _settings.InfinityRace)
                 if (string.Equals(v.Category, category, StringComparison.OrdinalIgnoreCase))
                     items.Add((k, v.Level));
-        
+
         if (_settings.ShapeGames != null)
             foreach (var (k, v) in _settings.ShapeGames)
                 if (string.Equals(v.Category, category, StringComparison.OrdinalIgnoreCase))
@@ -147,9 +147,14 @@ public class MainViewModel : ObservableObject
             foreach (var (k, v) in _settings.TraceGames)
                 if (string.Equals(v.Category, category, StringComparison.OrdinalIgnoreCase))
                     items.Add((k, v.Level));
-        
+
         if (_settings.WordGames != null)
             foreach (var (k, v) in _settings.WordGames)
+                if (string.Equals(v.Category, category, StringComparison.OrdinalIgnoreCase))
+                    items.Add((k, v.Level));
+
+        if (_settings.LetterStringGames != null)
+            foreach (var (k, v) in _settings.LetterStringGames)
                 if (string.Equals(v.Category, category, StringComparison.OrdinalIgnoreCase))
                     items.Add((k, v.Level));
 
@@ -163,6 +168,7 @@ public class MainViewModel : ObservableObject
         if (_settings.TraceGames?.ContainsKey(gameKey) == true) return _settings.TraceGames[gameKey];
         if (_settings.ShapeGames?.ContainsKey(gameKey) == true) return _settings.ShapeGames[gameKey];
         if (_settings.WordGames?.ContainsKey(gameKey) == true) return _settings.WordGames[gameKey];
+        if (_settings.LetterStringGames?.ContainsKey(gameKey) == true) return _settings.LetterStringGames[gameKey];
         return null;
     }
 

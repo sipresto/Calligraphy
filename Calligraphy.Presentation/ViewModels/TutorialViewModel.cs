@@ -1,4 +1,3 @@
-using System.Windows.Input;
 using Calligraphy.Presentation.Models;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +23,7 @@ public partial class TutorialViewModel : ViewModelBase
     public string ImageSource { get; set; }
     private string TargetGameViewModelName { get; set; }
     private string GameKey { get; set; }
-    
+
     public event Action<ViewModelBase> GameStarted;
 
     public void SetTutorialInfo(TutorialInfo info, string gameKey)
@@ -80,13 +79,19 @@ public partial class TutorialViewModel : ViewModelBase
             vm.Initialize(GameKey);
             gameVm = vm;
         }
+        else if (TargetGameViewModelName == nameof(LetterStringGameViewModel))
+        {
+            var vm = _services.GetRequiredService<LetterStringGameViewModel>();
+            vm.Initialize(GameKey);
+            gameVm = vm;
+        }
 
         if (gameVm == null) return;
 
         _navigation.CurrentViewModel = gameVm;
         GameStarted?.Invoke(gameVm);
     }
-    
+
     [RelayCommand]
     private void Menu() => _navigation.NavigateBackToLevels(GameKey);
 }
