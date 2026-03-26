@@ -62,9 +62,9 @@
 
                         <StackPanel Orientation="Vertical" Margin="0,20,0,20">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
-                                <controls:AnimatedStar IsFilled="False" Width="40" Height="40" Margin="0,0,5,0" />
-                                <controls:AnimatedStar IsFilled="False" Width="40" Height="40" Margin="0,0,5,0" />
+                                <controls:AnimatedStar PlaySound="False" IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
+                                <controls:AnimatedStar PlaySound="False" IsFilled="False" Width="40" Height="40" Margin="0,0,5,0" />
+                                <controls:AnimatedStar PlaySound="False" IsFilled="False" Width="40" Height="40" Margin="0,0,5,0" />
                                 <TextBlock
                                     Text="{Binding OneStar}"
                                     FontFamily="/Resources/Assets/Fonts/#Gluten Light"
@@ -74,9 +74,9 @@
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,0">
-                                <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
-                                <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
-                                <controls:AnimatedStar IsFilled="False" Width="40" Height="40" Margin="0,0,5,0" />
+                                <controls:AnimatedStar PlaySound="False"  IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
+                                <controls:AnimatedStar PlaySound="False"  IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
+                                <controls:AnimatedStar PlaySound="False"  IsFilled="False" Width="40" Height="40" Margin="0,0,5,0" />
                                 <TextBlock
                                     Text="{Binding TwoStars}"
                                     FontFamily="/Resources/Assets/Fonts/#Gluten Light"
@@ -86,9 +86,9 @@
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,0">
-                                <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
-                                <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
-                                <controls:AnimatedStar IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
+                                <controls:AnimatedStar PlaySound="False"  IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
+                                <controls:AnimatedStar PlaySound="False"  IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
+                                <controls:AnimatedStar PlaySound="False"  IsFilled="True" Width="40" Height="40" Margin="0,0,5,0" />
                                 <TextBlock
                                     Text="{Binding ThreeStars}"
                                     FontFamily="/Resources/Assets/Fonts/#Gluten Light"

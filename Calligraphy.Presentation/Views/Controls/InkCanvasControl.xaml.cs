@@ -29,7 +29,23 @@ public partial class InkCanvasControl
         InkCanvas.EditingMode = InkCanvasEditingMode.Ink;
         InkCanvas.EditingModeInverted = InkCanvasEditingMode.None;
 
+        CallyCanvas.AddHandler(PreviewMouseDownEvent, new MouseButtonEventHandler(SuppressMouseEvent), handledEventsToo: true);
+        CallyCanvas.AddHandler(PreviewMouseMoveEvent, new MouseEventHandler(SuppressMouseMoveEvent), handledEventsToo: true);
+        CallyCanvas.AddHandler(PreviewMouseUpEvent, new MouseButtonEventHandler(SuppressMouseEvent), handledEventsToo: true);
+
         Loaded += InkCanvasControl_Loaded;
+    }
+    
+    private void SuppressMouseEvent(object sender, MouseButtonEventArgs e)
+    {
+        if (e.StylusDevice == null)
+            e.Handled = true;
+    }
+
+    private void SuppressMouseMoveEvent(object sender, MouseEventArgs e)
+    {
+        if (e.StylusDevice == null)
+            e.Handled = true;
     }
     
     public bool IsDrawingEnabled
@@ -53,7 +69,10 @@ public partial class InkCanvasControl
         if (drawingState.PenColor is SolidColorBrush initialBrush)
             InkCanvas.DefaultDrawingAttributes.Color = initialBrush.Color;
 
-        drawingState.PropertyChanged += (_, args) =>
+        InkCanvas.DefaultDrawingAttributes.Width = 3;
+        InkCanvas.DefaultDrawingAttributes.Height = 3;
+
+        drawingState.PropertyChanged += (s, args) =>
         {
             if (args.PropertyName == nameof(DrawingState.PenColor)
                 && drawingState.PenColor is SolidColorBrush brush)

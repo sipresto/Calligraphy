@@ -26,6 +26,9 @@
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <SoundPlayerAction Source="/Resources/Assets/Sounds/button-press.wav" />
+                        </EventTrigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="ButtonImage" Property="Source"
                                     Value="{Binding Path=(styles:ImageButton.PressedImage), 
@@ -61,6 +64,9 @@
                                 IsHitTestVisible="False" />
                     </Grid>
                     <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <SoundPlayerAction Source="/Resources/Assets/Sounds/button-press.wav" />
+                        </EventTrigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="HoverOverlay" Property="Opacity" Value="0.2" />
                             <Setter TargetName="ButtonBorder" Property="Margin" Value="0,4,0,0" />

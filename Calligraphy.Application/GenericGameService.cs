@@ -46,7 +46,8 @@ public abstract class GenericGameService<TSession>
         {
             Score = score,
             StarCount = stars,
-            FeedbackMessage = feedbackMessage
+            FeedbackMessage = feedbackMessage,
+            ShowDirectionImage = Session.ShouldShowDirectionImage
         };
     }
 

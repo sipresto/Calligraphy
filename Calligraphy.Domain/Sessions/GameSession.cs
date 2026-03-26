@@ -7,6 +7,7 @@ public abstract class GameSession
     protected readonly List<List<StrokePoint>> Strokes = [];
 
     public int Score => CalculateScore();
+    public bool ShouldShowDirectionImage { get; protected set; }
 
     public void AddStroke(List<StrokePoint> stroke)
     {
