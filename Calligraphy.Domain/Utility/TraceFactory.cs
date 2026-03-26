@@ -28,4 +28,19 @@ public static class TraceFactory
                 $"No trace template class found for the letter '{letter}' (Expected class: {className})");
         }
     }
+    
+    public static TraceTemplate GetConnectorTraceTemplateByLetter(char letter)
+    {
+        string className = $"ConnectorLowercase{char.ToUpper(letter)}";
+
+        try
+        {
+            return GetTraceTemplate(className);
+        }
+        catch (InvalidOperationException)
+        {
+            throw new InvalidOperationException(
+                $"No connector trace template class found for the letter '{letter}' (Expected class: {className})");
+        }
+    }
 }

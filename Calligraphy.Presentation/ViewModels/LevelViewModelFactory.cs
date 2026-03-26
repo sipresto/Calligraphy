@@ -7,12 +7,12 @@ namespace Calligraphy.Presentation.ViewModels;
 public class LevelViewModelFactory
 {
     private readonly IServiceProvider _services;
- 
+
     public LevelViewModelFactory(IServiceProvider services)
     {
         _services = services;
     }
- 
+
     public LevelViewModel CreateLevelViewModel(string category)
     {
         return new LevelViewModel(
@@ -21,6 +21,7 @@ public class LevelViewModelFactory
             _services.GetRequiredService<TraceGameService>(),
             _services.GetRequiredService<ShapeDrawService>(),
             _services.GetRequiredService<WordGameService>(),
+            _services.GetRequiredService<LetterStringGameService>(),
             _services.GetRequiredService<GameSettings>(),
             category);
     }

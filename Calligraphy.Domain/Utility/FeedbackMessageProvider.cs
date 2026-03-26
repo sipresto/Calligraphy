@@ -160,13 +160,26 @@ public static class FeedbackMessageProvider
         if (!wrongLetters.Any()) return string.Empty;
 
         var letterList = string.Join(", ", wrongLetters);
+        string[] messages;
 
-        string[] messages =
-        [
-            $"De richting van {letterList} was niet correct. Ga terug naar de lettersoefeningen om dit te trainen!",
-            $"Let op de richting bij {letterList}. Oefen deze letters nog eens apart!",
-            $"{letterList} hadden de verkeerde richting. Oefen ze eerst apart voordat je verder gaat met woorden!"
-        ];
+        if (wrongLetters.Count == 1)
+        {
+            messages =
+            [
+                $"De richting van {letterList} was niet correct. Ga terug naar de letteroefeningen om die te trainen!",
+                $"Let op de richting bij {letterList}. Oefen deze letter nog eens apart!",
+                $"{letterList} had de verkeerde richting. Oefen deze eerst apart voordat je verder gaat met woorden!"
+            ];
+        }
+        else
+        {
+            messages =
+            [
+                $"De richting van {letterList} was niet correct. Ga terug naar de letteroefeningen om die te trainen!",
+                $"Let op de richting bij {letterList}. Oefen deze letters nog eens apart!",
+                $"{letterList} hadden de verkeerde richting. Oefen ze eerst apart voordat je verder gaat met woorden!"
+            ];
+        }
 
         return messages[Random.Next(messages.Length)];
     }
