@@ -8,6 +8,8 @@
 
     <Grid Width="1200" Height="800" Background="Transparent">
         <Canvas x:Name="TerrainCanvas" Width="1200" Height="800"/>
+        <Canvas x:Name="AnimationCanvas" Width="1200" Height="800"
+                IsHitTestVisible="False" />
     </Grid>
 
 </UserControl>
