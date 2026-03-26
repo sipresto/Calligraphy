@@ -28,7 +28,7 @@ public partial class LoopThemeView : UserControl, IThemeView
         _animatedElement = plane;
         plane.RenderTransformOrigin = new Point(0.5, 0.5);
 
-        const double speedPixelsPerSecond = 300.0;
+        const double speedPixelsPerSecond = 400.0;
         const double msPerFrame = 16.0;
         const double pixelsPerFrame = speedPixelsPerSecond * (msPerFrame / 1000.0);
 
