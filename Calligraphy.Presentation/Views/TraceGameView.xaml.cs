@@ -1,8 +1,9 @@
-﻿using System.Windows;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Calligraphy.Presentation.ViewModels;
 using Calligraphy.Presentation.Views.themes;
+using Calligraphy.Presentation.Views.Controls;
 
 namespace Calligraphy.Presentation.Views;
 
@@ -54,20 +55,20 @@ public partial class TraceGameView : UserControl
         {
             _animationCts = new CancellationTokenSource();
             var themeView = FindThemeView(ThemeHost);
-        
+
             if (themeView != null)
             {
                 ViewModel.IsAnimationPlaying = true;
                 await themeView.PlayVictoryAnimation(ViewModel.TemplatePoints, _animationCts.Token);
             }
-        
+
             if (_animationCts == null || _animationCts.IsCancellationRequested || ViewModel?.GameResult == null)
             {
                 return;
             }
 
             ViewModel.IsAnimationPlaying = false;
-            await ResultPopup.AnimateStars(ViewModel.GameResult.StarCount);
+            await GameResultViewHelpers.AnimateStarsIfResultAsync(ResultPopup, ViewModel.GameResult);
         }
     }
 

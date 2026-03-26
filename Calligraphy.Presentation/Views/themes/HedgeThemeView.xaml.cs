@@ -107,14 +107,12 @@ namespace Calligraphy.Presentation.Views.themes
         {
             var squirrel = new Image { Width = 200, Height = 200, Stretch = Stretch.Fill };
             AnimationBehavior.SetSourceUri(squirrel,
-                new Uri("pack://application:,,,/Resources/Assets/Images/Themes/Hedge/squirle.gif", UriKind.Absolute));
+                new Uri("pack://application:,,,/Resources/Assets/Images/Themes/Hedge/squirrel.gif", UriKind.Absolute));
             AnimationBehavior.SetRepeatBehavior(squirrel, RepeatBehavior.Forever);
             Canvas.SetLeft(squirrel, 3);
             Canvas.SetTop(squirrel, 335);
             AnimationCanvas.Children.Add(squirrel);
             _animatedElement = squirrel; 
-
-            var tcs = new TaskCompletionSource<bool>();
 
             var anim = new DoubleAnimation
             {
@@ -128,18 +126,7 @@ namespace Calligraphy.Presentation.Views.themes
             Storyboard.SetTargetProperty(anim, new PropertyPath(Canvas.LeftProperty));
             _storyboard.Children.Add(anim);
 
-            _storyboard.Completed += (_, __) => tcs.TrySetResult(true);
-            
-            _storyboard.Begin(this, true);
-
-            using (cancellationToken.Register(() =>
-                   {
-                       _storyboard?.Stop(this); 
-                       tcs.TrySetResult(false);
-                   }))
-            {
-                await tcs.Task;
-            }
+            await ThemeAnimationHelper.PlayStoryboardAsync(this, _storyboard, cancellationToken);
 
             AnimationCanvas.Children.Remove(squirrel);
         }

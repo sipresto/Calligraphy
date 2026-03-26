@@ -71,10 +71,7 @@ public partial class WordGameView : UserControl
         
         ViewModel.FinishGame([]);
 
-        if (ViewModel.GameResult != null)
-        {
-            await ResultPopup.AnimateStars(ViewModel.GameResult.StarCount);
-        }
+        await GameResultViewHelpers.AnimateStarsIfResultAsync(ResultPopup, ViewModel.GameResult);
     }
     
     private T FindVisualChild<T>(DependencyObject obj) where T : DependencyObject
