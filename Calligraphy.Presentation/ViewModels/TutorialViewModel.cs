@@ -59,7 +59,7 @@ public partial class TutorialViewModel : ViewModelBase
         else if (TargetGameViewModelName == nameof(TraceGameViewModel))
         {
             var vm = _services.GetRequiredService<TraceGameViewModel>();
-            vm.Initialize(GameKey);
+            vm.Initialize(GameKey, ImageSource);
             gameVm = vm;
         }
         else if (TargetGameViewModelName == nameof(TimedTraceGameViewModel))

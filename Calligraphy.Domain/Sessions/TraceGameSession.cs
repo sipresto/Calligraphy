@@ -33,7 +33,10 @@ public class TraceGameSession : GameSession
                 return FeedbackMessageProvider.GetRandomMessage(FeedbackType.TraceAccuracy);
 
             if (!_evaluation.DirectionCorrect)
+            {
+                ShouldShowDirectionImage = true;
                 return FeedbackMessageProvider.GetRandomMessage(FeedbackType.TraceWrongDirection);
+            }
         }
 
         var strokeFeedback = AnalyzeStrokes();

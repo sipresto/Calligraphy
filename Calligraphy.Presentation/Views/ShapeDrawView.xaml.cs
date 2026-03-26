@@ -4,7 +4,6 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using Calligraphy.Presentation.ViewModels;
 
-//TODO: make sure mouse doesn't work
 namespace Calligraphy.Presentation.Views;
 
 public partial class ShapeDrawView : UserControl
