@@ -32,7 +32,13 @@ public partial class LetterStringGameView : UserControl
         ResultPopup.ResetStars();
     }
     
-    private async void OnStylusUp()
+    private void OnStylusUp()
+    {
+        if (ViewModel.SegmentCountCompleted())
+            OnDrawingEnded();
+    }
+    
+    private async void OnDrawingEnded()
     {
         var allStrokes = InkCanvas.EndDrawing();
         

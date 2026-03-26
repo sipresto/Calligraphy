@@ -71,6 +71,7 @@ public class LetterStringGameSettings : BaseGameSettings
     public double ToleranceDistance { get; set; }
     public double RequiredAccuracy { get; set; }
     public string LetterString { get; set; }
+    public int SegmentCount { get; set; } = 1;
 }
 
 public class TutorialSettings

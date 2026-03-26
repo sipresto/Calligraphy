@@ -12,6 +12,7 @@ public class
     LetterStringGameViewModel : GameViewModelBase<LetterStringGameService, WordGameSession, LetterStringGameSettings>
 {
     private string _gameId;
+    private int _currentSegmentCount = 1;
 
     private const int MaxLetterWidth = 200;
     private const int MinLetterWidth = 60;
@@ -44,10 +45,21 @@ public class
         OnPropertyChanged(nameof(AllTemplatePoints));
         Service.StartSession(_gameId, Settings.ToleranceDistance, Settings.RequiredAccuracy);
     }
+    
+    public bool SegmentCountCompleted()
+    {
+        if (Settings.SegmentCount > _currentSegmentCount)
+        {
+            _currentSegmentCount++;
+            return false;
+        }
+        return true;
+    }
 
     protected override void RestartGame()
     {
         Service.StartSession(_gameId, Settings.ToleranceDistance, Settings.RequiredAccuracy);
+        _currentSegmentCount = 1;
         LoadBestScore(_gameId);
         ResetGameState();
     }
@@ -123,23 +135,6 @@ public class
 
         Letters = new ObservableCollection<LetterStringItem>(centeredItems);
     }
-
-    /*private static void InsertBridge(List<StrokePoint> points, StrokePoint from, StrokePoint to)
-    {
-        double dx = to.X - from.X;
-        double dy = to.Y - from.Y;
-        double dist = Math.Sqrt(dx * dx + dy * dy);
-
-        if (dist <= BridgePointSpacing)
-            return;
-
-        int steps = (int)Math.Ceiling(dist / BridgePointSpacing);
-        double stepX = dx / steps;
-        double stepY = dy / steps;
-
-        for (int s = 1; s < steps; s++)
-            points.Add(new StrokePoint(from.X + stepX * s, from.Y + stepY * s));
-    }*/
     
     private static void InsertBridge(List<StrokePoint> points, StrokePoint from, StrokePoint to)
     {

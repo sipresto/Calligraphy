@@ -74,8 +74,6 @@ public class ConnectorLowercaseL : Letter
         AddRelativeBezier(newPoints, ref cx, ref cy, 0.610396, 1.95046, 1.42137, 3.65888, 3.05523, 5.08179, pointsPerCurve);
         AddRelativeBezier(newPoints, ref cx, ref cy, 1.20245, 1.0472, 2.36573, 1.69536, 3.8664, 2.12918, pointsPerCurve);
         AddRelativeBezier(newPoints, ref cx, ref cy, 1.41019, 0.40768, 2.32644, 0.53653, 3.88056, 0.75157, pointsPerCurve);
-        AddRelativeBezier(newPoints, ref cx, ref cy, 3.52864, 0.48828, 7.09828, -0.39841, 10.2306, -1.6139, pointsPerCurve);
-        AddRelativeBezier(newPoints, ref cx, ref cy, 4.00442, -1.55393, 8.28979, -3.80125, 11.6417, -6.70142, pointsPerCurve);
 
         rawPoints.AddRange(newPoints);
 
